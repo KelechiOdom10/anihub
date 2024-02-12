@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { discord, lucia } from "@/lib/auth";
 import { db } from "@/server/db";
 import { redirects } from "@/lib/constants";
-import { users } from "@/server/db/schema";
+import { oauthAccounts, users } from "@/server/db/schema";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -38,54 +38,83 @@ export async function GET(request: Request): Promise<Response> {
         { status: 400, headers: { Location: redirects.toLogin } },
       );
     }
-    const existingUser = await db.query.users.findFirst({
-      where: (table, { eq, or }) =>
-        or(
-          eq(table.discordId, discordUser.id),
-          eq(table.email, discordUser.email!),
-        ),
-    });
-
     const avatar = discordUser.avatar
       ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.webp`
       : null;
 
-    if (!existingUser) {
-      const userId = generateId(21);
-      await db.insert(users).values({
-        id: userId,
-        email: discordUser.email,
-        emailVerified: true,
-        discordId: discordUser.id,
-        avatar,
+    const existingUser = await db.query.users.findFirst({
+      where: (table, { eq }) => eq(table.id, discordUser.email!),
+    });
+
+    if (existingUser) {
+      const existingAccount = await db.query.oauthAccounts.findFirst({
+        where: (table, { eq, and }) =>
+          and(
+            eq(table.provider, "discord"),
+            eq(table.providerUserId, discordUser.id),
+          ),
       });
-      const session = await lucia.createSession(userId, {});
+
+      if (!existingAccount) {
+        await db.insert(oauthAccounts).values({
+          userId: existingUser.id,
+          provider: "discord",
+          providerUserId: discordUser.id,
+        });
+      }
+
+      if (
+        existingAccount?.providerUserId !== discordUser.id ||
+        existingUser?.avatar !== avatar
+      ) {
+        await db.transaction(async (tx) => {
+          await tx
+            .update(oauthAccounts)
+            .set({
+              providerUserId: discordUser.id,
+            })
+            .where(eq(users.id, existingUser?.id));
+
+          await tx
+            .update(users)
+            .set({
+              emailVerified: true,
+              avatar,
+            })
+            .where(eq(users.id, existingUser?.id));
+        });
+      }
+
+      const session = await lucia.createSession(existingUser.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
       );
+
       return new Response(null, {
         status: 302,
         headers: { Location: redirects.afterLogin },
       });
     }
 
-    if (
-      existingUser.discordId !== discordUser.id ||
-      existingUser.avatar !== avatar
-    ) {
-      await db
-        .update(users)
-        .set({
-          discordId: discordUser.id,
-          emailVerified: true,
-          avatar,
-        })
-        .where(eq(users.id, existingUser.id));
-    }
-    const session = await lucia.createSession(existingUser.id, {});
+    const userId = generateId(21);
+    await db.transaction(async (tx) => {
+      await tx.insert(users).values({
+        id: userId,
+        email: discordUser.email!,
+        emailVerified: true,
+        avatar,
+      });
+
+      await tx.insert(oauthAccounts).values({
+        userId,
+        provider: "discord",
+        providerUserId: discordUser.id,
+      });
+    });
+    const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     cookies().set(
       sessionCookie.name,
