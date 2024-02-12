@@ -34,6 +34,5 @@ jobs:
           NEXT_PUBLIC_APP_URL: http://localhost:3000
           DISCORD_CLIENT_ID: client_id
           DISCORD_CLIENT_SECRET: client_secret
-          STRIPE_API_KEY: stripe_api_key
-          STRIPE_WEBHOOK_SECRET: stripe_webhook_secret
-          STRIPE_PRO_MONTHLY_PLAN_ID: stripe_pro_monthly_plan_id
+          GOOGLE_CLIENT_ID: client_id
+          GOOGLE_CLIENT_SECRET: client_secret

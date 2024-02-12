@@ -34,7 +34,7 @@ export function formatDate(
     year: "numeric",
   },
 ) {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("en-GB", {
     ...options,
   }).format(new Date(date));
 }
