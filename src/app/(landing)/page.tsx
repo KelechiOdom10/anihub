@@ -13,7 +13,6 @@ import {
   ShadcnUi,
   TRPC,
   TailwindCss,
-  StripeLogo,
   ReactEmail,
 } from "./_components/feature-icons";
 import {
@@ -59,11 +58,6 @@ const features = [
     logo: TRPC,
   },
   {
-    name: "Subscription",
-    description: "Subscription with stripe",
-    logo: StripeLogo,
-  },
-  {
     name: "Tailwindcss",
     description: "Simple and elegant UI components built with Tailwind CSS",
     logo: TailwindCss,
@@ -95,8 +89,8 @@ const HomePage = () => {
           </h1>
           <p className="text-balance mb-10 mt-4 text-center text-muted-foreground md:text-lg lg:text-xl">
             A Next.js Authentication starter template (password reset, email
-            validation and oAuth). Includes Lucia, Drizzle, tRPC, Stripe,
-            tailwindcss, shadcn-ui and react-email.
+            validation and oAuth). Includes Lucia, Drizzle, tRPC, tailwindcss,
+            shadcn-ui and react-email.
           </p>
           <div className="mb-10">
             <div className="mx-auto max-w-[430px]">
