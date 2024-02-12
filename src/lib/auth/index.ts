@@ -1,5 +1,5 @@
 import { Lucia, TimeSpan } from "lucia";
-import { Discord } from "arctic";
+import { Discord, Google } from "arctic";
 import { DrizzleMySQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { env } from "@/env.js";
 import { db } from "@/server/db";
@@ -36,6 +36,12 @@ export const discord = new Discord(
   env.DISCORD_CLIENT_ID,
   env.DISCORD_CLIENT_SECRET,
   env.NEXT_PUBLIC_APP_URL + "/login/discord/callback",
+);
+
+export const google = new Google(
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  env.NEXT_PUBLIC_APP_URL + "/login/google/callback",
 );
 
 declare module "lucia" {
