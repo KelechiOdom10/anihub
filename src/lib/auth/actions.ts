@@ -37,7 +37,7 @@ export interface ActionResponse<T> {
 
 export async function login(
   _: any,
-  formData: FormData,
+  formData: FormData
 ): Promise<ActionResponse<LoginInput>> {
   const obj = Object.fromEntries(formData.entries());
 
@@ -72,7 +72,7 @@ export async function login(
 
   const validPassword = await new Scrypt().verify(
     existingUser.hashedPassword,
-    password,
+    password
   );
   if (!validPassword) {
     return {
@@ -85,14 +85,14 @@ export async function login(
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes,
+    sessionCookie.attributes
   );
   return redirect(redirects.afterLogin);
 }
 
 export async function signup(
   _: any,
-  formData: FormData,
+  formData: FormData
 ): Promise<ActionResponse<SignupInput>> {
   const obj = Object.fromEntries(formData.entries());
 
@@ -140,7 +140,7 @@ export async function signup(
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes,
+    sessionCookie.attributes
   );
   return redirect(redirects.toVerify);
 }
@@ -157,7 +157,7 @@ export async function logout(): Promise<{ error: string } | void> {
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes,
+    sessionCookie.attributes
   );
   return redirect("/");
 }
@@ -182,7 +182,7 @@ export async function resendVerificationEmail(): Promise<{
   }
   const verificationCode = await generateEmailVerificationCode(
     user.id,
-    user.email,
+    user.email
   );
   await sendMail({
     to: user.email,
@@ -195,7 +195,7 @@ export async function resendVerificationEmail(): Promise<{
 
 export async function verifyEmail(
   _: any,
-  formData: FormData,
+  formData: FormData
 ): Promise<{ error: string } | void> {
   const code = formData.get("code");
   if (typeof code !== "string" || code.length !== 8) {
@@ -236,14 +236,14 @@ export async function verifyEmail(
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes,
+    sessionCookie.attributes
   );
   redirect(redirects.afterLogin);
 }
 
 export async function sendPasswordResetLink(
   _: any,
-  formData: FormData,
+  formData: FormData
 ): Promise<{ error?: string; success?: boolean }> {
   const email = formData.get("email");
   const parsed = z.string().trim().email().safeParse(email);
@@ -276,7 +276,7 @@ export async function sendPasswordResetLink(
 
 export async function resetPassword(
   _: any,
-  formData: FormData,
+  formData: FormData
 ): Promise<{ error?: string; success?: boolean }> {
   const obj = Object.fromEntries(formData.entries());
 
@@ -318,7 +318,7 @@ export async function resetPassword(
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes,
+    sessionCookie.attributes
   );
   redirect(redirects.afterLogin);
 }
@@ -333,7 +333,7 @@ const timeFromNow = (time: Date) => {
 
 async function generateEmailVerificationCode(
   userId: string,
-  email: string,
+  email: string
 ): Promise<string> {
   await db
     .delete(emailVerificationCodes)
