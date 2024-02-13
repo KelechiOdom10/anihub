@@ -1,14 +1,15 @@
-import mysql from "mysql2/promise";
-import { drizzle } from "drizzle-orm/mysql2";
-import { migrate } from "drizzle-orm/mysql2/migrator";
+import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql";
+import { migrate } from "drizzle-orm/libsql/migrator";
 
 import { env } from "@/env";
 import * as schema from "./schema";
 
 export async function runMigrate() {
-  const connection = await mysql.createConnection(env.DATABASE_URL);
-  const db = drizzle(connection, { schema, mode: "planetscale" });
-
+  const db = drizzle(
+    createClient({ url: env.DATABASE_URL, authToken: env.DATABASE_AUTH_TOKEN }),
+    { schema }
+  );
   console.log("⏳ Running migrations...");
 
   const start = Date.now();

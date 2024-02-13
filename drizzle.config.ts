@@ -1,14 +1,13 @@
 import { type Config } from "drizzle-kit";
 
 import { env } from "@/env";
-import { DATABASE_PREFIX } from "@/lib/constants";
 
 export default {
   schema: "./src/server/db/schema/index.ts",
   out: "./drizzle",
-  driver: "mysql2",
+  driver: "turso",
   dbCredentials: {
-    uri: env.DATABASE_URL,
+    url: env.DATABASE_URL,
+    authToken: env.DATABASE_AUTH_TOKEN,
   },
-  tablesFilter: [`${DATABASE_PREFIX}_*`],
 } satisfies Config;
