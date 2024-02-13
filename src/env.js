@@ -11,7 +11,7 @@ export const env = createEnv({
       .string()
       .url()
       .refine(
-        (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
+        (str) => !str.includes("YOUR_SQLITE_URL_HERE"),
         "You forgot to change the default URL"
       ),
     DATABASE_AUTH_TOKEN: z.string().min(1),
