@@ -20,13 +20,14 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Type check and lint
         run: pnpm run typecheck && pnpm run lint
         env:
           # use dummy env variables to bypass t3-env check
-          DATABASE_URL: mysql://test:xxxx@xxxxxxxxx:3306/test
+          DATABASE_URL: libsql://test:xxxx@xxxxxxxxx:3306/test
+          DATABASE_AUTH_TOKEN: test
           SMTP_HOST: host
           SMTP_PORT: 587
           SMTP_USER: user

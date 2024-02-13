@@ -31,7 +31,7 @@ export const GET = async (request: Request): Promise<Response> => {
   try {
     const tokens = await google.validateAuthorizationCode(
       code,
-      storedCodeVerifier,
+      storedCodeVerifier
     );
 
     const googleUserRes = await fetch(
@@ -40,7 +40,7 @@ export const GET = async (request: Request): Promise<Response> => {
         headers: {
           Authorization: `Bearer ${tokens.accessToken}`,
         },
-      },
+      }
     );
     const googleUser = (await googleUserRes.json()) as GoogleUser;
 
@@ -49,7 +49,7 @@ export const GET = async (request: Request): Promise<Response> => {
         JSON.stringify({
           error: "Your Google account must have a verified email address.",
         }),
-        { status: 400, headers: { Location: redirects.toLogin } },
+        { status: 400, headers: { Location: redirects.toLogin } }
       );
     }
     const avatar = googleUser.picture;
@@ -63,7 +63,7 @@ export const GET = async (request: Request): Promise<Response> => {
         where: (table, { eq, and }) =>
           and(
             eq(table.provider, "google"),
-            eq(table.providerUserId, googleUser.sub),
+            eq(table.providerUserId, googleUser.sub)
           ),
       });
 
@@ -102,7 +102,7 @@ export const GET = async (request: Request): Promise<Response> => {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes,
+        sessionCookie.attributes
       );
 
       return new Response(null, {
@@ -131,7 +131,7 @@ export const GET = async (request: Request): Promise<Response> => {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes,
+      sessionCookie.attributes
     );
     return new Response(null, {
       status: 302,

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { RocketIcon } from "@/components/icons";
 import { APP_TITLE } from "@/lib/constants";
@@ -9,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { api } from "@/trpc/react";
+import { logout } from "@/lib/auth/actions";
 
 const routes = [
   { name: "Home", href: "/" },
@@ -20,6 +24,10 @@ const routes = [
 ] as const;
 
 export const Header = () => {
+  const { data } = api.user.isUserLoggedIn.useQuery();
+
+  console.log(data);
+
   return (
     <header className="px-2 py-4 lg:py-6">
       <div className="container flex items-center gap-2 p-0">
@@ -61,9 +69,15 @@ export const Header = () => {
           ))}
         </nav>
         <div className="ml-auto">
-          <Button asChild variant={"secondary"}>
-            <Link href="/login">Login</Link>
-          </Button>
+          {data ? (
+            <Button size="sm" asChild onClick={logout}>
+              Logout
+            </Button>
+          ) : (
+            <Button size="sm" asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>

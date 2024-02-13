@@ -35,7 +35,7 @@ export async function GET(request: Request): Promise<Response> {
         JSON.stringify({
           error: "Your Discord account must have a verified email address.",
         }),
-        { status: 400, headers: { Location: redirects.toLogin } },
+        { status: 400, headers: { Location: redirects.toLogin } }
       );
     }
     const avatar = discordUser.avatar
@@ -51,7 +51,7 @@ export async function GET(request: Request): Promise<Response> {
         where: (table, { eq, and }) =>
           and(
             eq(table.provider, "discord"),
-            eq(table.providerUserId, discordUser.id),
+            eq(table.providerUserId, discordUser.id)
           ),
       });
 
@@ -90,7 +90,7 @@ export async function GET(request: Request): Promise<Response> {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes,
+        sessionCookie.attributes
       );
 
       return new Response(null, {
@@ -119,7 +119,7 @@ export async function GET(request: Request): Promise<Response> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes,
+      sessionCookie.attributes
     );
     return new Response(null, {
       status: 302,

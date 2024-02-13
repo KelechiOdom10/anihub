@@ -27,7 +27,7 @@ const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
         ) : null}
       </Button>
     );
-  },
+  }
 );
 
 LoadingButton.displayName = "LoadingButton";

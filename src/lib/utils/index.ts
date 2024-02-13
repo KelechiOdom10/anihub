@@ -32,7 +32,7 @@ export function formatDate(
     month: "long",
     day: "numeric",
     year: "numeric",
-  },
+  }
 ) {
   return new Intl.DateTimeFormat("en-GB", {
     ...options,

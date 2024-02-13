@@ -90,7 +90,7 @@ export const ResponsiveDialog = (props: {
 };
 
 const isFunctionType = (
-  prop: ReactNode | ReactNode[] | StatefulContent,
+  prop: ReactNode | ReactNode[] | StatefulContent
 ): prop is ({
   open,
   setOpen,

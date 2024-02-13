@@ -18,7 +18,7 @@ const SubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </LoadingButton>
     );
-  },
+  }
 );
 SubmitButton.displayName = "SubmitButton";
 

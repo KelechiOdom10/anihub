@@ -7,11 +7,19 @@ import { useState } from "react";
 
 import { type AppRouter } from "@/server/api/root";
 import { getUrl, transformer } from "./shared";
+import { QUERY_OPTIONS_DEFAULT } from "@/lib/constants";
 
 export const api = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: QUERY_OPTIONS_DEFAULT,
+        },
+      })
+  );
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -26,7 +34,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           url: getUrl(),
         }),
       ],
-    }),
+    })
   );
 
   return (

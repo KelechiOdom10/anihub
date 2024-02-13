@@ -56,7 +56,7 @@ const AnimatedSpinner = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
         <rect x="11" y="1" width="2" height="5" transform="rotate(180 12 12)" />
       </g>
     </svg>
-  ),
+  )
 );
 AnimatedSpinner.displayName = "AnimatedSpinner";
 
@@ -77,7 +77,7 @@ const CreditCard = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
       <rect x="2" y="5" width="20" height="14" rx="2"></rect>
       <line x1="2" y1="10" x2="22" y2="10"></line>
     </svg>
-  ),
+  )
 );
 CreditCard.displayName = "CreditCard";
 
