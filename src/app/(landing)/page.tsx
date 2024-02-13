@@ -49,7 +49,7 @@ const features = [
   },
   {
     name: "Database",
-    description: "Drizzle with planetscale mysql database",
+    description: "Drizzle with turso sqlite database",
     logo: Drizzle,
   },
   {
