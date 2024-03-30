@@ -81,7 +81,28 @@ const CreditCard = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
 );
 CreditCard.displayName = "CreditCard";
 
-export { AnimatedSpinner, CreditCard };
+const HamburgerMenuIcon = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
+  ({ className, ...props }, ref) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      ref={ref}
+      {...props}
+      fill="none"
+      viewBox="0 0 24 24"
+      className={cn(className)}
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"
+      />
+    </svg>
+  )
+);
+
+export { AnimatedSpinner, CreditCard, HamburgerMenuIcon };
 
 export {
   EyeOpenIcon,
@@ -94,7 +115,6 @@ export {
   GearIcon,
   RocketIcon,
   PlusIcon,
-  HamburgerMenuIcon,
   Pencil2Icon,
   UpdateIcon,
   CheckCircledIcon,
@@ -112,4 +132,6 @@ export {
   ChevronRightIcon,
   DotsHorizontalIcon,
   ArrowLeftIcon,
+  MagnifyingGlassIcon as SearchIcon,
 } from "@radix-ui/react-icons";
+export { Logo } from "./logo";

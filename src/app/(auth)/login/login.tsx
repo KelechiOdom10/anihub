@@ -9,11 +9,9 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { PasswordInput } from "@/components/password-input";
-import { DiscordLogoIcon } from "@/components/icons";
-import { APP_TITLE } from "@/lib/constants";
+import { DiscordLogoIcon, Logo } from "@/components/icons";
 import { login } from "@/lib/auth/actions";
 import { Label } from "@/components/ui/label";
 import { SubmitButton } from "@/components/submit-button";
@@ -24,7 +22,7 @@ export function Login() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
-        <CardTitle>{APP_TITLE} Log In</CardTitle>
+        <Logo className="mb-2 h-12 w-auto fill-white" />
         <CardDescription>
           Log in to your account to access your dashboard
         </CardDescription>
