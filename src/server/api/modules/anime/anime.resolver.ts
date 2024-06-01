@@ -1,5 +1,3 @@
-import { type NonUndefined } from "react-hook-form";
-
 import { Anime } from "./anime.model";
 import { animeService } from "./anime.service";
 
@@ -7,7 +5,9 @@ import { builder } from "../../builder";
 
 import { type operations } from "~/server/jikan-schema";
 
-type QueryParams = operations["getTopAnime"]["parameters"]["query"];
+type QueryParams = NonNullable<
+  operations["getTopAnime"]["parameters"]["query"]
+>;
 
 const AnimeTypeEnum = builder.enumType("AnimeTypeEnum", {
   values: [
@@ -32,7 +32,7 @@ const RatingEnum = builder.enumType("RatingEnum", {
 });
 
 export const QueryParamsType = builder
-  .inputRef<NonUndefined<QueryParams>>("QueryParams")
+  .inputRef<QueryParams>("TopAnimeQueryParams")
   .implement({
     description: "Query parameters",
     fields: (t) => ({
