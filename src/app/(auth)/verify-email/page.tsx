@@ -1,14 +1,16 @@
+import { redirect } from "next/navigation";
+
+import { VerifyCode } from "./verify-code";
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { redirect } from "next/navigation";
-import { validateRequest } from "@/lib/auth/validate-request";
-import { VerifyCode } from "./verify-code";
-import { redirects } from "@/lib/constants";
+} from "~/components/ui/card";
+import { validateRequest } from "~/lib/auth/validate-request";
+import { redirects } from "~/lib/constants";
 
 export const metadata = {
   title: "Verify Email",

@@ -1,7 +1,8 @@
-import { cookies } from "next/headers";
 import { generateState } from "arctic";
-import { discord } from "@/lib/auth";
-import { env } from "@/env";
+import { cookies } from "next/headers";
+
+import { env } from "~/env";
+import { discord } from "~/lib/auth";
 
 export async function GET(): Promise<Response> {
   const state = generateState();

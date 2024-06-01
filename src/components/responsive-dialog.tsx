@@ -6,7 +6,8 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { Button } from "@/components/ui/button";
+
+import { Button } from "~/components/ui/button";
 import {
   Dialog,
   DialogTitle,
@@ -15,7 +16,7 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "~/components/ui/dialog";
 import {
   Drawer,
   DrawerClose,
@@ -25,9 +26,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { useMediaQuery } from "@/lib/hooks/use-media-query";
-import { cn } from "@/lib/utils";
+} from "~/components/ui/drawer";
+import { useMediaQuery } from "~/lib/hooks/use-media-query";
+import { cn } from "~/lib/utils";
 
 type StatefulContent = ({
   open,

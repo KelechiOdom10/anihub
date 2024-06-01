@@ -2,19 +2,20 @@
 
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
+import { DiscordLogoIcon, Logo } from "~/components/icons";
+import { PasswordInput } from "~/components/password-input";
+import { SubmitButton } from "~/components/submit-button";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from "@/components/ui/card";
-import { PasswordInput } from "@/components/password-input";
-import { DiscordLogoIcon, Logo } from "@/components/icons";
-import { login } from "@/lib/auth/actions";
-import { Label } from "@/components/ui/label";
-import { SubmitButton } from "@/components/submit-button";
+} from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { login } from "~/lib/auth/actions";
 
 export function Login() {
   const [state, formAction] = useFormState(login, null);

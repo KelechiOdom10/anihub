@@ -9,5 +9,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.fixAll.format": "explicit"
-  }
+  },
+  "prettier.prettierPath": "./node_modules/prettier/index.cjs"
 }

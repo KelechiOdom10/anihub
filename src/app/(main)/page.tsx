@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+
 import { Hero } from "./_components/hero";
 
 export const metadata: Metadata = {

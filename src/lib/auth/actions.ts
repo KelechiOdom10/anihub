@@ -2,33 +2,35 @@
 
 /* eslint @typescript-eslint/no-explicit-any:0, @typescript-eslint/prefer-optional-chain:0 */
 
-import { z } from "zod";
+import { eq } from "drizzle-orm";
+import { generateId, Scrypt } from "lucia";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { generateId, Scrypt } from "lucia";
 import { isWithinExpirationDate, TimeSpan, createDate } from "oslo";
 import { generateRandomString, alphabet } from "oslo/crypto";
-import { eq } from "drizzle-orm";
-import { lucia } from "@/lib/auth";
-import { db } from "@/server/db";
+import { z } from "zod";
+
+import { redirects } from "../constants";
+
+import { env } from "~/env";
+import { lucia } from "~/lib/auth";
+import { validateRequest } from "~/lib/auth/validate-request";
+import { renderVerificationCodeEmail } from "~/lib/email-templates/email-verification";
+import { renderResetPasswordEmail } from "~/lib/email-templates/reset-password";
 import {
   loginSchema,
   signupSchema,
   type LoginInput,
   type SignupInput,
   resetPasswordSchema,
-} from "@/lib/validators/auth";
+} from "~/lib/validators/auth";
+import { db } from "~/server/db";
 import {
   emailVerificationCodes,
   passwordResetTokens,
   users,
-} from "@/server/db/schema";
-import { sendMail } from "@/server/send-mail";
-import { renderVerificationCodeEmail } from "@/lib/email-templates/email-verification";
-import { renderResetPasswordEmail } from "@/lib/email-templates/reset-password";
-import { validateRequest } from "@/lib/auth/validate-request";
-import { redirects } from "../constants";
-import { env } from "@/env";
+} from "~/server/db/schema";
+import { sendMail } from "~/server/send-mail";
 
 export interface ActionResponse<T> {
   fieldError?: Partial<Record<keyof T, string | undefined>>;

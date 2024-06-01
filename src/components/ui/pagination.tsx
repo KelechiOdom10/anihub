@@ -1,13 +1,13 @@
-import * as React from "react";
 import Link from "next/link";
+import * as React from "react";
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   DotsHorizontalIcon,
-} from "@/components/icons";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants, type ButtonProps } from "@/components/ui/button";
+} from "~/components/icons";
+import { buttonVariants, type ButtonProps } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav

@@ -1,9 +1,10 @@
-import { Lucia, TimeSpan } from "lucia";
-import { Discord, Google } from "arctic";
 import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
-import { env } from "@/env.js";
-import { client } from "@/server/db";
-import { type User as DbUser } from "@/server/db/schema";
+import { Discord, Google } from "arctic";
+import { Lucia, TimeSpan } from "lucia";
+
+import { env } from "~/env.js";
+import { client } from "~/server/db";
+import { type User as DbUser } from "~/server/db/schema";
 
 const adapter = new LibSQLAdapter(client, {
   user: "user",

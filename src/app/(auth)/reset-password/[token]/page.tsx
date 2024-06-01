@@ -1,11 +1,12 @@
+import { ResetPassword } from "./reset-password";
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ResetPassword } from "./reset-password";
+} from "~/components/ui/card";
 
 export const metadata = {
   title: "Reset Password",
