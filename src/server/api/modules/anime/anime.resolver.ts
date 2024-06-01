@@ -121,6 +121,7 @@ builder.queryField("getTopAnime", (t) =>
 builder.queryField("getAnime", (t) =>
   t.field({
     type: Anime,
+    description: "Get anime by ID",
     nullable: true,
     args: {
       id: t.arg.int({ required: true }),
