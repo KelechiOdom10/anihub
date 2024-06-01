@@ -78,6 +78,8 @@
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.20.18",
     "eslint": "8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-unused-imports": "^3.1.0",
     "husky": "^9.0.11",
     "openapi-typescript": "^6.7.6",
     "postcss": "^8.4.38",
