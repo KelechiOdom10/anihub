@@ -1,6 +1,7 @@
-import { Lucia, TimeSpan } from "lucia";
-import { Discord, Google } from "arctic";
 import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
+import { Discord, Google } from "arctic";
+import { Lucia, TimeSpan } from "lucia";
+
 import { env } from "~/env.js";
 import { client } from "~/server/db";
 import { type User as DbUser } from "~/server/db/schema";

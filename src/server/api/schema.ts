@@ -1,8 +1,9 @@
 import SchemaBuilder from "@pothos/core";
 import ValidationPlugin from "@pothos/plugin-validation";
 import { GraphQLError } from "graphql";
-import { animeService } from "./services/anime.service";
+
 import { type GraphqlServerContext } from "./context";
+import { animeService } from "./services/anime.service";
 
 const builder = new SchemaBuilder<{ Context: GraphqlServerContext }>({
   plugins: [ValidationPlugin],

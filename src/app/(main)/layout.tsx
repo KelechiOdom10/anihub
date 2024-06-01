@@ -1,9 +1,10 @@
-import { APP_TITLE } from "~/lib/constants";
-import { Header } from "~/components/layout/header";
-import { Footer } from "~/components/layout/footer";
-
-import { type ReactNode } from "react";
 import { type Metadata } from "next";
+import { type ReactNode } from "react";
+
+import { Footer } from "~/components/layout/footer";
+import { Header } from "~/components/layout/header";
+import { APP_TITLE } from "~/lib/constants";
+
 
 export const metadata: Metadata = {
   title: APP_TITLE,

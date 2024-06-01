@@ -1,10 +1,11 @@
-import { cookies } from "next/headers";
-import { generateId } from "lucia";
 import { OAuth2RequestError } from "arctic";
 import { eq } from "drizzle-orm";
+import { generateId } from "lucia";
+import { cookies } from "next/headers";
+
 import { google, lucia } from "~/lib/auth";
-import { db } from "~/server/db";
 import { redirects } from "~/lib/constants";
+import { db } from "~/server/db";
 import { oauthAccounts, users } from "~/server/db/schema";
 
 export const GET = async (request: Request): Promise<Response> => {

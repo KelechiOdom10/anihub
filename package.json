@@ -12,6 +12,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "codegen:anime": "npx openapi-typescript https://raw.githubusercontent.com/jikan-me/jikan-rest/master/storage/api-docs/api-docs.json -o ./src/server/jikan-schema.d.ts"

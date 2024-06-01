@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+
 import { Signup } from "./signup";
+
 import { validateRequest } from "~/lib/auth/validate-request";
 import { redirects } from "~/lib/constants";
 

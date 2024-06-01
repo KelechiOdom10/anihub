@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { Logo } from "../logo";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+
+import { Logo } from "../logo";
 import { Button } from "../ui/button";
 
 const socials = [

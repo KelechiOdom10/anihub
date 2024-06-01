@@ -1,6 +1,7 @@
-import { cache } from "react";
-import { cookies } from "next/headers";
 import type { Session, User } from "lucia";
+import { cookies } from "next/headers";
+import { cache } from "react";
+
 import { lucia } from "~/lib/auth";
 
 export const uncachedValidateRequest = async (): Promise<
