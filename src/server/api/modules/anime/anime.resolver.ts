@@ -8,6 +8,9 @@ import { type operations } from "~/server/jikan-schema";
 type QueryParams = NonNullable<
   operations["getTopAnime"]["parameters"]["query"]
 >;
+type SearchAnimeQueryParams = NonNullable<
+  operations["getAnimeSearch"]["parameters"]["query"]
+>;
 
 const AnimeTypeEnum = builder.enumType("AnimeTypeEnum", {
   values: [
@@ -31,8 +34,29 @@ const RatingEnum = builder.enumType("RatingEnum", {
   values: ["g", "pg", "pg13", "r17", "r", "rx"] as const,
 });
 
-export const QueryParamsType = builder
-  .inputRef<QueryParams>("TopAnimeQueryParams")
+const GenresFilterEnum = builder.enumType("GenresFilterEnum", {
+  values: ["genres", "explicit_genres", "themes", "demographics"] as const,
+});
+
+const SearchSortEnum = builder.enumType("SearchSortEnum", {
+  values: ["asc", "desc"] as const,
+});
+
+const AnimeOrderByEnum = builder.enumType("AnimeOrderEnum", {
+  values: [
+    "mal_id",
+    "start_date",
+    "end_date",
+    "title",
+    "score",
+    "episodes",
+    "scored_by",
+    "rank",
+    "popularity",
+    "favorites",
+  ] as const,
+});
+
   .implement({
     description: "Query parameters",
     fields: (t) => ({
@@ -40,6 +64,26 @@ export const QueryParamsType = builder
       rating: t.field({ type: RatingEnum, required: false }),
       filter: t.field({ type: FilterEnum, required: false }),
       sfw: t.boolean(),
+      page: t.int(),
+      limit: t.int(),
+    }),
+  });
+
+export const SearchAnimeQueryParamsType = builder
+  .inputRef<SearchAnimeQueryParams>("SearchAnimeQueryParams")
+  .implement({
+    description: "Query parameters",
+    fields: (t) => ({
+      type: t.field({ type: AnimeTypeEnum, required: false }),
+      rating: t.field({ type: RatingEnum, required: false }),
+      filter: t.field({ type: FilterEnum, required: false }),
+      sort: t.field({ type: SearchSortEnum, required: false }),
+      order_by: t.field({ type: AnimeOrderByEnum, required: false }),
+      q: t.string(),
+      sfw: t.boolean(),
+      start_date: t.string({ description: "YYYY-MM-DD" }),
+      end_date: t.string({ description: "YYYY-MM-DD" }),
+      genres: t.string(),
       page: t.int(),
       limit: t.int(),
     }),
@@ -76,6 +120,24 @@ builder.queryField("getAnime", (t) =>
         },
       });
       if (!data?.data) return null;
+
+      return data.data;
+    },
+  })
+);
+
+builder.queryField("getAnimeSearch", (t) =>
+  t.field({
+    type: [Anime],
+    description: "Search for anime",
+    args: {
+      query: t.arg({ type: SearchAnimeQueryParamsType, required: false }),
+    },
+    resolve: async (_, args) => {
+      const { data } = await animeService.GET("/anime", {
+        params: { query: args.query as SearchAnimeQueryParams },
+      });
+      if (!data?.data) return [];
 
       return data.data;
     },
