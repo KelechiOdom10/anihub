@@ -11,6 +11,9 @@ type QueryParams = NonNullable<
 type SearchAnimeQueryParams = NonNullable<
   operations["getAnimeSearch"]["parameters"]["query"]
 >;
+type GenresQueryParams = NonNullable<
+  operations["getAnimeGenres"]["parameters"]["query"]
+>;
 
 const AnimeTypeEnum = builder.enumType("AnimeTypeEnum", {
   values: [
@@ -56,6 +59,15 @@ const AnimeOrderByEnum = builder.enumType("AnimeOrderEnum", {
     "favorites",
   ] as const,
 });
+
+export const GenresQueryParamsType = builder
+  .inputRef<GenresQueryParams>("GenresQueryParams")
+  .implement({
+    description: "Query parameters",
+    fields: (t) => ({
+      filter: t.field({ type: GenresFilterEnum, required: false }),
+    }),
+  });
 
   .implement({
     description: "Query parameters",
@@ -138,6 +150,25 @@ builder.queryField("getAnimeSearch", (t) =>
         params: { query: args.query as SearchAnimeQueryParams },
       });
       if (!data?.data) return [];
+
+      return data.data;
+    },
+  })
+);
+
+builder.queryField("getAnimeGenres", (t) =>
+  t.field({
+    type: [Genre],
+    description: "Get the genres of anime",
+    nullable: true,
+    args: {
+      query: t.arg({ type: GenresQueryParamsType, required: false }),
+    },
+    resolve: async (_, args) => {
+      const { data } = await animeService.GET("/genres/anime", {
+        params: { query: args.query as GenresQueryParams },
+      });
+      if (!data?.data) return null;
 
       return data.data;
     },
