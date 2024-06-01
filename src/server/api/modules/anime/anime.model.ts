@@ -1,15 +1,16 @@
-import { type NonUndefined } from "react-hook-form";
+import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
+import { Character } from "../character";
 
 import { type components } from "~/server/jikan-schema";
 
 type AnimeType = components["schemas"]["anime"];
 type AnimeTitleType = components["schemas"]["title"];
-type AiredType = NonUndefined<components["schemas"]["anime"]["aired"]>;
-type TrailerType = NonUndefined<components["schemas"]["anime"]["trailer"]>;
+type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
+type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
 type MetadataType = components["schemas"]["mal_url"];
-type ImageType = NonUndefined<components["schemas"]["anime_images"]["jpg"]>;
+type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
 
@@ -21,11 +22,11 @@ const AnimeTitle = builder.objectRef<AnimeTitleType>("AnimeTitle").implement({
   }),
 });
 
-const Image = builder.objectRef<ImageType>("Image").implement({
-  description: "Image object",
+const AnimeImage = builder.objectRef<ImageType>("AnimeImage").implement({
+  description: "Anime Image object",
   fields: (t) => ({
     small: t.exposeString("small_image_url", { nullable: true }),
-    medium: t.exposeString("image_url", { nullable: true }),
+    default: t.exposeString("image_url", { nullable: true }),
     large: t.exposeString("large_image_url", { nullable: true }),
   }),
 });
@@ -59,7 +60,7 @@ const Metadata = builder.objectRef<MetadataType>("Metadata").implement({
 builder.objectType(Anime, {
   description: "Anime object",
   fields: (t) => ({
-    id: t.exposeInt("mal_id", {
+    id: t.exposeID("mal_id", {
       description: "The ID of the anime",
       nullable: true,
     }),
@@ -158,9 +159,29 @@ builder.objectType(Anime, {
     }),
     image: t.field({
       description: "The images of the anime",
-      type: Image,
+      type: AnimeImage,
       nullable: true,
       resolve: (parent) => parent.images?.webp ?? parent.images?.jpg,
+    }),
+    characters: t.field({
+      description: "The characters of the anime",
+      type: [Character],
+      nullable: true,
+      resolve: async (parent) => {
+        console.log("I am in the characters resolver!");
+        if (!parent.mal_id) return null;
+
+        const { data } = await animeService.GET("/anime/{id}/characters", {
+          params: {
+            path: { id: parent.mal_id },
+          },
+        });
+        if (!data?.data) return null;
+
+        return data.data.map((character) => ({
+          ...character.character,
+        }));
+      },
     }),
   }),
 });
