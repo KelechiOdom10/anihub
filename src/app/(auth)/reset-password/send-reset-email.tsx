@@ -5,13 +5,13 @@ import { useFormState } from "react-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { SubmitButton } from "@/components/submit-button";
-import { sendPasswordResetLink } from "@/lib/auth/actions";
-import { ExclamationTriangleIcon } from "@/components/icons";
-import { redirects } from "@/lib/constants";
+import { Input } from "~/components/ui/input";
+import { Button } from "~/components/ui/button";
+import { Label } from "~/components/ui/label";
+import { SubmitButton } from "~/components/submit-button";
+import { sendPasswordResetLink } from "~/lib/auth/actions";
+import { ExclamationTriangleIcon } from "~/components/icons";
+import { redirects } from "~/lib/constants";
 
 export function SendResetEmail() {
   const [state, formAction] = useFormState(sendPasswordResetLink, null);

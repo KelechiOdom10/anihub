@@ -7,7 +7,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { APP_TITLE } from "@/lib/constants";
+import { APP_TITLE } from "~/lib/constants";
 import { render } from "@react-email/render";
 
 interface Props {

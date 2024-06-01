@@ -1,5 +1,5 @@
-import { env } from "@/env";
-import { EMAIL_SENDER } from "@/lib/constants";
+import { env } from "~/env";
+import { EMAIL_SENDER } from "~/lib/constants";
 import { createTransport, type TransportOptions } from "nodemailer";
 
 const smtpConfig = {

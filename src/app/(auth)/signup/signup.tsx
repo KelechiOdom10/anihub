@@ -2,19 +2,19 @@
 
 import { useFormState } from "react-dom";
 import Link from "next/link";
-import { PasswordInput } from "@/components/password-input";
-import { Button } from "@/components/ui/button";
+import { PasswordInput } from "~/components/password-input";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { DiscordLogoIcon, Logo } from "@/components/icons";
-import { Label } from "@/components/ui/label";
-import { signup } from "@/lib/auth/actions";
-import { SubmitButton } from "@/components/submit-button";
+} from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { DiscordLogoIcon, Logo } from "~/components/icons";
+import { Label } from "~/components/ui/label";
+import { signup } from "~/lib/auth/actions";
+import { SubmitButton } from "~/components/submit-button";
 
 export function Signup() {
   const [state, formAction] = useFormState(signup, null);

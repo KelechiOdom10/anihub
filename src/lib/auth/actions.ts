@@ -9,26 +9,26 @@ import { generateId, Scrypt } from "lucia";
 import { isWithinExpirationDate, TimeSpan, createDate } from "oslo";
 import { generateRandomString, alphabet } from "oslo/crypto";
 import { eq } from "drizzle-orm";
-import { lucia } from "@/lib/auth";
-import { db } from "@/server/db";
+import { lucia } from "~/lib/auth";
+import { db } from "~/server/db";
 import {
   loginSchema,
   signupSchema,
   type LoginInput,
   type SignupInput,
   resetPasswordSchema,
-} from "@/lib/validators/auth";
+} from "~/lib/validators/auth";
 import {
   emailVerificationCodes,
   passwordResetTokens,
   users,
-} from "@/server/db/schema";
-import { sendMail } from "@/server/send-mail";
-import { renderVerificationCodeEmail } from "@/lib/email-templates/email-verification";
-import { renderResetPasswordEmail } from "@/lib/email-templates/reset-password";
-import { validateRequest } from "@/lib/auth/validate-request";
+} from "~/server/db/schema";
+import { sendMail } from "~/server/send-mail";
+import { renderVerificationCodeEmail } from "~/lib/email-templates/email-verification";
+import { renderResetPasswordEmail } from "~/lib/email-templates/reset-password";
+import { validateRequest } from "~/lib/auth/validate-request";
 import { redirects } from "../constants";
-import { env } from "@/env";
+import { env } from "~/env";
 
 export interface ActionResponse<T> {
   fieldError?: Partial<Record<keyof T, string | undefined>>;

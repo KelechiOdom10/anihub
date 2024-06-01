@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 import { forwardRef, type SVGProps } from "react";
 
 export const Logo = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
@@ -13,7 +13,7 @@ export const Logo = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
     >
       <g
         transform="matrix(0.33557046979865773,0,0,0.33557046979865773,-17.114093959731544,-11.275168553294751)"
-        alignment-baseline="baseline"
+        alignmentBaseline="baseline"
       >
         <path
           xmlns="http://www.w3.org/2000/svg"

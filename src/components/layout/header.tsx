@@ -1,20 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { HamburgerMenuIcon, Logo, SearchIcon } from "@/components/icons";
-import { Button } from "@/components/ui/button";
+import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
+import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { api } from "@/trpc/react";
-import { logout } from "@/lib/auth/actions";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { useMediaQuery } from "@/lib/hooks/use-media-query";
-import { useWindowScroll } from "@/lib/hooks/use-window-scroll";
+} from "~/components/ui/dropdown-menu";
+import { api } from "~/trpc/react";
+import { logout } from "~/lib/auth/actions";
+import { cn } from "~/lib/utils";
+import { Input } from "~/components/ui/input";
+import { useMediaQuery } from "~/lib/hooks/use-media-query";
+import { useWindowScroll } from "~/lib/hooks/use-window-scroll";
 
 const routes = [
   { name: "Home", href: "/" },

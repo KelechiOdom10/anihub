@@ -9,7 +9,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { APP_TITLE } from "@/lib/constants";
+import { APP_TITLE } from "~/lib/constants";
 
 interface Props {
   link: string;

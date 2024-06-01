@@ -1,5 +1,5 @@
 import { forwardRef, type SVGProps } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 
 const AnimatedSpinner = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
   ({ className, ...props }, ref) => (
