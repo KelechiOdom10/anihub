@@ -1,11 +1,11 @@
-import { Anime } from "./anime.model";
+import { Anime, Genre } from "./anime.model";
 import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
 
 import { type operations } from "~/server/jikan-schema";
 
-type QueryParams = NonNullable<
+type TopAnimeQueryParams = NonNullable<
   operations["getTopAnime"]["parameters"]["query"]
 >;
 type SearchAnimeQueryParams = NonNullable<
@@ -69,6 +69,8 @@ export const GenresQueryParamsType = builder
     }),
   });
 
+export const TopAnimeQueryParamsType = builder
+  .inputRef<TopAnimeQueryParams>("TopAnimeQueryParams")
   .implement({
     description: "Query parameters",
     fields: (t) => ({
@@ -104,12 +106,13 @@ export const SearchAnimeQueryParamsType = builder
 builder.queryField("getTopAnime", (t) =>
   t.field({
     type: [Anime],
+    description: "Get top anime list with optional query parameters",
     args: {
-      query: t.arg({ type: QueryParamsType, required: false }),
+      query: t.arg({ type: TopAnimeQueryParamsType, required: false }),
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/top/anime", {
-        params: { query: args.query as QueryParams },
+        params: { query: args.query as TopAnimeQueryParams },
       });
       if (!data?.data) return [];
 
