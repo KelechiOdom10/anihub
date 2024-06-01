@@ -1,11 +1,11 @@
 import { uncachedValidateRequest } from "~/lib/auth/validate-request";
 import { initContextCache } from "@pothos/core";
-import { db } from "../db";
+import { type Db, db } from "../db";
 import { type YogaInitialContext } from "graphql-yoga";
 import { type Session } from "lucia";
 
 export interface GraphqlServerContext {
-  db: typeof db;
+  db: Db;
   session: Session | null;
 }
 
