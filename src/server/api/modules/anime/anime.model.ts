@@ -11,6 +11,7 @@ type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
 type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
 type MetadataType = components["schemas"]["mal_url"];
 type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
+type GenreType = NonNullable<components["schemas"]["genre"]>;
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
 
@@ -54,6 +55,16 @@ const Metadata = builder.objectRef<MetadataType>("Metadata").implement({
     type: t.exposeString("type", { nullable: true }),
     name: t.exposeString("name", { nullable: true }),
     url: t.exposeString("url", { nullable: true }),
+  }),
+});
+
+export const Genre = builder.objectRef<GenreType>("Genre").implement({
+  description: "Genre object",
+  fields: (t) => ({
+    id: t.exposeID("mal_id", { nullable: true }),
+    url: t.exposeString("url", { nullable: true }),
+    name: t.exposeString("name", { nullable: true }),
+    count: t.exposeInt("count", { nullable: true }),
   }),
 });
 
