@@ -13,7 +13,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "codegen:anime": "npx openapi-typescript https://raw.githubusercontent.com/jikan-me/jikan-rest/master/storage/api-docs/api-docs.json -o ./src/server/jikan-schema.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -41,6 +42,7 @@
     "next": "^14.1.0",
     "next-themes": "^0.2.1",
     "nodemailer": "^6.9.9",
+    "openapi-fetch": "^0.9.7",
     "oslo": "^1.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
