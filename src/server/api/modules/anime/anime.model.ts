@@ -2,6 +2,7 @@ import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
 import { Character } from "../character";
+import { Genre } from "../genre";
 
 import { type components } from "~/server/jikan-schema";
 
@@ -11,7 +12,6 @@ type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
 type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
 type MetadataType = components["schemas"]["mal_url"];
 type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
-type GenreType = NonNullable<components["schemas"]["genre"]>;
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
 
@@ -55,16 +55,6 @@ const Metadata = builder.objectRef<MetadataType>("Metadata").implement({
     type: t.exposeString("type", { nullable: true }),
     name: t.exposeString("name", { nullable: true }),
     url: t.exposeString("url", { nullable: true }),
-  }),
-});
-
-export const Genre = builder.objectRef<GenreType>("Genre").implement({
-  description: "Genre object",
-  fields: (t) => ({
-    id: t.exposeID("mal_id", { nullable: true }),
-    url: t.exposeString("url", { nullable: true }),
-    name: t.exposeString("name", { nullable: true }),
-    count: t.exposeInt("count", { nullable: true }),
   }),
 });
 
@@ -139,7 +129,7 @@ builder.objectType(Anime, {
       resolve: (parent) => parent.aired,
     }),
     genres: t.field({
-      type: [Metadata],
+      type: [Genre],
       description: "The genres of the anime (e.g. Action, Comedy)",
       nullable: true,
       resolve: (parent) => parent.genres,
@@ -187,7 +177,7 @@ builder.objectType(Anime, {
             path: { id: parent.mal_id },
           },
         });
-        if (!data?.data) return null;
+        if (!data?.data) return [];
 
         return data.data.map((character) => ({
           ...character.character,
