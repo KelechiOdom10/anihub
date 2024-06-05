@@ -1,4 +1,4 @@
-import { Anime, Genre } from "./anime.model";
+import { Anime } from "./anime.model";
 import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
@@ -8,11 +8,8 @@ import { type operations } from "~/server/jikan-schema";
 type TopAnimeQueryParams = NonNullable<
   operations["getTopAnime"]["parameters"]["query"]
 >;
-type SearchAnimeQueryParams = NonNullable<
+export type SearchAnimeQueryParams = NonNullable<
   operations["getAnimeSearch"]["parameters"]["query"]
->;
-type GenresQueryParams = NonNullable<
-  operations["getAnimeGenres"]["parameters"]["query"]
 >;
 
 const AnimeTypeEnum = builder.enumType("AnimeTypeEnum", {
@@ -37,10 +34,6 @@ const RatingEnum = builder.enumType("RatingEnum", {
   values: ["g", "pg", "pg13", "r17", "r", "rx"] as const,
 });
 
-const GenresFilterEnum = builder.enumType("GenresFilterEnum", {
-  values: ["genres", "explicit_genres", "themes", "demographics"] as const,
-});
-
 const SearchSortEnum = builder.enumType("SearchSortEnum", {
   values: ["asc", "desc"] as const,
 });
@@ -59,15 +52,6 @@ const AnimeOrderByEnum = builder.enumType("AnimeOrderEnum", {
     "favorites",
   ] as const,
 });
-
-export const GenresQueryParamsType = builder
-  .inputRef<GenresQueryParams>("GenresQueryParams")
-  .implement({
-    description: "Query parameters",
-    fields: (t) => ({
-      filter: t.field({ type: GenresFilterEnum, required: false }),
-    }),
-  });
 
 export const TopAnimeQueryParamsType = builder
   .inputRef<TopAnimeQueryParams>("TopAnimeQueryParams")
@@ -103,7 +87,7 @@ export const SearchAnimeQueryParamsType = builder
     }),
   });
 
-builder.queryField("getTopAnime", (t) =>
+builder.queryField("getTopAnimes", (t) =>
   t.field({
     type: [Anime],
     description: "Get top anime list with optional query parameters",
@@ -142,7 +126,7 @@ builder.queryField("getAnime", (t) =>
   })
 );
 
-builder.queryField("getAnimeSearch", (t) =>
+builder.queryField("getAnimesSearch", (t) =>
   t.field({
     type: [Anime],
     description: "Search for anime",
@@ -160,19 +144,26 @@ builder.queryField("getAnimeSearch", (t) =>
   })
 );
 
-builder.queryField("getAnimeGenres", (t) =>
+builder.queryField("getAnimesByGenres", (t) =>
   t.field({
-    type: [Genre],
-    description: "Get the genres of anime",
-    nullable: true,
+    type: [Anime],
+    description: "Get anime by genres",
     args: {
-      query: t.arg({ type: GenresQueryParamsType, required: false }),
+      genres: t.arg.string({ required: true }),
+      page: t.arg.int({ required: false, defaultValue: 1 }),
+      limit: t.arg.int({ required: false, defaultValue: 10 }),
     },
     resolve: async (_, args) => {
-      const { data } = await animeService.GET("/genres/anime", {
-        params: { query: args.query as GenresQueryParams },
+      const { data } = await animeService.GET("/anime", {
+        params: {
+          query: {
+            genres: args.genres,
+            page: args.page ?? 1,
+            limit: args.limit ?? 10,
+          },
+        },
       });
-      if (!data?.data) return null;
+      if (!data?.data) return [];
 
       return data.data;
     },
