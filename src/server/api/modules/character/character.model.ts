@@ -1,4 +1,6 @@
 import { builder } from "../../builder";
+import { Anime } from "../anime";
+import { animeService } from "../anime/anime.service";
 
 import { type components } from "~/server/jikan-schema";
 
@@ -29,6 +31,31 @@ builder.objectType(Character, {
       type: CharacterImage,
       nullable: true,
       resolve: (parent) => parent.images?.webp ?? parent.images?.jpg,
+    }),
+    anime: t.field({
+      type: Anime,
+      nullable: true,
+      resolve: async (parent) => {
+        if (!parent.mal_id) return null;
+
+        const { data } = await animeService.GET("/characters/{id}/anime", {
+          params: {
+            path: { id: parent.mal_id },
+          },
+        });
+
+        const animeId = data?.data?.[0]?.anime?.mal_id;
+
+        if (!animeId) return null;
+
+        const { data: animeData } = await animeService.GET("/anime/{id}", {
+          params: {
+            path: { id: animeId },
+          },
+        });
+
+        return animeData?.data;
+      },
     }),
   }),
 });
