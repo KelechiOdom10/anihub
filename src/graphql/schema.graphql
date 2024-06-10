@@ -1,0 +1,254 @@
+"""Aired object"""
+type Aired {
+  from: String
+  to: String
+}
+
+"""Anime object"""
+type Anime {
+  """The dates the anime aired"""
+  aired: Aired
+
+  """Whether the anime is currently airing"""
+  airing: Boolean
+
+  """The background information of the anime"""
+  background: String
+
+  """The characters of the anime"""
+  characters: [Character!]
+
+  """The description of the anime"""
+  description: String
+
+  """The duration of each episode of the anime"""
+  duration: String
+
+  """The number of episodes of the anime"""
+  episodes: Int
+
+  """The genres of the anime (e.g. Action, Comedy)"""
+  genres: [Genre!]
+
+  """The ID of the anime"""
+  id: ID
+
+  """The images of the anime"""
+  image: AnimeImage
+
+  """The popularity of the anime"""
+  popularity: Int
+
+  """The producers of the anime"""
+  producers: [Metadata!]
+
+  """The rank of the anime"""
+  rank: Int
+
+  """The rating of the anime"""
+  rating: String
+
+  """The average score of the anime"""
+  score: Float
+
+  """The season the anime aired"""
+  season: String
+  source: String
+
+  """The status of the anime"""
+  status: String
+
+  """The studios that produced the anime"""
+  studios: [Metadata!]
+
+  """The description of the anime"""
+  synopsis: String
+
+  """The titles of the anime in different languages"""
+  titles: [AnimeTitle!]
+
+  """The trailer of the anime (if available on YouTube)"""
+  trailer: Trailer
+
+  """The type of the anime"""
+  type: String
+
+  """The year the anime aired"""
+  year: Int
+}
+
+"""Anime Image object"""
+type AnimeImage {
+  default: String
+  large: String
+  small: String
+}
+
+enum AnimeOrderEnum {
+  end_date
+  episodes
+  favorites
+  mal_id
+  popularity
+  rank
+  score
+  scored_by
+  start_date
+  title
+}
+
+"""Title object"""
+type AnimeTitle {
+  title: String
+  type: String
+}
+
+enum AnimeTypeEnum {
+  cm
+  movie
+  music
+  ona
+  ova
+  pv
+  special
+  tv
+  tv_special
+}
+
+"""Character object"""
+type Character {
+  about: String
+  anime: Anime
+  id: ID
+  image: CharacterImage
+  name: String
+  nicknames: [String!]
+  url: String
+}
+
+"""Character Image object"""
+type CharacterImage {
+  default: String
+  small: String
+}
+
+"""Character Query parameters"""
+input CharacterQueryParams {
+  limit: Int
+  page: Int
+}
+
+enum FilterEnum {
+  airing
+  bypopularity
+  favorite
+}
+
+"""Genre object"""
+type Genre {
+  animes(limit: Int = 3, page: Int = 1): [Anime!]
+  count: Int
+  id: ID
+  name: String
+  url: String
+}
+
+enum GenresFilterEnum {
+  demographics
+  explicit_genres
+  genres
+  themes
+}
+
+"""Query parameters"""
+input GenresQueryParams {
+  filter: GenresFilterEnum
+}
+
+"""Metadata object"""
+type Metadata {
+  name: String
+  type: String
+  url: String
+}
+
+type Query {
+  """Get anime by ID"""
+  getAnime(id: Int!): Anime
+
+  """Get anime by genres"""
+  getAnimesByGenres(genres: String!, limit: Int = 10, page: Int = 1): [Anime!]!
+
+  """Search for anime"""
+  getAnimesSearch(query: SearchAnimeQueryParams): [Anime!]!
+
+  """Get the genres of anime"""
+  getGenres(query: GenresQueryParams): [Genre!]
+
+  """Get top anime list with optional query parameters"""
+  getTopAnimes(query: TopAnimeQueryParams): [Anime!]!
+  getTopCharacters(query: CharacterQueryParams): [Character!]!
+
+  """Get current logged in user"""
+  me: User
+}
+
+enum RatingEnum {
+  g
+  pg
+  pg13
+  r
+  r17
+  rx
+}
+
+"""Query parameters"""
+input SearchAnimeQueryParams {
+  """YYYY-MM-DD"""
+  end_date: String
+  filter: FilterEnum
+  genres: String
+  limit: Int
+  order_by: AnimeOrderEnum
+  page: Int
+  q: String
+  rating: RatingEnum
+  sfw: Boolean
+  sort: SearchSortEnum
+
+  """YYYY-MM-DD"""
+  start_date: String
+  type: AnimeTypeEnum
+}
+
+enum SearchSortEnum {
+  asc
+  desc
+}
+
+"""Query parameters"""
+input TopAnimeQueryParams {
+  filter: FilterEnum
+  limit: Int
+  page: Int
+  rating: RatingEnum
+  sfw: Boolean
+  type: AnimeTypeEnum
+}
+
+"""Trailer object"""
+type Trailer {
+  embedUrl: String
+  id: String
+  url: String
+}
+
+"""User object"""
+type User {
+  avatar: String
+  createdAt: String!
+  email: String!
+  emailVerified: Boolean!
+  id: ID!
+  updatedAt: String!
+}

@@ -24,8 +24,8 @@
       { "name": "next" },
       {
         "name": "@0no-co/graphqlsp",
-        "schema": "./.mesh/schema.graphql",
-        "tadaOutputLocation": "./src/graphql-env.d.ts"
+        "schema": "./src/graphql/schema.graphql",
+        "tadaOutputLocation": "./src/graphql/graphql-env.d.ts"
       }
     ],
     "incremental": true,

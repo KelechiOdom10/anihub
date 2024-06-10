@@ -4,10 +4,10 @@ import type { Metadata, Viewport } from "next";
 
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
+import { UrqlReactProvider } from "~/graphql/react";
 import { APP_TITLE } from "~/lib/constants";
 import { fontSans } from "~/lib/fonts";
 import { cn } from "~/lib/utils";
-import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
   title: {
@@ -44,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
           forcedTheme="dark"
         >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <UrqlReactProvider>{children}</UrqlReactProvider>
           <Toaster />
         </ThemeProvider>
       </body>
