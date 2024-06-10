@@ -22,6 +22,7 @@ const AnimeTitle = builder.objectRef<AnimeTitleType>("AnimeTitle").implement({
     title: t.exposeString("title", { nullable: true }),
   }),
 });
+export type AnimeTitle = typeof AnimeTitle.$inferType;
 
 const AnimeImage = builder.objectRef<ImageType>("AnimeImage").implement({
   description: "Anime Image object",
@@ -162,7 +163,7 @@ builder.objectType(Anime, {
       description: "The images of the anime",
       type: AnimeImage,
       nullable: true,
-      resolve: (parent) => parent.images?.webp ?? parent.images?.jpg,
+      resolve: (parent) => parent.images?.jpg ?? parent.images?.webp,
     }),
     characters: t.field({
       description: "The characters of the anime",
