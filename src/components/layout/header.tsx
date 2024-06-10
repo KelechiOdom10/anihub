@@ -1,5 +1,7 @@
 "use client";
 
+import { useQuery } from "@urql/next";
+import { graphql } from "gql.tada";
 import Link from "next/link";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
@@ -15,7 +17,6 @@ import { logout } from "~/lib/auth/actions";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { useWindowScroll } from "~/lib/hooks/use-window-scroll";
 import { cn } from "~/lib/utils";
-import { api } from "~/trpc/react";
 
 const routes = [
   { name: "Home", href: "/" },
@@ -24,11 +25,18 @@ const routes = [
   { name: "Collections", href: "/#collections" },
 ] as const;
 
+const MeQuery = graphql(`
+  query Me {
+    me {
+      id
+    }
+  }
+`);
+
 export const Header = () => {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const [state] = useWindowScroll();
-
-  const { data } = api.user.isUserLoggedIn.useQuery();
+  const [{ data }] = useQuery({ query: MeQuery });
 
   return (
     <header
@@ -89,7 +97,7 @@ export const Header = () => {
         />
 
         <div className="ml-auto self-center">
-          {data ? (
+          {data?.me ? (
             <Button asChild onClick={logout}>
               Logout
             </Button>
@@ -98,7 +106,7 @@ export const Header = () => {
               <Button
                 asChild
                 variant="secondary"
-                className="hidden lg:inline-flex"
+                className="hidden shadow-md lg:inline-flex"
               >
                 <Link href="/login">Login</Link>
               </Button>
