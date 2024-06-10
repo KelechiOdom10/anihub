@@ -64,9 +64,6 @@ type Anime {
   """The description of the anime"""
   synopsis: String
 
-  """The title of the anime"""
-  title: String
-
   """The titles of the anime in different languages"""
   titles: [AnimeTitle!]
 
