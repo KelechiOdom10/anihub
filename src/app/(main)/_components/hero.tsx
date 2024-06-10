@@ -3,6 +3,7 @@
 import { BookmarkIcon } from "@radix-ui/react-icons";
 import { type FragmentOf } from "gql.tada";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { Button, type ButtonProps } from "~/components/ui/button";
@@ -48,7 +49,9 @@ export const Hero = ({ anime }: HeroProps) => {
             {anime?.synopsis}
           </p>
           <div className="flex flex-col gap-4 lg:flex-row">
-            <Button size={buttonSize}>Learn More</Button>
+            <Button asChild size={buttonSize}>
+              <Link href={`/anime/${anime?.id}`}>Learn More</Link>
+            </Button>
             <Button variant="secondary" size={buttonSize}>
               <BookmarkIcon className="mr-2 size-5 md:size-6" />
               Save to Watchlist
