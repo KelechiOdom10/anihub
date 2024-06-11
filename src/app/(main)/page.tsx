@@ -23,6 +23,12 @@ export default async function Home() {
       limit: 10,
     },
   });
+  const { data: trendingData } = await getClient().query(TopAnimeQuery, {
+    query: {
+      filter: "favorite",
+      limit: 10,
+    },
+  });
   const heroAnime = recommended?.getTopAnimes?.[0];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
@@ -51,6 +57,14 @@ export default async function Home() {
           <Suspense>
             <GenresSection genres={shuffledGenres} />
           </Suspense>
+        </div>
+      )}
+      {trendingData?.getTopAnimes && (
+        <div className="container mx-auto py-8">
+          <AnimeCarousel
+            heading="Trending Now"
+            animeList={trendingData.getTopAnimes}
+          />
         </div>
       )}
     </>
