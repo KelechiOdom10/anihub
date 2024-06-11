@@ -64,6 +64,9 @@ type Anime {
   """The description of the anime"""
   synopsis: String
 
+  """The title of the anime"""
+  title: String
+
   """The titles of the anime in different languages"""
   titles: [AnimeTitle!]
 
@@ -113,6 +116,13 @@ enum AnimeTypeEnum {
   special
   tv
   tv_special
+}
+
+"""Query parameters"""
+input AnimesByGenresQueryParams {
+  genres: String!
+  limit: Int = 10
+  page: Int = 1
 }
 
 """Character object"""
@@ -177,7 +187,7 @@ type Query {
   getAnime(id: Int!): Anime
 
   """Get anime by genres"""
-  getAnimesByGenres(genres: String!, limit: Int = 10, page: Int = 1): [Anime!]!
+  getAnimesByGenres(query: AnimesByGenresQueryParams!): [Anime!]!
 
   """Search for anime"""
   getAnimesSearch(query: SearchAnimeQueryParams): [Anime!]!
