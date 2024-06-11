@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { Meteors } from "./meteors";
+
 interface InfoCardProps {
   heading: string;
   images: Array<{
@@ -10,7 +12,8 @@ interface InfoCardProps {
 
 export const InfoCard = ({ heading, images }: InfoCardProps) => {
   return (
-    <div className="flex h-full w-full flex-col items-center gap-8 overflow-hidden rounded-lg bg-zinc-800 px-6 pt-12 transition-transform duration-300 ease-in-out hover:scale-105">
+    <div className="relative flex h-full w-full flex-col items-center gap-8 overflow-hidden rounded-lg bg-zinc-800 px-6 pt-12 transition-transform duration-300 ease-in-out hover:scale-105">
+      <Meteors number={10} />
       <h4 className="line-clamp-2 max-w-48 text-center text-xl font-medium">
         {heading}
       </h4>
