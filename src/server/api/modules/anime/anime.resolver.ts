@@ -144,22 +144,35 @@ builder.queryField("getAnimesSearch", (t) =>
   })
 );
 
+const AnimesByGenresQueryParamsType = builder
+  .inputRef<{
+    genres: string;
+    page?: number;
+    limit?: number;
+  }>("AnimesByGenresQueryParams")
+  .implement({
+    description: "Query parameters",
+    fields: (t) => ({
+      genres: t.string({ required: true }),
+      page: t.int({ required: false, defaultValue: 1 }),
+      limit: t.int({ required: false, defaultValue: 10 }),
+    }),
+  });
+
 builder.queryField("getAnimesByGenres", (t) =>
   t.field({
     type: [Anime],
     description: "Get anime by genres",
     args: {
-      genres: t.arg.string({ required: true }),
-      page: t.arg.int({ required: false, defaultValue: 1 }),
-      limit: t.arg.int({ required: false, defaultValue: 10 }),
+      query: t.arg({ type: AnimesByGenresQueryParamsType, required: true }),
     },
-    resolve: async (_, args) => {
+    resolve: async (_, { query }) => {
       const { data } = await animeService.GET("/anime", {
         params: {
           query: {
-            genres: args.genres,
-            page: args.page ?? 1,
-            limit: args.limit ?? 10,
+            genres: query.genres,
+            page: query.page ?? 1,
+            limit: query.limit ?? 10,
           },
         },
       });
