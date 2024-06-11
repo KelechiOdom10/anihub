@@ -24,9 +24,7 @@ builder.queryField("me", (t) =>
     description: "Get current logged in user",
     nullable: true,
     resolve: async (_parent, _args, ctx) => {
-      if (!ctx.session) {
-        throw new Error("Unauthorized");
-      }
+      if (!ctx.session) return null;
 
       return await ctx.db.query.users.findFirst({
         where: eq(users.id, ctx.session.userId),
