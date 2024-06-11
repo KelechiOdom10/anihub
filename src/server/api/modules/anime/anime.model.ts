@@ -159,6 +159,10 @@ builder.objectType(Anime, {
       nullable: true,
       resolve: (parent) => parent.titles,
     }),
+    title: t.exposeString("title_english", {
+      description: "The title of the anime",
+      nullable: true,
+    }),
     image: t.field({
       description: "The images of the anime",
       type: AnimeImage,
