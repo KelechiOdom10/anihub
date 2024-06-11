@@ -24,7 +24,8 @@ export const Hero = ({ anime }: HeroProps) => {
   return (
     <div className="relative h-[75vh] overflow-hidden bg-gradient-to-b from-background via-background/40 to-background/70 pt-0 md:h-[80vh] md:to-background/60 lg:h-[88vh]">
       <Image
-        layout="fill"
+        fill
+        fetchPriority="high"
         className="absolute inset-0 isolate -z-50 block h-full w-full object-cover lg:hidden"
         src={anime?.image?.large ?? "/fallback-anime.avif"}
         alt={anime?.titles?.[0]?.title ?? ""}
