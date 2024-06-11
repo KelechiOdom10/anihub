@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@urql/next";
-import { graphql } from "gql.tada";
 import Link from "next/link";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
@@ -13,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import { MeQuery } from "~/graphql/queries";
 import { logout } from "~/lib/auth/actions";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { useWindowScroll } from "~/lib/hooks/use-window-scroll";
@@ -24,14 +24,6 @@ const routes = [
   { name: "News", href: "/#news" },
   { name: "Collections", href: "/#collections" },
 ] as const;
-
-const MeQuery = graphql(`
-  query Me {
-    me {
-      id
-    }
-  }
-`);
 
 export const Header = () => {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
