@@ -2,11 +2,16 @@ import { type Metadata } from "next";
 import { Suspense } from "react";
 
 import { AnimeCarousel } from "./_components/anime-carousel";
+import { CharactersMarquee } from "./_components/characters-marquee";
 import { GenresSection } from "./_components/genres-section";
 import { Hero } from "./_components/hero";
 
 import { getClient } from "~/graphql/client";
-import { GenresQuery, TopAnimeQuery } from "~/graphql/queries";
+import {
+  GenresQuery,
+  TopAnimeQuery,
+  TopCharactersQuery,
+} from "~/graphql/queries";
 
 export const metadata: Metadata = {
   title: "Next.js Lucia Auth Starter Template",
@@ -26,6 +31,12 @@ export default async function Home() {
   const { data: trendingData } = await getClient().query(TopAnimeQuery, {
     query: {
       filter: "favorite",
+      limit: 10,
+    },
+  });
+  const { data: characterData } = await getClient().query(TopCharactersQuery, {
+    query: {
+      filter: "trending",
       limit: 10,
     },
   });
@@ -57,6 +68,7 @@ export default async function Home() {
           <Suspense>
             <GenresSection genres={shuffledGenres} />
           </Suspense>
+          1
         </div>
       )}
       {trendingData?.getTopAnimes && (
@@ -65,6 +77,11 @@ export default async function Home() {
             heading="Trending Now"
             animeList={trendingData.getTopAnimes}
           />
+        </div>
+      )}
+      {characterData?.getTopCharacters && (
+        <div className="container mx-auto py-8">
+          <CharactersMarquee characters={characterData.getTopCharacters} />
         </div>
       )}
     </>
