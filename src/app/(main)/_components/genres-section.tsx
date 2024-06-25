@@ -56,7 +56,11 @@ export const GenresSection = ({ genres }: GenresSectionProps) => {
         {genres.map((genre) => (
           <Link key={genre.id} href={`/genre/${genre.url}`}>
             <InfoCard
-              heading={`The best ${genre.name} Animes`}
+              heading={
+                <p>
+                  The best <span className="italic">{genre.name}</span> Animes
+                </p>
+              }
               images={images}
             />
           </Link>
