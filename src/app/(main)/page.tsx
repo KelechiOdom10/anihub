@@ -14,9 +14,9 @@ import {
 } from "~/graphql/queries";
 
 export const metadata: Metadata = {
-  title: "Next.js Lucia Auth Starter Template",
+  title: "Anihub • Social anime discovery",
   description:
-    "A Next.js starter template with nextjs and Lucia auth. Includes drizzle, trpc, react-email, tailwindcss and shadcn-ui",
+    "Anihub is a social platform for discovering and sharing your taste in anime. Use it as a diary to record your opinion about animes as you watch them, or just to keep track of animes you’ve seen in the past. Rate, review and tag animes as you add them. Find and follow your friends to see what they’re enjoying. Keep a watchlist of animes you’d like to see, and create lists/collections on any topic.",
 };
 
 export default async function Home() {

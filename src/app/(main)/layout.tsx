@@ -7,7 +7,7 @@ import { APP_TITLE } from "~/lib/constants";
 
 export const metadata: Metadata = {
   title: APP_TITLE,
-  description: "A Next.js starter with T3 stack and Lucia auth.",
+  description: "Discover and share your taste in anime",
 };
 
 function LandingPageLayout({ children }: { children: ReactNode }) {

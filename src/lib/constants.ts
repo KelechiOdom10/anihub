@@ -1,4 +1,4 @@
-export const APP_TITLE = "Anihub";
+export const APP_TITLE = "Anihub • Discover and share your taste in anime";
 export const DATABASE_PREFIX = "anihub";
 export const EMAIL_SENDER = '"Anihub" <noreply@anihub.com>';
 
