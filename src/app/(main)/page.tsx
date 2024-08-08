@@ -41,7 +41,7 @@ export default async function Home() {
       limit: 10,
     },
   });
-  const heroAnime = recommended?.getTopAnimes?.[0];
+  const heroAnime = recommended?.getTopAnimes?.[4];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
 
