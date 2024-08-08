@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { AnimeCarousel } from "./_components/anime-carousel";
 import { CharactersMarquee } from "./_components/characters-marquee";
 import { GenresSection } from "./_components/genres-section";
+import { GenresSectionSkeleton } from "./_components/genres-section-skeleton";
 import { Hero } from "./_components/hero";
 
 import { getClient } from "~/graphql/client";
@@ -65,10 +66,9 @@ export default async function Home() {
       )}
       {genreData?.getGenres && (
         <div className="container mx-auto py-8">
-          <Suspense>
+          <Suspense fallback={<GenresSectionSkeleton />}>
             <GenresSection genres={shuffledGenres} />
           </Suspense>
-          1
         </div>
       )}
       {trendingData?.getTopAnimes && (
