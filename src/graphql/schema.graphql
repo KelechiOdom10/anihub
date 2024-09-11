@@ -100,6 +100,15 @@ enum AnimeOrderEnum {
   title
 }
 
+"""Anime search result object"""
+type AnimeSearchResult {
+  """The list of anime"""
+  data: [Anime!]
+
+  """The pagination information"""
+  pagination: PaginationResult
+}
+
 """Title object"""
 type AnimeTitle {
   title: String
@@ -182,6 +191,18 @@ type Metadata {
   url: String
 }
 
+type PaginationItems {
+  count: Int
+  perPage: Int
+  total: Int
+}
+
+type PaginationResult {
+  hasNextPage: Boolean
+  items: PaginationItems!
+  lastVisiblePage: Int
+}
+
 type Query {
   """Get anime by ID"""
   getAnime(id: Int!): Anime
@@ -190,7 +211,7 @@ type Query {
   getAnimesByGenres(query: AnimesByGenresQueryParams!): [Anime!]!
 
   """Search for anime"""
-  getAnimesSearch(query: SearchAnimeQueryParams): [Anime!]!
+  getAnimesSearch(query: SearchAnimeQueryParams): AnimeSearchResult!
 
   """Get the genres of anime"""
   getGenres(query: GenresQueryParams): [Genre!]
@@ -228,12 +249,19 @@ input SearchAnimeQueryParams {
 
   """YYYY-MM-DD"""
   start_date: String
+  status: StatusEnum
   type: AnimeTypeEnum
 }
 
 enum SearchSortEnum {
   asc
   desc
+}
+
+enum StatusEnum {
+  airing
+  complete
+  upcoming
 }
 
 """Query parameters"""
