@@ -1,4 +1,4 @@
-import { Anime } from "./anime.model";
+import { Anime, AnimeSearchResult } from "./anime.model";
 import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
@@ -37,6 +37,7 @@ const RatingEnum = builder.enumType("RatingEnum", {
 const SearchSortEnum = builder.enumType("SearchSortEnum", {
   values: ["asc", "desc"] as const,
 });
+
 const StatusEnum = builder.enumType("StatusEnum", {
   values: ["airing", "complete", "upcoming"] as const,
 });
@@ -132,7 +133,7 @@ builder.queryField("getAnime", (t) =>
 
 builder.queryField("getAnimesSearch", (t) =>
   t.field({
-    type: [Anime],
+    type: AnimeSearchResult,
     description: "Search for anime",
     args: {
       query: t.arg({ type: SearchAnimeQueryParamsType, required: false }),
@@ -141,9 +142,10 @@ builder.queryField("getAnimesSearch", (t) =>
       const { data } = await animeService.GET("/anime", {
         params: { query: args.query as SearchAnimeQueryParams },
       });
-      if (!data?.data) return [];
-
-      return data.data;
+      return {
+        data: data?.data ?? [],
+        pagination: data?.pagination ?? undefined,
+      };
     },
   })
 );
