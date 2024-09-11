@@ -1,6 +1,6 @@
-import { type AnimeTitle } from "~/server/api/modules/anime";
+import { type TitleType } from "~/server/api/modules/shared";
 
-export const getEnglishTitle = (titles: Array<AnimeTitle> | null) => {
+export const getEnglishTitle = (titles: Array<TitleType> | null) => {
   let englishTitle;
   let japaneseTitle;
   for (const title of titles ?? []) {
