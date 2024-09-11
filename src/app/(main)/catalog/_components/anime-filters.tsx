@@ -68,12 +68,12 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
           <AccordionTrigger>Year</AccordionTrigger>
           <AccordionContent>
             <Slider
-              defaultValue={[
+              min={1950}
+              max={new Date().getFullYear()}
+              value={[
                 Number(initialFilters?.start_date ?? 1950),
                 Number(initialFilters?.end_date ?? new Date().getFullYear()),
               ]}
-              min={1950}
-              max={Number(initialFilters?.end_date ?? new Date().getFullYear())}
               step={1}
               minStepsBetweenThumbs={1}
               onValueChange={(values) => {
@@ -83,6 +83,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
                 });
               }}
               className="w-full p-3"
+              showTooltip
             />
           </AccordionContent>
         </AccordionItem>
