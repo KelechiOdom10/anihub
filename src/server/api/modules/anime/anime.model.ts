@@ -3,12 +3,11 @@ import { animeService } from "./anime.service";
 import { builder } from "../../builder";
 import { Character } from "../character";
 import { Genre } from "../genre";
-import { PaginationResult } from "../shared";
+import { PaginationResult, Title } from "../shared";
 
 import { type components } from "~/server/jikan-schema";
 
 type AnimeType = components["schemas"]["anime"];
-type AnimeTitleType = components["schemas"]["title"];
 type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
 type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
 type MetadataType = components["schemas"]["mal_url"];
@@ -16,15 +15,6 @@ type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
 type AnimeSearchResultType = components["schemas"]["anime_search"];
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
-
-const AnimeTitle = builder.objectRef<AnimeTitleType>("AnimeTitle").implement({
-  description: "Title object",
-  fields: (t) => ({
-    type: t.exposeString("type", { nullable: true }),
-    title: t.exposeString("title", { nullable: true }),
-  }),
-});
-export type AnimeTitle = typeof AnimeTitle.$inferType;
 
 const AnimeImage = builder.objectRef<ImageType>("AnimeImage").implement({
   description: "Anime Image object",
@@ -157,7 +147,7 @@ builder.objectType(Anime, {
     }),
     titles: t.field({
       description: "The titles of the anime in different languages",
-      type: [AnimeTitle],
+      type: [Title],
       nullable: true,
       resolve: (parent) => parent.titles,
     }),

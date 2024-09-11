@@ -3,7 +3,7 @@ import Image from "next/image";
 import { type AnimePreview } from "~/graphql/fragments";
 import { cn } from "~/lib/utils";
 import { getEnglishTitle } from "~/lib/utils/anime";
-import { type AnimeTitle } from "~/server/api/modules/anime";
+import { type TitleType } from "~/server/api/modules/shared";
 
 interface AnimeCardProps {
   anime: AnimePreview;
@@ -12,7 +12,7 @@ interface AnimeCardProps {
 
 export const AnimeCard = ({ anime, className }: AnimeCardProps) => {
   const { titles, genres, year } = anime;
-  const title = getEnglishTitle((titles ?? []) as AnimeTitle[]);
+  const title = getEnglishTitle((titles ?? []) as TitleType[]);
   const genre = genres?.[0]?.name ?? "N/A";
   const extraInfo = year ? `${year}, ${genre}` : genre ?? "";
 
