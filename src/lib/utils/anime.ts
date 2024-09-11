@@ -4,7 +4,7 @@ export const getEnglishTitle = (titles: Array<TitleType> | null) => {
   let englishTitle;
   let japaneseTitle;
   for (const title of titles ?? []) {
-    if (title.type === "English") {
+    if (title.type === "English" || title.type === "Default") {
       englishTitle = title;
       break;
     } else if (title.type === "Japanese") {
