@@ -1,6 +1,6 @@
 import { graphql } from "gql.tada";
 
-import { CharacterPreview } from "./../fragments";
+import { CharacterPreview } from "../fragments";
 
 export const TopCharactersQuery = graphql(
   `
