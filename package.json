@@ -43,6 +43,7 @@
     "clsx": "^2.1.1",
     "colorthief": "^2.4.0",
     "drizzle-orm": "^0.29.5",
+    "embla-carousel-react": "^8.1.8",
     "gql.tada": "^1.7.5",
     "graphql": "^16.8.1",
     "graphql-yoga": "^5.3.1",
