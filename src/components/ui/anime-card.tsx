@@ -1,22 +1,27 @@
-import { type FragmentOf } from "gql.tada";
 import Image from "next/image";
 
 import { type AnimePreview } from "~/graphql/fragments";
+import { cn } from "~/lib/utils";
 import { getEnglishTitle } from "~/lib/utils/anime";
 import { type AnimeTitle } from "~/server/api/modules/anime";
 
 interface AnimeCardProps {
-  anime: FragmentOf<typeof AnimePreview>;
+  className?: string;
 }
 
-export const AnimeCard = ({ anime }: AnimeCardProps) => {
+export const AnimeCard = ({ anime, className }: AnimeCardProps) => {
   const { titles, genres, year } = anime;
   const title = getEnglishTitle((titles ?? []) as AnimeTitle[]);
   const genre = genres?.[0]?.name ?? "N/A";
   const extraInfo = year ? `${year}, ${genre}` : genre ?? "";
 
   return (
-    <div className="relative aspect-[3/4] w-56 overflow-hidden rounded-xl bg-gradient-to-b from-transparent via-background/10 to-background/75 shadow-lg">
+    <div
+      className={cn(
+        "relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-gradient-to-b from-transparent via-background/10 to-background/75 shadow-lg",
+        className
+      )}
+    >
       <Image
         width={300}
         height={500}
