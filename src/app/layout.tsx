@@ -1,6 +1,7 @@
 import "~/styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
+import NextTopLoader from "nextjs-toploader";
 
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
@@ -46,6 +47,7 @@ export default function RootLayout({
         >
           <UrqlReactProvider>{children}</UrqlReactProvider>
           <Toaster />
+          <NextTopLoader color="#ffffff" showSpinner={false} />
         </ThemeProvider>
       </body>
     </html>
