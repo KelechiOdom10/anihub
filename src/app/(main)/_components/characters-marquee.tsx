@@ -1,4 +1,3 @@
-import { type FragmentOf } from "gql.tada";
 import { type FunctionComponent } from "react";
 
 import { CharacterCard } from "~/components/ui/character-card";
@@ -6,7 +5,7 @@ import Marquee from "~/components/ui/marquee";
 import { type CharacterPreview } from "~/graphql/fragments";
 
 interface CharactersMarqueeProps {
-  characters: NonNullable<Array<FragmentOf<typeof CharacterPreview>>>;
+  characters: NonNullable<Array<CharacterPreview>>;
 }
 
 export const CharactersMarquee: FunctionComponent<CharactersMarqueeProps> = ({

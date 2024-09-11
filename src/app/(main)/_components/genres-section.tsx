@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@urql/next";
-import { type FragmentOf, type VariablesOf } from "gql.tada";
+import { type VariablesOf } from "gql.tada";
 import Link from "next/link";
 import { useMemo } from "react";
 
@@ -10,7 +10,7 @@ import { type GenrePreview } from "~/graphql/fragments";
 import { AnimesByGenresQuery } from "~/graphql/queries";
 
 interface GenresSectionProps {
-  genres: NonNullable<Array<FragmentOf<typeof GenrePreview>>>;
+  genres: NonNullable<Array<GenrePreview>>;
 }
 
 // Predefined array of genre combinations that return images

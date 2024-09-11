@@ -1,7 +1,6 @@
 "use client";
 
 import { BookmarkIcon } from "@radix-ui/react-icons";
-import { type FragmentOf } from "gql.tada";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,7 +10,7 @@ import { type AnimePreview } from "~/graphql/fragments";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 
 interface HeroProps {
-  anime?: FragmentOf<typeof AnimePreview>;
+  anime?: AnimePreview;
 }
 
 export const Hero = ({ anime }: HeroProps) => {
