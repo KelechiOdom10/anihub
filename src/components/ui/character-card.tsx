@@ -15,6 +15,9 @@ interface CharacterCardProps {
 
 export const CharacterCard = ({ character }: CharacterCardProps) => {
   const [color, setColor] = useState<string | null>(null);
+  const [imageURL, setImageURL] = useState(
+    character.image?.default ?? "/fallback-anime.avif"
+  );
   const imgRef = useRef<HTMLImageElement>(null);
 
   return (
@@ -29,16 +32,19 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
       }}
     >
       <Image
-        src={character.image?.default ?? "/fallback-anime.avif"}
+        src={imageURL}
         alt={character.name ?? "Anime Character"}
         ref={imgRef}
         onLoad={() => {
+          if (imgRef.current) {
           const colorThief = new ColorThief();
           const color = colorThief.getColor(imgRef.current);
           if (color) {
             setColor(rgbToHex(color[0], color[1], color[2]));
+            }
           }
         }}
+        onError={() => setImageURL("/fallback-anime.avif")}
         width={250}
         height={400}
         className="w-[40%] rounded-md object-cover"
