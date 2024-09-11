@@ -37,6 +37,9 @@ const RatingEnum = builder.enumType("RatingEnum", {
 const SearchSortEnum = builder.enumType("SearchSortEnum", {
   values: ["asc", "desc"] as const,
 });
+const StatusEnum = builder.enumType("StatusEnum", {
+  values: ["airing", "complete", "upcoming"] as const,
+});
 
 const AnimeOrderByEnum = builder.enumType("AnimeOrderEnum", {
   values: [
@@ -77,6 +80,7 @@ export const SearchAnimeQueryParamsType = builder
       filter: t.field({ type: FilterEnum, required: false }),
       sort: t.field({ type: SearchSortEnum, required: false }),
       order_by: t.field({ type: AnimeOrderByEnum, required: false }),
+      status: t.field({ type: StatusEnum, required: false }),
       q: t.string(),
       sfw: t.boolean(),
       start_date: t.string({ description: "YYYY-MM-DD" }),
