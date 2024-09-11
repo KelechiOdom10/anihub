@@ -3,6 +3,7 @@ import { animeService } from "./anime.service";
 import { builder } from "../../builder";
 import { Character } from "../character";
 import { Genre } from "../genre";
+import { PaginationResult } from "../shared";
 
 import { type components } from "~/server/jikan-schema";
 
@@ -12,6 +13,7 @@ type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
 type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
 type MetadataType = components["schemas"]["mal_url"];
 type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
+type AnimeSearchResultType = components["schemas"]["anime_search"];
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
 
@@ -187,6 +189,37 @@ builder.objectType(Anime, {
         return data.data.map((character) => ({
           ...character.character,
         }));
+      },
+    }),
+  }),
+});
+
+export const AnimeSearchResult =
+  builder.objectRef<AnimeSearchResultType>("AnimeSearchResult");
+
+builder.objectType(AnimeSearchResult, {
+  description: "Anime search result object",
+  fields: (t) => ({
+    data: t.field({
+      type: [Anime],
+      description: "The list of anime",
+      nullable: true,
+      resolve: (parent) => parent.data,
+    }),
+    pagination: t.field({
+      type: PaginationResult,
+      description: "The pagination information",
+      nullable: true,
+      resolve: (parent) => {
+        return {
+          has_next_page: parent.pagination?.has_next_page,
+          last_visible_page: parent.pagination?.last_visible_page,
+          items: {
+            count: parent.pagination?.items?.count,
+            total: parent.pagination?.items?.total,
+            per_page: parent.pagination?.items?.per_page,
+          },
+        };
       },
     }),
   }),
