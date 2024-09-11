@@ -1,4 +1,4 @@
-import { graphql } from "gql.tada";
+import { type FragmentOf, graphql } from "gql.tada";
 
 export const AnimePreview = graphql(`
   fragment AnimePreview on Anime @_unmask {
@@ -25,3 +25,4 @@ export const AnimePreview = graphql(`
     year
   }
 `);
+export type AnimePreview = FragmentOf<typeof AnimePreview>;

@@ -6,6 +6,7 @@ import { getEnglishTitle } from "~/lib/utils/anime";
 import { type AnimeTitle } from "~/server/api/modules/anime";
 
 interface AnimeCardProps {
+  anime: AnimePreview;
   className?: string;
 }
 

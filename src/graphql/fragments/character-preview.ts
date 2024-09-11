@@ -1,4 +1,4 @@
-import { graphql } from "gql.tada";
+import { type FragmentOf, graphql } from "gql.tada";
 
 export const CharacterPreview = graphql(`
   fragment CharacterPreview on Character @_unmask {
@@ -12,3 +12,4 @@ export const CharacterPreview = graphql(`
     }
   }
 `);
+export type CharacterPreview = FragmentOf<typeof CharacterPreview>;

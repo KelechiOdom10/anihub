@@ -1,7 +1,6 @@
 "use client";
 
 import ColorThief from "colorthief";
-import { type FragmentOf } from "gql.tada";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -10,7 +9,7 @@ import { cn } from "~/lib/utils";
 import { extractCharacterDetails } from "~/lib/utils/anime";
 
 interface CharacterCardProps {
-  character: FragmentOf<typeof CharacterPreview>;
+  character: CharacterPreview;
 }
 
 export const CharacterCard = ({ character }: CharacterCardProps) => {
@@ -37,10 +36,10 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         ref={imgRef}
         onLoad={() => {
           if (imgRef.current) {
-          const colorThief = new ColorThief();
-          const color = colorThief.getColor(imgRef.current);
-          if (color) {
-            setColor(rgbToHex(color[0], color[1], color[2]));
+            const colorThief = new ColorThief();
+            const color = colorThief.getColor(imgRef.current);
+            if (color) {
+              setColor(rgbToHex(color[0], color[1], color[2]));
             }
           }
         }}
