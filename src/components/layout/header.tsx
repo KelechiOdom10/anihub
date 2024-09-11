@@ -2,6 +2,7 @@
 
 import { useQuery } from "@urql/next";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
 import { Button } from "~/components/ui/button";
@@ -20,12 +21,14 @@ import { cn } from "~/lib/utils";
 
 const routes = [
   { name: "Home", href: "/" },
-  { name: "Catalog", href: "/#catalog" },
+  { name: "Catalog", href: "/catalog" },
   { name: "News", href: "/#news" },
   { name: "Collections", href: "/#collections" },
 ] as const;
 
 export const Header = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const [state] = useWindowScroll();
   const [{ data }] = useQuery({ query: MeQuery });
@@ -35,7 +38,8 @@ export const Header = () => {
       className={cn(
         "fixed inset-x-0 top-0 z-50 bg-transparent px-4 py-2 lg:py-4",
         {
-          "border-b border-b-zinc-800/80 bg-background": state.y > 2,
+          "border-b border-b-zinc-800/80 bg-background":
+            state.y > 2 || !isHomePage,
         }
       )}
     >
