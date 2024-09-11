@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
+import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Slider } from "~/components/ui/slider";
 import { type GenrePreview } from "~/graphql/fragments";
@@ -53,8 +54,13 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
       });
       router.push(`${pathname}?${params.toString()}`);
     },
-    [router, pathname, initialFilters]
+    [router, pathname, searchParams]
   );
+
+  const hasActiveFilters = searchParams?.toString() !== "";
+  const clearFilters = useCallback(() => {
+    router.push(pathname);
+  }, [router, pathname]);
 
   return (
     <aside className="w-full px-4">
@@ -241,6 +247,12 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      {hasActiveFilters && (
+        <Button fullWidth className="mt-6" onClick={clearFilters}>
+          Clear All Filters
+        </Button>
+      )}
     </aside>
   );
 };
