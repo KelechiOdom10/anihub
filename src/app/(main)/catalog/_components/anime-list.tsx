@@ -6,7 +6,7 @@ import {
   type FunctionComponent,
 } from "react";
 
-import { AnimeCard } from "~/components/ui/anime-card";
+import { AnimeCard, AnimeCardSkeleton } from "~/components/ui/anime-card";
 import { Button } from "~/components/ui/button";
 import { type AnimePreview } from "~/graphql/fragments";
 import { AnimeSearchQuery } from "~/graphql/queries";
@@ -29,7 +29,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
   });
   const animeList = data?.getAnimesSearch.data ?? [];
   const isLoading = fetching || isPending;
-  const isEmpty = animeList.length === 0;
+  const isEmpty = !fetching && animeList.length === 0;
 
   useEffect(() => {
     // Reset accumulated data and page when query changes
@@ -60,9 +60,9 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
   return (
     <section className="w-full">
       <div className="mb-4 grid grid-cols-2 gap-6 sm:grid-cols-3 md:mb-6 md:grid-cols-4 md:gap-8 lg:grid-cols-5">
-        {isEmpty && !isLoading && (
+        {isEmpty && (
           <p className="col-span-full text-center">
-            No results found. Please try refining your search. d
+            No results found. Please try refining your search.
           </p>
         )}
         {allAnime.map((anime, index) => (
@@ -72,14 +72,13 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
             className="mx-auto"
           />
         ))}
+        {isLoading &&
+          Array(10)
+            .fill(0)
+            .map((_, index) => <AnimeCardSkeleton key={index} />)}
       </div>
       {hasNextPage && (
-        <Button
-          onClick={loadMore}
-          disabled={fetching || isPending}
-          size="lg"
-          fullWidth
-        >
+        <Button onClick={loadMore} disabled={isLoading} size="lg" fullWidth>
           {isLoading ? "Loading..." : "Show More"}
         </Button>
       )}

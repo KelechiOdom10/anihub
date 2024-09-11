@@ -41,3 +41,17 @@ export const AnimeCard = ({ anime, className }: AnimeCardProps) => {
     </div>
   );
 };
+
+export const AnimeCardSkeleton = () => {
+  return (
+    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-gradient-to-b from-transparent via-background/10 to-background/75 shadow-lg">
+      <div className="absolute inset-0 -z-10 h-full w-full animate-pulse bg-neutral-700" />
+      <div className="absolute inset-0 isolate flex items-end p-3">
+        <div className="grid grid-cols-1 gap-1">
+          <div className="h-4 w-2/3 animate-pulse rounded-md bg-neutral-700" />
+          <div className="h-4 w-1/3 animate-pulse rounded-md bg-neutral-700" />
+        </div>
+      </div>
+    </div>
+  );
+};
