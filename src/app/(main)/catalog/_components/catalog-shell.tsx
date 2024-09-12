@@ -8,18 +8,18 @@ import { AnimeList } from "./anime-list";
 import { MobileAnimeFilter } from "./mobile-anime-filters";
 import { SortDropdown } from "./sort-dropdown";
 
-import { type GenrePreview } from "~/graphql/fragments";
+import { type ProducerPreview, type GenrePreview } from "~/graphql/fragments";
 import { ANIME_SORT_OPTIONS } from "~/lib/constants";
 import { type SearchAnimeQueryParams } from "~/server/api/modules/anime";
 
 interface CatalogShellProps {
   allGenres: Array<GenrePreview>;
-  allProducers?: string[];
+  allProducers: Array<ProducerPreview>;
 }
 
 export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
   allGenres,
-  // allProducers,
+  allProducers,
 }) => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
@@ -58,7 +58,11 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
             options={ANIME_SORT_OPTIONS}
             defaultOrderBy="popularity"
           />
-          <MobileAnimeFilter initialFilters={filters} genres={allGenres} />
+          <MobileAnimeFilter
+            initialFilters={filters}
+            genres={allGenres}
+            producers={allProducers}
+          />
         </div>
       </header>
 
@@ -66,7 +70,11 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
         {/* Filter */}
         <div className="hidden md:col-span-1 md:block">
           <div className="sticky top-24">
-            <AnimeFilters initialFilters={filters} genres={allGenres} />
+            <AnimeFilters
+              initialFilters={filters}
+              genres={allGenres}
+              producers={allProducers}
+            />
           </div>
         </div>
 

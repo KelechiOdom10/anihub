@@ -12,34 +12,42 @@ import {
 } from "~/components/ui/accordion";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
-import { Slider } from "~/components/ui/slider";
-import { type GenrePreview } from "~/graphql/fragments";
+import { type ProducerPreview, type GenrePreview } from "~/graphql/fragments";
 import {
   FORMAT_OPTIONS,
   RATING_OPTIONS,
   STATUS_OPTIONS,
 } from "~/lib/constants";
 import { cn } from "~/lib/utils";
+import { getEnglishTitle } from "~/lib/utils/anime";
 import { type SearchAnimeQueryParams } from "~/server/api/modules/anime";
+import { type TitleType } from "~/server/api/modules/shared";
 
 type Filters = Partial<SearchAnimeQueryParams>;
 
 export interface AnimeFiltersProps {
   initialFilters: Filters;
   genres: Array<GenrePreview>;
+  producers: Array<ProducerPreview>;
 }
 
 export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
   initialFilters,
   genres,
+  producers,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [showAllGenres, setShowAllGenres] = useState(false);
+  const [showAllProducers, setShowAllProducers] = useState(false);
   const genresToShow = useMemo(
     () => (showAllGenres ? genres : genres.slice(0, 5)),
     [showAllGenres, genres]
+  );
+  const producersToShow = useMemo(
+    () => (showAllProducers ? producers : producers.slice(0, 5)),
+    [showAllProducers, producers]
   );
 
   const updateFilters = useCallback(
@@ -67,33 +75,8 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
       <Accordion
         type="multiple"
         className="w-full"
-        defaultValue={["genres", "status"]}
+        defaultValue={["genres", "status", "format", "producers"]}
       >
-        {/* year filter - range slider */}
-        <AccordionItem value="year">
-          <AccordionTrigger>Year</AccordionTrigger>
-          <AccordionContent>
-            <Slider
-              min={1950}
-              max={new Date().getFullYear()}
-              value={[
-                Number(initialFilters?.start_date ?? 1950),
-                Number(initialFilters?.end_date ?? new Date().getFullYear()),
-              ]}
-              step={1}
-              minStepsBetweenThumbs={1}
-              onValueChange={(values) => {
-                updateFilters({
-                  start_date: values[0]?.toString(),
-                  end_date: values[1]?.toString(),
-                });
-              }}
-              className="w-full p-3"
-              showTooltip
-            />
-          </AccordionContent>
-        </AccordionItem>
-
         {/* Genres */}
         <AccordionItem value="genres">
           <AccordionTrigger>Genres</AccordionTrigger>
@@ -140,7 +123,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
             {genres.length > 5 && (
               <button
                 className="mt-2 text-sm text-blue-600 hover:underline"
-                onClick={() => setShowAllGenres(!showAllGenres)}
+                onClick={() => setShowAllGenres((prev) => !prev)}
               >
                 {showAllGenres ? "Show Less" : "View All"}
               </button>
@@ -244,6 +227,64 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
                 </div>
               );
             })}
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* Producer */}
+        <AccordionItem value="producers">
+          <AccordionTrigger>Producers</AccordionTrigger>
+          <AccordionContent className="flex flex-col gap-4">
+            {producersToShow.map((producer) => {
+              if (!producer.id) return null;
+
+              const title = getEnglishTitle(
+                (producer.titles ?? []) as TitleType[]
+              );
+              const isProducerFilterEmpty = !initialFilters.producers;
+              const isChecked = isProducerFilterEmpty
+                ? false
+                : initialFilters.producers
+                    ?.split(",")
+                    .includes(producer.id.toString());
+
+              return (
+                <div key={producer.id} className="flex items-center space-x-2">
+                  <Checkbox
+                    id={`producer-${producer.id}`}
+                    checked={isChecked}
+                    onCheckedChange={(checked) => {
+                      const currentProducers =
+                        initialFilters.producers?.split(",") ?? [];
+                      const updatedProducers = checked
+                        ? [...currentProducers, producer.id?.toString()]
+                        : currentProducers.filter(
+                            (id) => id !== producer.id?.toString()
+                          );
+
+                      updateFilters({
+                        producers: updatedProducers.join(","),
+                      });
+                    }}
+                  />
+                  <label
+                    htmlFor={`producer-${producer.id}`}
+                    className={cn("text-sm font-medium text-primary/60", {
+                      "text-primary": isChecked,
+                    })}
+                  >
+                    {title}
+                  </label>
+                </div>
+              );
+            })}
+            {producers.length > 5 && (
+              <button
+                className="mt-2 text-sm text-blue-600 hover:underline"
+                onClick={() => setShowAllProducers((prev) => !prev)}
+              >
+                {showAllProducers ? "Show Less" : "View All"}
+              </button>
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
