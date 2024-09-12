@@ -2,6 +2,7 @@ import { Anime, AnimeSearchResult } from "./anime.model";
 import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
+import { SearchSortEnum } from "../shared";
 
 import { type operations } from "~/server/jikan-schema";
 
@@ -32,10 +33,6 @@ const FilterEnum = builder.enumType("FilterEnum", {
 
 const RatingEnum = builder.enumType("RatingEnum", {
   values: ["g", "pg", "pg13", "r17", "r", "rx"] as const,
-});
-
-const SearchSortEnum = builder.enumType("SearchSortEnum", {
-  values: ["asc", "desc"] as const,
 });
 
 const StatusEnum = builder.enumType("StatusEnum", {
@@ -87,6 +84,7 @@ export const SearchAnimeQueryParamsType = builder
       start_date: t.string({ description: "YYYY-MM-DD" }),
       end_date: t.string({ description: "YYYY-MM-DD" }),
       genres: t.string(),
+      producers: t.string(),
       page: t.int(),
       limit: t.int(),
     }),
