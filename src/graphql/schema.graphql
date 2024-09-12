@@ -157,6 +157,11 @@ input CharacterQueryParams {
   page: Int
 }
 
+"""Common Image object"""
+type CommonImage {
+  imageUrl: String
+}
+
 enum FilterEnum {
   airing
   bypopularity
@@ -191,6 +196,11 @@ type Metadata {
   url: String
 }
 
+type Pagination {
+  hasNextPage: Boolean
+  lastVisiblePage: Int
+}
+
 type PaginationItems {
   count: Int
   perPage: Int
@@ -201,6 +211,41 @@ type PaginationResult {
   hasNextPage: Boolean
   items: PaginationItems!
   lastVisiblePage: Int
+}
+
+"""Producer object"""
+type Producer {
+  about: String
+  id: ID
+  image: CommonImage
+  titles: [AnimeTitle!]
+  url: String
+}
+
+enum ProducerOrderEnum {
+  count
+  established
+  favorites
+  mal_id
+}
+
+"""Producer Search Query parameters"""
+input ProducerSearchQueryParams {
+  letter: String
+  limit: Int
+  order_by: ProducerOrderEnum
+  page: Int
+  q: String
+  sort: SearchSortEnum
+}
+
+"""Producers search result object"""
+type ProducerSearchResult {
+  """The list of producers"""
+  data: [Producer!]
+
+  """The pagination information"""
+  pagination: Pagination
 }
 
 type Query {
@@ -215,6 +260,9 @@ type Query {
 
   """Get the genres of anime"""
   getGenres(query: GenresQueryParams): [Genre!]
+
+  """Search for anime"""
+  getProducers(query: ProducerSearchQueryParams): ProducerSearchResult!
 
   """Get top anime list with optional query parameters"""
   getTopAnimes(query: TopAnimeQueryParams): [Anime!]!
@@ -242,6 +290,7 @@ input SearchAnimeQueryParams {
   limit: Int
   order_by: AnimeOrderEnum
   page: Int
+  producers: String
   q: String
   rating: RatingEnum
   sfw: Boolean
