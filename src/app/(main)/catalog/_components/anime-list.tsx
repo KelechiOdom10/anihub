@@ -32,7 +32,6 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
   const isEmpty = !fetching && animeList.length === 0;
 
   useEffect(() => {
-    // Reset accumulated data and page when query changes
     setAllAnime([]);
     setPage(1);
   }, [query]);
@@ -61,7 +60,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
     <section className="w-full">
       <div className="mb-4 grid grid-cols-2 gap-6 sm:grid-cols-3 md:mb-6 md:grid-cols-4 md:gap-8 lg:grid-cols-5">
         {isEmpty && (
-          <p className="col-span-full text-center">
+          <p className="col-span-full flex h-40 items-center justify-center text-center">
             No results found. Please try refining your search.
           </p>
         )}
