@@ -56,34 +56,36 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
 
   const filterTags = Array.from(searchParams.entries()).reduce(
     (acc: FilterTag[], [key, value]: [string, string]): FilterTag[] => {
-      if (value && key !== "page") {
-        if (key === "genres" || key === "producers") {
-          const items = value.split(",").flatMap((item) => {
-            if (key === "genres") {
-              const genre = allGenres.find((genre) => genre?.id === item);
-              return genre
-                ? [{ key, value: genre.id ?? "", label: genre.name ?? "" }]
-                : [];
-            } else {
-              const producer = allProducers.find(
-                (producer) => producer?.id === item
-              );
-              return producer
-                ? [
-                    {
-                      key,
-                      value: producer.id ?? "",
-                      label: getEnglishTitle(producer.titles as TitleType[]),
-                    },
-                  ]
-                : [];
-            }
-          });
+      if (value && ["page", "limit", "order_by", "sort"].includes(key)) {
+        return acc;
+      }
 
-          return [...acc, ...items];
-        } else {
-          acc.push({ key, value, label: value });
-        }
+      if (key === "genres" || key === "producers") {
+        const items = value.split(",").flatMap((item) => {
+          if (key === "genres") {
+            const genre = allGenres.find((genre) => genre?.id === item);
+            return genre
+              ? [{ key, value: genre.id ?? "", label: genre.name ?? "" }]
+              : [];
+          } else {
+            const producer = allProducers.find(
+              (producer) => producer?.id === item
+            );
+            return producer
+              ? [
+                  {
+                    key,
+                    value: producer.id ?? "",
+                    label: getEnglishTitle(producer.titles as TitleType[]),
+                  },
+                ]
+              : [];
+          }
+        });
+
+        return [...acc, ...items];
+      } else {
+        acc.push({ key, value, label: value });
       }
       return acc;
     },
