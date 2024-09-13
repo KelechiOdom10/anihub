@@ -66,9 +66,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
   );
 
   const hasActiveFilters = searchParams?.toString() !== "";
-  const clearFilters = useCallback(() => {
-    router.push(pathname);
-  }, [router, pathname]);
+  const clearFilters = () => router.push("?");
 
   return (
     <aside className="w-full px-4">
