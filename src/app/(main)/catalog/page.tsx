@@ -19,7 +19,7 @@ export default async function CatalogPage() {
 
   return (
     <Suspense fallback={<AnimatedSpinner />}>
-      <div className="mt-32 max-w-full">
+      <div className="mt-28 max-w-full">
         <CatalogShell allGenres={allGenres} allProducers={allProducers} />
       </div>
     </Suspense>
