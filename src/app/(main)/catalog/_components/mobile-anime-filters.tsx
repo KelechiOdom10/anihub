@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 export const MobileAnimeFilter: FunctionComponent<AnimeFiltersProps> = ({
   initialFilters,
   genres,
+  producers,
 }) => {
   return (
     <Sheet>
@@ -21,7 +22,11 @@ export const MobileAnimeFilter: FunctionComponent<AnimeFiltersProps> = ({
         className="flex w-10/12 flex-col overflow-y-auto p-4 sm:max-w-screen-md md:hidden"
         overlayClassName="md:hidden"
       >
-        <AnimeFilters initialFilters={initialFilters} genres={genres} />
+        <AnimeFilters
+          initialFilters={initialFilters}
+          genres={genres}
+          producers={producers}
+        />
       </SheetContent>
     </Sheet>
   );
