@@ -30,14 +30,14 @@ const FilterTags: FunctionComponent<FilterTagsProps> = ({
           key={tag.key}
           size="sm"
           onClick={() => onRemove(tag.key, tag.value)}
-          className="text-sm capitalize"
+          className="text-[13px] capitalize"
         >
           {tag.label}
           <Cross1Icon className="ml-2 size-3.5" />
         </Button>
       ))}
       {tags.length > 1 && (
-        <Button size="sm" onClick={onClearAll} className="text-sm">
+        <Button size="sm" onClick={onClearAll} className="text-[13px]">
           Clear All
           <Cross1Icon className="ml-2 size-3.5" />
         </Button>
