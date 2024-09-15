@@ -48,7 +48,8 @@ export default async function Home() {
   return (
     <>
       <Hero anime={heroAnime} />
-      {error && <div>Error: {error.message}</div>}
+      {error && <div>Error: {JSON.stringify(error, null, 2)}</div>}
+
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
           <AnimeCarousel
