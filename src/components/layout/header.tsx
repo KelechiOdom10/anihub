@@ -4,7 +4,7 @@ import { useQuery } from "@urql/next";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
 import { Button } from "~/components/ui/button";
@@ -37,6 +37,12 @@ export const Header = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [state] = useWindowScroll();
   const [{ data }] = useQuery({ query: MeQuery });
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = searchParams.get("q") ?? "";
+    }
+  }, [searchParams]);
 
   const handleSearch = () => {
     const search = inputRef.current?.value;
