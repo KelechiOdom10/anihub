@@ -58,7 +58,7 @@ export const GenresSection = ({ genres }: GenresSectionProps) => {
   ];
 
   return (
-    <div className="flex flex-col space-y-8">
+    <div className="flex flex-col space-y-8" key={imagesForCards.length}>
       <h3 className="text-xl font-bold text-white">Categories</h3>
       <div className="grid h-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {genres.map((genre, index) => (
