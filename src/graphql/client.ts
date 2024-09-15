@@ -9,6 +9,7 @@ const makeClient = () => {
   return createClient({
     url: getUrl(),
     exchanges: [cacheExchange, fetchExchange],
+    suspense: true,
   });
 };
 

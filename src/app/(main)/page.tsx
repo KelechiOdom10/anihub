@@ -21,46 +21,26 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const { data: genreData } = await getClient().query(
-    GenresQuery,
-    {},
-    { fetchOptions: { cache: "no-store" } }
-  );
-  const { data: recommended } = await getClient().query(
-    TopAnimeQuery,
-    {},
-    { fetchOptions: { cache: "no-store" } }
-  );
-  const { data: popularData } = await getClient().query(
-    TopAnimeQuery,
-    {
-      query: {
-        filter: "bypopularity",
-        limit: 10,
-      },
+  const { data: genreData, error } = await getClient().query(GenresQuery, {});
+  const { data: recommended } = await getClient().query(TopAnimeQuery, {});
+  const { data: popularData } = await getClient().query(TopAnimeQuery, {
+    query: {
+      filter: "bypopularity",
+      limit: 10,
     },
-    { fetchOptions: { cache: "no-store" } }
-  );
-  const { data: trendingData } = await getClient().query(
-    TopAnimeQuery,
-    {
-      query: {
-        filter: "favorite",
-        limit: 10,
-      },
+  });
+  const { data: trendingData } = await getClient().query(TopAnimeQuery, {
+    query: {
+      filter: "favorite",
+      limit: 10,
     },
-    { fetchOptions: { cache: "no-store" } }
-  );
-  const { data: characterData } = await getClient().query(
-    TopCharactersQuery,
-    {
-      query: {
-        filter: "trending",
-        limit: 10,
-      },
+  });
+  const { data: characterData } = await getClient().query(TopCharactersQuery, {
+    query: {
+      filter: "trending",
+      limit: 10,
     },
-    { fetchOptions: { cache: "no-store" } }
-  );
+  });
   const heroAnime = recommended?.getTopAnimes?.[4];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
@@ -68,6 +48,7 @@ export default async function Home() {
   return (
     <>
       <Hero anime={heroAnime} />
+      {error && <div>Error: {error.message}</div>}
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
           <AnimeCarousel
