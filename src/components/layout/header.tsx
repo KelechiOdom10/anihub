@@ -2,7 +2,8 @@
 
 import { useQuery } from "@urql/next";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useRef } from "react";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
