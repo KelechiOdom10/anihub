@@ -5,6 +5,7 @@ import { AnimeCarousel } from "./_components/anime-carousel";
 import { CharactersMarquee } from "./_components/characters-marquee";
 import { GenresSection } from "./_components/genres-section";
 import { GenresSectionSkeleton } from "./_components/genres-section-skeleton";
+import { Hero } from "./_components/hero";
 
 import { getClient } from "~/graphql/client";
 import {
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
   description:
     "Anihub is a social platform for discovering and sharing your taste in anime. Use it as a diary to record your opinion about animes as you watch them, or just to keep track of animes you’ve seen in the past. Rate, review and tag animes as you add them. Find and follow your friends to see what they’re enjoying. Keep a watchlist of animes you’d like to see, and create lists/collections on any topic.",
 };
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const [
@@ -63,7 +66,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* <Hero anime={heroAnime} /> */}
+      <Hero anime={heroAnime} />
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
           <AnimeCarousel
