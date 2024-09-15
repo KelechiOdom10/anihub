@@ -2,7 +2,8 @@
 
 import { useQuery } from "@urql/next";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRef } from "react";
 
 import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
 import { Button } from "~/components/ui/button";
@@ -27,11 +28,23 @@ const routes = [
 ] as const;
 
 export const Header = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [state] = useWindowScroll();
   const [{ data }] = useQuery({ query: MeQuery });
+
+  const handleSearch = () => {
+    const search = inputRef.current?.value;
+    if (search) {
+      const params = new URLSearchParams(searchParams);
+      params.set("q", search);
+      router.push(`/catalog?${params.toString()}`);
+    }
+  };
 
   return (
     <header
@@ -85,11 +98,13 @@ export const Header = () => {
         </nav>
 
         <Input
+          ref={inputRef}
           parentclassname="hidden h-10 flex-1 lg:block"
           placeholder="Search"
           startIcon={
             <SearchIcon className="ml-1 mt-0.5 h-5 w-5 text-muted-foreground" />
           }
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
         />
 
         <div className="ml-auto self-center">
