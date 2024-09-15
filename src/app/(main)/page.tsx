@@ -5,7 +5,6 @@ import { AnimeCarousel } from "./_components/anime-carousel";
 import { CharactersMarquee } from "./_components/characters-marquee";
 import { GenresSection } from "./_components/genres-section";
 import { GenresSectionSkeleton } from "./_components/genres-section-skeleton";
-import { Hero } from "./_components/hero";
 
 import { getClient } from "~/graphql/client";
 import {
@@ -56,7 +55,7 @@ export default async function Home() {
 
   return (
     <>
-      <Hero anime={heroAnime} />
+      {/* <Hero anime={heroAnime} /> */}
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
           <AnimeCarousel
