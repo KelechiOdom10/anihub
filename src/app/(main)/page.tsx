@@ -49,6 +49,14 @@ export default async function Home() {
     }),
   ]);
 
+  console.log({
+    genreData,
+    recommended,
+    popularData,
+    trendingData,
+    characterData,
+  });
+
   const heroAnime = recommended?.getTopAnimes?.[4];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
