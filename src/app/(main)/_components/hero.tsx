@@ -25,7 +25,7 @@ export const Hero = ({ anime }: HeroProps) => {
       <Image
         fill
         fetchPriority="high"
-        className="absolute inset-0 isolate -z-50 block h-full w-full object-cover lg:hidden"
+        className="absolute inset-0 isolate -z-20 block h-full w-full object-cover lg:hidden"
         src={anime?.image?.large ?? "/fallback-anime.avif"}
         alt={anime?.titles?.[0]?.title ?? ""}
       />
@@ -35,12 +35,12 @@ export const Hero = ({ anime }: HeroProps) => {
           height="100%"
           width="100%"
           allowFullScreen
-          className="pointer-events-none absolute -z-50 hidden select-none bg-center bg-no-repeat px-0 lg:block"
+          className="pointer-events-none absolute -z-10 hidden select-none bg-center bg-no-repeat px-0 lg:block"
           src={`${trailerUrl}&controls=0&autoplay=1&mute=1&loop=1&playlist=${trailerId};showinfo=0`}
         />
       </div>
 
-      <div className="absolute inset-0 flex items-end pb-12 lg:items-center lg:pb-0">
+      <div className="absolute inset-0 z-40 flex items-end pb-12 lg:items-center lg:pb-0">
         <div className="container text-balance">
           <h1 className="max-w-xl text-3xl font-bold text-white sm:text-4xl md:max-w-3xl md:text-5xl lg:text-7xl">
             {anime?.titles?.[0]?.title}
