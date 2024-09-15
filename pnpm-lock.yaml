@@ -110,9 +110,6 @@ importers:
       nextjs-toploader:
         specifier: ^3.6.15
         version: 3.6.15(next@14.2.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      nodemailer:
-        specifier: ^6.9.13
-        version: 6.9.13
       openapi-fetch:
         specifier: ^0.9.7
         version: 0.9.7
@@ -3963,10 +3960,6 @@ packages:
 
   node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
-
-  nodemailer@6.9.13:
-    resolution: {integrity: sha512-7o38Yogx6krdoBf3jCAqnIN4oSQFx+fMa0I7dK1D+me9kBxx12D+/33wSb+fhOCtIxvYJ+4x4IMEhmhCKfAiOA==}
-    engines: {node: '>=6.0.0'}
 
   nopt@7.2.1:
     resolution: {integrity: sha512-taM24ViiimT/XntxbPyJQzCG+p4EKOpgD3mxFwW38mGjVUrfERQOeY4EDHjdnptttfHuHQXFx+lTP08Q+mLa/w==}
@@ -8520,8 +8513,6 @@ snapshots:
       formdata-polyfill: 4.0.10
 
   node-releases@2.0.14: {}
-
-  nodemailer@6.9.13: {}
 
   nopt@7.2.1:
     dependencies:

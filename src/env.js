@@ -18,14 +18,12 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    MOCK_SEND_EMAIL: z.boolean().default(false),
+    SENDGRID_API_KEY: z.string().min(1),
     DISCORD_CLIENT_ID: z.string().trim().min(1),
     DISCORD_CLIENT_SECRET: z.string().trim().min(1),
     GOOGLE_CLIENT_ID: z.string().trim().min(1),
     GOOGLE_CLIENT_SECRET: z.string().trim().min(1),
-    SMTP_HOST: z.string().trim().min(1),
-    SMTP_PORT: z.number().int().min(1),
-    SMTP_USER: z.string().trim().min(1),
-    SMTP_PASSWORD: z.string().trim().min(1),
   },
 
   /**
@@ -47,10 +45,10 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
     NODE_ENV: process.env.NODE_ENV,
-    SMTP_HOST: process.env.SMTP_HOST,
-    SMTP_PORT: parseInt(process.env.SMTP_PORT ?? ""),
-    SMTP_USER: process.env.SMTP_USER,
-    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    MOCK_SEND_EMAIL:
+      process.env.MOCK_SEND_EMAIL === "true" ||
+      process.env.MOCK_SEND_EMAIL === "1",
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
