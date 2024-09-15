@@ -20,29 +20,36 @@ export const metadata: Metadata = {
     "Anihub is a social platform for discovering and sharing your taste in anime. Use it as a diary to record your opinion about animes as you watch them, or just to keep track of animes you’ve seen in the past. Rate, review and tag animes as you add them. Find and follow your friends to see what they’re enjoying. Keep a watchlist of animes you’d like to see, and create lists/collections on any topic.",
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
-  const { data: genreData } = await getClient().query(GenresQuery, {});
-  const { data: recommended } = await getClient().query(TopAnimeQuery, {});
-  const { data: popularData } = await getClient().query(TopAnimeQuery, {
-    query: {
-      filter: "bypopularity",
-      limit: 10,
-    },
-  });
-  const { data: trendingData } = await getClient().query(TopAnimeQuery, {
-    query: {
-      filter: "favorite",
-      limit: 10,
-    },
-  });
-  const { data: characterData } = await getClient().query(TopCharactersQuery, {
-    query: {
-      filter: "trending",
-      limit: 10,
-    },
-  });
+  const [
+    { data: genreData },
+    { data: recommended },
+    { data: popularData },
+    { data: trendingData },
+    { data: characterData },
+  ] = await Promise.all([
+    getClient().query(GenresQuery, {}),
+    getClient().query(TopAnimeQuery, {}),
+    getClient().query(TopAnimeQuery, {
+      query: {
+        filter: "bypopularity",
+        limit: 10,
+      },
+    }),
+    getClient().query(TopAnimeQuery, {
+      query: {
+        filter: "favorite",
+        limit: 10,
+      },
+    }),
+    getClient().query(TopCharactersQuery, {
+      query: {
+        filter: "trending",
+        limit: 10,
+      },
+    }),
+  ]);
+
   const heroAnime = recommended?.getTopAnimes?.[4];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
