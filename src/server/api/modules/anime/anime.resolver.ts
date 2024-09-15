@@ -98,9 +98,10 @@ builder.queryField("getTopAnimes", (t) =>
       query: t.arg({ type: TopAnimeQueryParamsType, required: false }),
     },
     resolve: async (_, args) => {
-      const { data } = await animeService.GET("/top/anime", {
+      const { data, error } = await animeService.GET("/top/anime", {
         params: { query: args.query as TopAnimeQueryParams },
       });
+      console.log({ data, error });
       if (!data?.data) return [];
 
       return data.data;
