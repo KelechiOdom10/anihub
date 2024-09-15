@@ -5,9 +5,14 @@ import { cacheExchange, createClient, fetchExchange } from "urql/core";
 import type { introspection } from "./graphql-env";
 import { getUrl } from "./shared";
 
+import { env } from "~/env";
+
 const makeClient = () => {
   return createClient({
-    url: getUrl(),
+    url:
+      env.NODE_ENV !== "development"
+        ? "https://anihubb.vercel.app/api/graphql"
+        : getUrl(),
     exchanges: [cacheExchange, fetchExchange],
     suspense: true,
   });
