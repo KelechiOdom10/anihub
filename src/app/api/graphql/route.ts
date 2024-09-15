@@ -17,12 +17,6 @@ const { handleRequest } = createYoga({
   context: createContext,
 
   logging: true,
-
-  cors: {
-    origin: "*",
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "OPTIONS"],
-  },
 });
 
 export {
