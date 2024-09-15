@@ -48,7 +48,14 @@ export default async function Home() {
   return (
     <>
       <Hero anime={heroAnime} />
-      {error && <div>Error: {JSON.stringify(error, null, 2)}</div>}
+      {error && (
+        <div>
+          Error: {JSON.stringify(error, null, 2)}
+          <span>{JSON.stringify(error.cause)}</span>
+          <span>{JSON.stringify(error.stack)}</span>
+          <span>{JSON.stringify(error.message)}</span>
+        </div>
+      )}
 
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
