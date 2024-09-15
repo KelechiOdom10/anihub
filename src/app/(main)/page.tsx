@@ -1,18 +1,9 @@
 import { type Metadata } from "next";
-import { Suspense } from "react";
 
 import { AnimeCarousel } from "./_components/anime-carousel";
-import { CharactersMarquee } from "./_components/characters-marquee";
-import { GenresSection } from "./_components/genres-section";
-import { GenresSectionSkeleton } from "./_components/genres-section-skeleton";
-import { Hero } from "./_components/hero";
 
 import { getClient } from "~/graphql/client";
-import {
-  GenresQuery,
-  TopAnimeQuery,
-  TopCharactersQuery,
-} from "~/graphql/queries";
+import { TopAnimeQuery } from "~/graphql/queries";
 
 export const metadata: Metadata = {
   title: "Anihub • Social anime discovery",
@@ -21,53 +12,33 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const { data: genreData } = await getClient().query(
-    GenresQuery,
-    {},
-    { requestPolicy: "network-only" }
-  );
-  const { data: recommended } = await getClient().query(
-    TopAnimeQuery,
-    {},
-    { requestPolicy: "network-only" }
-  );
-  const { data: popularData } = await getClient().query(
-    TopAnimeQuery,
-    {
-      query: {
-        filter: "bypopularity",
-        limit: 10,
-      },
-    },
-    { requestPolicy: "network-only" }
-  );
-  const { data: trendingData } = await getClient().query(
-    TopAnimeQuery,
-    {
-      query: {
-        filter: "favorite",
-        limit: 10,
-      },
-    },
-    { requestPolicy: "network-only" }
-  );
-  const { data: characterData } = await getClient().query(
-    TopCharactersQuery,
-    {
-      query: {
-        filter: "trending",
-        limit: 10,
-      },
-    },
-    { requestPolicy: "network-only" }
-  );
-  const heroAnime = recommended?.getTopAnimes?.[4];
-  const shuffledGenres =
-    genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
+  // const { data: genreData } = await getClient().query(GenresQuery, {}, );
+  const { data: recommended } = await getClient().query(TopAnimeQuery, {});
+  // const { data: popularData } = await getClient().query(TopAnimeQuery, {
+  //   query: {
+  //     filter: "bypopularity",
+  //     limit: 10,
+  //   },
+  // });
+  // const { data: trendingData } = await getClient().query(TopAnimeQuery, {
+  //   query: {
+  //     filter: "favorite",
+  //     limit: 10,
+  //   },
+  // });
+  // const { data: characterData } = await getClient().query(TopCharactersQuery, {
+  //   query: {
+  //     filter: "trending",
+  //     limit: 10,
+  //   },
+  // });
+  // const heroAnime = recommended?.getTopAnimes?.[4];
+  // const shuffledGenres =
+  //   genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
 
   return (
     <>
-      <Hero anime={heroAnime} />
+      {/* <Hero anime={heroAnime} /> */}
       {recommended?.getTopAnimes && (
         <div className="container isolate mx-auto py-20 lg:-mt-64">
           <AnimeCarousel
@@ -76,7 +47,7 @@ export default async function Home() {
           />
         </div>
       )}
-      {popularData?.getTopAnimes && (
+      {/* {popularData?.getTopAnimes && (
         <div className="container mx-auto py-8">
           <AnimeCarousel
             heading="Popular Anime"
@@ -103,7 +74,7 @@ export default async function Home() {
         <div className="container mx-auto py-8">
           <CharactersMarquee characters={characterData.getTopCharacters} />
         </div>
-      )}
+      )} */}
     </>
   );
 }
