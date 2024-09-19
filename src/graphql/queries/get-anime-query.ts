@@ -2,7 +2,7 @@ import { type ResultOf, type VariablesOf, graphql } from "gql.tada";
 
 import { AnimePreview } from "../fragments";
 
-export const AnimeSearchQuery = graphql(
+export const AnimeQuery = graphql(
   `
     query Anime($id: Int!) {
       getAnime(id: $id) {
@@ -12,5 +12,5 @@ export const AnimeSearchQuery = graphql(
   `,
   [AnimePreview]
 );
-export type AnimeSearchResult = ResultOf<typeof AnimeSearchQuery>;
-export type AnimeSearchQueryParams = VariablesOf<typeof AnimeSearchQuery>;
+export type AnimeQueryResult = ResultOf<typeof AnimeQuery>;
+export type AnimeQueryParams = VariablesOf<typeof AnimeQuery>;
