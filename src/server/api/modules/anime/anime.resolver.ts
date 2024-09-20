@@ -187,24 +187,3 @@ builder.queryField("getAnimesByGenres", (t) =>
     },
   })
 );
-
-builder.queryField("getAnime", (t) =>
-  t.field({
-    type: Anime,
-    description: "Get anime by ID",
-    nullable: true,
-    args: {
-      id: t.arg.int({ required: true }),
-    },
-    resolve: async (_, args) => {
-      const { data } = await animeService.GET("/anime/{id}", {
-        params: {
-          path: { id: args.id },
-        },
-      });
-      if (!data?.data) return null;
-
-      return data.data;
-    },
-  })
-);
