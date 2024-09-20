@@ -1,4 +1,5 @@
 import { useQuery } from "@urql/next";
+import Link from "next/link";
 import {
   useEffect,
   useState,
@@ -65,11 +66,9 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
           </p>
         )}
         {allAnime.map((anime, index) => (
-          <AnimeCard
-            key={`${anime.id}-${index}`}
-            anime={anime}
-            className="mx-auto"
-          />
+          <Link href={`/anime/${anime.id}`} key={`${anime.id}-${index}`}>
+            <AnimeCard anime={anime} className="mx-auto" />
+          </Link>
         ))}
         {isLoading &&
           Array(10)
