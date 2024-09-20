@@ -32,7 +32,6 @@ export const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const inputRef = useRef<HTMLInputElement>(null);
   const [state] = useWindowScroll();
@@ -53,13 +52,15 @@ export const Header = () => {
     }
   };
 
+  const isNewsOrCatalog = pathname === "/catalog" || pathname === "/news";
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 bg-transparent px-4 py-2 lg:py-4",
         {
           "border-b border-b-zinc-800/80 bg-background":
-            state.y > 2 || !isHomePage,
+            state.y > 2 || isNewsOrCatalog,
         }
       )}
     >
@@ -96,7 +97,12 @@ export const Header = () => {
           {routes.map(({ name, href }) => (
             <Link
               key={name}
-              className="text-base font-medium text-white/80 transition-colors hover:text-muted-foreground"
+              className={cn(
+                "text-base font-medium text-white/80 transition-colors hover:text-muted-foreground",
+                {
+                  "text-white hover:text-white": pathname === href,
+                }
+              )}
               href={href}
             >
               {name}
