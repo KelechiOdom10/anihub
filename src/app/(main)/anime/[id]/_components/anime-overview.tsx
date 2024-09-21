@@ -6,7 +6,7 @@ export const AnimeOverview = ({ anime }: { anime: AnimeQueryData }) => {
   const ended = anime.aired?.to ? formatDate(anime.aired?.to) : "Unknown";
 
   return (
-    <div className="grid w-full grid-cols-1 gap-20 px-4 py-6 md:grid-cols-4 md:gap-24">
+    <div className="grid w-full grid-cols-1 gap-20 md:grid-cols-4 md:gap-24">
       <div className="col-span-1 flex flex-col gap-3">
         <h2 className="text-2xl font-bold">Details</h2>
         {anime.type && (
