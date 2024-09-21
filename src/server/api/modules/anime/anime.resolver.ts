@@ -187,3 +187,47 @@ builder.queryField("getAnimesByGenres", (t) =>
     },
   })
 );
+
+builder.queryField("getAnimeRelations", (t) =>
+  t.field({
+    type: [Anime],
+    description: "Get related anime by ID",
+    nullable: true,
+    args: {
+      id: t.arg.int({ required: true }),
+    },
+    resolve: async (_, args) => {
+      const { data } = await animeService.GET("/anime/{id}/relations", {
+        params: {
+          path: { id: args.id },
+        },
+      });
+      if (!data?.data) return null;
+
+      const relatedAnimes = await Promise.all(
+        data.data.flatMap(async (result) => {
+          const animeEntries =
+            result.entry?.filter(
+              (entry): entry is { mal_id: number; type: string } =>
+                entry.type === "anime" && typeof entry.mal_id === "number"
+            ) ?? [];
+
+          return Promise.all(
+            animeEntries.map(async (entry) => {
+              const anime = await animeService.GET("/anime/{id}", {
+                params: {
+                  path: { id: entry.mal_id },
+                },
+              });
+              return anime.data?.data ?? null;
+            })
+          );
+        })
+      );
+
+      return relatedAnimes
+        .flat()
+        .filter((anime): anime is NonNullable<typeof anime> => anime !== null);
+    },
+  })
+);
