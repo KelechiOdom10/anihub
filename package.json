@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
+    "generate": "tsx src/server/api/build-schema.ts",
     "codegen:anime": "npx openapi-typescript https://raw.githubusercontent.com/jikan-me/jikan-rest/master/storage/api-docs/api-docs.json -o ./src/server/jikan-schema.d.ts"
   },
   "dependencies": {
