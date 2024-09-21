@@ -1,11 +1,12 @@
-import { type FunctionComponent } from "react";
+import { Suspense, type FunctionComponent } from "react";
 
 import { AnimeOverview } from "./anime-overview";
+import { AnimeRelations, AnimeRelationsSkeleton } from "./anime-relations";
 
 import { type AnimeQueryData } from "~/graphql/queries";
 
 interface AnimeTabContentProps {
-  animeId: string;
+  animeId: number;
   currentTab: string;
   anime: AnimeQueryData;
 }
@@ -19,7 +20,11 @@ export const AnimeTabContent: FunctionComponent<AnimeTabContentProps> = ({
     case "overview":
       return <AnimeOverview anime={anime} />;
     case "relations":
-      return <div>Relations {animeId}</div>;
+      return (
+        <Suspense fallback={<AnimeRelationsSkeleton />}>
+          <AnimeRelations animeId={animeId} />
+        </Suspense>
+      );
     case "characters":
       return <div>Characters {animeId}</div>;
     case "staff":
