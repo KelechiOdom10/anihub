@@ -19,8 +19,6 @@ export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
   const trailerId = anime?.trailer?.id ?? "";
   const trailerUrl = anime?.trailer?.embedUrl ?? "";
 
-  console.log(trailerId, trailerUrl);
-
   return (
     <div className="relative h-[40vh] w-full overflow-hidden bg-gradient-to-b from-background via-background/40 to-background/70 pt-0 md:h-[45vh] md:to-background/60">
       <Image
