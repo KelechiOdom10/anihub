@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -8,13 +9,69 @@ import { AnimeToolbar } from "./_components/anime-toolbar";
 
 import { getClient } from "~/graphql/client";
 import { AnimeQuery } from "~/graphql/queries";
+import { getEnglishTitle } from "~/lib/utils/anime";
+import { type TitleType } from "~/server/api/modules/shared";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> => {
+  const animeId = parseInt(params.id);
+  const { data } = await getClient().query(AnimeQuery, {
+    id: animeId,
+  });
+
+  if (!data?.getAnime) {
+    notFound();
+  }
+
+  const animeData = data.getAnime;
+  const title = `${getEnglishTitle(
+    (animeData.titles ?? []) as TitleType[]
+  )} | Anihub`;
+  const description = animeData.synopsis ?? "";
+  const image = animeData.image?.large ?? "/fallback-anime.avif";
+  const url = `/anime/${animeId}`;
+  const twitterCard = "summary_large_image";
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: twitterCard,
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+  };
+};
 
 export default async function AnimePage({
   params,
   searchParams,
 }: {
   params: { id: string };
-  searchParams: { tab?: string };
+  searchParams: Record<string, string | string[] | undefined>;
 }) {
   const animeId = parseInt(params.id);
   const { data } = await getClient().query(AnimeQuery, {
@@ -25,7 +82,7 @@ export default async function AnimePage({
     notFound();
   }
   const animeData = data.getAnime;
-  const currentTab = searchParams.tab ?? "overview";
+  const currentTab = (searchParams?.tab as string) ?? "overview";
 
   return (
     <Suspense fallback={<div>Loading... </div>}>
