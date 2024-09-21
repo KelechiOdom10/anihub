@@ -16,8 +16,9 @@ export default async function AnimePage({
   params: { id: string };
   searchParams: { tab?: string };
 }) {
+  const animeId = parseInt(params.id);
   const { data } = await getClient().query(AnimeQuery, {
-    id: parseInt(params.id),
+    id: animeId,
   });
 
   if (!data?.getAnime) {
@@ -32,11 +33,13 @@ export default async function AnimePage({
       <AnimeToolbar anime={animeData} />
       <div className="mx-auto max-w-5xl px-4 py-8 xl:max-w-7xl">
         <AnimeTabsNavigation currentTab={currentTab} />
-        <AnimeTabContent
-          animeId={params.id}
-          currentTab={currentTab}
-          anime={animeData}
-        />
+        <div className="px-4 py-6">
+          <AnimeTabContent
+            animeId={animeId}
+            currentTab={currentTab}
+            anime={animeData}
+          />
+        </div>
       </div>
     </Suspense>
   );
