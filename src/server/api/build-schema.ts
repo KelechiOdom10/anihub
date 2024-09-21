@@ -4,4 +4,4 @@ import { writeFileSync } from "node:fs";
 
 import { schema } from "./schema";
 
-writeFileSync("schema.graphql", printSchema(schema));
+writeFileSync("src/graphql/schema.graphql", printSchema(schema));
