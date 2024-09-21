@@ -252,6 +252,9 @@ type Query {
   """Get anime by ID"""
   getAnime(id: Int!): Anime
 
+  """Get related anime by ID"""
+  getAnimeRelations(id: Int!): [Anime!]
+
   """Get anime by genres"""
   getAnimesByGenres(query: AnimesByGenresQueryParams!): [Anime!]!
 
