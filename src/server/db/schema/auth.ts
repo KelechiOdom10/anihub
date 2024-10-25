@@ -1,18 +1,24 @@
 import { sql } from "drizzle-orm";
 import {
+  text,
+  int,
+  sqliteTableCreator,
   index,
   primaryKey,
-  text,
-  integer,
-  sqliteTable,
 } from "drizzle-orm/sqlite-core";
 
+import { DATABASE_PREFIX } from "~/lib/constants";
+
+export const sqliteTable = sqliteTableCreator(
+  (name) => `${DATABASE_PREFIX}_${name}`
+);
+
 export const users = sqliteTable(
-  "user",
+  "users",
   {
-    id: text("id", { length: 21 }).primaryKey(),
+    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
     email: text("email", { length: 255 }).unique().notNull(),
-    emailVerified: integer("id", { mode: "boolean" }).default(false).notNull(),
+    emailVerified: int("id", { mode: "boolean" }).default(false).notNull(),
     hashedPassword: text("hashed_password", { length: 255 }),
     avatar: text("avatar", { length: 255 }),
     createdAt: text("created_at")
@@ -23,7 +29,7 @@ export const users = sqliteTable(
       .notNull(),
   },
   (t) => ({
-    emailIdx: index("email_idx").on(t.email),
+    emailIdx: index("users_email_idx").on(t.email),
   })
 );
 
@@ -33,24 +39,25 @@ export type NewUser = typeof users.$inferInsert;
 export const sessions = sqliteTable(
   "sessions",
   {
-    id: text("id", { length: 255 }).primaryKey(),
-    userId: text("user_id", { length: 21 })
+    id: text("id").primaryKey(),
+    userId: int("user_id")
       .notNull()
       .references(() => users.id, {
         onDelete: "cascade",
       }),
-    expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+    expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
   },
   (t) => ({
-    userIdx: index("user_idx").on(t.userId),
+    userIdIdx: index("sessions_user_idx").on(t.userId),
   })
 );
+export type Session = typeof sessions.$inferSelect;
 
 export const emailVerificationCodes = sqliteTable(
   "email_verification_codes",
   {
-    id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-    userId: text("user_id", { length: 21 })
+    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+    userId: int("user_id")
       .unique()
       .notNull()
       .references(() => users.id, {
@@ -58,27 +65,26 @@ export const emailVerificationCodes = sqliteTable(
       }),
     email: text("email", { length: 255 }).notNull(),
     code: text("code", { length: 8 }).notNull(),
-    expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+    expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
   },
   (t) => ({
-    userIdx: index("user_idx").on(t.userId),
-    emailIdx: index("email_idx").on(t.email),
+    codeIdx: index("verification_codes_code_idx").on(t.code),
   })
 );
 
 export const passwordResetTokens = sqliteTable(
   "password_reset_tokens",
   {
-    id: text("id", { length: 40 }).primaryKey(),
-    userId: text("user_id", { length: 21 })
+    id: text("id").primaryKey(),
+    userId: int("user_id")
       .notNull()
       .references(() => users.id, {
         onDelete: "cascade",
       }),
-    expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+    expiresAt: int("expires_at", { mode: "timestamp" }).notNull(),
   },
   (t) => ({
-    userIdx: index("user_idx").on(t.userId),
+    userIdIdx: index("reset_tokens_user_idx").on(t.userId),
   })
 );
 
@@ -86,7 +92,7 @@ export const oauthProviders = ["google", "discord"] as const;
 export const oauthAccounts = sqliteTable(
   "oauth_accounts",
   {
-    userId: text("user_id", { length: 21 })
+    userId: int("user_id")
       .notNull()
       .references(() => users.id, {
         onDelete: "cascade",
@@ -96,8 +102,10 @@ export const oauthAccounts = sqliteTable(
   },
   (t) => ({
     pk: primaryKey({ columns: [t.provider, t.providerUserId] }),
-    userIdx: index("user_idx").on(t.userId),
-    providerIdx: index("provider_idx").on(t.provider),
-    providerUserIdIdx: index("provider_user_id_idx").on(t.providerUserId),
+    userIdIdx: index("oauth_accounts_user_idx").on(t.userId),
+    providerIdx: index("oauth_accounts_provider_idx").on(t.provider),
+    providerUserIdIdx: index("oauth_accounts_provider_user_id_idx").on(
+      t.providerUserId
+    ),
   })
 );
