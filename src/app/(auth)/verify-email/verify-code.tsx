@@ -37,6 +37,16 @@ export const VerifyCode = () => {
     }
   }, [verifyEmailState?.error]);
 
+  const handleLogout = async () => {
+    const response = await logout("/login");
+
+    if (response && "error" in response) {
+      toast(response.error, {
+        icon: <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <form ref={codeFormRef} action={verifyEmailAction}>
@@ -49,7 +59,7 @@ export const VerifyCode = () => {
           Resend Code
         </SubmitButton>
       </form>
-      <form action={logout}>
+      <form action={handleLogout}>
         <SubmitButton variant="link" className="p-0 font-normal">
           want to use another email? Log out now.
         </SubmitButton>
