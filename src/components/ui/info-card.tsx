@@ -26,7 +26,7 @@ export const InfoCard = ({ heading, images }: InfoCardProps) => {
             key={index}
             src={image.url}
             alt={image.alt}
-            className={`aspect-[3/4] w-[110px] transform overflow-hidden rounded-lg border-[5px] border-zinc-900 shadow-lg transition-transform duration-300 ease-in-out hover:scale-105`}
+            className={`aspect-[2/3] w-[110px] transform overflow-hidden rounded-lg border-[5px] border-zinc-900 shadow-lg transition-transform duration-300 ease-in-out hover:scale-105`}
             // transform to be at a slight angle
             style={{
               transform: `rotate(${index % 2 === 0 ? 5 : -5}deg)`,

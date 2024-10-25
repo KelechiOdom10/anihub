@@ -45,7 +45,7 @@ export const AnimeCardSkeleton = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-gradient-to-b from-transparent via-background/10 to-background/75 shadow-lg",
+        "relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-gradient-to-b from-transparent via-background/10 to-background/75 shadow-lg",
         className
       )}
     >
