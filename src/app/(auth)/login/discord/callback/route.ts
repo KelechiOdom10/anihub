@@ -1,9 +1,9 @@
 import { OAuth2RequestError } from "arctic";
 import { eq } from "drizzle-orm";
-import { generateId } from "lucia";
 import { cookies } from "next/headers";
 
-import { discord, lucia } from "~/lib/auth";
+import { discord } from "~/lib/auth";
+import { setSession } from "~/lib/auth/session";
 import { redirects } from "~/lib/constants";
 import { db } from "~/server/db";
 import { oauthAccounts, users } from "~/server/db/schema";
@@ -44,7 +44,7 @@ export async function GET(request: Request): Promise<Response> {
       : null;
 
     const existingUser = await db.query.users.findFirst({
-      where: (table, { eq }) => eq(table.id, discordUser.email!),
+      where: (table, { eq }) => eq(table.email, discordUser.email!),
     });
 
     if (existingUser) {
@@ -86,13 +86,7 @@ export async function GET(request: Request): Promise<Response> {
         });
       }
 
-      const session = await lucia.createSession(existingUser.id, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      await setSession(existingUser.id);
 
       return new Response(null, {
         status: 302,
@@ -100,14 +94,23 @@ export async function GET(request: Request): Promise<Response> {
       });
     }
 
-    const userId = generateId(21);
+    let userId: number | undefined;
+
     await db.transaction(async (tx) => {
-      await tx.insert(users).values({
-        id: userId,
-        email: discordUser.email!,
-        emailVerified: true,
-        avatar,
-      });
+      const [user] = await tx
+        .insert(users)
+        .values({
+          email: discordUser.email!,
+          emailVerified: true,
+          avatar,
+        })
+        .returning({ id: users.id });
+
+      if (!user) {
+        throw new Error("Failed to create user");
+      }
+
+      userId = user.id;
 
       await tx.insert(oauthAccounts).values({
         userId,
@@ -115,13 +118,13 @@ export async function GET(request: Request): Promise<Response> {
         providerUserId: discordUser.id,
       });
     });
-    const session = await lucia.createSession(userId, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes
-    );
+
+    if (!userId) {
+      throw new Error("Failed to create user");
+    }
+
+    await setSession(userId);
+
     return new Response(null, {
       status: 302,
       headers: { Location: redirects.afterLogin },
