@@ -1,40 +1,14 @@
-import { LibSQLAdapter } from "@lucia-auth/adapter-sqlite";
+import { sha256 } from "@oslojs/crypto/sha2";
+import {
+  encodeBase32LowerCaseNoPadding,
+  encodeHexLowerCase,
+} from "@oslojs/encoding";
 import { Discord, Google } from "arctic";
-import { Lucia, TimeSpan } from "lucia";
+import { eq } from "drizzle-orm";
 
 import { env } from "~/env.js";
-import { client } from "~/server/db";
-import { type User as DbUser } from "~/server/db/schema";
-
-const adapter = new LibSQLAdapter(client, {
-  user: "user",
-  session: "sessions",
-});
-
-export const lucia = new Lucia(adapter, {
-  getSessionAttributes: (/* attributes */) => {
-    return {};
-  },
-  getUserAttributes: (attributes) => {
-    return {
-      id: attributes.id,
-      email: attributes.email,
-      emailVerified: attributes.emailVerified,
-      avatar: attributes.avatar,
-      createdAt: attributes.createdAt,
-      updatedAt: attributes.updatedAt,
-    };
-  },
-  sessionExpiresIn: new TimeSpan(30, "d"),
-  sessionCookie: {
-    name: "session",
-
-    expires: false, // session cookies have very long lifespan (2 years)
-    attributes: {
-      secure: env.NODE_ENV === "production",
-    },
-  },
-});
+import { db } from "~/server/db";
+import { type User, sessions, users, type Session } from "~/server/db/schema";
 
 export const discord = new Discord(
   env.DISCORD_CLIENT_ID,
@@ -48,13 +22,81 @@ export const google = new Google(
   env.NEXT_PUBLIC_APP_URL + "/login/google/callback"
 );
 
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseSessionAttributes: DatabaseSessionAttributes;
-    DatabaseUserAttributes: DatabaseUserAttributes;
-  }
+export function generateSessionToken() {
+  const bytes = new Uint8Array(20);
+  crypto.getRandomValues(bytes);
+  const token = encodeBase32LowerCaseNoPadding(bytes);
+  return token;
 }
 
-interface DatabaseSessionAttributes {}
-interface DatabaseUserAttributes extends Omit<DbUser, "hashedPassword"> {}
+export async function createSession(token: string, userId: number) {
+  const user = await db.select().from(users).where(eq(users.id, userId));
+  if (!user[0]) {
+    throw new Error("User not found");
+  }
+
+  const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+  console.log("userId", userId);
+  const session: Session = {
+    id: sessionId,
+    userId,
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+  };
+  await db.insert(sessions).values(session);
+
+  return session;
+}
+
+export async function validateSessionToken(
+  token: string
+): Promise<SessionValidationResult> {
+  const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+  const result = await db
+    .select({ user: users, session: sessions })
+    .from(sessions)
+    .innerJoin(users, eq(sessions.userId, users.id))
+    .where(eq(sessions.id, sessionId));
+
+  if (result.length < 1) {
+    return { session: null, user: null };
+  }
+
+  const data = result[0];
+  if (!data) {
+    return { session: null, user: null };
+  }
+
+  const { session, user } = data;
+
+  if (Date.now() >= session.expiresAt.getTime()) {
+    await db.delete(sessions).where(eq(sessions.id, session.id));
+    return { session: null, user: null };
+  }
+  if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
+    session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+    await db
+      .update(sessions)
+      .set({
+        expiresAt: session.expiresAt,
+      })
+      .where(eq(sessions.id, session.id));
+  }
+  return { session, user };
+}
+
+export async function invalidateSession(sessionId: string) {
+  await db.delete(sessions).where(eq(sessions.id, sessionId));
+}
+
+export async function invalidateUserSessions(userId: number): Promise<void> {
+  await db.delete(sessions).where(eq(users.id, userId));
+}
+
+export function generateIdFromEntropySize(size: number): string {
+  const buffer = crypto.getRandomValues(new Uint8Array(size));
+  return encodeBase32LowerCaseNoPadding(buffer);
+}
+
+export type SessionValidationResult =
+  | { session: Session; user: User }
+  | { session: null; user: null };
