@@ -1,7 +1,7 @@
-// middleware.ts
-import { verifyRequestOrigin } from "lucia";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+import { verifyRequestOrigin } from "./lib/auth/request";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
