@@ -24,7 +24,7 @@ export const Hero = ({ anime }: HeroProps) => {
     <div className="relative h-[75vh] overflow-hidden bg-gradient-to-b from-background via-background/40 to-background/70 pt-0 md:h-[80vh] md:to-background/60 lg:h-[88vh]">
       <Image
         fill
-        fetchPriority="high"
+        loading={isMobileDevice ? "eager" : "lazy"}
         className="absolute inset-0 isolate -z-20 block h-full w-full object-cover lg:hidden"
         src={anime?.image?.large ?? "/fallback-anime.avif"}
         alt={anime?.titles?.[0]?.title ?? ""}
@@ -35,6 +35,7 @@ export const Hero = ({ anime }: HeroProps) => {
           height="100%"
           width="100%"
           allowFullScreen
+          loading="lazy"
           className="pointer-events-none absolute -z-10 hidden select-none bg-center bg-no-repeat px-0 lg:block"
           src={`${trailerUrl}&controls=0&autoplay=1&mute=1&loop=1&playlist=${trailerId};showinfo=0`}
         />

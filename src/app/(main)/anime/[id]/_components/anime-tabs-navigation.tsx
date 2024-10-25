@@ -14,6 +14,8 @@ export const AnimeTabsNavigation = ({ currentTab }: { currentTab: string }) => {
               href={`?tab=${tab}`}
               className="flex-1 capitalize"
               scroll={false}
+              aria-current={currentTab === tab ? "page" : undefined}
+              aria-label={`Go to ${tab} tab`}
             >
               {tab}
             </Link>

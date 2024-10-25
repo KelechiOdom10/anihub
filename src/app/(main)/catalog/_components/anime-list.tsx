@@ -66,7 +66,11 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
           </p>
         )}
         {allAnime.map((anime, index) => (
-          <Link href={`/anime/${anime.id}`} key={`${anime.id}-${index}`}>
+          <Link
+            aria-label={`${anime.titles?.[0]?.title}`}
+            href={`/anime/${anime.id}`}
+            key={`${anime.id}-${index}`}
+          >
             <AnimeCard anime={anime} className="mx-auto" />
           </Link>
         ))}

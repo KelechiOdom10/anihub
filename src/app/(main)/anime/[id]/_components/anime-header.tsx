@@ -25,6 +25,7 @@ export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
         id="anime-header-image"
         fill
         fetchPriority="high"
+        loading={isMobileDevice ? "eager" : "lazy"}
         className="absolute inset-0 isolate -z-20 h-full w-full object-cover lg:hidden"
         src={image}
         alt={title}
@@ -35,6 +36,7 @@ export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
           height="100%"
           width="100%"
           allowFullScreen
+          loading="lazy"
           className="pointer-events-none absolute -z-10 hidden select-none bg-center bg-no-repeat px-0 lg:block"
           src={`${trailerUrl}&controls=0&autoplay=1&mute=1&loop=1&playlist=${trailerId};showinfo=0`}
           onError={(e) => {

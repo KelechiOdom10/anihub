@@ -76,6 +76,7 @@ export const Header = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
+              aria-label="Menu"
               className="focus:outline-none focus:ring-1 md:hidden"
               size="icon"
               variant="ghost"
@@ -95,10 +96,11 @@ export const Header = () => {
         </DropdownMenu>
 
         <Link
+          aria-label="Home page"
           className="flex items-center justify-center text-xl font-medium"
           href="/"
         >
-          <Logo className="w-36 fill-white" />
+          <Logo aria-label="Logo" className="w-36 fill-white" />
         </Link>
 
         <nav className="ml-4 mt-1.5 hidden gap-6 sm:gap-8 md:flex">
