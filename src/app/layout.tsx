@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     template: `%s | ${APP_TITLE}`,
   },
   description: "Anihub - Social anime discovery",
-  icons: [{ rel: "icon", url: "/icon.png" }],
 };
 
 export const viewport: Viewport = {
