@@ -1,11 +1,11 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "f9cabb0e-004d-4be9-b27a-f5238bcd42dc",
+  "id": "9d5f4110-f2bd-4454-8ee4-47b9c59533e2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "email_verification_codes": {
-      "name": "email_verification_codes",
+    "anihub_email_verification_codes": {
+      "name": "anihub_email_verification_codes",
       "columns": {
         "id": {
           "name": "id",
@@ -16,7 +16,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "text(21)",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -44,33 +44,26 @@
         }
       },
       "indexes": {
-        "email_verification_codes_user_id_unique": {
-          "name": "email_verification_codes_user_id_unique",
+        "anihub_email_verification_codes_user_id_unique": {
+          "name": "anihub_email_verification_codes_user_id_unique",
           "columns": [
             "user_id"
           ],
           "isUnique": true
         },
-        "user_idx": {
-          "name": "user_idx",
+        "verification_codes_code_idx": {
+          "name": "verification_codes_code_idx",
           "columns": [
-            "user_id"
-          ],
-          "isUnique": false
-        },
-        "email_idx": {
-          "name": "email_idx",
-          "columns": [
-            "email"
+            "code"
           ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "email_verification_codes_user_id_user_id_fk": {
-          "name": "email_verification_codes_user_id_user_id_fk",
-          "tableFrom": "email_verification_codes",
-          "tableTo": "user",
+        "anihub_email_verification_codes_user_id_anihub_users_id_fk": {
+          "name": "anihub_email_verification_codes_user_id_anihub_users_id_fk",
+          "tableFrom": "anihub_email_verification_codes",
+          "tableTo": "anihub_users",
           "columnsFrom": [
             "user_id"
           ],
@@ -82,14 +75,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "oauth_accounts": {
-      "name": "oauth_accounts",
+    "anihub_oauth_accounts": {
+      "name": "anihub_oauth_accounts",
       "columns": {
         "user_id": {
           "name": "user_id",
-          "type": "text(21)",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -110,22 +104,22 @@
         }
       },
       "indexes": {
-        "user_idx": {
-          "name": "user_idx",
+        "oauth_accounts_user_idx": {
+          "name": "oauth_accounts_user_idx",
           "columns": [
             "user_id"
           ],
           "isUnique": false
         },
-        "provider_idx": {
-          "name": "provider_idx",
+        "oauth_accounts_provider_idx": {
+          "name": "oauth_accounts_provider_idx",
           "columns": [
             "provider"
           ],
           "isUnique": false
         },
-        "provider_user_id_idx": {
-          "name": "provider_user_id_idx",
+        "oauth_accounts_provider_user_id_idx": {
+          "name": "oauth_accounts_provider_user_id_idx",
           "columns": [
             "provider_user_id"
           ],
@@ -133,10 +127,10 @@
         }
       },
       "foreignKeys": {
-        "oauth_accounts_user_id_user_id_fk": {
-          "name": "oauth_accounts_user_id_user_id_fk",
-          "tableFrom": "oauth_accounts",
-          "tableTo": "user",
+        "anihub_oauth_accounts_user_id_anihub_users_id_fk": {
+          "name": "anihub_oauth_accounts_user_id_anihub_users_id_fk",
+          "tableFrom": "anihub_oauth_accounts",
+          "tableTo": "anihub_users",
           "columnsFrom": [
             "user_id"
           ],
@@ -148,29 +142,30 @@
         }
       },
       "compositePrimaryKeys": {
-        "oauth_accounts_provider_provider_user_id_pk": {
+        "anihub_oauth_accounts_provider_provider_user_id_pk": {
           "columns": [
             "provider",
             "provider_user_id"
           ],
-          "name": "oauth_accounts_provider_provider_user_id_pk"
+          "name": "anihub_oauth_accounts_provider_provider_user_id_pk"
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "password_reset_tokens": {
-      "name": "password_reset_tokens",
+    "anihub_password_reset_tokens": {
+      "name": "anihub_password_reset_tokens",
       "columns": {
         "id": {
           "name": "id",
-          "type": "text(40)",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         },
         "user_id": {
           "name": "user_id",
-          "type": "text(21)",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -184,8 +179,8 @@
         }
       },
       "indexes": {
-        "user_idx": {
-          "name": "user_idx",
+        "reset_tokens_user_idx": {
+          "name": "reset_tokens_user_idx",
           "columns": [
             "user_id"
           ],
@@ -193,10 +188,10 @@
         }
       },
       "foreignKeys": {
-        "password_reset_tokens_user_id_user_id_fk": {
-          "name": "password_reset_tokens_user_id_user_id_fk",
-          "tableFrom": "password_reset_tokens",
-          "tableTo": "user",
+        "anihub_password_reset_tokens_user_id_anihub_users_id_fk": {
+          "name": "anihub_password_reset_tokens_user_id_anihub_users_id_fk",
+          "tableFrom": "anihub_password_reset_tokens",
+          "tableTo": "anihub_users",
           "columnsFrom": [
             "user_id"
           ],
@@ -208,21 +203,22 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "sessions": {
-      "name": "sessions",
+    "anihub_sessions": {
+      "name": "anihub_sessions",
       "columns": {
         "id": {
           "name": "id",
-          "type": "text(255)",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         },
         "user_id": {
           "name": "user_id",
-          "type": "text(21)",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -236,8 +232,8 @@
         }
       },
       "indexes": {
-        "user_idx": {
-          "name": "user_idx",
+        "sessions_user_idx": {
+          "name": "sessions_user_idx",
           "columns": [
             "user_id"
           ],
@@ -245,10 +241,10 @@
         }
       },
       "foreignKeys": {
-        "sessions_user_id_user_id_fk": {
-          "name": "sessions_user_id_user_id_fk",
-          "tableFrom": "sessions",
-          "tableTo": "user",
+        "anihub_sessions_user_id_anihub_users_id_fk": {
+          "name": "anihub_sessions_user_id_anihub_users_id_fk",
+          "tableFrom": "anihub_sessions",
+          "tableTo": "anihub_users",
           "columnsFrom": [
             "user_id"
           ],
@@ -260,10 +256,11 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "user": {
-      "name": "user",
+    "anihub_users": {
+      "name": "anihub_users",
       "columns": {
         "id": {
           "name": "id",
@@ -312,15 +309,15 @@
         }
       },
       "indexes": {
-        "user_email_unique": {
-          "name": "user_email_unique",
+        "anihub_users_email_unique": {
+          "name": "anihub_users_email_unique",
           "columns": [
             "email"
           ],
           "isUnique": true
         },
-        "email_idx": {
-          "name": "email_idx",
+        "users_email_idx": {
+          "name": "users_email_idx",
           "columns": [
             "email"
           ],
@@ -329,13 +326,18 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
+  "views": {},
   "enums": {},
   "_meta": {
     "schemas": {},
     "tables": {},
     "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }
