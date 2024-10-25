@@ -7,6 +7,7 @@ export const AnimeQuery = graphql(
     query Anime($id: Int!) {
       getAnime(id: $id) {
         ...AnimePreview
+        background
         type
         status
         aired {
