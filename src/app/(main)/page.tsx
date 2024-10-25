@@ -48,7 +48,7 @@ export default async function Home() {
   });
   const { data: trendingData } = await getClient().query(TopAnimeQuery, {
     query: {
-      filter: "airing",
+      filter: "favorite",
       limit: 10,
     },
   });
@@ -61,8 +61,6 @@ export default async function Home() {
   const heroAnime = recommended?.getTopAnimes?.[4];
   const shuffledGenres =
     genreData?.getGenres?.sort(() => Math.random() - 0.5).slice(0, 3) ?? [];
-
-  console.log({ trendingData });
 
   return (
     <>
