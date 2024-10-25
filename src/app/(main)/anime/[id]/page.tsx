@@ -1,16 +1,30 @@
 import { type Metadata } from "next";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 import { AnimeHeader } from "./_components/anime-header";
 import { AnimeTabContent } from "./_components/anime-tab-content";
-import { AnimeTabsNavigation } from "./_components/anime-tabs-navigation";
-import { AnimeToolbar } from "./_components/anime-toolbar";
 
 import { getClient } from "~/graphql/client";
 import { AnimeQuery } from "~/graphql/queries";
 import { getEnglishTitle } from "~/lib/utils/anime";
 import { type TitleType } from "~/server/api/modules/shared";
+
+const AnimeTabsNavigation = dynamic(
+  () =>
+    import("./_components/anime-tabs-navigation").then(
+      (mod) => mod.AnimeTabsNavigation
+    ),
+  {
+    ssr: true,
+  }
+);
+const AnimeToolbar = dynamic(
+  () => import("./_components/anime-toolbar").then((mod) => mod.AnimeToolbar),
+  {
+    ssr: true,
+  }
+);
 
 export const generateMetadata = async ({
   params,
@@ -85,7 +99,7 @@ export default async function AnimePage({
   const currentTab = (searchParams?.tab as string) ?? "overview";
 
   return (
-    <Suspense fallback={<div>Loading... </div>}>
+    <>
       <AnimeHeader anime={animeData} />
       <AnimeToolbar anime={animeData} />
       <div className="mx-auto max-w-5xl px-4 py-8 xl:max-w-7xl">
@@ -98,6 +112,6 @@ export default async function AnimePage({
           />
         </div>
       </div>
-    </Suspense>
+    </>
   );
 }

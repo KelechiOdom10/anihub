@@ -1,8 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { AnimeCard } from "~/components/ui/anime-card";
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +11,10 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import { type AnimePreview } from "~/graphql/fragments";
+
+const AnimeCard = dynamic(() =>
+  import("~/components/ui/anime-card").then((mod) => mod.AnimeCard)
+);
 
 interface AnimeCarouselProps {
   heading: string;
@@ -31,7 +35,10 @@ export const AnimeCarousel = ({ heading, animeList }: AnimeCarouselProps) => {
         <CarouselContent>
           {animeList.map((anime) => (
             <CarouselItem key={anime.id} className="basis-auto p-2">
-              <Link href={`/anime/${anime.id}`}>
+              <Link
+                aria-label={`${anime.titles?.[0]?.title}`}
+                href={`/anime/${anime.id}`}
+              >
                 <AnimeCard anime={anime} className="w-56" />
               </Link>
             </CarouselItem>
