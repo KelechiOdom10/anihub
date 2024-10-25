@@ -35,7 +35,10 @@ export const Header = () => {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const inputRef = useRef<HTMLInputElement>(null);
   const [state] = useWindowScroll();
-  const [{ data }] = useQuery({ query: MeQuery });
+  const [{ data, fetching }, refetch] = useQuery({
+    query: MeQuery,
+    requestPolicy: "cache-and-network",
+  });
 
   useEffect(() => {
     if (inputRef.current) {
@@ -50,6 +53,11 @@ export const Header = () => {
       params.set("q", search);
       router.push(`/catalog?${params.toString()}`);
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    refetch();
   };
 
   const isNewsOrCatalog = pathname === "/catalog" || pathname === "/news";
@@ -121,10 +129,10 @@ export const Header = () => {
         />
 
         <div className="ml-auto self-center">
-          {data?.me ? (
-            <Button asChild onClick={logout}>
-              Logout
-            </Button>
+          {fetching ? (
+            <div className="h-10 w-24 animate-pulse rounded-md bg-gray-300"></div>
+          ) : data?.me ? (
+            <Button onClick={handleLogout}>Logout</Button>
           ) : (
             <>
               <Button
