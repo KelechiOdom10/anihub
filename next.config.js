@@ -11,6 +11,9 @@ const config = {
     ],
     unoptimized: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@node-rs/argon2"],
+  },
 };
 
 export default config;
