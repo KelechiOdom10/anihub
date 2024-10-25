@@ -24,7 +24,7 @@ interface AnimeCarouselProps {
 export const AnimeCarousel = ({ heading, animeList }: AnimeCarouselProps) => {
   return (
     <section className="flex flex-col space-y-8">
-      <h3 className="text-xl font-bold text-white">{heading}</h3>
+      <h2 className="text-xl font-bold text-white">{heading}</h2>
       <Carousel
         opts={{
           align: "start",
