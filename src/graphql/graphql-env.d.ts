@@ -1,20 +1,7 @@
 /* eslint-disable */
 /* prettier-ignore */
 
-/** An IntrospectionQuery representation of your schema.
- *
- * @remarks
- * This is an introspection of your schema saved as a file by GraphQLSP.
- * It will automatically be used by `gql.tada` to infer the types of your GraphQL documents.
- * If you need to reuse this data or update your `scalars`, update `tadaOutputLocation` to
- * instead save to a .ts instead of a .d.ts file.
- */
-export type introspection = {
-  name: never;
-  query: 'Query';
-  mutation: never;
-  subscription: never;
-  types: {
+export type introspection_types = {
     'Aired': { kind: 'OBJECT'; name: 'Aired'; fields: { 'from': { name: 'from'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'to': { name: 'to'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; }; };
     'Anime': { kind: 'OBJECT'; name: 'Anime'; fields: { 'aired': { name: 'aired'; type: { kind: 'OBJECT'; name: 'Aired'; ofType: null; } }; 'airing': { name: 'airing'; type: { kind: 'SCALAR'; name: 'Boolean'; ofType: null; } }; 'background': { name: 'background'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'characters': { name: 'characters'; type: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Character'; ofType: null; }; }; } }; 'description': { name: 'description'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'duration': { name: 'duration'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'episodes': { name: 'episodes'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; } }; 'genres': { name: 'genres'; type: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Genre'; ofType: null; }; }; } }; 'id': { name: 'id'; type: { kind: 'SCALAR'; name: 'ID'; ofType: null; } }; 'image': { name: 'image'; type: { kind: 'OBJECT'; name: 'AnimeImage'; ofType: null; } }; 'popularity': { name: 'popularity'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; } }; 'producers': { name: 'producers'; type: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Metadata'; ofType: null; }; }; } }; 'rank': { name: 'rank'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; } }; 'rating': { name: 'rating'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'score': { name: 'score'; type: { kind: 'SCALAR'; name: 'Float'; ofType: null; } }; 'season': { name: 'season'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'source': { name: 'source'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'status': { name: 'status'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'studios': { name: 'studios'; type: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'Metadata'; ofType: null; }; }; } }; 'synopsis': { name: 'synopsis'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'title': { name: 'title'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'titles': { name: 'titles'; type: { kind: 'LIST'; name: never; ofType: { kind: 'NON_NULL'; name: never; ofType: { kind: 'OBJECT'; name: 'AnimeTitle'; ofType: null; }; }; } }; 'trailer': { name: 'trailer'; type: { kind: 'OBJECT'; name: 'Trailer'; ofType: null; } }; 'type': { name: 'type'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'year': { name: 'year'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; } }; }; };
     'AnimeImage': { kind: 'OBJECT'; name: 'AnimeImage'; fields: { 'default': { name: 'default'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'large': { name: 'large'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'small': { name: 'small'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; }; };
@@ -52,7 +39,22 @@ export type introspection = {
     'TopAnimeQueryParams': { kind: 'INPUT_OBJECT'; name: 'TopAnimeQueryParams'; isOneOf: false; inputFields: [{ name: 'filter'; type: { kind: 'ENUM'; name: 'FilterEnum'; ofType: null; }; defaultValue: null }, { name: 'limit'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; defaultValue: null }, { name: 'page'; type: { kind: 'SCALAR'; name: 'Int'; ofType: null; }; defaultValue: null }, { name: 'rating'; type: { kind: 'ENUM'; name: 'RatingEnum'; ofType: null; }; defaultValue: null }, { name: 'sfw'; type: { kind: 'SCALAR'; name: 'Boolean'; ofType: null; }; defaultValue: null }, { name: 'type'; type: { kind: 'ENUM'; name: 'AnimeTypeEnum'; ofType: null; }; defaultValue: null }]; };
     'Trailer': { kind: 'OBJECT'; name: 'Trailer'; fields: { 'embedUrl': { name: 'embedUrl'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'id': { name: 'id'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'url': { name: 'url'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; }; };
     'User': { kind: 'OBJECT'; name: 'User'; fields: { 'avatar': { name: 'avatar'; type: { kind: 'SCALAR'; name: 'String'; ofType: null; } }; 'createdAt': { name: 'createdAt'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'email': { name: 'email'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; 'emailVerified': { name: 'emailVerified'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'Boolean'; ofType: null; }; } }; 'id': { name: 'id'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'ID'; ofType: null; }; } }; 'updatedAt': { name: 'updatedAt'; type: { kind: 'NON_NULL'; name: never; ofType: { kind: 'SCALAR'; name: 'String'; ofType: null; }; } }; }; };
-  };
+};
+
+/** An IntrospectionQuery representation of your schema.
+ *
+ * @remarks
+ * This is an introspection of your schema saved as a file by GraphQLSP.
+ * It will automatically be used by `gql.tada` to infer the types of your GraphQL documents.
+ * If you need to reuse this data or update your `scalars`, update `tadaOutputLocation` to
+ * instead save to a .ts instead of a .d.ts file.
+ */
+export type introspection = {
+  name: never;
+  query: 'Query';
+  mutation: never;
+  subscription: never;
+  types: introspection_types;
 };
 
 import * as gqlTada from 'gql.tada';
