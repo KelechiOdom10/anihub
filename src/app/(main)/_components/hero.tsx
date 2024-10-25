@@ -31,6 +31,7 @@ export const Hero = ({ anime }: HeroProps) => {
       />
       <div className="relative h-full overflow-hidden pb-[56.25%]">
         <iframe
+          name="trailer"
           frameBorder="0"
           height="100%"
           width="100%"
