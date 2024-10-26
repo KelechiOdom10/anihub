@@ -48,7 +48,7 @@ export default async function Home() {
   });
   const { data: trendingData } = await getClient().query(TopAnimeQuery, {
     query: {
-      filter: "favorite",
+      filter: "airing",
       limit: 10,
     },
   });
