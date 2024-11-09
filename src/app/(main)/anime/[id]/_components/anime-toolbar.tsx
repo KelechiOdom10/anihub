@@ -23,6 +23,7 @@ export const AnimeToolbar = ({ anime }: { anime: AnimeQueryData }) => {
     <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
       <Image
         fetchPriority="high"
+        loading="eager"
         priority
         src={image}
         alt={title}
