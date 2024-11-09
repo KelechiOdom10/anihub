@@ -70,6 +70,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
             aria-label={`${anime.titles?.[0]?.title}`}
             href={`/anime/${anime.id}`}
             key={`${anime.id}-${index}`}
+            prefetch={index < 20}
           >
             <AnimeCard anime={anime} className="mx-auto" />
           </Link>
