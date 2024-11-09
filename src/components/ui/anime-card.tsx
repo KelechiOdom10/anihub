@@ -8,9 +8,10 @@ import { type TitleType } from "~/server/api/modules/shared";
 interface AnimeCardProps {
   anime: AnimePreview;
   className?: string;
+  loading: "eager" | "lazy";
 }
 
-export const AnimeCard = ({ anime, className }: AnimeCardProps) => {
+export const AnimeCard = ({ anime, className, loading }: AnimeCardProps) => {
   const { titles, genres, year } = anime;
   const title = getEnglishTitle((titles ?? []) as TitleType[]);
   const genre = genres?.[0]?.name ?? "N/A";
@@ -25,6 +26,7 @@ export const AnimeCard = ({ anime, className }: AnimeCardProps) => {
     >
       <Image
         fill
+        loading={loading}
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         src={
           anime?.image?.large ?? anime?.image?.default ?? "/fallback-anime.avif"

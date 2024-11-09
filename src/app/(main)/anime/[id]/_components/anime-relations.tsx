@@ -21,9 +21,13 @@ export const AnimeRelations = ({ animeId }: { animeId: number }) => {
       {noRelations && <p>No related anime found.</p>}
       {animeRelations.length > 0 && (
         <div className="grid grid-cols-2 gap-5 md:flex md:flex-wrap">
-          {animeRelations.map((anime) => (
+          {animeRelations.map((anime, index) => (
             <Link prefetch key={anime.id} href={`/anime/${anime.id}`}>
-              <AnimeCard anime={anime} className="md:w-52" />
+              <AnimeCard
+                anime={anime}
+                className="md:w-52"
+                loading={index < 3 ? "eager" : "lazy"}
+              />
             </Link>
           ))}
         </div>

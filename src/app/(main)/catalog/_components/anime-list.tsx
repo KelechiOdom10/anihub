@@ -72,7 +72,11 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
             key={`${anime.id}-${index}`}
             prefetch={index < 20}
           >
-            <AnimeCard anime={anime} className="mx-auto" />
+            <AnimeCard
+              anime={anime}
+              className="mx-auto"
+              loading={index < 20 ? "eager" : "lazy"}
+            />
           </Link>
         ))}
         {isLoading &&
