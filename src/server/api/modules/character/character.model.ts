@@ -5,7 +5,29 @@ import { animeService } from "../anime/anime.service";
 import { type components } from "~/server/jikan-schema";
 
 type CharacterType = components["schemas"]["character"];
+type AnimeCharacterType = NonNullable<
+  components["schemas"]["anime_characters"]["data"]
+>[0];
+type VoiceActorType = NonNullable<
+  NonNullable<
+    components["schemas"]["anime_characters"]["data"]
+  >[0]["voice_actors"]
+>[0];
 type ImageType = NonNullable<components["schemas"]["character_images"]["webp"]>;
+type PersonType = components["schemas"]["person"];
+
+const Person = builder.objectRef<PersonType>("Person").implement({
+  description: "Person object",
+  fields: (t) => ({
+    id: t.exposeID("mal_id", { nullable: true }),
+    name: t.exposeString("name", { nullable: true }),
+    url: t.exposeString("url", { nullable: true }),
+    image: t.string({
+      nullable: true,
+      resolve: (parent) => parent.images?.jpg?.image_url,
+    }),
+  }),
+});
 
 const CharacterImage = builder
   .objectRef<ImageType>("CharacterImage")
@@ -17,7 +39,21 @@ const CharacterImage = builder
     }),
   });
 
+const VoiceActor = builder.objectRef<VoiceActorType>("VoiceActor").implement({
+  description: "Voice Actor object",
+  fields: (t) => ({
+    person: t.field({
+      type: Person,
+      nullable: true,
+      resolve: (parent) => parent.person,
+    }),
+    language: t.exposeString("language", { nullable: true }),
+  }),
+});
+
 export const Character = builder.objectRef<CharacterType>("Character");
+export const AnimeCharacter =
+  builder.objectRef<AnimeCharacterType>("AnimeCharacter");
 
 builder.objectType(Character, {
   description: "Character object",
@@ -56,6 +92,26 @@ builder.objectType(Character, {
 
         return animeData?.data;
       },
+    }),
+  }),
+});
+
+builder.objectType(AnimeCharacter, {
+  description: "Anime Character with role and voice actors",
+  fields: (t) => ({
+    character: t.field({
+      type: Character,
+      nullable: true,
+      resolve: (parent) => parent.character,
+    }),
+    role: t.string({
+      nullable: true,
+      resolve: (parent) => parent.role,
+    }),
+    voiceActors: t.field({
+      type: [VoiceActor],
+      nullable: true,
+      resolve: (parent) => parent.voice_actors,
     }),
   }),
 });
