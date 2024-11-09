@@ -80,6 +80,13 @@ type Anime {
   year: Int
 }
 
+"""Anime Character with role and voice actors"""
+type AnimeCharacter {
+  character: Character
+  role: String
+  voiceActors: [VoiceActor!]
+}
+
 """Anime Image object"""
 type AnimeImage {
   default: String
@@ -213,6 +220,14 @@ type PaginationResult {
   lastVisiblePage: Int
 }
 
+"""Person object"""
+type Person {
+  id: ID
+  image: String
+  name: String
+  url: String
+}
+
 """Producer object"""
 type Producer {
   about: String
@@ -251,6 +266,9 @@ type ProducerSearchResult {
 type Query {
   """Get anime by ID"""
   getAnime(id: Int!): Anime
+
+  """Get anime characters"""
+  getAnimeCharacters(id: Int!): [AnimeCharacter!]!
 
   """Get related anime by ID"""
   getAnimeRelations(id: Int!): [Anime!]
@@ -341,4 +359,10 @@ type User {
   emailVerified: Boolean!
   id: ID!
   updatedAt: String!
+}
+
+"""Voice Actor object"""
+type VoiceActor {
+  language: String
+  person: Person
 }
