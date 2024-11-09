@@ -62,7 +62,7 @@ export const GenresSection = ({ genres }: GenresSectionProps) => {
       <h3 className="text-xl font-bold text-white">Categories</h3>
       <div className="grid h-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {genres.map((genre, index) => (
-          <Link key={genre.id} href={`/catalog?genres=${genre.id}`}>
+          <Link prefetch key={genre.id} href={`/catalog?genres=${genre.id}`}>
             <InfoCard
               heading={
                 <p>
