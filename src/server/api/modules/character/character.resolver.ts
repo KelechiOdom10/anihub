@@ -1,4 +1,4 @@
-import { Character } from "./character.model";
+import { AnimeCharacter, Character } from "./character.model";
 
 import { builder } from "../../builder";
 import { animeService } from "../anime/anime.service";
@@ -27,6 +27,26 @@ builder.queryField("getTopCharacters", (t) =>
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/top/characters", {
         params: { query: args.query as QueryParams },
+      });
+      if (!data?.data) return [];
+
+      return data.data;
+    },
+  })
+);
+
+builder.queryField("getAnimeCharacters", (t) =>
+  t.field({
+    type: [AnimeCharacter],
+    description: "Get anime characters",
+    args: {
+      id: t.arg.int({ required: true }),
+    },
+    resolve: async (_, { id }) => {
+      const { data } = await animeService.GET("/anime/{id}/characters", {
+        params: {
+          path: { id },
+        },
       });
       if (!data?.data) return [];
 
