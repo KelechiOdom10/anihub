@@ -4,6 +4,10 @@ import { Suspense } from "react";
 
 import { AnimeCarousel } from "./_components/anime-carousel";
 import { Hero } from "./_components/hero";
+import {
+  TrendingSection,
+  TrendingSectionSkeleton,
+} from "./_components/trending-section";
 
 import { getClient } from "~/graphql/client";
 import {
@@ -46,12 +50,6 @@ export default async function Home() {
       limit: 10,
     },
   });
-  const { data: trendingData } = await getClient().query(TopAnimeQuery, {
-    query: {
-      filter: "airing",
-      limit: 10,
-    },
-  });
   const { data: characterData } = await getClient().query(TopCharactersQuery, {
     query: {
       filter: "trending",
@@ -88,14 +86,9 @@ export default async function Home() {
           </Suspense>
         </div>
       )}
-      {trendingData?.getTopAnimes && (
-        <div className="container mx-auto py-8">
-          <AnimeCarousel
-            heading="Trending Now"
-            animeList={trendingData.getTopAnimes}
-          />
-        </div>
-      )}
+      <Suspense fallback={<TrendingSectionSkeleton />}>
+        <TrendingSection />
+      </Suspense>
       {characterData?.getTopCharacters && (
         <div className="container mx-auto py-8">
           <CharactersMarquee characters={characterData.getTopCharacters} />
