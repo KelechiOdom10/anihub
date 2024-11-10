@@ -16,7 +16,6 @@ export const TrendingSection = () => {
         limit: 10,
       },
     },
-    requestPolicy: "cache-and-network",
   });
 
   return trendingData?.getTopAnimes ? (
