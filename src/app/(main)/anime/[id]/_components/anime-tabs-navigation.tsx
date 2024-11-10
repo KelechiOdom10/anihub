@@ -16,6 +16,7 @@ export const AnimeTabsNavigation = ({ currentTab }: { currentTab: string }) => {
               scroll={false}
               aria-current={currentTab === tab ? "page" : undefined}
               aria-label={`Go to ${tab} tab`}
+              prefetch
             >
               {tab}
             </Link>
