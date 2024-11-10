@@ -1,52 +1,91 @@
-# Next.js Auth Starter Template
+# AniHub - Your Social Anime Discovery Platform
 
-## Motivation
+A modern platform for anime enthusiasts to discover, track, review and share their favorite anime. Think Letterboxd for anime - track your watchlist, share reviews, and connect with fellow fans, all powered by a robust GraphQL API and the Jikan database.
 
-Implementing authentication in Next.js, especially Email+Password authentication, can be challenging. NextAuth intentionally limits email password functionality to discourage the use of passwords due to security risks and added complexity. However, in certain projects, clients may require user password authentication. Lucia offers a flexible alternative to NextAuth.js, providing more customization options without compromising on security. This template serves as a starting point for building a Next.js app with Lucia authentication.
+## Features
 
-## Lucia vs. NextAuth.js
+- 🎯 Type-safe GraphQL API with Pothos
+- 🔍 Advanced Anime Search & Discovery
+- 📺 Comprehensive Anime Database
+- ⭐ Personal Watchlist Management
+- ✍️ Write and Share Reviews
+- 👥 Social Features & Community
+- 🏆 Track Watching Progress
+- 🎭 Browse by Genres & Categories
+- 🎬 Anime Trailers & Media
+- 🏢 Production Studios & Metadata
+- 🌐 Integration with Jikan API
 
-Lucia is less opinionated than NextAuth, offering greater flexibility for customization. While Lucia involves more setup, it provides a higher degree of flexibility, making it a suitable choice for projects requiring unique authentication configurations.
+## Tech Stack ⚒️
 
-## Key Features
+- [Next.js](https://nextjs.org) - React Framework
+- [GraphQL Yoga](https://the-guild.dev/graphql/yoga-server) - GraphQL Server
+- [Pothos](https://pothos-graphql.dev/) - GraphQL Schema Builder
+- [gql.tada](https://github.com/0no-co/gql.tada) - Type-safe GraphQL Operations
+- [openapi-fetch](https://github.com/drwpow/openapi-typescript) - Type-safe API Client
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [Shadcn UI](https://ui.shadcn.com/) - UI Components
 
-- **Authentication:** 💼 Support for Credential and OAuth authentication.
-- **Authorization:** 🔒 Easily manage public and protected routes within the `app directory`.
-- **Email Verification:** 📧 Verify user identities through email.
-- **Password Reset:** 🔑 Streamline password resets by sending email password reset links.
-- **Lucia + tRPC:** 🔄 Similar to NextAuth with tRPC, granting access to sessions and user information through tRPC procedures.
-- **Email template with react-email:** ✉️ Craft your email templates using React.
-- **MySQL Database:** 🛢️ Utilize a SQLITE database (Turso) set up using Drizzle for enhanced performance and type safety.
-- **Database Migration:** 🚀 Included migration script to extend the database schema according to your project needs.
+## Run Locally
 
-## Tech Stack
+1. Clone the project
 
-- [Next.js](https://nextjs.org)
-- [Lucia](https://lucia-auth.com/)
-- [tRPC](https://trpc.io)
-- [Drizzle ORM](https://orm.drizzle.team/)
-- [Turso DB](https://turso.tech/)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Shadcn UI](https://ui.shadcn.com/)
-- [React Hook Form](https://www.react-hook-form.com/)
-- [React Email](https://react.email/)
+```bash
+git clone https://github.com/KelechiOdom10/anihub.git
+```
 
-## Get Started
+2. Go to the project directory
 
-1. Clone this repository to your local machine.
-2. Copy `.env.example` to `.env` and fill in the required environment variables.
-3. Run `pnpm install` to install dependencies.
-4. Update app title, database prefix, and other parameters in the `src/lib/constants.ts` file.
-5. Run `pnpm db:push` to push your schema to the database.
-6. Execute `pnpm dev` to start the development server and enjoy!
+```bash
+cd anihub
+```
 
-## Roadmap
+3. Create a local `.env.local` file at the root of the project with required environment variables.
+   <br>
 
-- [ ] Update Password
-- [ ] API Rate-Limiting
-- [ ] Admin Dashboard (under consideration)
-- [ ] Role-Based Access Policy (under consideration)
+4. Install dependencies
+
+```bash
+pnpm install
+```
+
+5. Useful Development Scripts:
+
+```bash
+# Start development server
+pnpm dev
+
+# Generate GraphQL schema
+pnpm generate
+
+# Generate Jikan API types
+pnpm codegen:anime
+
+# Type checking
+pnpm typecheck
+
+# Linting
+pnpm lint
+
+# Format code
+pnpm format
+```
+
+## Authors
+
+- [@KelechiOdom10](https://github.com/KelechiOdom10)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## Contributing
 
-If you wish to contribute, fork the repository and use a feature branch. Pull requests are warmly welcome.
+Contributions are always welcome! Please feel free to submit a Pull Request.
+
+## Acknowledgements
+
+- [Jikan API](https://jikan.moe/) for providing the anime data
+- [MyAnimeList](https://myanimelist.net/) for being the source of anime information
+- [Letterboxd](https://letterboxd.com/) for design inspiration
+- Design inspiration from [Kurosaw](https://www.behance.net/gallery/155394041/Kurosaw-Anime-Streaming-Web-App)
