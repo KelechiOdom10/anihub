@@ -1,5 +1,6 @@
 import { Suspense, type FunctionComponent } from "react";
 
+import { AnimeCharacters, AnimeCharactersSkeleton } from "./anime-characters";
 import { AnimeOverview } from "./anime-overview";
 import { AnimeRelations, AnimeRelationsSkeleton } from "./anime-relations";
 
@@ -26,7 +27,11 @@ export const AnimeTabContent: FunctionComponent<AnimeTabContentProps> = ({
         </Suspense>
       );
     case "characters":
-      return <div>Characters {animeId}</div>;
+      return (
+        <Suspense fallback={<AnimeCharactersSkeleton />}>
+          <AnimeCharacters animeId={animeId} />
+        </Suspense>
+      );
     case "staff":
       return <div>Staff {animeId}</div>;
     case "reviews":
