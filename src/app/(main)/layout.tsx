@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { Suspense, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Footer } from "~/components/layout/footer";
 import { Header } from "~/components/layout/header";
@@ -13,9 +13,7 @@ export const metadata: Metadata = {
 function LandingPageLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <Suspense>
-        <Header />
-      </Suspense>
+      <Header />
       <main className="min-h-[100vh]">{children}</main>
       <Footer />
     </>

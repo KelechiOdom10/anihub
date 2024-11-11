@@ -34,7 +34,10 @@ export const AnimeCarousel = ({ heading, animeList }: AnimeCarouselProps) => {
       >
         <CarouselContent>
           {animeList.map((anime, index) => (
-            <CarouselItem key={anime.id} className="basis-auto p-2">
+            <CarouselItem
+              key={`${anime.id}-${index}`}
+              className="basis-auto p-2"
+            >
               <Link
                 prefetch
                 aria-label={`${anime.titles?.[0]?.title}`}

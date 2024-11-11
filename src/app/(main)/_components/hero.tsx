@@ -42,7 +42,7 @@ export const Hero = ({ anime }: HeroProps) => {
         />
       </div>
 
-      <div className="absolute inset-0 z-40 flex items-end pb-12 lg:items-center lg:pb-0">
+      <div className="absolute inset-x-0 bottom-0 flex h-auto items-end pb-12 md:bottom-1/3 lg:items-center lg:pb-0">
         <div className="container text-balance">
           <h1 className="max-w-xl text-3xl font-bold text-white sm:text-4xl md:max-w-3xl md:text-5xl lg:text-7xl">
             {anime?.titles?.[0]?.title}
