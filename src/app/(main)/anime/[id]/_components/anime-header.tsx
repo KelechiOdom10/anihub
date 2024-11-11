@@ -2,14 +2,17 @@
 
 import { PlayIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button, type ButtonProps } from "~/components/ui/button";
+import { Dialog, DialogContent } from "~/components/ui/dialog";
 import { type AnimeQueryData } from "~/graphql/queries";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { getEnglishTitle } from "~/lib/utils/anime";
 import { type TitleType } from "~/server/api/modules/shared";
 
 export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
+  const [open, setOpen] = useState(false);
   const title = getEnglishTitle((anime.titles ?? []) as TitleType[]);
   const image = anime.image?.large ?? "/fallback-anime.avif";
 
@@ -51,8 +54,27 @@ export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
         />
       </div>
 
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-4xl p-0">
+          <div className="relative pb-[56.25%]">
+            <iframe
+              title="trailer"
+              loading="lazy"
+              frameBorder="0"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+              src={`${trailerUrl}&controls=1&autoplay=1`}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className="container absolute -right-2 bottom-3 isolate z-40 flex items-end pb-0 lg:bottom-4 lg:right-6 lg:items-center">
-        <Button size={buttonSize} className="ml-auto">
+        <Button
+          size={buttonSize}
+          className="ml-auto"
+          onClick={() => setOpen(true)}
+        >
           <PlayIcon className="mr-2 size-[18px] rounded-full border border-black p-1" />
           Watch Trailer
         </Button>
