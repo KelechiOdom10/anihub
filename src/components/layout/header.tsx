@@ -2,11 +2,12 @@
 
 import { useQuery } from "@urql/next";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "nextjs-toploader/app";
-import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
-import { HamburgerMenuIcon, Logo, SearchIcon } from "~/components/icons";
+import { SearchInput } from "./search-input";
+
+import { HamburgerMenuIcon, Logo } from "~/components/icons";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
@@ -14,7 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { Input } from "~/components/ui/input";
 import { MeQuery } from "~/graphql/queries";
 import { logout } from "~/lib/auth/actions";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
@@ -29,31 +29,13 @@ const routes = [
 ] as const;
 
 export const Header = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
-  const inputRef = useRef<HTMLInputElement>(null);
   const [state] = useWindowScroll();
   const [{ data, fetching }, refetch] = useQuery({
     query: MeQuery,
     requestPolicy: "cache-and-network",
   });
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = searchParams.get("q") ?? "";
-    }
-  }, [searchParams]);
-
-  const handleSearch = () => {
-    const search = inputRef.current?.value;
-    if (search) {
-      const params = new URLSearchParams(searchParams);
-      params.set("q", search);
-      router.push(`/catalog?${params.toString()}`);
-    }
-  };
 
   const handleLogout = async () => {
     await logout();
@@ -120,15 +102,9 @@ export const Header = () => {
           ))}
         </nav>
 
-        <Input
-          ref={inputRef}
-          parentclassname="hidden h-10 flex-1 lg:block"
-          placeholder="Search"
-          startIcon={
-            <SearchIcon className="ml-1 mt-0.5 h-5 w-5 text-muted-foreground" />
-          }
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        />
+        <Suspense fallback={null}>
+          <SearchInput />
+        </Suspense>
 
         <div className="ml-auto self-center">
           {fetching ? (
