@@ -32,8 +32,6 @@ export const AnimeTabContent: FunctionComponent<AnimeTabContentProps> = ({
           <AnimeCharacters animeId={animeId} />
         </Suspense>
       );
-    case "staff":
-      return <div>Staff {animeId}</div>;
     case "reviews":
       return <div>Reviews {animeId}</div>;
     default:
