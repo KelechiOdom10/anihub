@@ -29,6 +29,7 @@ export const AnimeCarousel = ({ heading, animeList }: AnimeCarouselProps) => {
         opts={{
           align: "start",
           dragFree: true,
+          loop: true,
         }}
         className="w-full"
       >
