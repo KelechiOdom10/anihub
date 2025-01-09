@@ -1,19 +1,20 @@
 import { type TitleType } from "~/server/api/modules/shared";
 
 export const getEnglishTitle = (titles: Array<TitleType> | null) => {
-  let englishTitle;
-  let japaneseTitle;
-  for (const title of titles ?? []) {
-    if (title.type === "English" || title.type === "Default") {
-      englishTitle = title;
-      break;
-    } else if (title.type === "Japanese") {
-      japaneseTitle = title;
-    }
-  }
-  return (
-    englishTitle?.title ?? japaneseTitle?.title ?? titles?.[0]?.title ?? "N/A"
-  );
+  if (!titles || titles.length === 0) return "N/A";
+
+  const englishTitle = titles.find((title) => title?.type === "English")?.title;
+  if (englishTitle) return englishTitle;
+
+  const defaultTitle = titles.find((title) => title?.type === "Default")?.title;
+  if (defaultTitle) return defaultTitle;
+
+  const japaneseTitle = titles.find(
+    (title) => title?.type === "Japanese"
+  )?.title;
+  if (japaneseTitle) return japaneseTitle;
+
+  return titles[0]?.title ?? "N/A";
 };
 
 export function extractCharacterDetails(
