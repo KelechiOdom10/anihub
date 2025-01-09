@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
-const tabs = ["overview", "relations", "characters", "staff", "reviews"];
+const tabs = ["overview", "relations", "characters", "reviews"];
 
 export const AnimeTabsNavigation = ({ currentTab }: { currentTab: string }) => {
   return (
