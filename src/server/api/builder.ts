@@ -1,13 +1,22 @@
 import SchemaBuilder from "@pothos/core";
+import DrizzlePlugin from "@pothos/plugin-drizzle";
 import ValidationPlugin from "@pothos/plugin-validation";
 import { GraphQLError } from "graphql";
 
 import { type GraphqlServerContext } from "./context";
 
+import { db } from "../db";
+import * as schema from "../db/schema";
+
 const builder = new SchemaBuilder<{
   Context: GraphqlServerContext;
+  DrizzleSchema: typeof schema;
 }>({
-  plugins: [ValidationPlugin],
+  plugins: [ValidationPlugin, DrizzlePlugin],
+  drizzle: {
+    client: db,
+    schema,
+  },
   validationOptions: {
     validationError: (zodError, _, __, info) => {
       if (zodError.errors[0]) {
@@ -33,5 +42,6 @@ const builder = new SchemaBuilder<{
 });
 
 builder.queryType({});
+builder.mutationType({});
 
 export { builder };
