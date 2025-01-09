@@ -1,7 +1,10 @@
 import { createClient } from "@libsql/client";
+import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/libsql";
 
 import * as schema from "./schema";
+
+config({ path: ".env.local" });
 
 if (!process.env.DATABASE_URL) {
   throw new Error("TURSO_DATABASE_URL is not defined");
