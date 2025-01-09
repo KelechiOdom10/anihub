@@ -6,7 +6,7 @@ import { users, type User as UserType } from "~/server/db/schema";
 
 export const UserObjectRef = builder.objectRef<UserType>("User");
 
-export const User = builder.objectType(UserObjectRef, {
+export const User = builder.drizzleObject("users", {
   description: "User object",
   fields: (t) => ({
     id: t.exposeID("id"),
@@ -15,6 +15,17 @@ export const User = builder.objectType(UserObjectRef, {
     avatar: t.exposeString("avatar", { nullable: true }),
     createdAt: t.exposeString("createdAt"),
     updatedAt: t.exposeString("updatedAt"),
+    collections: t.relation("collections", {
+      args: {
+        limit: t.arg.int({ required: false, defaultValue: 10 }),
+        offset: t.arg.int({ required: false, defaultValue: 0 }),
+      },
+      query: (args) => ({
+        limit: args.limit ?? 10,
+        offset: args.offset ?? 0,
+        orderBy: (collection, ops) => ops.desc(collection.createdAt),
+      }),
+    }),
   }),
 });
 

@@ -1,3 +1,9 @@
+input AddAnimeToCollectionInput {
+  animeId: Int!
+  animeImage: String
+  collectionId: Int!
+}
+
 """Aired object"""
 type Aired {
   from: String
@@ -164,9 +170,44 @@ input CharacterQueryParams {
   page: Int
 }
 
+type Collection {
+  createdAt: String
+  description: String
+  id: ID
+  isLiked: Boolean
+  isPublic: Boolean
+  items(limit: Int = 10, offset: Int = 0): [CollectionItem!]
+  likesCount: Int
+  name: String
+  updatedAt: String
+  user: users
+  userId: Int
+}
+
+type CollectionItem {
+  addedAt: String
+  anime: Anime
+  animeId: Int
+  animeImage: String
+  collection: Collection
+  collectionId: Int
+  id: ID
+}
+
+input CollectionsQueryParams {
+  limit: Int
+  offset: Int
+}
+
 """Common Image object"""
 type CommonImage {
   imageUrl: String
+}
+
+input CreateCollectionInput {
+  description: String
+  isPublic: Boolean = true
+  name: String!
 }
 
 enum FilterEnum {
@@ -203,6 +244,13 @@ type Metadata {
   url: String
 }
 
+type Mutation {
+  addAnimeToCollection(input: AddAnimeToCollectionInput!): CollectionItem
+  createCollection(input: CreateCollectionInput!): Collection
+  toggleCollectionLike(collectionId: Int!): Collection
+  updateCollection(input: UpdateCollectionInput!): Collection
+}
+
 type Pagination {
   hasNextPage: Boolean
   lastVisiblePage: Int
@@ -216,7 +264,7 @@ type PaginationItems {
 
 type PaginationResult {
   hasNextPage: Boolean
-  items: PaginationItems!
+  items: PaginationItems
   lastVisiblePage: Int
 }
 
@@ -268,29 +316,38 @@ type Query {
   getAnime(id: Int!): Anime
 
   """Get anime characters"""
-  getAnimeCharacters(id: Int!): [AnimeCharacter!]!
+  getAnimeCharacters(id: Int!): [AnimeCharacter!]
 
   """Get related anime by ID"""
   getAnimeRelations(id: Int!): [Anime!]
 
   """Get anime by genres"""
-  getAnimesByGenres(query: AnimesByGenresQueryParams!): [Anime!]!
+  getAnimesByGenres(query: AnimesByGenresQueryParams!): [Anime!]
 
   """Search for anime"""
-  getAnimesSearch(query: SearchAnimeQueryParams): AnimeSearchResult!
+  getAnimesSearch(query: SearchAnimeQueryParams): AnimeSearchResult
+
+  """Get collection by ID"""
+  getCollection(id: Int!): Collection
+
+  """Get collection items by collection ID"""
+  getCollectionItems(collectionId: Int!): [CollectionItem!]
+
+  """Get all public collections"""
+  getCollections(query: CollectionsQueryParams): [Collection!]
 
   """Get the genres of anime"""
   getGenres(query: GenresQueryParams): [Genre!]
 
   """Search for anime"""
-  getProducers(query: ProducerSearchQueryParams): ProducerSearchResult!
+  getProducers(query: ProducerSearchQueryParams): ProducerSearchResult
 
   """Get top anime list with optional query parameters"""
-  getTopAnimes(query: TopAnimeQueryParams): [Anime!]!
-  getTopCharacters(query: CharacterQueryParams): [Character!]!
+  getTopAnimes(query: TopAnimeQueryParams): [Anime!]
+  getTopCharacters(query: CharacterQueryParams): [Character!]
 
   """Get current logged in user"""
-  me: User
+  me: users
 }
 
 enum RatingEnum {
@@ -351,18 +408,26 @@ type Trailer {
   url: String
 }
 
-"""User object"""
-type User {
-  avatar: String
-  createdAt: String!
-  email: String!
-  emailVerified: Boolean!
-  id: ID!
-  updatedAt: String!
+input UpdateCollectionInput {
+  description: String
+  id: Int!
+  isPublic: Boolean
+  name: String
 }
 
 """Voice Actor object"""
 type VoiceActor {
   language: String
   person: Person
+}
+
+"""User object"""
+type users {
+  avatar: String
+  collections(limit: Int = 10, offset: Int = 0): [Collection!]
+  createdAt: String
+  email: String
+  emailVerified: Boolean
+  id: ID
+  updatedAt: String
 }

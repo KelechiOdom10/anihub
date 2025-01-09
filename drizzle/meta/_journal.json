@@ -8,6 +8,13 @@
       "when": 1729122504673,
       "tag": "0000_low_vector",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1736459389062,
+      "tag": "0001_serious_selene",
+      "breakpoints": true
     }
   ]
 }
