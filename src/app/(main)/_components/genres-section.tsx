@@ -3,7 +3,7 @@
 import { useQuery } from "@urql/next";
 import { type VariablesOf } from "gql.tada";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { InfoCard } from "~/components/ui/info-card";
 import { type GenrePreview } from "~/graphql/fragments";
@@ -36,12 +36,16 @@ export const GenresSection = ({ genres }: GenresSectionProps) => {
     [randomGenres]
   );
 
-  const [{ data }] = useQuery({
+  const [{ data }, refetch] = useQuery({
     query: AnimesByGenresQuery,
     variables: queryVariables,
     requestPolicy: "cache-and-network",
     pause: !randomGenres,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const images =
     data?.getAnimesByGenres.map((anime) => ({
