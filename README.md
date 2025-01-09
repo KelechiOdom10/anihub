@@ -23,6 +23,8 @@ A modern platform for anime enthusiasts to discover, track, review and share the
 - [Pothos](https://pothos-graphql.dev/) - GraphQL Schema Builder
 - [gql.tada](https://github.com/0no-co/gql.tada) - Type-safe GraphQL Operations
 - [openapi-fetch](https://github.com/drwpow/openapi-typescript) - Type-safe API Client
+- [Drizzle](https://orm.drizzle.team/) - Database ORM
+- [SQLite](https://www.sqlite.org/) - Database
 - [Tailwind CSS](https://tailwindcss.com) - Styling
 - [Shadcn UI](https://ui.shadcn.com/) - UI Components
 
