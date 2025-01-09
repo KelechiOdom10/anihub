@@ -37,8 +37,6 @@ export function SortDropdown<T extends string>({
   const currentSort = (searchParams.get("sort") as SearchSort) || "asc";
   const currentOrderBy = (searchParams.get("order_by") as T) ?? defaultOrderBy;
 
-  console.log(currentOrderBy);
-
   const updateSearchParams = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set(key, value);
