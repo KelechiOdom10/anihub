@@ -19,38 +19,22 @@ export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const buttonSize: ButtonProps["size"] = isMobileDevice ? "default" : "xl";
 
-  const trailerId = anime?.trailer?.id ?? "";
   const trailerUrl = anime?.trailer?.embedUrl ?? "";
 
   return (
-    <div className="relative h-[40vh] w-full overflow-hidden bg-gradient-to-b from-background via-background/40 to-background/70 pt-0 md:h-[45vh] md:to-background/60">
-      <Image
-        id="anime-header-image"
-        fill
-        fetchPriority="high"
-        loading={isMobileDevice ? "eager" : "lazy"}
-        className="absolute inset-0 isolate -z-20 h-full w-full object-cover lg:hidden"
-        src={image}
-        alt={title}
-      />
-      <div className="relative h-full overflow-hidden pb-[56.25%]">
-        <iframe
-          title="trailer"
-          frameBorder="0"
-          height="100%"
-          width="100%"
-          allowFullScreen
-          loading="lazy"
-          className="pointer-events-none absolute -z-10 hidden select-none bg-center bg-no-repeat px-0 lg:block"
-          src={`${trailerUrl}&controls=0&autoplay=1&mute=1&loop=1&playlist=${trailerId};showinfo=0`}
-          onError={(e) => {
-            (e.target as HTMLIFrameElement).style.display = "none";
-            // show image fallback
-            const image = document.getElementById(
-              "anime-header-image"
-            ) as HTMLImageElement;
-            image.style.display = "block";
-          }}
+    <div className="relative h-[250px] w-full overflow-hidden bg-black/20 pt-0 md:h-[300px]">
+      <div className="absolute right-0 top-0 h-full max-h-full w-[400px] overflow-hidden md:w-[500px]">
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background from-5% via-background/60 via-30% to-transparent to-95%" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/20 via-transparent to-background/30" />
+        <div className="absolute inset-0 z-10 bg-black/25" />
+        <Image
+          id="anime-header-image"
+          src={image}
+          alt={title}
+          width={500}
+          height={300}
+          priority
+          className="h-full w-full object-cover object-[center_top]"
         />
       </div>
 
