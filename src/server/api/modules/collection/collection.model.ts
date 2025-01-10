@@ -5,19 +5,11 @@ import { Anime } from "../anime";
 import { animeService } from "../anime/anime.service";
 
 import { collectionLikes } from "~/server/db/schema";
-
-// // Object References
-// export const CollectionRef = builder.objectRef<CollectionType>("Collection");
-// export const CollectionItemRef =
-//   builder.objectRef<CollectionItemType>("CollectionItem");
-// export const CollectionLikeRef =
-//   builder.objectRef<CollectionLikeType>("CollectionLike");
-
 // Collection Type
 export const Collection = builder.drizzleObject("collections", {
   name: "Collection",
   fields: (t) => ({
-    id: t.exposeID("id"),
+    id: t.exposeID("id", { nullable: false }),
     name: t.exposeString("name"),
     description: t.exposeString("description", { nullable: true }),
     userId: t.exposeInt("userId"),
@@ -25,6 +17,24 @@ export const Collection = builder.drizzleObject("collections", {
     likesCount: t.exposeInt("likesCount"),
     createdAt: t.exposeString("createdAt"),
     updatedAt: t.exposeString("updatedAt"),
+    hasAnime: t.field({
+      type: "Boolean",
+      args: {
+        animeId: t.arg({ type: "Int", required: false }),
+      },
+      resolve: async (collection, { animeId }, { db }) => {
+        if (!animeId) return false;
+
+        const item = await db.query.collectionItems.findFirst({
+          where: (items, { and, eq }) =>
+            and(
+              eq(items.collectionId, collection.id),
+              eq(items.animeId, animeId)
+            ),
+        });
+        return !!item;
+      },
+    }),
     // Relations
     user: t.relation("user"),
     items: t.relation("items", {
