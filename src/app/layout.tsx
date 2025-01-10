@@ -45,7 +45,7 @@ export default function RootLayout({
           forcedTheme="dark"
         >
           <UrqlReactProvider>{children}</UrqlReactProvider>
-          <Toaster />
+          <Toaster position="top-right" />
           <NextTopLoader color="#ffffff" showSpinner={false} />
         </ThemeProvider>
       </body>
