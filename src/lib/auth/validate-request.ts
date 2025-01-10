@@ -14,3 +14,8 @@ export async function uncachedValidateRequest(): Promise<SessionValidationResult
 }
 
 export const validateRequest = cache(uncachedValidateRequest);
+
+export const getUser = async () => {
+  const { user } = await validateRequest();
+  return user;
+};
