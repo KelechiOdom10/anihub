@@ -171,8 +171,6 @@ export async function logout(
   if (redirectUrl) {
     return redirect(redirectUrl);
   }
-
-  window.location.reload();
 }
 
 export async function resendVerificationEmail(): Promise<{
