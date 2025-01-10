@@ -28,7 +28,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
       query: { ...query, page },
     },
   });
-  const animeList = data?.getAnimesSearch.data ?? [];
+  const animeList = data?.getAnimesSearch?.data ?? [];
   const isLoading = fetching || isPending;
   const isEmpty = !fetching && animeList.length === 0;
 
@@ -47,7 +47,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
     }
   }, [data, page]);
 
-  const hasNextPage = data?.getAnimesSearch.pagination?.hasNextPage;
+  const hasNextPage = data?.getAnimesSearch?.pagination?.hasNextPage;
 
   const loadMore = () => {
     if (!hasNextPage) return;

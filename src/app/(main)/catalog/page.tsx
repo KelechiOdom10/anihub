@@ -15,7 +15,7 @@ export default async function CatalogPage() {
     },
   });
   const allGenres = genreData?.getGenres ?? [];
-  const allProducers = producerData?.getProducers.data ?? [];
+  const allProducers = producerData?.getProducers?.data ?? [];
 
   return (
     <Suspense fallback={<CatalogPageSkeleton />}>
