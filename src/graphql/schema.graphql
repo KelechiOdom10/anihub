@@ -4,6 +4,14 @@ input AddAnimeToCollectionInput {
   collectionId: Int!
 }
 
+input AddAnimeToNewCollectionInput {
+  animeId: Int!
+  animeImage: String
+  description: String
+  isPublic: Boolean = true
+  name: String!
+}
+
 """Aired object"""
 type Aired {
   from: String
@@ -147,6 +155,12 @@ input AnimesByGenresQueryParams {
   page: Int = 1
 }
 
+input BulkUpdateCollectionsInput {
+  animeId: Int!
+  animeImage: String
+  updates: [CollectionUpdate!]!
+}
+
 """Character object"""
 type Character {
   about: String
@@ -173,7 +187,8 @@ input CharacterQueryParams {
 type Collection {
   createdAt: String
   description: String
-  id: ID
+  hasAnime(animeId: Int): Boolean
+  id: ID!
   isLiked: Boolean
   isPublic: Boolean
   items(limit: Int = 10, offset: Int = 0): [CollectionItem!]
@@ -194,9 +209,14 @@ type CollectionItem {
   id: ID
 }
 
-input CollectionsQueryParams {
+input CollectionQueryParams {
   limit: Int
   offset: Int
+}
+
+input CollectionUpdate {
+  collectionId: Int!
+  hasAnime: Boolean!
 }
 
 """Common Image object"""
@@ -246,7 +266,10 @@ type Metadata {
 
 type Mutation {
   addAnimeToCollection(input: AddAnimeToCollectionInput!): CollectionItem
-  createCollection(input: CreateCollectionInput!): Collection
+  addAnimeToNewCollection(input: AddAnimeToNewCollectionInput!): Collection
+  bulkUpdateCollections(input: BulkUpdateCollectionsInput!): [Collection!]
+  createCollection(input: CreateCollectionInput!): Collection!
+  removeAnimeFromCollection(input: RemoveAnimeFromCollectionInput!): Collection
   toggleCollectionLike(collectionId: Int!): Collection
   updateCollection(input: UpdateCollectionInput!): Collection
 }
@@ -334,10 +357,13 @@ type Query {
   getCollectionItems(collectionId: Int!): [CollectionItem!]
 
   """Get all public collections"""
-  getCollections(query: CollectionsQueryParams): [Collection!]
+  getCollections(query: CollectionQueryParams): [Collection!]
 
   """Get the genres of anime"""
   getGenres(query: GenresQueryParams): [Genre!]
+
+  """Get collections for the logged-in user"""
+  getMyCollections(query: CollectionQueryParams): [Collection!]
 
   """Search for anime"""
   getProducers(query: ProducerSearchQueryParams): ProducerSearchResult
@@ -357,6 +383,11 @@ enum RatingEnum {
   r
   r17
   rx
+}
+
+input RemoveAnimeFromCollectionInput {
+  animeId: Int!
+  collectionId: Int!
 }
 
 """Query parameters"""
