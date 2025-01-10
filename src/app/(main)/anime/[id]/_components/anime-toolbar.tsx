@@ -1,24 +1,51 @@
 "use client";
 
 import {
+  ListBulletIcon,
+  EyeOpenIcon,
   BookmarkIcon,
   CheckIcon,
-  EyeOpenIcon,
-  PlusIcon,
 } from "@radix-ui/react-icons";
+import { useQuery } from "@urql/next";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+
+import { CollectionModal } from "./collection-modal";
 
 import { Button, type ButtonProps } from "~/components/ui/button";
+import { MeQuery } from "~/graphql/queries";
 import { type AnimeQueryData } from "~/graphql/queries";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { getEnglishTitle } from "~/lib/utils/anime";
 import { type TitleType } from "~/server/api/modules/shared";
 
 export const AnimeToolbar = ({ anime }: { anime: AnimeQueryData }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [{ data }] = useQuery({
+    query: MeQuery,
+    requestPolicy: "cache-and-network",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const title = getEnglishTitle((anime.titles ?? []) as TitleType[]);
   const image = anime.image?.large ?? "/fallback-anime.avif";
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const buttonSize: ButtonProps["size"] = isMobileDevice ? "default" : "xl";
+
+  const handleAddToCollection = () => {
+    if (!data?.me) {
+      toast.error("Authentication Required", {
+        description: "Please log in to add anime to your collections.",
+        position: "top-right",
+      });
+      router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
       <Image
@@ -60,11 +87,24 @@ export const AnimeToolbar = ({ anime }: { anime: AnimeQueryData }) => {
               Watched
             </Button>
           </div>
-          <Button leftIcon={<PlusIcon />} variant="secondary" size={buttonSize}>
+          <Button
+            variant="secondary"
+            size={buttonSize}
+            leftIcon={<ListBulletIcon className="size-5" />}
+            onClick={handleAddToCollection}
+          >
             Add to Collection
           </Button>
         </div>
       </div>
+      {anime.id && (
+        <CollectionModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          animeId={Number(anime.id)}
+          animeImage={anime.image?.large ?? ""}
+        />
+      )}
     </div>
   );
 };
