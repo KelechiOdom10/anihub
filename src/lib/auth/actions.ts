@@ -48,6 +48,7 @@ export async function login(
   formData: FormData
 ): Promise<ActionResponse<LoginInput>> {
   const obj = Object.fromEntries(formData.entries());
+  const redirectUrl = obj.redirect as string | undefined;
 
   const parsed = loginSchema.safeParse(obj);
   if (!parsed.success) {
@@ -89,9 +90,11 @@ export async function login(
     };
   }
 
-  console.log("existingUser", existingUser);
-
   await setSession(existingUser.id);
+
+  if (redirectUrl) {
+    return redirect(redirectUrl);
+  }
 
   return redirect(redirects.afterLogin);
 }
@@ -155,7 +158,7 @@ export async function signup(
 }
 
 export async function logout(
-  redirectUrl = "/"
+  redirectUrl?: string
 ): Promise<{ error: string } | void> {
   const { session } = await validateRequest();
   if (!session) {
@@ -165,7 +168,11 @@ export async function logout(
   }
   await invalidateSession(session.id);
   deleteSessionTokenCookie();
-  return redirect(redirectUrl);
+  if (redirectUrl) {
+    return redirect(redirectUrl);
+  }
+
+  window.location.reload();
 }
 
 export async function resendVerificationEmail(): Promise<{
