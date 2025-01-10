@@ -52,7 +52,17 @@ export async function validateSessionToken(
 ): Promise<SessionValidationResult> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const result = await db
-    .select({ user: users, session: sessions })
+    .select({
+      session: sessions,
+      user: {
+        id: users.id,
+        email: users.email,
+        emailVerified: users.emailVerified,
+        avatar: users.avatar,
+        createdAt: users.createdAt,
+        updatedAt: users.updatedAt,
+      },
+    })
     .from(sessions)
     .innerJoin(users, eq(sessions.userId, users.id))
     .where(eq(sessions.id, sessionId));
@@ -97,6 +107,7 @@ export function generateIdFromEntropySize(size: number): string {
   return encodeBase32LowerCaseNoPadding(buffer);
 }
 
+export type SanitizedUser = Omit<User, "hashedPassword">;
 export type SessionValidationResult =
-  | { session: Session; user: User }
+  | { session: Session; user: SanitizedUser }
   | { session: null; user: null };

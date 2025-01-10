@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
 
 import { DiscordLogoIcon, Logo } from "~/components/icons";
@@ -18,6 +19,8 @@ import { Label } from "~/components/ui/label";
 import { login } from "~/lib/auth/actions";
 
 export function Login() {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
   const [state, formAction] = useFormState(login, null);
 
   return (
@@ -40,7 +43,8 @@ export function Login() {
           <div className="mx-2 text-muted-foreground">or</div>
           <div className="flex-grow border-t border-muted" />
         </div>
-        <form action={formAction} className="grid gap-4">
+        <form action={formAction} className="space-y-4">
+          <input type="hidden" name="redirect" value={redirectUrl ?? ""} />
           <div className="space-y-2">
             <Label>Email</Label>
             <Input

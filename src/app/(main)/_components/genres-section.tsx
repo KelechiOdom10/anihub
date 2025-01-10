@@ -48,7 +48,7 @@ export const GenresSection = ({ genres }: GenresSectionProps) => {
   }, [refetch]);
 
   const images =
-    data?.getAnimesByGenres.map((anime) => ({
+    data?.getAnimesByGenres?.map((anime) => ({
       url:
         anime?.image?.default ?? anime?.image?.small ?? "/fallback-anime.avif",
       alt: anime.title ?? "Anime",

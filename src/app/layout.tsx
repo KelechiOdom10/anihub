@@ -3,9 +3,11 @@ import "~/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
 
+import { AuthProvider } from "~/components/providers/auth-provider";
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
-import { UrqlReactProvider } from "~/graphql/react";
+import { UrqlReactProvider as UrqlProvider } from "~/graphql/react";
+import { getUser } from "~/lib/auth/validate-request";
 import { APP_TITLE } from "~/lib/constants";
 import { fontSans } from "~/lib/fonts";
 import { cn } from "~/lib/utils";
@@ -30,6 +32,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const userPromise = getUser();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -40,12 +44,14 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
-          forcedTheme="dark"
         >
-          <UrqlReactProvider>{children}</UrqlReactProvider>
-          <Toaster />
+          <UrqlProvider>
+            <AuthProvider userPromise={userPromise}>{children}</AuthProvider>
+          </UrqlProvider>
+          <Toaster position="top-right" />
           <NextTopLoader color="#ffffff" showSpinner={false} />
         </ThemeProvider>
       </body>

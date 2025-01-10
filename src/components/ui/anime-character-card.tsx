@@ -3,7 +3,9 @@ import Image from "next/image";
 import { type AnimeCharactersQueryResult } from "~/graphql/queries";
 import { cn } from "~/lib/utils";
 
-type CharacterData = AnimeCharactersQueryResult["getAnimeCharacters"][0];
+type CharacterData = NonNullable<
+  AnimeCharactersQueryResult["getAnimeCharacters"]
+>[number];
 
 interface AnimeCharacterCardProps {
   characterData: CharacterData;

@@ -1,11 +1,12 @@
 "use client";
 
-import { useQuery } from "@urql/next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 
 import { SearchInput } from "./search-input";
+
+import { useAuth } from "../providers/auth-provider";
 
 import { HamburgerMenuIcon, Logo } from "~/components/icons";
 import { Button } from "~/components/ui/button";
@@ -15,7 +16,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { MeQuery } from "~/graphql/queries";
 import { logout } from "~/lib/auth/actions";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { useWindowScroll } from "~/lib/hooks/use-window-scroll";
@@ -32,17 +32,18 @@ export const Header = () => {
   const pathname = usePathname();
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const [state] = useWindowScroll();
-  const [{ data, fetching }, refetch] = useQuery({
-    query: MeQuery,
-    requestPolicy: "cache-and-network",
-  });
+  const { user, setUser } = useAuth();
 
   const handleLogout = async () => {
+    setUser(null);
     await logout();
-    refetch();
   };
 
   const isNewsOrCatalog = pathname === "/catalog" || pathname === "/news";
+  const redirectUrl = pathname === "/" ? undefined : pathname;
+  const authUrlParams = redirectUrl
+    ? `?redirect=${encodeURIComponent(redirectUrl)}`
+    : "";
 
   return (
     <header
@@ -107,9 +108,7 @@ export const Header = () => {
         </Suspense>
 
         <div className="ml-auto self-center">
-          {fetching ? (
-            <div className="h-10 w-24 animate-pulse rounded-md bg-gray-300"></div>
-          ) : data?.me ? (
+          {user ? (
             <Button onClick={handleLogout}>Logout</Button>
           ) : (
             <>
@@ -118,14 +117,14 @@ export const Header = () => {
                 variant="secondary"
                 className="hidden shadow-md lg:inline-flex"
               >
-                <Link href="/login">Login</Link>
+                <Link href={`/login${authUrlParams}`}>Login</Link>
               </Button>
               <Button
                 asChild
                 className="ml-3"
                 size={isMobileDevice ? "default" : "lg"}
               >
-                <Link href="/signup">Register</Link>
+                <Link href={`/signup${authUrlParams}`}>Register</Link>
               </Button>
             </>
           )}
