@@ -28,6 +28,17 @@ export const Collection = builder.drizzleObject("collections", {
         return item?.animeImage ?? "/fallback-anime.avif";
       },
     }),
+    totalItems: t.field({
+      type: "Int",
+      resolve: async (parent, _args, { db }) => {
+        const totalItems = await db
+          .select({ count: count(collectionItems.id) })
+          .from(collectionItems)
+          .where(eq(collectionItems.collectionId, parent.id));
+
+        return totalItems[0]?.count ?? 0;
+      },
+    }),
     hasAnime: t.field({
       type: "Boolean",
       args: {
