@@ -6,6 +6,8 @@ export const GetMyCollectionsQuery = graphql(`
       id
       name
       description
+      thumbnail
+      totalItems
       isPublic
       userId
       createdAt
