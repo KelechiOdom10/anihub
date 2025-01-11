@@ -20,6 +20,7 @@ export const users = sqliteTable(
     email: text("email", { length: 255 }).unique().notNull(),
     emailVerified: int("id", { mode: "boolean" }).default(false).notNull(),
     hashedPassword: text("hashed_password", { length: 255 }),
+    username: text("username", { length: 255 }).unique(),
     avatar: text("avatar", { length: 255 }),
     createdAt: text("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
