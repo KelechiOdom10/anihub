@@ -229,7 +229,13 @@ type CommonImage {
 input CreateCollectionInput {
   description: String
   isPublic: Boolean = true
+  items: [CreateCollectionItem!]
   name: String!
+}
+
+input CreateCollectionItem {
+  animeImage: String!
+  id: Int!
 }
 
 enum FilterEnum {

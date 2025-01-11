@@ -25,7 +25,7 @@ const routes = [
   { name: "Home", href: "/" },
   { name: "Catalog", href: "/catalog" },
   { name: "News", href: "/#news" },
-  { name: "Collections", href: "/#collections" },
+  { name: "Collections", href: "/collections" },
 ] as const;
 
 export const Header = () => {
