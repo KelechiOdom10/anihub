@@ -166,7 +166,6 @@ builder.objectType(Anime, {
       type: [Character],
       nullable: true,
       resolve: async (parent) => {
-        console.log("I am in the characters resolver!");
         if (!parent.mal_id) return null;
 
         const { data } = await animeService.GET("/anime/{id}/characters", {
