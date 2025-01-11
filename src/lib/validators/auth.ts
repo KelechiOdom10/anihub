@@ -2,6 +2,10 @@ import { z } from "zod";
 
 export const signupSchema = z.object({
   email: z.string().email("Please enter a valid email"),
+  username: z
+    .string()
+    .min(4, "Username must be at least 4 characters")
+    .max(20, "Username must be at most 20 characters"),
   password: z.string().min(1, "Please provide your password.").max(255),
 });
 export type SignupInput = z.infer<typeof signupSchema>;

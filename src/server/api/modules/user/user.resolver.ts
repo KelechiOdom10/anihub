@@ -11,10 +11,8 @@ export const User = builder.drizzleObject("users", {
   fields: (t) => ({
     id: t.exposeID("id"),
     email: t.exposeString("email"),
-    emailVerified: t.exposeBoolean("emailVerified"),
     avatar: t.exposeString("avatar", { nullable: true }),
-    createdAt: t.exposeString("createdAt"),
-    updatedAt: t.exposeString("updatedAt"),
+    username: t.exposeString("username"),
     collections: t.relation("collections", {
       args: {
         limit: t.arg.int({ required: false, defaultValue: 10 }),

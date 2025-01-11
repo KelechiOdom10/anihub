@@ -4,8 +4,11 @@ import type { NextRequest } from "next/server";
 import { verifyRequestOrigin } from "./lib/auth/request";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const headers = new Headers(request.headers);
+  headers.set("x-current-path", request.nextUrl.pathname);
+
   if (request.method === "GET") {
-    return NextResponse.next();
+    return NextResponse.next({ headers });
   }
   const originHeader = request.headers.get("Origin");
   const hostHeader = request.headers.get("Host");
@@ -18,7 +21,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       status: 403,
     });
   }
-  return NextResponse.next();
+  return NextResponse.next({ headers });
 }
 
 export const config = {

@@ -458,9 +458,7 @@ type VoiceActor {
 type users {
   avatar: String
   collections(limit: Int = 10, offset: Int = 0): [Collection!]
-  createdAt: String
   email: String
-  emailVerified: Boolean
   id: ID
-  updatedAt: String
+  username: String
 }

@@ -1,4 +1,4 @@
-export function AuthLoading() {
+export function AuthLoading({ page }: { page?: "login" | "signup" }) {
   return (
     <div className="w-full max-w-md">
       <div className="w-full rounded-lg border bg-card p-6 shadow-sm">
@@ -31,6 +31,13 @@ export function AuthLoading() {
               <div className="h-4 w-16 animate-pulse rounded bg-zinc-800" />
               <div className="h-10 w-full animate-pulse rounded-md bg-zinc-800" />
             </div>
+
+            {page === "signup" && (
+              <div className="space-y-2">
+                <div className="h-4 w-16 animate-pulse rounded bg-zinc-800" />
+                <div className="h-10 w-full animate-pulse rounded-md bg-zinc-800" />
+              </div>
+            )}
 
             {/* Action Links */}
             <div className="flex justify-between">

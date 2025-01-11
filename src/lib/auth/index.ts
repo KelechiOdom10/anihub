@@ -58,6 +58,7 @@ export async function validateSessionToken(
         id: users.id,
         email: users.email,
         emailVerified: users.emailVerified,
+        username: users.username,
         avatar: users.avatar,
         createdAt: users.createdAt,
         updatedAt: users.updatedAt,

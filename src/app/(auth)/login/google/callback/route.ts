@@ -93,6 +93,7 @@ export const GET = async (request: Request): Promise<Response> => {
             .set({
               emailVerified: true,
               avatar,
+              username: googleUser.name,
             })
             .where(eq(users.id, existingUser?.id));
         });
@@ -115,6 +116,7 @@ export const GET = async (request: Request): Promise<Response> => {
           email: googleUser.email,
           emailVerified: true,
           avatar,
+          username: googleUser.name,
         })
         .returning({ id: users.id });
 

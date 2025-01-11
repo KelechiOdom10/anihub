@@ -111,21 +111,29 @@ export async function signup(
     return {
       fieldError: {
         email: err.fieldErrors.email?.[0],
+        username: err.fieldErrors.username?.[0],
         password: err.fieldErrors.password?.[0],
       },
     };
   }
 
-  const { email, password } = parsed.data;
+  const { email, password, username } = parsed.data;
 
   const existingUser = await db.query.users.findFirst({
-    where: (table, { eq }) => eq(table.email, email),
-    columns: { email: true },
+    where: (table, { or, eq }) =>
+      or(eq(table.email, email), eq(table.username, username)),
+    columns: {
+      email: true,
+      username: true,
+    },
   });
 
   if (existingUser) {
     return {
-      formError: "Cannot create account with that email",
+      formError:
+        existingUser.email === email
+          ? "An account with this email already exists"
+          : "This username is already taken",
     };
   }
 
@@ -135,6 +143,7 @@ export async function signup(
     .insert(users)
     .values({
       email,
+      username,
       hashedPassword,
     })
     .returning();
