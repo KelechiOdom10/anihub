@@ -84,7 +84,7 @@ export async function GET(request: Request): Promise<Response> {
               username:
                 existingAccount?.providerUserId !== discordUser.id ||
                 existingUser?.avatar !== avatar
-                  ? discordUser.username || discordUser.global_name
+                  ? discordUser.username
                   : existingUser.username,
             })
             .where(eq(users.id, existingUser?.id));
@@ -106,7 +106,7 @@ export async function GET(request: Request): Promise<Response> {
         .insert(users)
         .values({
           email: discordUser.email!,
-          username: discordUser.username || discordUser.global_name,
+          username: discordUser.username,
           emailVerified: true,
           avatar,
         })
