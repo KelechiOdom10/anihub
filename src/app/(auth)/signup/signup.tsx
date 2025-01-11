@@ -51,6 +51,16 @@ export function Signup() {
             />
           </div>
           <div className="space-y-2">
+            <Label>Username</Label>
+            <Input
+              required
+              placeholder="username"
+              autoComplete="username"
+              name="username"
+              type="username"
+            />
+          </div>
+          <div className="space-y-2">
             <Label>Password</Label>
             <PasswordInput
               name="password"
