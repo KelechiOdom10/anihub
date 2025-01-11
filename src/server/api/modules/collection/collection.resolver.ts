@@ -33,6 +33,17 @@ const CreateCollectionInput = builder.inputType("CreateCollectionInput", {
     name: t.string({ required: true }),
     description: t.string(),
     isPublic: t.boolean({ defaultValue: true }),
+    items: t.field({
+      type: [
+        builder.inputType("CreateCollectionItem", {
+          fields: (t) => ({
+            id: t.int({ required: true }),
+            animeImage: t.string({ required: true }),
+          }),
+        }),
+      ],
+      required: false,
+    }),
   }),
 });
 
@@ -185,26 +196,43 @@ builder.queryField("getMyCollections", (t) =>
 
 // Mutations
 builder.mutationField("createCollection", (t) =>
-  t.drizzleField({
+  t.field({
     type: Collection,
     nullable: false,
     args: {
       input: t.arg({ type: CreateCollectionInput, required: true }),
     },
-    resolve: async (_query, _root, { input }, ctx) => {
+    resolve: async (_root, { input }, ctx) => {
       if (!ctx.session) throw new Error("Not authenticated");
 
-      const [collection] = await ctx.db
-        .insert(collections)
-        .values({
-          name: input.name,
-          description: input.description,
-          isPublic: Boolean(input.isPublic),
-          userId: ctx.session.userId,
-        })
-        .returning();
+      const collectionData = await ctx.db.transaction(async (tx) => {
+        const [collection] = await tx
+          .insert(collections)
+          .values({
+            name: input.name,
+            description: input.description,
+            isPublic: Boolean(input.isPublic),
+            userId: ctx.session?.userId as number,
+          })
+          .returning();
 
-      return collection!;
+        if (collection && input.items && input.items.length > 0) {
+          await tx.insert(collectionItems).values(
+            input.items.map((item) => ({
+              collectionId: collection.id,
+              animeId: item.id,
+              animeImage: item.animeImage,
+            }))
+          );
+        }
+        return collection;
+      });
+
+      if (!collectionData) {
+        throw new Error("Failed to create collection");
+      }
+
+      return collectionData;
     },
   })
 );
