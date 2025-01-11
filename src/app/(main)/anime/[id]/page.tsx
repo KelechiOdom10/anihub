@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { AnimeHeader } from "./_components/anime-header";
 import { AnimeTabContent } from "./_components/anime-tab-content";
+import { AnimeToolbar } from "./_components/anime-toolbar";
 
 import { getClient } from "~/graphql/client";
 import { AnimeQuery } from "~/graphql/queries";
@@ -15,12 +16,6 @@ const AnimeTabsNavigation = dynamic(
     import("./_components/anime-tabs-navigation").then(
       (mod) => mod.AnimeTabsNavigation
     ),
-  {
-    ssr: true,
-  }
-);
-const AnimeToolbar = dynamic(
-  () => import("./_components/anime-toolbar").then((mod) => mod.AnimeToolbar),
   {
     ssr: true,
   }
