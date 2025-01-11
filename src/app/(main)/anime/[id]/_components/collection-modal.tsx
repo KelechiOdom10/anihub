@@ -191,7 +191,6 @@ export function CollectionModal({
                 <div className="grid gap-4">
                   <Button
                     type="button"
-                    variant="outline"
                     fullWidth
                     size="default"
                     onClick={() => setShowNewCollectionForm(true)}
