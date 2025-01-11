@@ -1,10 +1,10 @@
-import { and, eq } from "drizzle-orm";
+import { and, count, eq, isNotNull } from "drizzle-orm";
 
 import { builder } from "../../builder";
 import { Anime } from "../anime";
 import { animeService } from "../anime/anime.service";
 
-import { collectionLikes } from "~/server/db/schema";
+import { collectionItems, collectionLikes } from "~/server/db/schema";
 // Collection Type
 export const Collection = builder.drizzleObject("collections", {
   name: "Collection",
@@ -17,6 +17,17 @@ export const Collection = builder.drizzleObject("collections", {
     likesCount: t.exposeInt("likesCount"),
     createdAt: t.exposeString("createdAt"),
     updatedAt: t.exposeString("updatedAt"),
+    thumbnail: t.field({
+      type: "String",
+      resolve: async (parent, _args, { db }) => {
+        const item = await db.query.collectionItems.findFirst({
+          where: (items, { and, eq }) =>
+            and(eq(items.collectionId, parent.id), isNotNull(items.animeImage)),
+        });
+
+        return item?.animeImage ?? "/fallback-anime.avif";
+      },
+    }),
     hasAnime: t.field({
       type: "Boolean",
       args: {
