@@ -39,6 +39,14 @@ export const metadata: Metadata = {
   title: "Anihub • Social anime discovery",
   description:
     "Anihub is a social platform for discovering and sharing your taste in anime. Use it as a diary to record your opinion about animes as you watch them, or just to keep track of animes you've seen in the past. Rate, review and tag animes as you add them. Find and follow your friends to see what they're enjoying. Keep a watchlist of animes you'd like to see, and create lists/collections on any topic.",
+  keywords: [
+    "anime",
+    "anime discovery",
+    "anime tracking",
+    "anime social platform",
+    "anime watchlist",
+    "anime reviews",
+  ],
 };
 
 export const dynamic = "force-static";
