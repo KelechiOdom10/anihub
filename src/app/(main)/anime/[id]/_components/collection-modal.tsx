@@ -1,5 +1,6 @@
 import { PlusIcon, Cross2Icon } from "@radix-ui/react-icons";
 import { useQuery, useMutation } from "@urql/next";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -188,6 +189,16 @@ export function CollectionModal({
             {hasCollections ? (
               <>
                 <div className="grid gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    fullWidth
+                    size="default"
+                    onClick={() => setShowNewCollectionForm(true)}
+                  >
+                    <PlusIcon className="mr-2 h-4 w-4" />
+                    Create New Collection
+                  </Button>
                   {collectionsData?.getMyCollections?.map((collection) => {
                     const currentState = Boolean(collection.hasAnime);
                     const pendingState = pendingChanges.get(
@@ -196,78 +207,82 @@ export function CollectionModal({
                     const effectiveState = pendingState ?? currentState;
 
                     return (
-                      <div className="flex items-center space-x-2">
+                      <div
+                        key={collection.id}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleToggleCollection(
+                            Number(collection.id),
+                            currentState
+                          );
+                        }}
+                        className="group relative flex cursor-pointer items-center gap-x-4 rounded-lg border border-border bg-background p-1.5 hover:bg-accent/50"
+                      >
                         <Checkbox
                           id={`collection-${collection.id}`}
                           checked={effectiveState}
                           disabled={isUpdating}
-                          onClick={(e) => {
-                            // Prevent the checkbox from changing state automatically
-                            e.preventDefault();
-                            handleToggleCollection(
-                              Number(collection.id),
-                              currentState
-                            );
-                          }}
+                          className="pointer-events-none absolute right-4 top-1/3"
                         />
-                        <Label
-                          htmlFor={`collection-${collection.id}`}
-                          className={`flex-grow ${
-                            pendingState !== undefined
-                              ? "text-blue-500 dark:text-blue-400"
-                              : ""
-                          } ${isUpdating ? "text-muted-foreground" : ""}`}
-                        >
-                          {collection.name}
-                          {pendingState !== undefined && (
-                            <span className="ml-2 text-sm text-muted-foreground">
-                              (will {pendingState ? "add to" : "remove from"}{" "}
-                              collection)
-                            </span>
-                          )}
-                        </Label>
+                        {collection.thumbnail ? (
+                          <Image
+                            width={72}
+                            height={72}
+                            src={collection.thumbnail}
+                            alt={collection.name ?? "Collection Thumbnail"}
+                            className="h-16 w-16 rounded-md object-cover"
+                          />
+                        ) : (
+                          <div className="h-16 w-16 rounded-md bg-muted" />
+                        )}
+                        <div className="flex flex-col">
+                          <Label
+                            htmlFor={`collection-${collection.id}`}
+                            className={`break-words text-base font-medium ${
+                              pendingState !== undefined
+                                ? "text-blue-500 dark:text-blue-400"
+                                : ""
+                            } ${isUpdating ? "text-muted-foreground" : ""}`}
+                          >
+                            {collection.name}
+                            {pendingState !== undefined && (
+                              <span className="ml-2 text-sm text-muted-foreground">
+                                (will {pendingState ? "add to" : "remove from"}{" "}
+                                collection)
+                              </span>
+                            )}
+                          </Label>
+                          <span className="mt-1 text-sm text-muted-foreground">
+                            {collection.totalItems}{" "}
+                            {collection.totalItems === 1 ? "title" : "titles"}
+                          </span>
+                        </div>
                       </div>
                     );
                   })}
                 </div>
-                <div className="flex justify-between gap-2">
-                  <div className="flex w-full flex-col">
-                    <div className="mb-6 mt-4 flex w-full flex-row items-center gap-2">
-                      {hasChanges && (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          onClick={handleCancelChanges}
-                          size="default"
-                          disabled={isUpdating}
-                        >
-                          <Cross2Icon className="mr-2 h-4 w-4" />
-                          Cancel Changes
-                        </Button>
-                      )}
-                      {hasChanges && (
-                        <Button
-                          onClick={handleSaveChanges}
-                          disabled={isUpdating}
-                          fullWidth
-                          size="default"
-                        >
-                          Save Changes ({pendingChanges.size})
-                        </Button>
-                      )}
-                    </div>
+                {hasChanges && (
+                  <div className="mt-4 flex w-full flex-row items-center gap-2">
                     <Button
                       type="button"
-                      variant="outline"
+                      variant="ghost"
+                      onClick={handleCancelChanges}
+                      size="default"
+                      disabled={isUpdating}
+                    >
+                      <Cross2Icon className="mr-2 h-4 w-4" />
+                      Cancel Changes
+                    </Button>
+                    <Button
+                      onClick={handleSaveChanges}
+                      disabled={isUpdating}
                       fullWidth
                       size="default"
-                      onClick={() => setShowNewCollectionForm(true)}
                     >
-                      <PlusIcon className="mr-2 h-4 w-4" />
-                      Create New Collection
+                      Save Changes ({pendingChanges.size})
                     </Button>
                   </div>
-                </div>
+                )}
               </>
             ) : (
               <div className="flex flex-col items-center gap-4 py-6">
