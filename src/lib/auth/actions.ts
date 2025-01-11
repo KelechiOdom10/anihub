@@ -138,6 +138,22 @@ export async function signup(
   }
 
   const hashedPassword = await hashPassword(password);
+  let avatar: string;
+  try {
+    avatar = (
+      await fetch(
+        `https://api.nekosapi.com/v4/images/random?tags=weapon,${
+          Math.random() > 0.5 ? "boy" : "girl"
+        }&rating=safe`
+      ).then((res) => res.json())
+    )[0].url;
+  } catch (error) {
+    console.error(error);
+    avatar =
+      Math.random() > 0.5
+        ? "/anime-female-avatar.png"
+        : "/anime-male-avatar.avif";
+  }
 
   const user = await db
     .insert(users)
@@ -145,6 +161,7 @@ export async function signup(
       email,
       username,
       hashedPassword,
+      avatar,
     })
     .returning();
 
