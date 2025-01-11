@@ -22,7 +22,7 @@ export const users = sqliteTable(
       .default(false)
       .notNull(),
     hashedPassword: text("hashed_password", { length: 255 }),
-    username: text("username", { length: 255 }).unique(),
+    username: text("username", { length: 255 }).unique().notNull(),
     avatar: text("avatar", { length: 255 }),
     createdAt: text("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
