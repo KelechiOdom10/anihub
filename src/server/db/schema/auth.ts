@@ -18,7 +18,9 @@ export const users = sqliteTable(
   {
     id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
     email: text("email", { length: 255 }).unique().notNull(),
-    emailVerified: int("id", { mode: "boolean" }).default(false).notNull(),
+    emailVerified: int("email_verified", { mode: "boolean" })
+      .default(false)
+      .notNull(),
     hashedPassword: text("hashed_password", { length: 255 }),
     username: text("username", { length: 255 }).unique(),
     avatar: text("avatar", { length: 255 }),
