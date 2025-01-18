@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 
 import { users } from "./auth";
 import { collections, collectionItems, collectionLikes } from "./collection";
+import { comments } from "./comment";
 
 export const userRelations = relations(users, ({ many }) => ({
   collections: many(collections),
@@ -39,3 +40,15 @@ export const collectionLikesRelations = relations(
     }),
   })
 );
+
+export const commentsRelations = relations(comments, ({ one, many }) => ({
+  user: one(users, {
+    fields: [comments.userId],
+    references: [users.id],
+  }),
+  parent: one(comments, {
+    fields: [comments.parentId],
+    references: [comments.id],
+  }),
+  replies: many(comments),
+}));
