@@ -6,5 +6,6 @@ import "./modules/genre";
 import "./modules/user";
 import "./modules/producer";
 import "./modules/collection";
+import "./modules/comment";
 
 export const schema = builder.toSchema();
