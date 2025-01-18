@@ -198,67 +198,75 @@ export function CollectionModal({
                     <PlusIcon className="mr-2 h-4 w-4" />
                     Create New Collection
                   </Button>
-                  {collectionsData?.getMyCollections?.map((collection) => {
-                    const currentState = Boolean(collection.hasAnime);
-                    const pendingState = pendingChanges.get(
-                      Number(collection.id)
-                    );
-                    const effectiveState = pendingState ?? currentState;
+                  <div className="relative">
+                    <div className="max-h-[400px] space-y-2 overflow-y-auto pb-4 pr-2">
+                      {collectionsData?.getMyCollections?.map((collection) => {
+                        const currentState = Boolean(collection.hasAnime);
+                        const pendingState = pendingChanges.get(
+                          Number(collection.id)
+                        );
+                        const effectiveState = pendingState ?? currentState;
 
-                    return (
-                      <div
-                        key={collection.id}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleToggleCollection(
-                            Number(collection.id),
-                            currentState
-                          );
-                        }}
-                        className="group relative flex cursor-pointer items-center gap-x-4 rounded-lg border border-border bg-background p-1.5 hover:bg-accent/50"
-                      >
-                        <Checkbox
-                          id={`collection-${collection.id}`}
-                          checked={effectiveState}
-                          disabled={isUpdating}
-                          className="pointer-events-none absolute right-4 top-1/3"
-                        />
-                        {collection.thumbnail ? (
-                          <Image
-                            width={72}
-                            height={72}
-                            src={collection.thumbnail}
-                            alt={collection.name ?? "Collection Thumbnail"}
-                            className="h-16 w-16 rounded-md object-cover"
-                          />
-                        ) : (
-                          <div className="h-16 w-16 rounded-md bg-muted" />
-                        )}
-                        <div className="flex flex-col">
-                          <Label
-                            htmlFor={`collection-${collection.id}`}
-                            className={`break-words text-base font-medium ${
-                              pendingState !== undefined
-                                ? "text-blue-500 dark:text-blue-400"
-                                : ""
-                            } ${isUpdating ? "text-muted-foreground" : ""}`}
+                        return (
+                          <div
+                            key={collection.id}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleToggleCollection(
+                                Number(collection.id),
+                                currentState
+                              );
+                            }}
+                            className="group relative flex cursor-pointer items-center gap-x-4 rounded-lg border border-border bg-background p-1.5 hover:bg-accent/50"
                           >
-                            {collection.name}
-                            {pendingState !== undefined && (
-                              <span className="ml-2 text-sm text-muted-foreground">
-                                (will {pendingState ? "add to" : "remove from"}{" "}
-                                collection)
-                              </span>
+                            <Checkbox
+                              id={`collection-${collection.id}`}
+                              checked={effectiveState}
+                              disabled={isUpdating}
+                              className="pointer-events-none absolute right-4 top-1/3"
+                            />
+                            {collection.thumbnail ? (
+                              <Image
+                                width={72}
+                                height={72}
+                                src={collection.thumbnail}
+                                alt={collection.name ?? "Collection Thumbnail"}
+                                className="h-16 w-16 rounded-md object-cover"
+                              />
+                            ) : (
+                              <div className="h-16 w-16 rounded-md bg-muted" />
                             )}
-                          </Label>
-                          <span className="mt-1 text-sm text-muted-foreground">
-                            {collection.totalItems}{" "}
-                            {collection.totalItems === 1 ? "title" : "titles"}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                            <div className="flex flex-col">
+                              <Label
+                                htmlFor={`collection-${collection.id}`}
+                                className={`break-words text-base font-medium ${
+                                  pendingState !== undefined
+                                    ? "text-blue-500 dark:text-blue-400"
+                                    : ""
+                                } ${isUpdating ? "text-muted-foreground" : ""}`}
+                              >
+                                {collection.name}
+                                {pendingState !== undefined && (
+                                  <span className="ml-2 text-sm text-muted-foreground">
+                                    (will{" "}
+                                    {pendingState ? "add to" : "remove from"}{" "}
+                                    collection)
+                                  </span>
+                                )}
+                              </Label>
+                              <span className="mt-1 text-sm text-muted-foreground">
+                                {collection.totalItems}{" "}
+                                {collection.totalItems === 1
+                                  ? "title"
+                                  : "titles"}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-9 bg-gradient-to-t from-foreground/5 to-transparent" />
+                  </div>
                 </div>
                 {hasChanges && (
                   <div className="mt-4 flex w-full flex-row items-center gap-2">
