@@ -1,7 +1,10 @@
+import { and } from "drizzle-orm";
+
 import { animeService } from "./anime.service";
 
 import { builder } from "../../builder";
 import { Character } from "../character";
+import { Comment } from "../comment/comment.model";
 import { Genre } from "../genre";
 import { PaginationResult, Title } from "../shared";
 
@@ -178,6 +181,19 @@ builder.objectType(Anime, {
         return data.data.map((character) => ({
           ...character.character,
         }));
+      },
+    }),
+    comments: t.field({
+      type: [Comment],
+      resolve: async (parent, _, { db }) => {
+        const animeId = parent.mal_id;
+        if (!animeId) return [];
+
+        return db.query.comments.findMany({
+          where: (comments, { eq, isNull }) =>
+            and(eq(comments.animeId, animeId), isNull(comments.parentId)),
+          orderBy: (comments, { desc }) => [desc(comments.createdAt)],
+        });
       },
     }),
   }),
