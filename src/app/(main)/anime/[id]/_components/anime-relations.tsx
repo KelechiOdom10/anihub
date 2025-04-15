@@ -1,8 +1,8 @@
 "use client";
 
+import { useQuery } from "@urql/next";
 import Link from "next/link";
 import React from "react";
-import { useQuery } from "urql";
 
 import { AnimeCard, AnimeCardSkeleton } from "~/components/ui/anime-card";
 import { AnimeRelationsQuery } from "~/graphql/queries";
