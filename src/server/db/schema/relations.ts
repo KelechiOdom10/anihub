@@ -46,9 +46,12 @@ export const commentsRelations = relations(comments, ({ one, many }) => ({
     fields: [comments.userId],
     references: [users.id],
   }),
-  parent: one(comments, {
+  parentComment: one(comments, {
     fields: [comments.parentId],
     references: [comments.id],
+    relationName: "parentChild",
   }),
-  replies: many(comments),
+  childComments: many(comments, {
+    relationName: "parentChild",
+  }),
 }));

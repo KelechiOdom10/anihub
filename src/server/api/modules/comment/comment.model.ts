@@ -1,6 +1,7 @@
 import { builder } from "../../builder";
 
 export const Comment = builder.drizzleObject("comments", {
+  name: "Comment",
   description: "Comment on an anime",
   fields: (t) => ({
     id: t.exposeInt("id"),
@@ -14,7 +15,8 @@ export const Comment = builder.drizzleObject("comments", {
     parentId: t.exposeInt("parentId", { nullable: true }),
     // Add relationships
     user: t.relation("user"),
-    replies: t.relation("replies", {
+    parent: t.relation("parentComment"),
+    replies: t.relation("childComments", {
       args: {
         limit: t.arg.int({ required: false, defaultValue: 10 }),
         offset: t.arg.int({ required: false, defaultValue: 0 }),
