@@ -4,3 +4,6 @@ export * from "./bulk-update-collections";
 export * from "./create-collection";
 export * from "./remove-anime-from-collection";
 export * from "./update-collection";
+export * from "./create-anime-comment";
+export * from "./update-anime-comment";
+export * from "./delete-anime-comment";
