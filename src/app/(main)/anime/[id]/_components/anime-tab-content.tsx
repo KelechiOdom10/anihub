@@ -1,6 +1,9 @@
+"use client";
+
 import { Suspense, type FunctionComponent } from "react";
 
 import { AnimeCharacters, AnimeCharactersSkeleton } from "./anime-characters";
+import { AnimeComments } from "./anime-comments";
 import { AnimeOverview } from "./anime-overview";
 import { AnimeRelations, AnimeRelationsSkeleton } from "./anime-relations";
 
@@ -33,7 +36,7 @@ export const AnimeTabContent: FunctionComponent<AnimeTabContentProps> = ({
         </Suspense>
       );
     case "reviews":
-      return <div>Reviews {animeId}</div>;
+      return <AnimeComments animeId={animeId} />;
     default:
       return <AnimeOverview anime={anime} />;
   }
