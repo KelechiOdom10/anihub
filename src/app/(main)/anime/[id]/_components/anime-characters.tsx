@@ -1,7 +1,7 @@
 "use client";
 
+import { useQuery } from "@urql/next";
 import React from "react";
-import { useQuery } from "urql";
 
 import { AnimeCardSkeleton } from "~/components/ui/anime-card";
 import { AnimeCharacterCard } from "~/components/ui/anime-character-card";
