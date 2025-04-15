@@ -31,6 +31,7 @@ type Anime {
 
   """The characters of the anime"""
   characters: [Character!]
+  comments: [Comment!]
 
   """The description of the anime"""
   description: String
@@ -221,6 +222,29 @@ input CollectionUpdate {
   hasAnime: Boolean!
 }
 
+"""Comment on an anime"""
+type Comment {
+  animeId: Int
+  createdAt: String
+  id: Int
+  isSpoiler: Boolean
+  parentId: Int
+  rating: Int
+  replies(limit: Int = 10, offset: Int = 0): [Comment!]
+  text: String
+  updatedAt: String
+  user: users
+  userId: Int
+}
+
+input CommentInput {
+  animeId: Int!
+  isSpoiler: Boolean!
+  parentId: Int
+  rating: Int!
+  text: String!
+}
+
 """Common Image object"""
 type CommonImage {
   imageUrl: String
@@ -277,9 +301,12 @@ type Mutation {
   addAnimeToNewCollection(input: AddAnimeToNewCollectionInput!): Collection
   bulkUpdateCollections(input: BulkUpdateCollectionsInput!): [Collection!]
   createCollection(input: CreateCollectionInput!): Collection!
+  createComment(input: CommentInput!): Comment
+  deleteComment(id: Int!): Comment
   removeAnimeFromCollection(input: RemoveAnimeFromCollectionInput!): Collection
   toggleCollectionLike(collectionId: Int!): Collection
   updateCollection(input: UpdateCollectionInput!): Collection
+  updateComment(id: Int!, input: CommentInput!): Comment
 }
 
 type Pagination {
@@ -343,6 +370,8 @@ type ProducerSearchResult {
 }
 
 type Query {
+  animeComments(animeId: Int!): [Comment!]
+
   """Get anime by ID"""
   getAnime(id: Int!): Anime
 
