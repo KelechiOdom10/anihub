@@ -1,4 +1,5 @@
 node_modules/
+**/node_modules/
 .next/
 dist/
 .wrangler/
@@ -9,3 +10,12 @@ src/graphql/graphql-env.d.ts
 src/graphql/schema.graphql
 pnpm-lock.yaml
 drizzle/
+apps/**/dist/
+apps/**/.void/
+apps/**/.wrangler/
+apps/**/.cf/
+apps/**/.cloudflare/
+apps/**/.void-wrangler.jsonc
+apps/**/routeTree.gen.ts
+apps/**/test-results/
+apps/**/playwright-report/

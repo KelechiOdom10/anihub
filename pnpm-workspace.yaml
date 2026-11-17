@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
+  - better-sqlite3
+overrides:
+  "@cloudflare/vite-plugin": 2.0.0-rc.1

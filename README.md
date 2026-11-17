@@ -1,5 +1,7 @@
 # AniHub - Your Social Anime Discovery Platform
 
+The root Next.js application remains runnable during the migration. The separately built Workers candidate is in `apps/worker`; see [Workers runtime](docs/workers-runtime.md) for its pinned Void/TanStack setup and local checks. No production cutover is enabled by adding this candidate.
+
 A modern platform for anime enthusiasts to discover, track, review and share their favorite anime. Think Letterboxd for anime - track your watchlist, share reviews, and connect with fellow fans, all powered by a robust GraphQL API and the Jikan database.
 
 ## Features

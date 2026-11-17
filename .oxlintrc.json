@@ -1,6 +1,6 @@
 {
   "ignorePatterns": [
-    "node_modules/**",
+    "**/node_modules/**",
     ".next/**",
     "dist/**",
     ".wrangler/**",
@@ -17,7 +17,13 @@
     ".windsurf/**",
     "tools/oxlint/anti-slop/**",
     "src/server/jikan-schema.d.ts",
-    "src/graphql/graphql-env.d.ts"
+    "src/graphql/graphql-env.d.ts",
+    "apps/**/.void/**",
+    "apps/**/dist/**",
+    "apps/**/.wrangler/**",
+    "apps/**/.cf/**",
+    "apps/**/.cloudflare/**",
+    "apps/**/routeTree.gen.ts"
   ],
   "jsPlugins": [
     {
