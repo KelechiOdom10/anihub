@@ -1,0 +1,21 @@
+name: Preview cleanup
+on:
+  pull_request_target:
+    types: [closed]
+permissions: {}
+jobs:
+  cleanup:
+    if: vars.ANIHUB_PREVIEWS == 'true'
+    runs-on: ubuntu-latest
+    environment: preview-cleanup
+    env:
+      PREVIEW: anihub-pr-${{ github.event.pull_request.number }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID || 'ab6145b5f4d74c798229173319deaf21' }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+    steps:
+      - name: Delete the preview Worker
+        continue-on-error: true
+        run: npx --yes wrangler@4.164.0 delete "$PREVIEW"
+      - name: Delete the preview database
+        continue-on-error: true
+        run: npx --yes wrangler@4.164.0 d1 delete "$PREVIEW-db" --skip-confirmation
