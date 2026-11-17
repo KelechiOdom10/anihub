@@ -48,6 +48,7 @@ dist/
 .wrangler/
 .anti-slop-test-*/
 .void/
+.tanstack/
 .void-wrangler.jsonc
 .cf/
 .cloudflare/

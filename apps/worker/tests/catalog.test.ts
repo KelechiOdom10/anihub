@@ -20,6 +20,8 @@ const anime: Anime = {
   averageScore: 88,
   episodes: null,
   seasonYear: 1999,
+  startDate: { year: 1999, month: 10, day: 20 },
+  endDate: { year: null, month: null, day: null },
   format: "TV",
   status: "RELEASING",
   genres: ["Adventure"],

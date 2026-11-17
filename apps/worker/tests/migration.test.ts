@@ -72,6 +72,8 @@ const mapped: Anime = {
   averageScore: 80,
   episodes: 12,
   seasonYear: 2024,
+  startDate: { year: 1999, month: 10, day: 20 },
+  endDate: { year: null, month: null, day: null },
   format: "TV",
   status: "FINISHED",
   genres: ["Action"],

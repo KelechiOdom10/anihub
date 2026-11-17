@@ -1,0 +1,41 @@
+# Original UI on the Worker
+
+The Worker renders AniHub's original design system, ported from the root Next.js app rather than redesigned.
+
+## What is carried over unchanged
+
+- Tailwind 3.4.14 with the original theme: the container (centred, 2rem padding, 1400px at `2xl`), `--font-sans`, semantic colour tokens and `--radius: 0.5rem`. The app is dark-only, as the original was via `forcedTheme="dark"`, so only the original `.dark` token values ship.
+- Inter as one variable latin woff2 from `@fontsource-variable/inter@5.3.0`, the same file the root app loads, preloaded and set with `font-display: swap`.
+- The SVG logo, `Button` and `Card`, copied verbatim apart from import paths.
+- The fixed header that is transparent at the top and turns opaque with a bottom border once scrolled.
+- The viewport-height hero with its right-hand portrait and gradients, the first carousel overlapping it on large screens, 224px rounded-xl poster cards with title, year and genre overlaid, and the Embla carousel with its arrow controls.
+- The anime page banner, poster, title, score, Details grid and Description.
+- The standalone centred `max-w-md` auth card without the site header or footer.
+- The footer, and the black "A" favicon from `src/app/icon.tsx` as a static SVG.
+
+## What is deliberately left out
+
+These controls in the original either belong to features outside this milestone or no longer work, so they are left out rather than shipped as buttons that do nothing:
+
+- Header navigation to Catalog, News and Collections, the search field, and the mobile menu that only held those links.
+- "Save to Watchlist", "Watching", "To Watch", "Watched", "Add to Collection" and "Watch Trailer". AniList data in the cache has no trailer.
+- The anime page tabs (Relations, Characters, Reviews) and the home Categories and characters sections, which depended on Jikan endpoints and the catalog.
+- Email/password fields, sign-up and password reset. Login and Register become one "Sign in" button, and the card offers Google and Discord.
+
+## Data and states
+
+The home page shows AniList trending (as "Trending Now", overlapping the hero) and popular lists from the D1 cache. The hero is the fifth trending entry, matching the original's choice of the fifth item in its first list, and shows the romaji title as the original did. Statuses use the original Jikan wording ("Currently Airing").
+
+Old `/anime/<id>` links used MyAnimeList ids; the Worker uses AniList ids. Imported comments and collection items keep both ids, so links can be remapped when those features return.
+
+Each route has loading, empty, not-found (404) and AniList-unavailable states with a retry.
+
+## Comparison method
+
+Jikan, the original data source, is down, so a blank original page would compare nothing. One AniList response was recorded and served to both apps: to the original through a local Jikan-shaped stand-in (with its API base URL pointed at it for the run only, never committed), and to the Worker through its seeded local D1 cache. Both were captured with the same Chrome at 1440×900 and 390×844.
+
+Artifacts in Capy Drive under `renders/ANIH-3/ui-comparison/`: `compare-{home,anime,sign-in}-{desktop,mobile}.png` side by side, plus the individual `original-*` and `restored-*` captures.
+
+## Tests
+
+`pnpm --filter @anihub/worker test:browser` seeds local D1 from `tests/fixtures/home.json` (public AniList data) and drives the built Worker in Chromium. It checks the hero, carousels, Inter loading, header transparency before and after scrolling, keyboard focus and navigation, the anime details, 404 states, the sign-in card offering only Google and Discord, its error message, and that nothing overflows horizontally at 390px.

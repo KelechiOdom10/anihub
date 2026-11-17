@@ -23,7 +23,8 @@
     "apps/**/.wrangler/**",
     "apps/**/.cf/**",
     "apps/**/.cloudflare/**",
-    "apps/**/routeTree.gen.ts"
+    "apps/**/routeTree.gen.ts",
+    "apps/**/.tanstack/**"
   ],
   "jsPlugins": [
     {

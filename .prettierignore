@@ -19,3 +19,4 @@ apps/**/.void-wrangler.jsonc
 apps/**/routeTree.gen.ts
 apps/**/test-results/
 apps/**/playwright-report/
+apps/**/.tanstack/
