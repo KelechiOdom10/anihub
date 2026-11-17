@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { Anime } from "../src/server/anime";
+import { normalizedEmail } from "../src/server/email";
 
 const integerId = z.number().int().nonnegative();
 const stamp = z.string().min(1);
@@ -63,8 +64,6 @@ export const legacySchema = z.object({
 
 export type LegacyData = z.infer<typeof legacySchema>;
 
-const email = z.string().trim().toLowerCase().pipe(z.email());
-
 const legacyTimestamp = stamp
   .transform((value) =>
     Date.parse(value.includes("T") ? value : value.replace(" ", "T") + "Z")
@@ -104,7 +103,7 @@ export function buildImportStatements(
   const statements = ["PRAGMA defer_foreign_keys = ON;"];
 
   for (const value of data.users) {
-    const normalized = email.parse(value.email);
+    const normalized = normalizedEmail.parse(value.email);
 
     if (emails.has(normalized))
       throw new Error(

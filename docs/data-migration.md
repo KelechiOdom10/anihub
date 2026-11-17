@@ -4,7 +4,7 @@ The Workers candidate stores its data in D1 using Void's database conventions. T
 
 ## Schema
 
-- Better Auth's `user`, `session`, `account` and `verification` tables. There is no password column: sign-in is Google and Discord only. A unique index on `lower(trim(email))` stops two accounts differing only by email case or whitespace.
+- Better Auth's `user`, `session`, `account` and `verification` tables. Sign-in is Google and Discord only. `account.password` exists only because Better Auth's Drizzle adapter refuses to start without it; it is never written, and email/password endpoints are disabled. A unique index on `lower(trim(email))` stops two accounts differing only by email case or whitespace.
 - Imported legacy `collections`, `collection_items`, `collection_likes` and `comments`. Legacy rows referenced MyAnimeList ids, so each row keeps `mal_id` and stores the resolved AniList id in `anime_id`, which stays null when AniList has no mapping.
 - `anime_cache` and `cache_entries` hold public AniList data only. Upstream responses are parsed against the public anime contract before caching, so extra fields never reach D1.
 

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("the built Worker serves framework SSR and rejects unsupported health methods", async ({
+test("the built Worker serves SSR, health and auth routes and rejects unsupported requests", async ({
   page,
   request,
 }) => {
@@ -26,6 +26,20 @@ test("the built Worker serves framework SSR and rejects unsupported health metho
   const unsupported = await request.post("/api/health");
 
   expect(unsupported.status()).toBe(405);
+
+  const auth = await request.get("/api/auth/ok");
+
+  expect(auth.status()).toBe(200);
+
+  const password = await request.post("/api/auth/sign-in/email", {
+    headers: { origin: "http://127.0.0.1:8789" },
+    data: { email: "a@example.com", password: "unused-password" },
+  });
+
+  expect(password.status()).toBe(400);
+  expect(await password.json()).toMatchObject({
+    code: "EMAIL_PASSWORD_DISABLED",
+  });
 
   const missing = await request.get("/this-route-does-not-exist");
 

@@ -8,6 +8,13 @@
       "when": 1794950411545,
       "tag": "20261117212011_motionless_energizer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1794950862593,
+      "tag": "20261117212742_calm_nitro",
+      "breakpoints": true
     }
   ]
 }

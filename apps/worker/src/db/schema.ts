@@ -79,6 +79,7 @@ export const account = sqliteTable(
       mode: "timestamp_ms",
     }),
     scope: text("scope"),
+    password: text("password"),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
   },
