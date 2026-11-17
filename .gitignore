@@ -43,3 +43,9 @@ yarn-error.log*
 
 # misc
 .unlighthouse
+dist/
+.wrangler/
+.dev.vars
+.kelechi/
+renders/
+*.import.sql

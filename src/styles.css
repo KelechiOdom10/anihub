@@ -1,0 +1,1046 @@
+@import "tailwindcss";
+@theme {
+  --color-background: #101112;
+  --color-foreground: #f5f5f3;
+  --color-primary: #fafaf8;
+  --color-primary-foreground: #151515;
+  --color-secondary: #232426;
+  --color-secondary-foreground: #f5f5f3;
+  --color-muted: #252628;
+  --color-muted-foreground: #9c9da0;
+  --color-card: #141517;
+  --color-card-foreground: #f5f5f3;
+  --color-border: #303134;
+  --color-input: #3c3d40;
+  --color-accent: #2b2d30;
+  --color-accent-foreground: #fff;
+  --color-ring: #c6d1b3;
+  --font-sans: "Arial", "Helvetica Neue", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  background: #101112;
+}
+body {
+  margin: 0;
+  color: #f5f5f3;
+  font: 14px/1.6 var(--font-sans);
+}
+a {
+  text-decoration: none;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #c6d1b3;
+  outline-offset: 5px;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+.skip-link {
+  position: fixed;
+  top: -80px;
+  left: 20px;
+  z-index: 100;
+  background: white;
+  color: black;
+  padding: 12px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+.site-header {
+  height: 86px;
+  border-bottom: 1px solid #ffffff10;
+  background: #121315;
+  position: relative;
+  z-index: 5;
+}
+.header-inner {
+  max-width: 1380px;
+  margin: auto;
+  padding: 0 52px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 54px;
+}
+.wordmark {
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-size: 31px;
+  letter-spacing: -1.3px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.wordmark span {
+  color: #a7b895;
+}
+.site-header nav {
+  display: flex;
+  gap: 30px;
+  font-size: 13px;
+  color: #929396;
+}
+.site-header nav .active {
+  color: #f5f5f3;
+}
+.header-note {
+  margin-left: auto;
+  color: #74767b;
+  font-size: 12px;
+}
+.site-header .inline-flex {
+  gap: 18px;
+}
+.viewer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  font-size: 12px;
+}
+.viewer img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.hero {
+  height: 560px;
+  position: relative;
+  overflow: hidden;
+  background: #222724;
+}
+.hero-art {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% 35%;
+}
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #0e1012e8 0%, #0e1012b8 30%, #0e101220 72%),
+    linear-gradient(0deg, #101112 0%, transparent 35%);
+}
+.hero-copy {
+  position: relative;
+  max-width: 1276px;
+  margin: auto;
+  padding: 76px 0 70px;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.1px;
+  color: #a8b59d;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b7c6a7;
+  box-shadow: 0 0 10px #bbcfa56b;
+}
+.hero-meta {
+  margin-top: 35px;
+  display: flex;
+  gap: 15px;
+  color: #b1b3b4;
+  font-size: 11px;
+}
+.hero-meta span + span::before {
+  content: "·";
+  margin-right: 15px;
+  color: #777;
+}
+.hero h1 {
+  max-width: 610px;
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.05;
+  letter-spacing: -2.4px;
+  font-weight: 700;
+  margin: 14px 0 18px;
+}
+.hero-copy > p {
+  max-width: 430px;
+  color: #c4c5c6;
+  font-size: 13px;
+  line-height: 1.85;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.hero-actions {
+  display: flex;
+  gap: 27px;
+  align-items: center;
+  margin-top: 28px;
+}
+.hero-actions .inline-flex {
+  gap: 24px;
+}
+.hero-rating {
+  font-size: 16px;
+  color: #e4e7dc;
+}
+.hero-rating small {
+  display: block;
+  font-size: 9px;
+  color: #8a8e88;
+  margin-left: 17px;
+  line-height: 1;
+}
+.hero-caption {
+  position: absolute;
+  left: max(52px, calc((100% - 1276px) / 2));
+  right: max(52px, calc((100% - 1276px) / 2));
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #727779;
+}
+.content-wrap {
+  max-width: 1380px;
+  padding: 0 52px;
+  margin: auto;
+}
+.anime-section {
+  padding-top: 56px;
+}
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+.section-heading .eyebrow {
+  font-size: 8px;
+  letter-spacing: 1.7px;
+  color: #808a7b;
+}
+h2 {
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: -1px;
+  font-weight: 600;
+  margin: 7px 0 0;
+}
+.section-heading h2 span {
+  color: #a7b895;
+}
+.section-note {
+  font-size: 11px;
+  color: #72757a;
+  padding-bottom: 4px;
+}
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 22px;
+}
+.poster-image {
+  aspect-ratio: 2/3;
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #232528;
+}
+.poster-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.poster:hover img {
+  transform: scale(1.045);
+}
+.poster-image::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, #0009);
+}
+.poster-score {
+  position: absolute;
+  right: 8px;
+  top: 9px;
+  z-index: 1;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: #0d1013b8;
+  backdrop-filter: blur(8px);
+}
+.poster-index {
+  position: absolute;
+  bottom: 4px;
+  left: 11px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 33px;
+  color: #e5e5e5aa;
+  z-index: 1;
+}
+.poster h3 {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 12px 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.poster > p {
+  font-size: 10px;
+  color: #797c82;
+  margin: 0;
+}
+.poster > p span {
+  margin: 0 7px;
+}
+.editorial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  margin-top: 62px;
+  padding: 40px 48px;
+  border: 1px solid #ffffff0a;
+  border-radius: 8px;
+  background: #191c1b;
+  min-height: 305px;
+}
+.editorial .eyebrow {
+  font-size: 8px;
+}
+.editorial h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.1;
+  margin-top: 14px;
+  letter-spacing: -1.2px;
+}
+.editorial p {
+  font-size: 12px;
+  color: #90968f;
+  margin: 15px 0 22px;
+}
+.editorial .inline-flex {
+  gap: 26px;
+  height: 38px;
+  font-size: 11px;
+}
+.editorial-posters {
+  display: flex;
+  width: 48%;
+  justify-content: center;
+  gap: 15px;
+  transform: rotate(-9deg) translate(25px, 20px);
+  position: absolute;
+  right: 0;
+  top: -20px;
+}
+.editorial-posters img {
+  width: 30%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 12px 30px #0008;
+}
+.editorial-posters img:nth-child(2) {
+  transform: translateY(38px);
+}
+.site-footer {
+  max-width: 1276px;
+  margin: 70px auto 0;
+  padding: 32px 0;
+  border-top: 1px solid #ffffff0b;
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  color: #73777b;
+  font-size: 11px;
+}
+.site-footer .wordmark {
+  font-size: 22px;
+  color: #e6e7e4;
+}
+.site-footer > a:last-child {
+  margin-left: auto;
+}
+.detail-banner {
+  height: 330px;
+  position: relative;
+  overflow: hidden;
+}
+.detail-banner > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.detail-banner > div {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #101112 0%, #10111225 80%);
+}
+.detail-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 60px;
+  position: relative;
+  margin-top: -88px;
+}
+.detail-poster > img {
+  width: 100%;
+  border-radius: 7px;
+  box-shadow: 0 15px 40px #0006;
+  margin-bottom: 26px;
+}
+.detail-poster .eyebrow {
+  font-size: 8px;
+}
+.detail-poster p {
+  color: #a7a9ab;
+  font-size: 12px;
+  margin: 10px 0 18px;
+}
+.detail-poster .inline-flex {
+  font-size: 11px;
+  padding: 10px;
+  margin-bottom: 9px;
+}
+.detail-poster small {
+  display: block;
+  text-align: center;
+  color: #6d7176;
+  font-size: 10px;
+  margin-top: 6px;
+}
+.detail-main {
+  padding-top: 50px;
+  max-width: 840px;
+}
+.detail-main > h1 {
+  font-size: 46px;
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+  font-weight: 600;
+  margin: 17px 0 10px;
+}
+.romaji {
+  color: #92969b;
+  font-size: 13px;
+}
+.detail-meta {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  margin: 27px 0 24px;
+  color: #a9acb0;
+  font-size: 12px;
+}
+.score {
+  font-size: 21px;
+  color: #d9e2cd;
+  padding-right: 20px;
+  border-right: 1px solid #ffffff18;
+  line-height: 1.2;
+}
+.score small {
+  display: block;
+  font-size: 9px;
+  color: #858d80;
+  margin: 5px 0 0;
+}
+.genre-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.genre-tags > span {
+  padding: 5px 13px;
+  font-size: 10px;
+  border: 1px solid #ffffff18;
+  border-radius: 5px;
+  color: #aaaeb4;
+}
+.detail-divider {
+  height: 1px;
+  background: #ffffff0c;
+  margin: 33px 0;
+}
+.detail-main h2 {
+  font-size: 20px;
+  margin-bottom: 19px;
+}
+.synopsis {
+  color: #a6a9af;
+  font-size: 13px;
+  line-height: 1.95;
+}
+.synopsis p {
+  margin-bottom: 15px;
+}
+.anime-facts {
+  border-top: 1px solid #ffffff0c;
+  margin-top: 34px;
+  padding-top: 23px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 23px;
+}
+.anime-facts dt {
+  font-size: 9px;
+  color: #6f757c;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+.anime-facts dd {
+  margin: 7px 0 0;
+  color: #c2c5ca;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.sign-in-page {
+  max-width: 1276px;
+  margin: auto;
+  min-height: 680px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 120px;
+  padding: 65px 50px;
+}
+.sign-in-intro {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  padding-top: 35px;
+}
+.sign-in-intro .eyebrow {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+.sign-in-intro h1 {
+  font:
+    44px/1.16 Georgia,
+    serif;
+  letter-spacing: -1.5px;
+  margin: 20px 0 18px;
+  position: relative;
+  z-index: 1;
+}
+.sign-in-intro h1 span {
+  color: #a7b895;
+}
+.sign-in-intro p {
+  color: #81878c;
+  font-size: 12px;
+  position: relative;
+  z-index: 1;
+}
+.sign-in-caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: #535b60;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.orbit-art {
+  height: 230px;
+  position: relative;
+  width: 340px;
+  opacity: 0.55;
+  transform: rotate(-20deg);
+}
+.orbit-art span {
+  font:
+    italic 175px/1 Georgia,
+    serif;
+  position: absolute;
+  left: 123px;
+  top: 25px;
+  color: #354137;
+}
+.orbit-art i {
+  position: absolute;
+  width: 360px;
+  height: 95px;
+  border: 1px solid #5b6b514f;
+  border-radius: 50%;
+  top: 80px;
+  left: 0;
+  transform: rotate(22deg);
+}
+.orbit-art i:nth-child(3) {
+  transform: rotate(67deg);
+}
+.orbit-art i:nth-child(4) {
+  transform: rotate(112deg);
+}
+.sign-in-card {
+  border-color: #ffffff0c;
+  background: #161819;
+  box-shadow: 0 30px 100px #0003;
+  border-radius: 10px;
+}
+.sign-in-card > div {
+  padding: 42px 40px 35px;
+}
+.sign-in-card .wordmark {
+  font-size: 27px;
+  display: inline-block;
+  margin-bottom: 35px;
+}
+.sign-in-card h2 {
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+.sign-in-card h2 + p {
+  color: #858b91;
+  font-size: 12px;
+}
+.provider-buttons {
+  margin-top: 30px;
+  display: grid;
+  gap: 12px;
+}
+.provider-buttons button {
+  position: relative;
+  font-size: 12px;
+  height: 45px;
+}
+.provider-icon {
+  position: absolute;
+  left: 19px;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.sign-in-card p.sign-in-security {
+  text-align: center;
+  color: #6f757a;
+  font-size: 10px;
+  margin: 23px 0 0;
+  line-height: 1.8;
+}
+.sign-in-divider {
+  background: #ffffff0c;
+  height: 1px;
+  margin: 28px 0 20px;
+}
+.existing-account {
+  color: #81888c;
+  font-size: 10px;
+  line-height: 1.8;
+  margin: 0;
+}
+.auth-error {
+  color: #e4aba5;
+  font-size: 12px;
+  margin: 15px 0;
+}
+.state-panel {
+  min-height: 60vh;
+  max-width: 650px;
+  padding: 90px 30px;
+  margin: auto;
+  text-align: center;
+}
+.state-panel h1 {
+  font:
+    38px/1.25 Georgia,
+    serif;
+  margin: 20px 0;
+}
+.state-panel p {
+  color: #9ba1a6;
+  margin-bottom: 28px;
+}
+.loading-page {
+  padding: 45px 52px;
+  max-width: 1380px;
+  margin: auto;
+}
+.skeleton {
+  background: #232528;
+  border-radius: 6px;
+  min-height: 210px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.skeleton-hero {
+  height: 330px;
+  margin-bottom: 45px;
+}
+.loading-posters {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 22px;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+@media (min-width: 1381px) {
+  .hero-copy {
+    max-width: 1276px;
+  }
+}
+@media (max-width: 1380px) {
+  .hero-copy {
+    padding-left: 52px;
+    padding-right: 52px;
+  }
+  .site-footer {
+    margin-left: 52px;
+    margin-right: 52px;
+  }
+}
+@media (max-width: 1000px) {
+  .header-note {
+    display: none;
+  }
+  .header-inner > .inline-flex {
+    margin-left: auto;
+  }
+  .poster-grid {
+    gap: 15px;
+  }
+  .poster h3 {
+    font-size: 11px;
+  }
+  .poster > p {
+    font-size: 9px;
+  }
+  .sign-in-page {
+    gap: 45px;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  .sign-in-intro h1 {
+    font-size: 36px;
+  }
+  .sign-in-card > div {
+    padding: 32px 25px;
+  }
+  .detail-layout {
+    gap: 35px;
+    grid-template-columns: 190px 1fr;
+  }
+  .detail-main > h1 {
+    font-size: 35px;
+  }
+}
+@media (max-width: 700px) {
+  .site-header {
+    height: 72px;
+  }
+  .header-inner {
+    padding: 0 22px;
+    gap: 25px;
+  }
+  .wordmark {
+    font-size: 27px;
+  }
+  .site-header nav {
+    gap: 16px;
+    font-size: 11px;
+  }
+  .site-header nav > a:nth-child(2) {
+    display: none;
+  }
+  .site-header .inline-flex {
+    height: 35px;
+    padding: 8px 12px;
+    font-size: 10px;
+    gap: 10px;
+  }
+  .viewer > span {
+    display: none;
+  }
+  .hero {
+    height: 535px;
+  }
+  .hero-art {
+    object-position: 64% center;
+  }
+  .hero-shade {
+    background:
+      linear-gradient(90deg, #0e1012d9, #0e101255), linear-gradient(0deg, #101112, transparent 70%);
+  }
+  .hero-copy {
+    padding: 70px 23px 55px;
+  }
+  .hero h1 {
+    font-size: 42px;
+    max-width: 310px;
+    letter-spacing: -1.5px;
+  }
+  .hero-meta {
+    margin-top: 26px;
+    font-size: 10px;
+    gap: 8px;
+  }
+  .hero-meta span + span::before {
+    margin-right: 8px;
+  }
+  .hero-copy > p {
+    max-width: 325px;
+    font-size: 12px;
+  }
+  .hero-caption {
+    left: 23px;
+    right: 23px;
+    font-size: 6px;
+    letter-spacing: 1.2px;
+  }
+  .hero-caption > span:last-child {
+    display: none;
+  }
+  .hero-actions {
+    gap: 20px;
+  }
+  .hero-actions .inline-flex {
+    font-size: 12px;
+    height: 42px;
+    gap: 15px;
+  }
+  .content-wrap {
+    padding: 0 22px;
+  }
+  .anime-section {
+    padding-top: 34px;
+  }
+  .section-heading {
+    margin-bottom: 22px;
+  }
+  .section-heading h2 {
+    font-size: 25px;
+  }
+  .section-heading .eyebrow {
+    font-size: 7px;
+    letter-spacing: 1.2px;
+  }
+  .section-note {
+    display: none;
+  }
+  .poster-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 12px;
+  }
+  .poster-index {
+    font-size: 25px;
+    bottom: 3px;
+    left: 7px;
+  }
+  .poster-score {
+    font-size: 8px;
+    top: 6px;
+    right: 5px;
+    padding: 2px 4px;
+  }
+  .poster h3 {
+    margin-top: 9px;
+    font-size: 10px;
+  }
+  .poster > p {
+    font-size: 8px;
+  }
+  .poster > p span {
+    margin: 0 4px;
+  }
+  .editorial {
+    margin-top: 36px;
+    padding: 27px 23px;
+    min-height: 310px;
+  }
+  .editorial h2 {
+    font-size: 31px;
+  }
+  .editorial p {
+    max-width: 170px;
+    font-size: 10px;
+  }
+  .editorial-posters {
+    right: -95px;
+    width: 66%;
+    top: 40px;
+    opacity: 0.35;
+  }
+  .editorial-posters img {
+    height: 260px;
+    width: 75%;
+  }
+  .editorial-posters img:not(:first-child) {
+    display: none;
+  }
+  .editorial > div:first-child {
+    position: relative;
+    z-index: 1;
+  }
+  .site-footer {
+    margin: 45px 22px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 25px 0;
+    font-size: 9px;
+  }
+  .site-footer p {
+    width: 60%;
+  }
+  .site-footer > a:last-child {
+    margin-left: 0;
+    font-size: 8px;
+  }
+  .detail-banner {
+    height: 210px;
+  }
+  .detail-layout {
+    margin-top: -58px;
+    grid-template-columns: 108px 1fr;
+    gap: 20px;
+  }
+  .detail-poster > img {
+    margin-bottom: 15px;
+  }
+  .detail-poster {
+    min-width: 0;
+  }
+  .detail-poster .eyebrow {
+    font-size: 6px;
+    letter-spacing: 0.6px;
+  }
+  .detail-poster p {
+    font-size: 9px;
+  }
+  .detail-poster .inline-flex {
+    font-size: 8px;
+    white-space: normal;
+    height: 40px;
+  }
+  .detail-poster small {
+    font-size: 8px;
+  }
+  .detail-main {
+    padding-top: 42px;
+  }
+  .detail-main > h1 {
+    font-size: 26px;
+    letter-spacing: -0.8px;
+    margin-top: 10px;
+  }
+  .detail-main .eyebrow {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .romaji {
+    font-size: 10px;
+  }
+  .detail-meta {
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 9px;
+    margin: 20px 0;
+  }
+  .score {
+    font-size: 18px;
+    padding-right: 10px;
+  }
+  .score small {
+    font-size: 7px;
+  }
+  .genre-tags {
+    gap: 5px;
+  }
+  .genre-tags > span {
+    padding: 3px 7px;
+    font-size: 8px;
+  }
+  .detail-divider {
+    margin: 24px 0;
+  }
+  .detail-main h2 {
+    font-size: 18px;
+  }
+  .synopsis {
+    font-size: 11px;
+    line-height: 1.85;
+  }
+  .anime-facts {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .anime-facts dt {
+    font-size: 8px;
+  }
+  .anime-facts dd {
+    font-size: 10px;
+  }
+  .sign-in-page {
+    display: block;
+    padding: 30px 22px;
+    min-height: 70vh;
+  }
+  .sign-in-intro {
+    display: none;
+  }
+  .sign-in-card {
+    max-width: 420px;
+    margin: auto;
+  }
+  .sign-in-card > div {
+    padding: 35px 25px;
+  }
+  .sign-in-card h2 {
+    font-size: 26px;
+  }
+  .loading-page {
+    padding: 25px 22px;
+  }
+  .loading-posters {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .loading-posters .skeleton {
+    min-height: 160px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

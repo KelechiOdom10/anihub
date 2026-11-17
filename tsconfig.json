@@ -1,49 +1,35 @@
 {
   "compilerOptions": {
-    /* Base Options: */
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "checkJs": true,
-
-    /* Bundled projects */
-    "lib": ["dom", "dom.iterable", "ES2022"],
-    "noEmit": true,
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "jsx": "preserve",
-    "plugins": [
-      { "name": "next" },
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": "./src/graphql/schema.graphql",
-        "tadaOutputLocation": "./src/graphql/graphql-env.d.ts"
-      }
-    ],
-    "incremental": true,
-
-    /* Path Aliases */
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["vite/client", "@cloudflare/workers-types", "node"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
     }
   },
   "include": [
-    ".eslintrc.cjs",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.js",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+    "src/router.tsx",
+    "src/routes/**/*",
+    "src/backend/**/*",
+    "src/data/**/*",
+    "src/env.ts",
+    "src/components/ui/button.tsx",
+    "src/components/ui/card.tsx",
+    "src/components/site.tsx",
+    "src/lib/utils/index.ts",
+    "src/routeTree.gen.ts",
+    "scripts/**/*",
+    "tests/**/*",
+    "vite.config.ts",
+    "drizzle.config.ts"
+  ]
 }
