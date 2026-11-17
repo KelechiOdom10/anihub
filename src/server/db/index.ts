@@ -20,4 +20,5 @@ export const client = createClient({
 });
 
 export const db = drizzle(client, { schema });
+
 export type Db = typeof db;

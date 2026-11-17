@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { animeSortSchema } from "~/lib/validators/catalog";
 
 export type SortOption<T extends string> = {
   value: T;
@@ -34,8 +35,13 @@ export function SortDropdown<T extends string>({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentSort = (searchParams.get("sort") as SearchSort) || "asc";
-  const currentOrderBy = (searchParams.get("order_by") as T) ?? defaultOrderBy;
+  const currentSort = animeSortSchema
+    .catch("asc")
+    .parse(searchParams.get("sort"));
+
+  const currentOrderBy =
+    options.find((option) => option.value === searchParams.get("order_by"))
+      ?.value ?? defaultOrderBy;
 
   const updateSearchParams = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -47,7 +53,7 @@ export function SortDropdown<T extends string>({
     <div className="flex items-center space-x-2">
       <Select
         value={currentOrderBy}
-        onValueChange={(value: T) => updateSearchParams("order_by", value)}
+        onValueChange={(value) => updateSearchParams("order_by", value)}
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Order by" />

@@ -26,21 +26,25 @@ export function generateSessionToken() {
   const bytes = new Uint8Array(20);
   crypto.getRandomValues(bytes);
   const token = encodeBase32LowerCaseNoPadding(bytes);
+
   return token;
 }
 
 export async function createSession(token: string, userId: number) {
   const user = await db.select().from(users).where(eq(users.id, userId));
+
   if (!user[0]) {
     throw new Error("User not found");
   }
 
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+
   const session: Session = {
     id: sessionId,
     userId,
     expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
   };
+
   await db.insert(sessions).values(session);
 
   return session;
@@ -50,6 +54,7 @@ export async function validateSessionToken(
   token: string
 ): Promise<SessionValidationResult> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+
   const result = await db
     .select({
       session: sessions,
@@ -72,6 +77,7 @@ export async function validateSessionToken(
   }
 
   const data = result[0];
+
   if (!data) {
     return { session: null, user: null };
   }
@@ -80,8 +86,10 @@ export async function validateSessionToken(
 
   if (Date.now() >= session.expiresAt.getTime()) {
     await db.delete(sessions).where(eq(sessions.id, session.id));
+
     return { session: null, user: null };
   }
+
   if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
     session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
     await db
@@ -91,6 +99,7 @@ export async function validateSessionToken(
       })
       .where(eq(sessions.id, session.id));
   }
+
   return { session, user };
 }
 
@@ -104,10 +113,12 @@ export async function invalidateUserSessions(userId: number): Promise<void> {
 
 export function generateIdFromEntropySize(size: number): string {
   const buffer = crypto.getRandomValues(new Uint8Array(size));
+
   return encodeBase32LowerCaseNoPadding(buffer);
 }
 
 export type SanitizedUser = Omit<User, "hashedPassword">;
+
 export type SessionValidationResult =
   | { session: Session; user: SanitizedUser }
   | { session: null; user: null };

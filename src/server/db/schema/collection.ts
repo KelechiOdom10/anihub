@@ -77,8 +77,13 @@ export const collectionLikes = sqliteTable(
 );
 
 export type Collection = typeof collections.$inferSelect;
+
 export type NewCollection = typeof collections.$inferInsert;
+
 export type CollectionItem = typeof collectionItems.$inferSelect;
+
 export type NewCollectionItem = typeof collectionItems.$inferInsert;
+
 export type CollectionLike = typeof collectionLikes.$inferSelect;
+
 export type NewCollectionLike = typeof collectionLikes.$inferInsert;

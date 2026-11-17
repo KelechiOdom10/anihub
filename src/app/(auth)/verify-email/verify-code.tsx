@@ -1,4 +1,5 @@
 "use client";
+
 import { Label } from "@radix-ui/react-label";
 import { useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
@@ -22,6 +23,7 @@ export const VerifyCode = () => {
     if (resendState?.success) {
       toast("Email sent!");
     }
+
     if (resendState?.error) {
       toast(resendState.error, {
         icon: <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />,

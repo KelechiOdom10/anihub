@@ -9,6 +9,7 @@ export type MessageInfo = {
 
 export const sendMail = async (message: MessageInfo) => {
   const { to, subject, body } = message;
+
   try {
     const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
       method: "POST",

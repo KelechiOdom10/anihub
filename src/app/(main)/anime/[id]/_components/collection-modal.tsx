@@ -51,9 +51,11 @@ export function CollectionModal({
   });
 
   const [showNewCollectionForm, setShowNewCollectionForm] = useState(false);
+
   const [pendingChanges, setPendingChanges] = useState<Map<number, boolean>>(
     new Map()
   );
+
   const [isUpdating, setIsUpdating] = useState(false);
 
   // New collection form state
@@ -64,6 +66,7 @@ export function CollectionModal({
   const [, addAnimeToNewCollection] = useMutation(
     AddAnimeToNewCollectionMutation
   );
+
   const [, bulkUpdateCollections] = useMutation(BulkUpdateCollectionsMutation);
 
   const handleClose = () => {
@@ -86,6 +89,7 @@ export function CollectionModal({
   ) => {
     setPendingChanges((prev) => {
       const next = new Map(prev);
+
       if (prev.has(collectionId)) {
         // If we already have a pending change, remove it
         next.delete(collectionId);
@@ -93,6 +97,7 @@ export function CollectionModal({
         // Otherwise, add a pending change to toggle the current state
         next.set(collectionId, !currentState);
       }
+
       return next;
     });
   };
@@ -121,6 +126,7 @@ export function CollectionModal({
         toast.error("Failed to update collections", {
           description: result.error.message,
         });
+
         return;
       }
 
@@ -157,6 +163,7 @@ export function CollectionModal({
         toast.error("Failed to create collection", {
           description: result.error.message,
         });
+
         return;
       }
 
@@ -202,9 +209,11 @@ export function CollectionModal({
                     <div className="max-h-[400px] space-y-2 overflow-y-auto pb-4 pr-2">
                       {collectionsData?.getMyCollections?.map((collection) => {
                         const currentState = Boolean(collection.hasAnime);
+
                         const pendingState = pendingChanges.get(
                           Number(collection.id)
                         );
+
                         const effectiveState = pendingState ?? currentState;
 
                         return (

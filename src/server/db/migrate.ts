@@ -20,6 +20,7 @@ export async function runMigrate() {
     }),
     { schema }
   );
+
   console.log("⏳ Running migrations...");
 
   const start = Date.now();

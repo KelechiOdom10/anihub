@@ -37,7 +37,9 @@ export default async function CollectionsPage() {
             url: "/fallback-anime.avif",
             alt: `Fallback image for collection ${collection.name}`,
           };
+
           const images = [...collectionImages];
+
           while (images.length < 3) {
             images.push(fallbackImage);
           }

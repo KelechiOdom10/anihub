@@ -48,11 +48,13 @@ export async function login(
   formData: FormData
 ): Promise<ActionResponse<LoginInput>> {
   const obj = Object.fromEntries(formData.entries());
-  const redirectUrl = obj.redirect as string | undefined;
+  const redirectUrl = z.string().optional().parse(obj.redirect);
 
   const parsed = loginSchema.safeParse(obj);
+
   if (!parsed.success) {
     const err = parsed.error.flatten();
+
     return {
       fieldError: {
         email: err.fieldErrors.email?.[0],
@@ -106,8 +108,10 @@ export async function signup(
   const obj = Object.fromEntries(formData.entries());
 
   const parsed = signupSchema.safeParse(obj);
+
   if (!parsed.success) {
     const err = parsed.error.flatten();
+
     return {
       fieldError: {
         email: err.fieldErrors.email?.[0],
@@ -139,6 +143,7 @@ export async function signup(
 
   const hashedPassword = await hashPassword(password);
   let avatar: string;
+
   try {
     avatar = (
       await fetch(
@@ -187,13 +192,16 @@ export async function logout(
   redirectUrl?: string
 ): Promise<{ error: string } | void> {
   const { session } = await validateRequest();
+
   if (!session) {
     return {
       error: "No session found",
     };
   }
+
   await invalidateSession(session.id);
   deleteSessionTokenCookie();
+
   if (redirectUrl) {
     return redirect(redirectUrl);
   }
@@ -204,9 +212,11 @@ export async function resendVerificationEmail(): Promise<{
   success?: boolean;
 }> {
   const { user } = await validateRequest();
+
   if (!user) {
     return redirect(redirects.toLogin);
   }
+
   const lastSent = await db.query.emailVerificationCodes.findFirst({
     where: (table, { eq }) => eq(table.userId, user.id),
     columns: { expiresAt: true },
@@ -217,10 +227,12 @@ export async function resendVerificationEmail(): Promise<{
       error: `Please wait ${timeFromNow(lastSent.expiresAt)} before resending`,
     };
   }
+
   const verificationCode = await generateEmailVerificationCode(
     user.id,
     user.email
   );
+
   await sendMail({
     to: user.email,
     subject: "Verify your account",
@@ -235,10 +247,15 @@ export async function verifyEmail(
   formData: FormData
 ): Promise<{ error: string } | void> {
   const code = formData.get("code");
-  if (typeof code !== "string" || code.length !== 8) {
+  const parsedCode = z.string().length(8).safeParse(code);
+
+  if (!parsedCode.success) {
     return { error: "Invalid code" };
   }
+
+  const verifiedCode = parsedCode.data;
   const { user } = await validateRequest();
+
   if (!user) {
     return redirect(redirects.toLogin);
   }
@@ -247,15 +264,17 @@ export async function verifyEmail(
     const item = await tx.query.emailVerificationCodes.findFirst({
       where: (table, { eq }) => eq(table.userId, user.id),
     });
+
     if (item) {
       await tx
         .delete(emailVerificationCodes)
         .where(eq(emailVerificationCodes.id, item.id));
     }
+
     return item;
   });
 
-  if (!dbCode || dbCode.code !== code)
+  if (!dbCode || dbCode.code !== verifiedCode)
     return { error: "Invalid verification code" };
 
   if (!isWithinExpirationDate(dbCode.expiresAt))
@@ -280,9 +299,11 @@ export async function sendPasswordResetLink(
 ): Promise<{ error?: string; success?: boolean }> {
   const email = formData.get("email");
   const parsed = z.string().trim().email().safeParse(email);
+
   if (!parsed.success) {
     return { error: "Provided email is invalid." };
   }
+
   try {
     const user = await db.query.users.findFirst({
       where: (table, { eq }) => eq(table.email, parsed.data),
@@ -302,7 +323,7 @@ export async function sendPasswordResetLink(
     });
 
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: "Failed to send verification email." };
   }
 }
@@ -317,21 +338,25 @@ export async function resetPassword(
 
   if (!parsed.success) {
     const err = parsed.error.flatten();
+
     return {
       error: err.fieldErrors.password?.[0] ?? err.fieldErrors.token?.[0],
     };
   }
+
   const { token, password } = parsed.data;
 
   const dbToken = await db.transaction(async (tx) => {
     const item = await tx.query.passwordResetTokens.findFirst({
       where: (table, { eq }) => eq(table.id, token),
     });
+
     if (item) {
       await tx
         .delete(passwordResetTokens)
         .where(eq(passwordResetTokens.id, item.id));
     }
+
     return item;
   });
 
@@ -358,6 +383,7 @@ const timeFromNow = (time: Date) => {
   const diff = time.getTime() - now.getTime();
   const minutes = Math.floor(diff / 1000 / 60);
   const seconds = Math.floor(diff / 1000) % 60;
+
   return `${minutes}m ${seconds}s`;
 };
 
@@ -375,6 +401,7 @@ async function generateEmailVerificationCode(
     code,
     expiresAt: createDate(new TimeSpan(10, "m")), // 10 minutes
   });
+
   return code;
 }
 
@@ -388,5 +415,6 @@ async function generatePasswordResetToken(userId: number): Promise<string> {
     userId,
     expiresAt: createDate(new TimeSpan(2, "h")),
   });
+
   return tokenId;
 }

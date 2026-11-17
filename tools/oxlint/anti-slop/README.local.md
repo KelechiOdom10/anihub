@@ -1,0 +1,3 @@
+All generic rules are error-level in the root .oxlintrc.json. The two generated API declaration files are excluded explicitly: regenerate them from their upstream schema rather than changing their unknown external value contracts to satisfy an AST rule. They remain TypeScript-checked. No owned application source is excluded.
+
+Run pnpm lint:anti-slop and pnpm test. The anti-slop test deliberately feeds the installed CLI an invalid fixture, asserts both native and vendored diagnostics, then checks a clean fixture. The plugin itself is pristine from the pinned upstream revision in UPSTREAM.md, including its vendored Stylistic license. Oxlint and @oxlint/plugins move together at exact versions. No Effect dependency is installed.

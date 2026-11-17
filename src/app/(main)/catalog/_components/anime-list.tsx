@@ -21,13 +21,14 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
   const [isPending, startTransition] = useTransition();
   const [allAnime, setAllAnime] = useState<Array<AnimePreview>>([]);
   const [page, setPage] = useState(1);
+
   const [{ data, fetching }] = useQuery({
     query: AnimeSearchQuery,
     variables: {
-      // @ts-expect-error order-by type issues
       query: { ...query, page },
     },
   });
+
   const animeList = data?.getAnimesSearch?.data ?? [];
   const isLoading = fetching || isPending;
   const isEmpty = !fetching && animeList.length === 0;
@@ -40,9 +41,9 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({ query }) => {
   useEffect(() => {
     if (animeList) {
       if (page === 1) {
-        setAllAnime(animeList as Array<AnimePreview>);
+        setAllAnime(animeList);
       } else {
-        setAllAnime((prev) => [...prev, ...animeList] as Array<AnimePreview>);
+        setAllAnime((prev) => [...prev, ...animeList]);
       }
     }
   }, [data, page]);

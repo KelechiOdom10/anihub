@@ -37,4 +37,5 @@ export const comments = sqliteTable(
 );
 
 export type Comment = typeof comments.$inferSelect;
+
 export type NewComment = typeof comments.$inferInsert;

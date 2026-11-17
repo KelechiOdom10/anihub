@@ -9,7 +9,6 @@ import { Button, type ButtonProps } from "~/components/ui/button";
 import { type AnimePreview } from "~/graphql/fragments";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { getEnglishTitle } from "~/lib/utils/anime";
-import { type TitleType } from "~/server/api/modules/shared";
 
 interface HeroProps {
   anime?: AnimePreview;
@@ -18,7 +17,7 @@ interface HeroProps {
 export const Hero = ({ anime }: HeroProps) => {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
   const buttonSize: ButtonProps["size"] = isMobileDevice ? "default" : "xl";
-  const title = getEnglishTitle((anime?.titles ?? []) as TitleType[]);
+  const title = getEnglishTitle(anime?.titles ?? []);
   const image = anime?.image?.large ?? "/fallback-anime.avif";
 
   return (

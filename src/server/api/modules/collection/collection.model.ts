@@ -5,6 +5,7 @@ import { Anime } from "../anime";
 import { animeService } from "../anime/anime.service";
 
 import { collectionItems, collectionLikes } from "~/server/db/schema";
+
 // Collection Type
 export const Collection = builder.drizzleObject("collections", {
   name: "Collection",
@@ -54,6 +55,7 @@ export const Collection = builder.drizzleObject("collections", {
               eq(items.animeId, animeId)
             ),
         });
+
         return !!item;
       },
     }),
@@ -80,6 +82,7 @@ export const Collection = builder.drizzleObject("collections", {
             eq(collectionLikes.userId, ctx.session.userId)
           ),
         });
+
         return !!like;
       },
     }),

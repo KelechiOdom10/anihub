@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import { Anime, AnimeSearchResult } from "./anime.model";
 import { animeService } from "./anime.service";
 
@@ -9,9 +11,17 @@ import { type operations } from "~/server/jikan-schema";
 type TopAnimeQueryParams = NonNullable<
   operations["getTopAnime"]["parameters"]["query"]
 >;
-export type SearchAnimeQueryParams = NonNullable<
+
+type JikanSearchQueryParams = NonNullable<
   operations["getAnimeSearch"]["parameters"]["query"]
 >;
+
+export type SearchAnimeQueryParams = Omit<
+  JikanSearchQueryParams,
+  "order_by"
+> & {
+  order_by?: Exclude<JikanSearchQueryParams["order_by"], "members">;
+};
 
 const AnimeTypeEnum = builder.enumType("AnimeTypeEnum", {
   values: [
@@ -99,8 +109,18 @@ builder.queryField("getTopAnimes", (t) =>
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/top/anime", {
-        params: { query: args.query as TopAnimeQueryParams },
+        params: {
+          query: {
+            type: args.query?.type ?? undefined,
+            rating: args.query?.rating ?? undefined,
+            filter: args.query?.filter ?? undefined,
+            sfw: args.query?.sfw ?? undefined,
+            page: args.query?.page ?? undefined,
+            limit: args.query?.limit ?? undefined,
+          },
+        },
       });
+
       if (!data?.data) return [];
 
       return data.data;
@@ -122,6 +142,7 @@ builder.queryField("getAnime", (t) =>
           path: { id: args.id },
         },
       });
+
       if (!data?.data) return null;
 
       return data.data;
@@ -138,8 +159,25 @@ builder.queryField("getAnimesSearch", (t) =>
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/anime", {
-        params: { query: args.query as SearchAnimeQueryParams },
+        params: {
+          query: {
+            type: args.query?.type ?? undefined,
+            rating: args.query?.rating ?? undefined,
+            sort: args.query?.sort ?? undefined,
+            order_by: args.query?.order_by ?? undefined,
+            status: args.query?.status ?? undefined,
+            q: args.query?.q ?? undefined,
+            sfw: args.query?.sfw ?? undefined,
+            start_date: args.query?.start_date ?? undefined,
+            end_date: args.query?.end_date ?? undefined,
+            genres: args.query?.genres ?? undefined,
+            producers: args.query?.producers ?? undefined,
+            page: args.query?.page ?? undefined,
+            limit: args.query?.limit ?? undefined,
+          },
+        },
       });
+
       return {
         data: data?.data ?? [],
         pagination: data?.pagination ?? undefined,
@@ -180,6 +218,7 @@ builder.queryField("getAnimesByGenres", (t) =>
           },
         },
       });
+
       if (!data?.data) return [];
 
       return data.data;
@@ -201,6 +240,7 @@ builder.queryField("getAnimeRelations", (t) =>
           path: { id: args.id },
         },
       });
+
       if (!data?.data) return null;
 
       const relatedAnimes = await Promise.all(
@@ -208,7 +248,8 @@ builder.queryField("getAnimeRelations", (t) =>
           const animeEntries =
             result.entry?.filter(
               (entry): entry is { mal_id: number; type: string } =>
-                entry.type === "anime" && typeof entry.mal_id === "number"
+                entry.type === "anime" &&
+                z.number().safeParse(entry.mal_id).success
             ) ?? [];
 
           return Promise.all(
@@ -218,6 +259,7 @@ builder.queryField("getAnimeRelations", (t) =>
                   path: { id: entry.mal_id },
                 },
               });
+
               return anime.data?.data ?? null;
             })
           );

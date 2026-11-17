@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function NewCollectionPage() {
   const { session } = await validateRequest();
+
   if (!session) {
     redirect(`/login?redirect=${encodeURIComponent("/collections/new")}`);
   }

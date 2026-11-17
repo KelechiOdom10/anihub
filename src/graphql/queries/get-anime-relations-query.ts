@@ -12,4 +12,5 @@ export const AnimeRelationsQuery = graphql(
   `,
   [AnimePreview]
 );
+
 export type AnimeRelationsQueryResult = ResultOf<typeof AnimeRelationsQuery>;

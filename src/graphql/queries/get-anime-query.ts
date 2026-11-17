@@ -23,6 +23,9 @@ export const AnimeQuery = graphql(
   `,
   [AnimePreview]
 );
+
 export type AnimeQueryResult = ResultOf<typeof AnimeQuery>;
+
 export type AnimeQueryData = NonNullable<AnimeQueryResult["getAnime"]>;
+
 export type AnimeQueryParams = VariablesOf<typeof AnimeQuery>;

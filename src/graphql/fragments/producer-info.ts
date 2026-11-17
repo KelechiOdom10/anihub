@@ -14,4 +14,5 @@ export const ProducerPreview = graphql(`
     }
   }
 `);
+
 export type ProducerPreview = FragmentOf<typeof ProducerPreview>;

@@ -32,8 +32,13 @@ builder.queryField("getGenres", (t) =>
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/genres/anime", {
-        params: { query: args.query as GenresQueryParams },
+        params: {
+          query: {
+            filter: args.query?.filter ?? undefined,
+          },
+        },
       });
+
       if (!data?.data) return null;
 
       return data.data;

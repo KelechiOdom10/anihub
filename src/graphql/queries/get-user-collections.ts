@@ -18,6 +18,7 @@ export const GetMyCollectionsQuery = graphql(`
 `);
 
 export type GetMyCollectionsResult = ResultOf<typeof GetMyCollectionsQuery>;
+
 export type GetMyCollectionsQueryParams = VariablesOf<
   typeof GetMyCollectionsQuery
 >;

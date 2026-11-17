@@ -24,6 +24,7 @@ const Slider = React.forwardRef<
   const [value, setValue] = React.useState(
     props.defaultValue ?? props.value ?? [props.min ?? 0, props.max ?? 100]
   );
+
   const [hoveredValue, setHoveredValue] = React.useState<number | null>(null);
   const [activeThumb, setActiveThumb] = React.useState<number | null>(null);
   const trackRef = React.useRef<HTMLDivElement>(null);
@@ -32,9 +33,11 @@ const Slider = React.forwardRef<
     if (trackRef.current) {
       const trackRect = trackRef.current.getBoundingClientRect();
       const percent = (event.clientX - trackRect.left) / trackRect.width;
+
       const newValue = Math.round(
         percent * ((props.max ?? 100) - (props.min ?? 0)) + (props.min ?? 0)
       );
+
       setHoveredValue(newValue);
     }
   };

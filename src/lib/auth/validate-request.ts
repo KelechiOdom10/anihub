@@ -6,6 +6,7 @@ import { type SessionValidationResult, validateSessionToken } from ".";
 
 export async function uncachedValidateRequest(): Promise<SessionValidationResult> {
   const sessionToken = getSessionToken();
+
   if (!sessionToken) {
     return { session: null, user: null };
   }
@@ -17,5 +18,6 @@ export const validateRequest = cache(uncachedValidateRequest);
 
 export const getUser = async () => {
   const { user } = await validateRequest();
+
   return user;
 };

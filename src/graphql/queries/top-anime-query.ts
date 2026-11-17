@@ -14,4 +14,5 @@ export const TopAnimeQuery = graphql(
 );
 
 export type TopAnimeResult = ResultOf<typeof TopAnimeQuery>;
+
 export type TopAnimeQueryParams = VariablesOf<typeof TopAnimeQuery>;

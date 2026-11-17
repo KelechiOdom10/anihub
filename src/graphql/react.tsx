@@ -16,6 +16,7 @@ export function UrqlReactProvider({ children }: React.PropsWithChildren) {
     const ssr = ssrExchange({
       isClient: typeof window !== "undefined",
     });
+
     const client = createClient({
       url: getUrl(),
       exchanges: [cacheExchange, ssr, fetchExchange],

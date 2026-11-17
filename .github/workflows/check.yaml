@@ -1,36 +1,36 @@
-name: Type check and lint
-
-on: [push, pull_request]
-
+name: Validate
+on:
+  push:
+  pull_request:
 permissions:
   contents: read
-
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  typecheck-and-lint:
+  check:
     runs-on: ubuntu-latest
-
+    env:
+      DATABASE_URL: libsql://ci.invalid
+      DATABASE_AUTH_TOKEN: ci-placeholder
+      SENDGRID_API_KEY: ci-placeholder
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      DISCORD_CLIENT_ID: ci-placeholder
+      DISCORD_CLIENT_SECRET: ci-placeholder
+      GOOGLE_CLIENT_ID: ci-placeholder
+      GOOGLE_CLIENT_SECRET: ci-placeholder
     steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8
-      - uses: actions/setup-node@v3
+          version: 10.27.0
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Type check and lint
-        run: pnpm run typecheck && pnpm run lint
-        env:
-          # use dummy env variables to bypass t3-env check
-          DATABASE_URL: libsql://test:xxxx@xxxxxxxxx:3306/test
-          DATABASE_AUTH_TOKEN: test
-          SENDGRID_API_KEY: test
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
-          DISCORD_CLIENT_ID: client_id
-          DISCORD_CLIENT_SECRET: client_secret
-          GOOGLE_CLIENT_ID: client_id
-          GOOGLE_CLIENT_SECRET: client_secret
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build

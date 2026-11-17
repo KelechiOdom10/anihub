@@ -11,10 +11,15 @@ import { PaginationResult, Title } from "../shared";
 import { type components } from "~/server/jikan-schema";
 
 type AnimeType = components["schemas"]["anime"];
+
 type AiredType = NonNullable<components["schemas"]["anime"]["aired"]>;
+
 type TrailerType = NonNullable<components["schemas"]["anime"]["trailer"]>;
+
 type MetadataType = components["schemas"]["mal_url"];
+
 type ImageType = NonNullable<components["schemas"]["anime_images"]["jpg"]>;
+
 type AnimeSearchResultType = components["schemas"]["anime_search"];
 
 export const Anime = builder.objectRef<AnimeType>("Anime");
@@ -176,6 +181,7 @@ builder.objectType(Anime, {
             path: { id: parent.mal_id },
           },
         });
+
         if (!data?.data) return [];
 
         return data.data.map((character) => ({
@@ -187,6 +193,7 @@ builder.objectType(Anime, {
       type: [Comment],
       resolve: async (parent, _, { db }) => {
         const animeId = parent.mal_id;
+
         if (!animeId) return [];
 
         return db.query.comments.findMany({

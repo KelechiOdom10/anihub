@@ -7,4 +7,5 @@ export const GenrePreview = graphql(`
     name
   }
 `);
+
 export type GenrePreview = FragmentOf<typeof GenrePreview>;

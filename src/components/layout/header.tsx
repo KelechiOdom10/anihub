@@ -41,6 +41,7 @@ export const Header = () => {
 
   const isNewsOrCatalog = pathname === "/catalog" || pathname === "/news";
   const redirectUrl = pathname === "/" ? undefined : pathname;
+
   const authUrlParams = redirectUrl
     ? `?redirect=${encodeURIComponent(redirectUrl)}`
     : "";
