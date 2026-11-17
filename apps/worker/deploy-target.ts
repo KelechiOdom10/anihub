@@ -1,14 +1,21 @@
 import { z } from "zod";
 
-const accountId = "ab6145b5f4d74c798229173319deaf21";
+export const productionAccount = "ab6145b5f4d74c798229173319deaf21";
 
 export const productionWorker = "anihub";
 
 export const productionDomain = "anihub.kellycooks.dev";
 
-const accountIdSchema = z
-  .string()
-  .regex(/^[0-9a-f]{32}$/, "Cloudflare account ids are 32 hex characters");
+const previewAccountSchema = z
+  .string({
+    error:
+      "Previews need ANIHUB_PREVIEW_ACCOUNT_ID, a Cloudflare account separate from production",
+  })
+  .regex(/^[0-9a-f]{32}$/, "Cloudflare account ids are 32 hex characters")
+  .refine(
+    (id) => id !== productionAccount,
+    "Previews must not use the production Cloudflare account"
+  );
 
 const previewId = z
   .string()
@@ -30,7 +37,7 @@ export function cloudflareTarget(
   if (preview === undefined)
     return {
       name: productionWorker,
-      account_id: accountId,
+      account_id: productionAccount,
       workers_dev: true,
       routes: [{ pattern: productionDomain, custom_domain: true }],
       d1_databases: [database(productionWorker)],
@@ -40,9 +47,7 @@ export function cloudflareTarget(
 
   return {
     name: worker,
-    account_id: previewAccount
-      ? accountIdSchema.parse(previewAccount)
-      : accountId,
+    account_id: previewAccountSchema.parse(previewAccount || undefined),
     workers_dev: true,
     routes: [],
     d1_databases: [database(worker)],

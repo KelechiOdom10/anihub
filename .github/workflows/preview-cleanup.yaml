@@ -5,12 +5,15 @@ on:
 permissions: {}
 jobs:
   cleanup:
-    if: vars.ANIHUB_PREVIEWS == 'true'
+    if: >-
+      vars.ANIHUB_PREVIEWS == 'true' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != '' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != 'ab6145b5f4d74c798229173319deaf21'
     runs-on: ubuntu-latest
     environment: preview-cleanup
     env:
       PREVIEW: anihub-pr-${{ github.event.pull_request.number }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID || 'ab6145b5f4d74c798229173319deaf21' }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
     steps:
       - name: Delete the preview Worker

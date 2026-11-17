@@ -1,66 +1,87 @@
 # Delivery
 
-The Worker ships to Cloudflare account `ab6145b5f4d74c798229173319deaf21` from GitHub Actions. Four workflows split the work:
+The Worker ships to Cloudflare from GitHub Actions. Four workflows split the work:
 
-| Workflow               | Trigger                                  | Environment                                 | What it does                                                                     |
-| ---------------------- | ---------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------- |
-| `preview.yaml`         | pull request from this repository        | `preview` (required reviewer)               | Deploys `anihub-pr-<n>` with its own `anihub-pr-<n>-db` and preview-only secrets |
-| `preview-cleanup.yaml` | pull request closed                      | `preview-cleanup` (`main` only)             | Deletes the preview Worker and database                                          |
-| `production.yaml`      | `Validate` succeeded on a push to `main` | `production` (`main` only, no reviewer)     | Deploys `anihub` with `--skip-migrations`, then smoke-tests the custom domain    |
-| `migrate.yaml`         | manual dispatch on `main`                | `production-migrations` (required reviewer) | Applies pending D1 migrations to `anihub-db`                                     |
+| Workflow               | Trigger                                  | Environment                                 | What it does                                                                              |
+| ---------------------- | ---------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `preview.yaml`         | pull request from this repository        | `preview` (required reviewer)               | Deploys `anihub-pr-<n>` with its own `anihub-pr-<n>-db` to a **separate preview account** |
+| `preview-cleanup.yaml` | pull request closed                      | `preview-cleanup` (`main` only)             | Deletes the preview Worker and database                                                   |
+| `production.yaml`      | `Validate` succeeded on a push to `main` | `production` (`main` only, no reviewer)     | Deploys `anihub` with `--skip-migrations`, then smoke-tests the custom domain             |
+| `migrate.yaml`         | manual dispatch on `main`                | `production-migrations` (required reviewer) | Applies pending D1 migrations to `anihub-db`                                              |
 
 Nothing deploys until the repository variables below are set, so merging this layer changes nothing on its own.
 
-## Deploy targets
+## Previews are off by default
+
+Cloud previews only run when `ANIHUB_PREVIEWS=true` **and** `ANIHUB_PREVIEW_ACCOUNT_ID` names a Cloudflare account other than production (`ab6145b5f4d74c798229173319deaf21`). Both the workflow condition and `deploy-target.ts` enforce this, so a preview build fails outright without a separate account. There is no setting that runs previews in the production account.
+
+The reason: a preview job runs the pull request's own code (its lockfile, install scripts, Vite config and `void deploy`) on the same runner that later receives the preview token. Cloudflare API tokens cannot be narrowed to individual Workers or databases, so whatever account that token can reach, the approved pull request code can reach too. A separate account is the only boundary that keeps it away from `anihub` and `anihub-db`. Using the production account would need Kelechi to explicitly accept that risk and a code change; it is not a configuration option.
+
+Until a preview account exists, preview locally:
+
+```sh
+pnpm --filter @anihub/worker build
+pnpm --filter @anihub/worker exec void db migrate
+pnpm --filter @anihub/worker preview --host 127.0.0.1 --port 8790
+pnpm --filter @anihub/worker smoke http://127.0.0.1:8790
+```
+
+## Deploy targets and the guard
 
 `void.config.ts` takes its Cloudflare target from `deploy-target.ts`:
 
-- With no `ANIHUB_PREVIEW`, the target is the Worker `anihub`, the custom domain `anihub.kellycooks.dev` and the database `anihub-db`.
-- With `ANIHUB_PREVIEW=pr-<n>`, the target is the Worker `anihub-pr-<n>` on workers.dev, with no routes and the database `anihub-pr-<n>-db`. `ANIHUB_PREVIEW_ACCOUNT_ID` optionally moves previews to a separate Cloudflare account.
+- With no `ANIHUB_PREVIEW`, the target is the Worker `anihub` in the production account, the custom domain `anihub.kellycooks.dev` and the database `anihub-db`.
+- With `ANIHUB_PREVIEW=pr-<n>`, the target is the Worker `anihub-pr-<n>` in `ANIHUB_PREVIEW_ACCOUNT_ID`, on workers.dev only, with the database `anihub-pr-<n>-db`.
 
-Void adopts an existing D1 database by exact name when no lock entry exists. Previews rely on that: every preview run deletes `void.lock.json` first, so each push reuses its own database and never sees production resource ids.
+Void adopts an existing D1 database by exact name when no lock entry exists. Previews rely on that: every preview run deletes `void.lock.json` first, so each push reuses its own database.
 
-`pnpm --filter @anihub/worker deploy:guard` reads the generated `dist/server/wrangler.json` before every deploy and refuses when:
+`pnpm --filter @anihub/worker deploy:guard` reads the generated `dist/server/wrangler.json` and refuses when:
 
-- a preview carries routes, another Worker or database name, a real D1 id, or a `void.lock.json`;
-- production lacks the `anihub` name, the custom domain, `anihub-db` or the committed `void.lock.json`.
+- a preview targets the production account, carries routes, another Worker or database name, a real D1 id, or a `void.lock.json`;
+- production targets another account or lacks the `anihub` name, the custom domain, `anihub-db` or the committed `void.lock.json`.
 
-The guard catches mistakes. It cannot stop a hostile pull request, which can edit the guard itself. The review on the `preview` environment is the control for that, so read the diff of the exact commit before you approve a preview run.
+**The guard catches configuration mistakes. It is not a security control.** In a preview, the pull request controls the guard, the build and the deploy command, so only the separate account and the reviewer's approval limit what it can do. `void deploy` also rebuilds after the guard runs (Void cannot skip the build for Worker apps). In production both builds run the same reviewed `main` commit with the same environment, but the guard checks the first build, not the bytes Void uploads.
+
+## Trust model
+
+- **Previews run untrusted code.** `pull_request` workflows use the workflow file from the pull request, so a pull request can rewrite `preview.yaml`. All secrets therefore live in environments and none at repository level. `preview` requires a reviewer; `production`, `production-migrations` and `preview-cleanup` only accept `main`, so an edited workflow on another branch cannot reach them. Forks never receive environment secrets and are skipped.
+- **Approval covers one commit.** Each preview run belongs to one `pull_request` event and checks out that event's `head.sha`. A new push creates a new run that needs its own approval. Read the diff of that commit before approving.
+- **No shared artifacts or caches.** No deploy workflow downloads artifacts or uses `actions/cache` or `setup-node` caching, so nothing produced by pull request code feeds a production job.
+- **`workflow_run` trust.** `production.yaml` runs from the default branch's copy of the file. It deploys only when the triggering `Validate` run was a `push` to `main` in this repository and succeeded, and only when that commit is still the tip of `main`. It checks out that exact SHA. Pull request runs of `Validate`, including a fork's branch named `main`, are excluded by the event and repository checks.
+- **Narrow token exposure.** The Cloudflare token is passed only to the steps that call Cloudflare, not to install, build or smoke steps. In previews this is hygiene only, because earlier steps already ran pull request code on the same runner.
+- **Cleanup runs no pull request code.** `preview-cleanup.yaml` uses `pull_request_target`, so its workflow file comes from the base branch, and it never checks out the pull request. It only runs for pull requests whose base is `main`, because its environment only allows `main`; delete stacked previews by hand.
 
 ## Credentials
 
-Keep every secret in an environment. Repository-level secrets would be readable by any workflow a pull request edits.
-
-| Environment             | Secret                         | Scope                                                                                        |
-| ----------------------- | ------------------------------ | -------------------------------------------------------------------------------------------- |
-| `production`            | `CLOUDFLARE_API_TOKEN`         | Account: Workers Scripts Edit, D1 Edit; Zone `kellycooks.dev`: Workers Routes Edit, DNS Edit |
-| `production-migrations` | `CLOUDFLARE_API_TOKEN`         | Account: Workers Scripts Read, D1 Edit                                                       |
-| `preview`               | `CLOUDFLARE_PREVIEW_API_TOKEN` | Account: Workers Scripts Edit, D1 Edit. No zone permissions                                  |
-| `preview-cleanup`       | `CLOUDFLARE_PREVIEW_API_TOKEN` | Same token as `preview`                                                                      |
-
-Cloudflare tokens cannot be narrowed to single Workers or databases, so a preview token in the production account can technically reach `anihub` and `anihub-db`. To remove that risk entirely, create a second Cloudflare account for previews, set `ANIHUB_PREVIEW_ACCOUNT_ID`, and scope the preview token to that account only.
+| Environment             | Secret                         | Scope                                                                                                   |
+| ----------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `production`            | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Edit, D1 Edit; zone `kellycooks.dev`: Workers Routes Edit, DNS Edit |
+| `production-migrations` | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Read, D1 Edit                                                       |
+| `preview`               | `CLOUDFLARE_PREVIEW_API_TOKEN` | Preview account only: Workers Scripts Edit, D1 Edit                                                     |
+| `preview-cleanup`       | `CLOUDFLARE_PREVIEW_API_TOKEN` | Same token as `preview`                                                                                 |
 
 Environment settings:
 
 - `production`, `production-migrations`, `preview-cleanup`: deployment branches limited to `main`.
 - `production-migrations`: required reviewer Kelechi.
-- `preview`: required reviewer Kelechi, with self-review allowed. Approval applies to one run, which checks out that run's exact head commit.
+- `preview`: required reviewer Kelechi, with self-review allowed.
 - `production`: no required reviewer. After activation every successful push to `main` deploys.
 
 Repository variables:
 
-| Variable                       | Value                                                                   |
-| ------------------------------ | ----------------------------------------------------------------------- |
-| `ANIHUB_PRODUCTION_ACTIVE`     | `true` after the first cutover; anything else pauses production deploys |
-| `ANIHUB_PREVIEWS`              | `true` to enable previews and cleanup                                   |
-| `CLOUDFLARE_WORKERS_SUBDOMAIN` | the account's workers.dev subdomain without `.workers.dev`              |
-| `ANIHUB_PREVIEW_ACCOUNT_ID`    | optional separate preview account                                       |
+| Variable                               | Value                                                                   |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| `ANIHUB_PRODUCTION_ACTIVE`             | `true` after the first cutover; anything else pauses production deploys |
+| `CLOUDFLARE_WORKERS_SUBDOMAIN`         | the production account's workers.dev subdomain without `.workers.dev`   |
+| `ANIHUB_PREVIEWS`                      | `true` to enable previews and cleanup                                   |
+| `ANIHUB_PREVIEW_ACCOUNT_ID`            | the separate preview account; previews stay off without it              |
+| `CLOUDFLARE_PREVIEW_WORKERS_SUBDOMAIN` | the preview account's workers.dev subdomain                             |
 
-Previews use placeholder OAuth clients and a fresh `BETTER_AUTH_SECRET` on every run, so sign-in does not work there and production users cannot be reached. Pull requests from forks never deploy.
+Previews use placeholder OAuth clients and a fresh `BETTER_AUTH_SECRET` on every run, so sign-in does not work there and they hold no production data.
 
 ## First cutover
 
-Run these once, from a local checkout of `main`, with `void cloudflare login` on account `ab6145b5f4d74c798229173319deaf21`:
+Run these once, from a local checkout of `main`, with `void cloudflare login` on the production account:
 
 1. Register `https://anihub.kellycooks.dev/api/auth/callback/google` and `https://anihub.kellycooks.dev/api/auth/callback/discord` with the OAuth providers. See [docs/auth.md](auth.md).
 2. In `apps/worker`, bootstrap secrets on the draft Worker: `void secret sync /secure/path/production.env --yes` with `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://anihub.kellycooks.dev` and the four OAuth values.
@@ -78,8 +99,6 @@ A change with a migration needs the database first, because routine deploys skip
 
 1. Write the migration so the code already on `main` keeps working against the new schema (add columns and tables; drop them in a later change).
 2. After merging, if the automatic deploy fails its smoke test, run `Production migrations` and approve it, then re-run the failed `Production` run.
-
-`migrate.yaml` prints `void db status` before and after it applies migrations.
 
 ## Smoke test
 

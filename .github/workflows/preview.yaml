@@ -9,7 +9,11 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    if: vars.ANIHUB_PREVIEWS == 'true' && github.event.pull_request.head.repo.full_name == github.repository
+    if: >-
+      vars.ANIHUB_PREVIEWS == 'true' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != '' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != 'ab6145b5f4d74c798229173319deaf21' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     environment:
       name: preview
@@ -17,9 +21,8 @@ jobs:
     env:
       ANIHUB_PREVIEW: pr-${{ github.event.pull_request.number }}
       ANIHUB_PREVIEW_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID || 'ab6145b5f4d74c798229173319deaf21' }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
-      CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
+      CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_PREVIEW_WORKERS_SUBDOMAIN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,6 +47,7 @@ jobs:
       - name: Bootstrap preview-only secrets
         working-directory: apps/worker
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
           PREVIEW_URL: ${{ steps.target.outputs.url }}
         run: |
           umask 077
@@ -57,5 +61,7 @@ jobs:
           } > "$RUNNER_TEMP/preview.env"
           pnpm exec void secret sync "$RUNNER_TEMP/preview.env" --yes
           rm -f "$RUNNER_TEMP/preview.env"
-      - run: pnpm --filter @anihub/worker exec void deploy --platform cloudflare
+      - env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+        run: pnpm --filter @anihub/worker exec void deploy --platform cloudflare
       - run: pnpm --filter @anihub/worker smoke "${{ steps.target.outputs.url }}"

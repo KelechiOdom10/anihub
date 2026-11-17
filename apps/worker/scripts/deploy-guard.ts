@@ -1,12 +1,17 @@
 import { existsSync, readFileSync } from "node:fs";
 import { z } from "zod";
-import { productionDomain, productionWorker } from "../deploy-target";
+import {
+  productionAccount,
+  productionDomain,
+  productionWorker,
+} from "../deploy-target";
 
 const realD1Id =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const generatedConfig = z.object({
   name: z.string(),
+  account_id: z.string().optional(),
   workers_dev: z.boolean().optional(),
   routes: z
     .array(
@@ -40,6 +45,11 @@ export function deployProblems(
     if (config.name !== productionWorker)
       problems.push(`Worker is ${config.name}, expected ${productionWorker}`);
 
+    if (config.account_id !== productionAccount)
+      problems.push(
+        "Production must deploy to the production Cloudflare account"
+      );
+
     if (
       !config.routes.some(
         (route) => route.pattern === productionDomain && route.custom_domain
@@ -62,6 +72,12 @@ export function deployProblems(
 
   if (config.name !== worker)
     problems.push(`Worker is ${config.name}, expected ${worker}`);
+
+  if (
+    config.account_id === undefined ||
+    config.account_id === productionAccount
+  )
+    problems.push("Previews must deploy to a separate Cloudflare account");
 
   if (config.routes.length > 0)
     problems.push("Previews must not declare routes or custom domains");
