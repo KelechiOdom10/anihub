@@ -33,6 +33,24 @@ export const homeSchema = z.object({
 
 export type Home = z.infer<typeof homeSchema>;
 
+export const catalogPageSchema = z.object({
+  anime: z.array(animeSchema),
+  hasNextPage: z.boolean(),
+});
+
+export type CatalogPage = z.infer<typeof catalogPageSchema>;
+
+export const categoriesSchema = z.array(
+  z.object({ genre: z.string(), anime: z.array(animeSchema) })
+);
+
+export type Categories = z.infer<typeof categoriesSchema>;
+
+export const catalogQuerySchema = z.object({
+  genres: z.string().trim().max(100).optional(),
+  page: z.number().int().min(1).max(200).default(1),
+});
+
 export const animeIdSchema = z.coerce.number().int().positive().max(2147483647);
 
 export const mediaFields = `id idMal title { english romaji } description(asHtml: false)

@@ -1,6 +1,19 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { homeSchema } from "../../src/server/anime";
+import { z } from "zod";
+import {
+  catalogPageSchema,
+  homeSchema,
+  type CatalogPage,
+  type Categories,
+  type Home,
+} from "../../src/server/anime";
+import { chooseCovers } from "../../src/server/genres";
+
+const catalogFixture = z.object({
+  genres: z.array(z.string()),
+  pages: z.record(z.string(), catalogPageSchema),
+});
 
 const quote = (value: string) => "'" + value.replaceAll("'", "''") + "'";
 
@@ -13,6 +26,29 @@ export default function seedCatalog() {
 
   const now = Date.now();
 
+  const catalog = catalogFixture.parse(
+    JSON.parse(
+      readFileSync(new URL("../fixtures/catalog.json", import.meta.url), "utf8")
+    )
+  );
+
+  const categories = chooseCovers(
+    ["Action", "Romance", "Sci-Fi"].map((genre) => ({
+      genre,
+      anime: catalog.pages[`${genre}:1`]?.anime ?? [],
+    }))
+  );
+
+  const days = [now, now + 86_400_000].map((time) =>
+    new Date(time).toISOString().slice(0, 10)
+  );
+
+  const entry = (
+    key: string,
+    data: Home | CatalogPage | Categories | string[]
+  ) =>
+    `INSERT INTO cache_entries (key, data, updated_at) VALUES (${quote(key)}, ${quote(JSON.stringify(data))}, ${now});`;
+
   const anime = new Map(
     [...home.trending, ...home.popular].map((value) => [value.id, value])
   );
@@ -20,7 +56,12 @@ export default function seedCatalog() {
   const statements = [
     "DELETE FROM cache_entries;",
     "DELETE FROM anime_cache;",
-    `INSERT INTO cache_entries (key, data, updated_at) VALUES ('home', ${quote(JSON.stringify(home))}, ${now});`,
+    entry("home", home),
+    entry("genres", catalog.genres),
+    ...Object.entries(catalog.pages).map(([key, page]) =>
+      entry(`catalog:${key}`, page)
+    ),
+    ...days.map((day) => entry(`categories:${day}`, categories)),
     ...[...anime.values()].map(
       (value) =>
         `INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (${value.id}, ${value.idMal ?? "NULL"}, ${quote(JSON.stringify(value))}, ${now});`

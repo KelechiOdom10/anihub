@@ -3,9 +3,15 @@ import { getRequestHeaders } from "@tanstack/react-start/server";
 import { env as bindings } from "cloudflare:workers";
 import { drizzle } from "drizzle-orm/d1";
 import { env } from "void/env";
-import { animeIdSchema } from "./anime";
+import { animeIdSchema, catalogQuerySchema } from "./anime";
 import { createAuth } from "./auth";
-import { loadAnime, loadHome, type CatalogSource } from "./catalog";
+import {
+  loadAnime,
+  loadCatalog,
+  loadCategories,
+  loadHome,
+  type CatalogSource,
+} from "./catalog";
 
 function catalog(): CatalogSource {
   return {
@@ -18,6 +24,14 @@ function catalog(): CatalogSource {
 export const getHome = createServerFn({ method: "GET" }).handler(() =>
   loadHome(catalog())
 );
+
+export const getCategories = createServerFn({ method: "GET" }).handler(() =>
+  loadCategories(catalog())
+);
+
+export const getCatalog = createServerFn({ method: "GET" })
+  .validator(catalogQuerySchema)
+  .handler(({ data }) => loadCatalog(catalog(), data));
 
 export const getAnime = createServerFn({ method: "GET" })
   .validator(animeIdSchema)

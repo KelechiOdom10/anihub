@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as MainRouteImport } from './routes/_main'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as MainIndexRouteImport } from './routes/_main.index'
+import { Route as MainCatalogRouteImport } from './routes/_main.catalog'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as MainAnimeIdRouteImport } from './routes/_main.anime.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
@@ -28,6 +29,11 @@ const SignInRoute = SignInRouteImport.update({
 const MainIndexRoute = MainIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => MainRoute,
+} as any)
+const MainCatalogRoute = MainCatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
   getParentRoute: () => MainRoute,
 } as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
@@ -49,12 +55,14 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof MainIndexRoute
   '/sign-in': typeof SignInRoute
+  '/catalog': typeof MainCatalogRoute
   '/api/health': typeof ApiHealthRoute
   '/anime/$id': typeof MainAnimeIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
+  '/catalog': typeof MainCatalogRoute
   '/api/health': typeof ApiHealthRoute
   '/': typeof MainIndexRoute
   '/anime/$id': typeof MainAnimeIdRoute
@@ -64,6 +72,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_main': typeof MainRouteWithChildren
   '/sign-in': typeof SignInRoute
+  '/_main/catalog': typeof MainCatalogRoute
   '/api/health': typeof ApiHealthRoute
   '/_main/': typeof MainIndexRoute
   '/_main/anime/$id': typeof MainAnimeIdRoute
@@ -71,13 +80,16 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign-in' | '/api/health' | '/anime/$id' | '/api/auth/$'
+  fullPaths:
+    '/' | '/sign-in' | '/catalog' | '/api/health' | '/anime/$id' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/sign-in' | '/api/health' | '/' | '/anime/$id' | '/api/auth/$'
+  to:
+    '/sign-in' | '/catalog' | '/api/health' | '/' | '/anime/$id' | '/api/auth/$'
   id:
     | '__root__'
     | '/_main'
     | '/sign-in'
+    | '/_main/catalog'
     | '/api/health'
     | '/_main/'
     | '/_main/anime/$id'
@@ -114,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainIndexRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/catalog': {
+      id: '/_main/catalog'
+      path: '/catalog'
+      fullPath: '/catalog'
+      preLoaderRoute: typeof MainCatalogRouteImport
+      parentRoute: typeof MainRoute
+    }
     '/api/health': {
       id: '/api/health'
       path: '/api/health'
@@ -139,11 +158,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface MainRouteChildren {
+  MainCatalogRoute: typeof MainCatalogRoute
   MainIndexRoute: typeof MainIndexRoute
   MainAnimeIdRoute: typeof MainAnimeIdRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainCatalogRoute: MainCatalogRoute,
   MainIndexRoute: MainIndexRoute,
   MainAnimeIdRoute: MainAnimeIdRoute,
 }

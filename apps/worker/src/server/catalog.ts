@@ -4,14 +4,21 @@ import { z } from "zod";
 import { animeCache, cacheEntries } from "../db/schema";
 import {
   animeSchema,
+  catalogPageSchema,
+  categoriesSchema,
   homeSchema,
   mediaFields,
   type Anime,
+  type CatalogPage,
+  type Categories,
   type Home,
 } from "./anime";
+import { chooseCovers, legacyGenreIds, pickCategories } from "./genres";
 
 const homeTtl = 3_600_000;
 const animeTtl = 86_400_000;
+
+const genresTtl = 86_400_000;
 
 export type CatalogSource = {
   db: DrizzleD1Database;
@@ -28,7 +35,7 @@ export class AnimeUnavailableError extends Error {
 async function queryAniList<T>(
   source: CatalogSource,
   query: string,
-  variables: Record<string, number>,
+  variables: Record<string, number | string | undefined>,
   schema: z.ZodType<T>
 ): Promise<T | null> {
   const response = await source
@@ -165,6 +172,169 @@ export async function loadAnime(
   } catch (error) {
     if (error instanceof AnimeUnavailableError && previous.success)
       return previous.data;
+
+    throw error;
+  }
+}
+
+async function cached<T>(
+  source: CatalogSource,
+  key: string,
+  ttl: number,
+  schema: z.ZodType<T>,
+  load: () => Promise<T>
+): Promise<T> {
+  const row = await source.db
+    .select()
+    .from(cacheEntries)
+    .where(eq(cacheEntries.key, key))
+    .get();
+
+  const previous = schema.safeParse(row?.data);
+
+  if (row && previous.success && source.now() - row.updatedAt.getTime() < ttl)
+    return previous.data;
+
+  try {
+    const value = await load();
+    const updatedAt = new Date(source.now());
+
+    await source.db
+      .insert(cacheEntries)
+      .values({ key, data: value, updatedAt })
+      .onConflictDoUpdate({
+        target: cacheEntries.key,
+        set: { data: value, updatedAt },
+      });
+
+    return value;
+  } catch (error) {
+    if (error instanceof AnimeUnavailableError && previous.success)
+      return previous.data;
+
+    throw error;
+  }
+}
+
+const genresResponse = z.object({
+  data: z.object({ GenreCollection: z.array(z.string()) }),
+});
+
+const pageResponse = z.object({
+  data: z.object({
+    Page: z.object({
+      pageInfo: z.object({ hasNextPage: z.boolean() }),
+      media: z.array(animeSchema),
+    }),
+  }),
+});
+
+export function loadGenres(source: CatalogSource) {
+  return cached(source, "genres", genresTtl, z.array(z.string()), async () => {
+    const response = await queryAniList(
+      source,
+      "{ GenreCollection }",
+      {},
+      genresResponse
+    );
+
+    if (!response) throw new AnimeUnavailableError();
+
+    return response.data.GenreCollection.filter((genre) => genre !== "Hentai");
+  });
+}
+
+export function loadCatalogPage(
+  source: CatalogSource,
+  genre: string | undefined,
+  page: number
+): Promise<CatalogPage> {
+  return cached(
+    source,
+    `catalog:${genre ?? "all"}:${page}`,
+    homeTtl,
+    catalogPageSchema,
+    async () => {
+      const response = await queryAniList(
+        source,
+        `query ($page: Int!, $genre: String) {
+          Page(page: $page, perPage: 25) {
+            pageInfo { hasNextPage }
+            media(type: ANIME, sort: POPULARITY_DESC, isAdult: false, genre: $genre) { ${mediaFields} }
+          }
+        }`,
+        { page, genre },
+        pageResponse
+      );
+
+      if (!response) throw new AnimeUnavailableError();
+
+      return {
+        anime: response.data.Page.media,
+        hasNextPage: response.data.Page.pageInfo.hasNextPage,
+      };
+    }
+  );
+}
+
+export type Catalog =
+  | { kind: "redirect"; genre: string }
+  | { kind: "unsupported"; value: string }
+  | ({ kind: "results"; genre: string | null } & CatalogPage);
+
+export async function loadCatalog(
+  source: CatalogSource,
+  query: { genres?: string; page: number }
+): Promise<Catalog> {
+  if (!query.genres)
+    return {
+      kind: "results",
+      genre: null,
+      ...(await loadCatalogPage(source, undefined, query.page)),
+    };
+
+  const legacy = legacyGenreIds.get(query.genres);
+
+  if (legacy) return { kind: "redirect", genre: legacy };
+
+  if (!(await loadGenres(source)).includes(query.genres))
+    return { kind: "unsupported", value: query.genres };
+
+  return {
+    kind: "results",
+    genre: query.genres,
+    ...(await loadCatalogPage(source, query.genres, query.page)),
+  };
+}
+
+export async function loadCategories(
+  source: CatalogSource
+): Promise<Categories> {
+  const day = new Date(source.now()).toISOString().slice(0, 10);
+
+  try {
+    return await cached(
+      source,
+      `categories:${day}`,
+      genresTtl,
+      categoriesSchema,
+      async () => {
+        const genres = pickCategories(await loadGenres(source), day);
+
+        const pages = await Promise.all(
+          genres.map((genre) => loadCatalogPage(source, genre, 1))
+        );
+
+        return chooseCovers(
+          genres.map((genre, index) => ({
+            genre,
+            anime: pages[index]?.anime ?? [],
+          }))
+        );
+      }
+    );
+  } catch (error) {
+    if (error instanceof AnimeUnavailableError) return [];
 
     throw error;
   }

@@ -3,12 +3,17 @@ import {
   AnimeCarousel,
   AnimeCarouselSkeleton,
 } from "../components/anime-carousel";
+import { GenresSection } from "../components/genres-section";
 import { Hero } from "../components/hero";
 import { PageMessage } from "../components/page-message";
-import { getHome } from "../server/functions";
+import { getCategories, getHome } from "../server/functions";
 
 export const Route = createFileRoute("/_main/")({
-  loader: () => getHome(),
+  loader: async () => {
+    const [home, categories] = await Promise.all([getHome(), getCategories()]);
+
+    return { ...home, categories };
+  },
   component: Home,
   pendingComponent: () => (
     <div className="container mx-auto py-28">
@@ -19,7 +24,7 @@ export const Route = createFileRoute("/_main/")({
 });
 
 function Home() {
-  const { trending, popular } = Route.useLoaderData();
+  const { trending, popular, categories } = Route.useLoaderData();
   const hero = trending[4] ?? trending[0];
 
   if (!hero)
@@ -39,6 +44,11 @@ function Home() {
       {popular.length > 0 && (
         <div className="container mx-auto py-8">
           <AnimeCarousel heading="Popular Anime" animeList={popular} />
+        </div>
+      )}
+      {categories.length > 0 && (
+        <div className="container mx-auto py-8">
+          <GenresSection categories={categories} />
         </div>
       )}
     </>
