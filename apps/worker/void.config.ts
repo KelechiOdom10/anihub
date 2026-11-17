@@ -3,7 +3,7 @@ import { defineConfig } from "void/config";
 export default defineConfig({
   sourceDir: "src",
   target: "cloudflare",
-  inference: { appType: "framework", bindings: { db: false } },
+  inference: { appType: "framework", bindings: { db: true } },
   routing: { isr: false },
   worker: {
     compatibility_date: "2026-11-17",
