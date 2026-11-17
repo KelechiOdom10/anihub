@@ -4,6 +4,7 @@ on:
     types: [opened, synchronize, reopened]
 permissions:
   contents: read
+  pull-requests: read
 concurrency:
   group: preview-${{ github.event.pull_request.number }}
   cancel-in-progress: false
@@ -44,6 +45,8 @@ jobs:
           echo "url=https://anihub-${ANIHUB_PREVIEW}.${CLOUDFLARE_WORKERS_SUBDOMAIN}.workers.dev" >> "$GITHUB_OUTPUT"
       - run: pnpm --filter @anihub/worker build
       - run: pnpm --filter @anihub/worker deploy:guard
+      - name: Confirm the approved commit
+        run: echo "Deploying ${{ github.event.pull_request.head.sha }} to anihub-$ANIHUB_PREVIEW"
       - name: Bootstrap preview-only secrets
         working-directory: apps/worker
         env:
@@ -61,6 +64,14 @@ jobs:
           } > "$RUNNER_TEMP/preview.env"
           pnpm exec void secret sync "$RUNNER_TEMP/preview.env" --yes
           rm -f "$RUNNER_TEMP/preview.env"
+      - name: Recheck that the pull request is open at the approved commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          current=$(gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq '.state + " " + .head.sha')
+          if [ "$current" != "open $SHA" ]; then echo "::error::pull request is now '$current'; refusing to deploy $SHA"; exit 1; fi
       - env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
         run: pnpm --filter @anihub/worker exec void deploy --platform cloudflare

@@ -10,28 +10,13 @@ concurrency:
   group: production
   cancel-in-progress: false
 jobs:
-  latest:
+  deploy:
     if: >-
       vars.ANIHUB_PRODUCTION_ACTIVE == 'true' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.head_branch == 'main' &&
       github.event.workflow_run.head_repository.full_name == github.repository
-    runs-on: ubuntu-latest
-    outputs:
-      deploy: ${{ steps.tip.outputs.deploy }}
-    steps:
-      - id: tip
-        name: Skip commits that main has moved past
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          tip=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
-          if [ "$tip" = "$SHA" ]; then echo "deploy=true" >> "$GITHUB_OUTPUT"; else echo "main is at $tip; skipping $SHA"; fi
-  deploy:
-    needs: latest
-    if: needs.latest.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -40,6 +25,13 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ab6145b5f4d74c798229173319deaf21
       CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}
     steps:
+      - name: Refuse commits that main has moved past
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          tip=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
+          if [ "$tip" != "$SHA" ]; then echo "::error::main is at $tip, not $SHA; refusing to deploy a superseded commit"; exit 1; fi
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
@@ -57,6 +49,14 @@ jobs:
           printf '{\n  "platform": "cloudflare"\n}\n' > .void/project.json
       - run: pnpm --filter @anihub/worker build
       - run: pnpm --filter @anihub/worker deploy:guard
+      - name: Recheck activation and the tip of main before uploading
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          tip=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
+          if [ "$tip" != "$SHA" ]; then echo "::error::main is at $tip, not $SHA; refusing to deploy a superseded commit"; exit 1; fi
+          if [ "${{ vars.ANIHUB_PRODUCTION_ACTIVE }}" != "true" ]; then echo "::error::production deploys are paused"; exit 1; fi
       - env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: pnpm --filter @anihub/worker exec void deploy --platform cloudflare --skip-migrations

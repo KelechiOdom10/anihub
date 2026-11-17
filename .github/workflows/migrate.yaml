@@ -4,7 +4,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: production
+  group: production-migrations
   cancel-in-progress: false
 jobs:
   migrate:

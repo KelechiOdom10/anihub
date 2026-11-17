@@ -13,7 +13,7 @@ Nothing deploys until the repository variables below are set, so merging this la
 
 ## Previews are off by default
 
-Cloud previews only run when `ANIHUB_PREVIEWS=true` **and** `ANIHUB_PREVIEW_ACCOUNT_ID` names a Cloudflare account other than production (`ab6145b5f4d74c798229173319deaf21`). Both the workflow condition and `deploy-target.ts` enforce this, so a preview build fails outright without a separate account. There is no setting that runs previews in the production account.
+Cloud previews only run when `ANIHUB_PREVIEWS=true` **and** `ANIHUB_PREVIEW_ACCOUNT_ID` names a Cloudflare account other than production (`ab6145b5f4d74c798229173319deaf21`). The checked-in workflow condition and `deploy-target.ts` both refuse otherwise. Neither is a security control, because a pull request can edit both. What actually keeps previews off is that `CLOUDFLARE_PREVIEW_API_TOKEN` does not exist until someone creates a token scoped only to the preview account and stores it in the reviewer-gated `preview` environment. An account id in a variable does not limit what a token can do; the token's own account scope does.
 
 The reason: a preview job runs the pull request's own code (its lockfile, install scripts, Vite config and `void deploy`) on the same runner that later receives the preview token. Cloudflare API tokens cannot be narrowed to individual Workers or databases, so whatever account that token can reach, the approved pull request code can reach too. A separate account is the only boundary that keeps it away from `anihub` and `anihub-db`. Using the production account would need Kelechi to explicitly accept that risk and a code change; it is not a configuration option.
 
@@ -40,32 +40,37 @@ Void adopts an existing D1 database by exact name when no lock entry exists. Pre
 - a preview targets the production account, carries routes, another Worker or database name, a real D1 id, or a `void.lock.json`;
 - production targets another account or lacks the `anihub` name, the custom domain, `anihub-db` or the committed `void.lock.json`.
 
-**The guard catches configuration mistakes. It is not a security control.** In a preview, the pull request controls the guard, the build and the deploy command, so only the separate account and the reviewer's approval limit what it can do. `void deploy` also rebuilds after the guard runs (Void cannot skip the build for Worker apps). In production both builds run the same reviewed `main` commit with the same environment, but the guard checks the first build, not the bytes Void uploads.
+**The guard catches configuration mistakes. It is not a security control.** In a preview, the pull request controls the guard, the build and the deploy command, so only the separate account and the reviewer's approval limit what it can do. `void deploy` also rebuilds after the guard runs (Void cannot skip the build for Worker apps). In production both builds run the same reviewed `main` commit and configuration, though not identical environments: Void provisions and pins the config before its rebuild and strips Cloudflare credentials from the Vite child. Void then checks its rebuilt name, account, routes and binding ids against its own pre-build snapshot. So the guard checks the first build, not the bytes Void uploads, and it only checks that `void.lock.json` exists, not which D1 id it pins.
+
+## Before adding any credential
+
+The workflows assume GitHub settings that do not exist yet. Configure all of them before any Cloudflare token is stored, otherwise a same-repository pull request that edits a workflow could reference an unprotected environment:
+
+1. Protect `main`: pull requests required, no force pushes, `Validate` required.
+2. `production`: deployment branch exactly `main`; no required reviewer.
+3. `production-migrations`: deployment branch exactly `main`; required reviewer Kelechi; admin bypass disabled.
+4. `preview`: required reviewer Kelechi, self-review allowed, admin bypass disabled.
+5. `preview-cleanup`: deployment branch exactly `main`.
+6. No Actions secrets at repository or organisation level; Cloudflare tokens only in the environments above.
 
 ## Trust model
 
 - **Previews run untrusted code.** `pull_request` workflows use the workflow file from the pull request, so a pull request can rewrite `preview.yaml`. All secrets therefore live in environments and none at repository level. `preview` requires a reviewer; `production`, `production-migrations` and `preview-cleanup` only accept `main`, so an edited workflow on another branch cannot reach them. Forks never receive environment secrets and are skipped.
-- **Approval covers one commit.** Each preview run belongs to one `pull_request` event and checks out that event's `head.sha`. A new push creates a new run that needs its own approval. Read the diff of that commit before approving.
+- **Approval covers one commit.** Each preview run belongs to one `pull_request` event, prints its full head SHA and checks out exactly that SHA. Before uploading, it rechecks that the pull request is still open with that same head, so approving an older queued run after a newer push fails instead of deploying stale code. Read the diff of that commit before approving. This recheck lives in the pull request's own workflow file, so it protects against mistakes, not against a hostile pull request; for that, the preview-account-only token is the boundary.
 - **No shared artifacts or caches.** No deploy workflow downloads artifacts or uses `actions/cache` or `setup-node` caching, so nothing produced by pull request code feeds a production job.
-- **`workflow_run` trust.** `production.yaml` runs from the default branch's copy of the file. It deploys only when the triggering `Validate` run was a `push` to `main` in this repository and succeeded, and only when that commit is still the tip of `main`. It checks out that exact SHA. Pull request runs of `Validate`, including a fork's branch named `main`, are excluded by the event and repository checks.
+- **`workflow_run` trust.** `production.yaml` runs from the default branch's copy of the file. It deploys only when the triggering `Validate` run was a `push` to `main` in this repository and succeeded. Activation and the tip of `main` are checked inside the deploy job, once before checkout and again immediately before upload, so re-running a failed job cannot publish a commit that `main` has moved past or deploy while production is paused. It checks out that exact SHA. Pull request runs of `Validate`, including a fork's branch named `main`, are excluded by the event and repository checks.
 - **Narrow token exposure.** The Cloudflare token is passed only to the steps that call Cloudflare, not to install, build or smoke steps. In previews this is hygiene only, because earlier steps already ran pull request code on the same runner.
-- **Cleanup runs no pull request code.** `preview-cleanup.yaml` uses `pull_request_target`, so its workflow file comes from the base branch, and it never checks out the pull request. It only runs for pull requests whose base is `main`, because its environment only allows `main`; delete stacked previews by hand.
+- **Cleanup runs no pull request code.** `preview-cleanup.yaml` uses `pull_request_target`, so GitHub runs it from the default branch's workflow file, and it never checks out the pull request. It shares the per-pull-request concurrency group with preview deploys and confirms the pull request is still closed before deleting anything, so a reopened pull request keeps its preview.
+- **Production deploys the latest validated tip, not every SHA.** When several pushes land quickly, GitHub keeps one running and one pending production run and drops older pending ones, and the tip check rejects superseded commits. Every change still reaches production, because the newest tip contains it. Migrations use their own lock, so a migration waiting for approval never blocks deploys.
 
 ## Credentials
 
-| Environment             | Secret                         | Scope                                                                                                   |
-| ----------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| `production`            | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Edit, D1 Edit; zone `kellycooks.dev`: Workers Routes Edit, DNS Edit |
-| `production-migrations` | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Read, D1 Edit                                                       |
-| `preview`               | `CLOUDFLARE_PREVIEW_API_TOKEN` | Preview account only: Workers Scripts Edit, D1 Edit                                                     |
-| `preview-cleanup`       | `CLOUDFLARE_PREVIEW_API_TOKEN` | Same token as `preview`                                                                                 |
-
-Environment settings:
-
-- `production`, `production-migrations`, `preview-cleanup`: deployment branches limited to `main`.
-- `production-migrations`: required reviewer Kelechi.
-- `preview`: required reviewer Kelechi, with self-review allowed.
-- `production`: no required reviewer. After activation every successful push to `main` deploys.
+| Environment             | Secret                         | Scope                                                                                                                                   |
+| ----------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `production`            | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Edit, D1 Edit (try D1 Read after the cutover); zone `kellycooks.dev`: Workers Routes Edit, DNS Edit |
+| `production-migrations` | `CLOUDFLARE_API_TOKEN`         | Production account: Workers Scripts Read, D1 Edit                                                                                       |
+| `preview`               | `CLOUDFLARE_PREVIEW_API_TOKEN` | Preview account only: Workers Scripts Edit, D1 Edit                                                                                     |
+| `preview-cleanup`       | `CLOUDFLARE_PREVIEW_API_TOKEN` | Same token as `preview`                                                                                                                 |
 
 Repository variables:
 
