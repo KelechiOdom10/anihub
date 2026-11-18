@@ -138,10 +138,13 @@ test("sign-in is a standalone centred card offering only Google and Discord", as
   await expect(
     page.getByRole("heading", { level: 1, name: "Privacy policy" })
   ).toBeVisible();
-  await expect(page.getByRole("note")).toContainText("Draft for review");
+  await expect(
+    page.getByRole("link", { name: "kelechiodom10@gmail.com" })
+  ).toHaveAttribute("href", "mailto:kelechiodom10@gmail.com");
 
   await page.goto("/sign-in?error=email_not_verified");
-  await expect(page.getByRole("alert")).toContainText("verified email");
+  await expect(page.getByText(/verified email/)).toBeVisible();
+  await expect(page.getByRole("alert")).toHaveCount(0);
 });
 
 test.describe("mobile", () => {

@@ -1,6 +1,7 @@
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Logo } from "../components/logo";
 import { Button } from "../components/ui/button";
@@ -54,6 +55,13 @@ function SignIn() {
   const [pending, setPending] = useState<string | null>(null);
   const [agreed, setAgreed] = useState(false);
 
+  useEffect(() => {
+    if (search.error)
+      toast.error(
+        "Couldn't sign you in. Use a Google or Discord account with a verified email."
+      );
+  }, [search.error]);
+
   const signIn = async (provider: (typeof providers)[number]["id"]) => {
     setPending(provider);
 
@@ -64,7 +72,10 @@ function SignIn() {
       additionalData: { privacyConsent: privacyPolicyVersion },
     });
 
-    if (result.error) setPending(null);
+    if (!result.error) return;
+
+    setPending(null);
+    toast.error("Couldn't start sign in. Try again.");
   };
 
   return (
@@ -77,15 +88,15 @@ function SignIn() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <label className="flex items-start gap-3 text-sm text-muted-foreground">
+          <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
               type="checkbox"
-              className="mt-0.5 h-4 w-4 accent-white"
+              className="h-4 w-4 accent-white"
               checked={agreed}
               onChange={(event) => setAgreed(event.target.checked)}
             />
             <span>
-              I have read and agree to the{" "}
+              I agree to the{" "}
               <Link
                 to="/privacy"
                 target="_blank"
@@ -93,8 +104,6 @@ function SignIn() {
               >
                 privacy policy
               </Link>
-              . From Google or Discord, AniHub keeps your verified email,
-              display name and account id, never your access tokens.
             </span>
           </label>
           {providers.map(({ id, label, icon: Icon }) => (
@@ -109,15 +118,6 @@ function SignIn() {
               {pending === id ? "Redirecting…" : label}
             </Button>
           ))}
-          {search.error && (
-            <p
-              role="alert"
-              className="rounded-lg border bg-destructive/10 p-2 text-[0.8rem] font-medium text-destructive"
-            >
-              Sign in needs a verified email address from Google or Discord and
-              agreement to the privacy policy. Please try again.
-            </p>
-          )}
           <Button variant="outline" className="w-full" asChild>
             <Link to="/">Cancel</Link>
           </Button>
