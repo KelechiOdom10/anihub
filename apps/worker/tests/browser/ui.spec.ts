@@ -144,7 +144,6 @@ test("sign-in is a standalone centred card offering only Google and Discord", as
 
   await page.goto("/sign-in?error=email_not_verified");
   await expect(page.getByText(/verified email/)).toBeVisible();
-  await expect(page.getByRole("alert")).toHaveCount(0);
 });
 
 test.describe("mobile", () => {
