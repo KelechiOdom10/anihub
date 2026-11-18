@@ -1442,9 +1442,9 @@ test("the new collection page creates a public collection from several picked ti
   await results.nth(1).click();
   await expect(page.getByText("2 selected")).toBeVisible();
   await page.getByRole("button", { name: "Create Collection" }).click();
-  await expect(
-    page.getByText("Collection created successfully!")
-  ).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByText("Collection created successfully!")).toBeVisible({
+    timeout: 15_000,
+  });
   await expect(page).toHaveURL(/\/collections(\?page=1)?$/, {
     timeout: 15_000,
   });
