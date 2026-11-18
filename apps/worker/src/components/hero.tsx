@@ -9,8 +9,7 @@ export function Hero({ anime }: { anime: Anime }) {
 
   return (
     <div className="relative z-0 h-[75vh] overflow-hidden pt-0 md:h-[80vh] lg:h-[88vh]">
-      <div className="absolute right-0 top-0 h-full max-h-full w-[400px] overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0001_40%,#0006_70%,#000),linear-gradient(to_bottom,#000_50%,#0006_75%,#0000)] md:w-[500px]">
-        <div className="absolute inset-0 z-10 bg-black/25" />
+      <div className="absolute right-0 top-0 h-full max-h-full w-full overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0004_8%,#000b_18%,#000_28%),linear-gradient(to_bottom,#000_55%,#0006_80%,#0000)] md:w-[62%]">
         <img
           src={anime.coverImage.extraLarge}
           alt={englishTitle(anime)}
@@ -21,6 +20,7 @@ export function Hero({ anime }: { anime: Anime }) {
           className="h-full w-full object-cover object-[center_top]"
         />
       </div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent md:bg-gradient-to-r md:from-background/80 md:via-background/30 md:via-35% md:to-transparent md:to-60%" />
       <div className="absolute inset-x-0 bottom-0 z-20 flex h-auto items-end pb-12 md:bottom-1/3 lg:items-center lg:pb-0">
         <div className="container text-balance">
           <h1 className="max-w-xl text-3xl font-bold text-white sm:text-4xl md:max-w-3xl md:text-5xl lg:text-7xl">
