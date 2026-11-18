@@ -13,6 +13,7 @@ import { Route as MainRouteImport } from './routes/_main'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as MainIndexRouteImport } from './routes/_main.index'
 import { Route as MainCatalogRouteImport } from './routes/_main.catalog'
+import { Route as MainCollectionsRouteImport } from './routes/_main.collections'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as MainAnimeIdRouteImport } from './routes/_main.anime.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
@@ -36,6 +37,11 @@ const MainCatalogRoute = MainCatalogRouteImport.update({
   path: '/catalog',
   getParentRoute: () => MainRoute,
 } as any)
+const MainCollectionsRoute = MainCollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => MainRoute,
+} as any)
 const ApiHealthRoute = ApiHealthRouteImport.update({
   id: '/api/health',
   path: '/api/health',
@@ -56,6 +62,7 @@ export interface FileRoutesByFullPath {
   '/': typeof MainIndexRoute
   '/sign-in': typeof SignInRoute
   '/catalog': typeof MainCatalogRoute
+  '/collections': typeof MainCollectionsRoute
   '/api/health': typeof ApiHealthRoute
   '/anime/$id': typeof MainAnimeIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -63,6 +70,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/catalog': typeof MainCatalogRoute
+  '/collections': typeof MainCollectionsRoute
   '/api/health': typeof ApiHealthRoute
   '/': typeof MainIndexRoute
   '/anime/$id': typeof MainAnimeIdRoute
@@ -73,6 +81,7 @@ export interface FileRoutesById {
   '/_main': typeof MainRouteWithChildren
   '/sign-in': typeof SignInRoute
   '/_main/catalog': typeof MainCatalogRoute
+  '/_main/collections': typeof MainCollectionsRoute
   '/api/health': typeof ApiHealthRoute
   '/_main/': typeof MainIndexRoute
   '/_main/anime/$id': typeof MainAnimeIdRoute
@@ -81,15 +90,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/sign-in' | '/catalog' | '/api/health' | '/anime/$id' | '/api/auth/$'
+    | '/'
+    | '/sign-in'
+    | '/catalog'
+    | '/collections'
+    | '/api/health'
+    | '/anime/$id'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/sign-in' | '/catalog' | '/api/health' | '/' | '/anime/$id' | '/api/auth/$'
+    | '/sign-in'
+    | '/catalog'
+    | '/collections'
+    | '/api/health'
+    | '/'
+    | '/anime/$id'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/_main'
     | '/sign-in'
     | '/_main/catalog'
+    | '/_main/collections'
     | '/api/health'
     | '/_main/'
     | '/_main/anime/$id'
@@ -133,6 +155,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainCatalogRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/collections': {
+      id: '/_main/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof MainCollectionsRouteImport
+      parentRoute: typeof MainRoute
+    }
     '/api/health': {
       id: '/api/health'
       path: '/api/health'
@@ -159,12 +188,14 @@ declare module '@tanstack/react-router' {
 
 interface MainRouteChildren {
   MainCatalogRoute: typeof MainCatalogRoute
+  MainCollectionsRoute: typeof MainCollectionsRoute
   MainIndexRoute: typeof MainIndexRoute
   MainAnimeIdRoute: typeof MainAnimeIdRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
   MainCatalogRoute: MainCatalogRoute,
+  MainCollectionsRoute: MainCollectionsRoute,
   MainIndexRoute: MainIndexRoute,
   MainAnimeIdRoute: MainAnimeIdRoute,
 }

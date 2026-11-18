@@ -1,3 +1,4 @@
+import { useRouteContext } from "@tanstack/react-router";
 import {
   airedDate,
   englishTitle,
@@ -6,6 +7,7 @@ import {
   statusLabel,
 } from "../lib/anime";
 import type { Anime } from "../server/anime";
+import { CreateCollectionDialog } from "./create-collection-dialog";
 
 export function AnimeHeader({ anime }: { anime: Anime }) {
   return (
@@ -29,6 +31,7 @@ export function AnimeHeader({ anime }: { anime: Anime }) {
 
 export function AnimeToolbar({ anime }: { anime: Anime }) {
   const rating = score(anime);
+  const { viewer } = useRouteContext({ from: "__root__" });
 
   return (
     <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
@@ -46,6 +49,12 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
           {englishTitle(anime)}
         </h1>
         {rating && <p className="text-lg text-gray-400">★ {rating}</p>}
+        <div>
+          <CreateCollectionDialog
+            animeId={anime.id}
+            signedIn={Boolean(viewer)}
+          />
+        </div>
       </div>
     </div>
   );
