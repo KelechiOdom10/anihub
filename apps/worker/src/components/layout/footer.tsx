@@ -33,6 +33,10 @@ export function Footer() {
           >
             MyAnimeList
           </a>
+          {" · "}
+          <Link className="underline underline-offset-4" to="/privacy">
+            Privacy
+          </Link>
         </p>
         <div className="flex gap-2">
           {socials.map(({ name, url, icon: Icon }) => (

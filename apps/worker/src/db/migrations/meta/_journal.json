@@ -22,6 +22,13 @@
       "when": 1794970759483,
       "tag": "20261118025919_clear_anilist",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1794972164802,
+      "tag": "20261118032244_privacy_consent",
+      "breakpoints": true
     }
   ]
 }
