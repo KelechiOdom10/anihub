@@ -54,25 +54,26 @@ function AnimePage() {
     <>
       <AnimeHeader anime={anime} />
       <AnimeToolbar anime={anime} />
-      <div className="mx-auto max-w-5xl px-4 py-8 xl:max-w-7xl">
-        <nav aria-label="Anime tabs" className="relative mb-6">
-          <div className="flex h-9 max-w-xl items-center justify-start rounded-lg bg-muted p-1 text-muted-foreground">
-            {(["overview", "reviews"] as const).map((value) => (
-              <Link
-                key={value}
-                to="/anime/$id"
-                params={{ id: String(anime.id) }}
-                search={{ tab: value }}
-                resetScroll={false}
-                aria-current={tab === value ? "page" : undefined}
-                className={`inline-flex flex-1 items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium capitalize ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${tab === value ? "bg-background text-foreground shadow" : ""}`}
-              >
-                {value}
-              </Link>
-            ))}
-          </div>
+      <div className="mx-auto max-w-5xl px-6 pb-16 xl:max-w-7xl">
+        <nav
+          aria-label="Anime tabs"
+          className="mb-8 flex gap-6 border-b border-zinc-800"
+        >
+          {(["overview", "reviews"] as const).map((value) => (
+            <Link
+              key={value}
+              to="/anime/$id"
+              params={{ id: String(anime.id) }}
+              search={{ tab: value }}
+              resetScroll={false}
+              aria-current={tab === value ? "page" : undefined}
+              className={`-mb-px border-b-2 px-1 pb-3 text-sm font-medium capitalize transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${tab === value ? "border-white text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+            >
+              {value}
+            </Link>
+          ))}
         </nav>
-        <div className="px-4 py-6">
+        <div>
           {tab === "reviews" ? (
             <AnimeReviews key={anime.id} animeId={anime.id} />
           ) : (

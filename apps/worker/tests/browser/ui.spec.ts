@@ -51,21 +51,32 @@ test("the header is Tab-reachable and a carousel link opens with Enter", async (
   await expect(
     page.getByRole("link", { name: "Home page" }).first()
   ).toBeFocused();
+
+  for (const name of ["Home", "Catalog", "My Collections"]) {
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("link", { name, exact: true })).toBeFocused();
+  }
+
   await page.keyboard.press("Tab");
   await expect(
-    page.getByRole("link", { name: "Catalog", exact: true })
+    page.getByRole("searchbox", { name: "Search anime" })
   ).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(
-    page.getByRole("link", { name: "My Collections", exact: true })
-  ).toBeFocused();
+  await expect(page.getByRole("link", { name: "Log In" })).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: "Sign in" })).toBeFocused();
+  await expect(page.getByRole("link", { name: "Get Started" })).toBeFocused();
   await page
     .getByRole("link", { name: "Fixture Anime 21", exact: true })
     .focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/anime\/21$/);
+});
+
+test("header search sends the query to the catalog", async ({ page }) => {
+  await page.goto("/anime/21");
+  await page.getByRole("searchbox", { name: "Search anime" }).fill("fixture");
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/catalog\?q=fixture$/);
 });
 
 test("anime page shows details from the cached MyAnimeList record", async ({
@@ -124,14 +135,11 @@ test("sign-in is a standalone centred card offering only Google and Discord", as
   ).toBeVisible();
   await expect(page.getByRole("textbox")).toHaveCount(0);
 
-  const google = page.getByRole("button", { name: "Log in with Google" });
-  const consent = page.getByRole("checkbox", { name: /privacy policy/ });
-
-  await expect(google).toBeDisabled();
-  await consent.check();
-  await expect(google).toBeEnabled();
   await expect(
-    page.getByRole("link", { name: "privacy policy" })
+    page.getByRole("button", { name: "Log in with Google" })
+  ).toBeEnabled();
+  await expect(
+    page.getByRole("link", { name: "Privacy Policy" })
   ).toHaveAttribute("href", "/privacy");
 
   await page.goto("/privacy");

@@ -44,7 +44,7 @@ export function ChooseCollectionDialog({
 
   if (!signedIn)
     return (
-      <Button variant="secondary" asChild>
+      <Button variant="secondary" size="default" asChild>
         <Link to="/sign-in" search={{ redirect: returnPath }}>
           <ListBulletIcon className="mr-2 h-4 w-4" />
           Add to Collection
@@ -161,7 +161,7 @@ export function ChooseCollectionDialog({
 
   return (
     <>
-      <Button ref={trigger} variant="secondary" onClick={open}>
+      <Button ref={trigger} variant="secondary" size="default" onClick={open}>
         <ListBulletIcon className="mr-2 h-4 w-4" />
         Add to Collection
       </Button>

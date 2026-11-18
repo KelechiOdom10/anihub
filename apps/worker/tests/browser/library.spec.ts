@@ -583,7 +583,7 @@ test("guest action returns safely without writing and empty library offers disco
     page.getByText("You don't have any collections yet.")
   ).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByText("Menu", { exact: true }).click();
+  await page.getByLabel("Menu", { exact: true }).click();
   await expect(
     page.getByRole("navigation", { name: "Mobile navigation" })
   ).toBeVisible();
@@ -832,7 +832,7 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await page.goto("/collections");
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await expect(
-    page.getByRole("link", { name: "Sign in", exact: true })
+    page.getByRole("link", { name: "Get Started", exact: true })
   ).toBeVisible();
   await page.evaluate(() => history.go(-2));
   await expect(page).toHaveURL(/sign-in/);
