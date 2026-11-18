@@ -1,4 +1,4 @@
-import { StarIcon } from "@radix-ui/react-icons";
+import { ReloadIcon, StarIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -94,27 +94,49 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
   };
 
   return (
-    <section className="space-y-8" aria-label="Anime reviews">
-      {viewer ? (
-        <Button
-          ref={writeTrigger}
-          onClick={(event) => {
-            trigger.current = event.currentTarget;
-            setEditor({ review: null });
-          }}
-        >
-          Write a Review
-        </Button>
-      ) : !loading && !error ? (
-        <Button asChild>
-          <Link
-            to="/sign-in"
-            search={{ redirect: `/anime/${animeId}?tab=reviews` }}
+    <section className="max-w-3xl space-y-6" aria-label="Anime reviews">
+      <div className="flex items-center justify-between gap-4 border-b border-zinc-800 pb-4">
+        <div className="flex items-center gap-1">
+          <h2
+            ref={heading}
+            tabIndex={-1}
+            className="text-xl font-bold focus-visible:outline focus-visible:outline-ring"
           >
-            Login to Get Started
-          </Link>
-        </Button>
-      ) : null}
+            Comments
+          </h2>
+          <Button
+            size="icon"
+            variant="ghost"
+            aria-label="Refresh reviews"
+            className="h-8 w-8 text-muted-foreground"
+            disabled={loading}
+            onClick={refresh}
+          >
+            <ReloadIcon className="h-4 w-4" />
+          </Button>
+        </div>
+        {viewer ? (
+          <Button
+            ref={writeTrigger}
+            size="default"
+            onClick={(event) => {
+              trigger.current = event.currentTarget;
+              setEditor({ review: null });
+            }}
+          >
+            Write a Review
+          </Button>
+        ) : !loading && !error ? (
+          <Button asChild size="default">
+            <Link
+              to="/sign-in"
+              search={{ redirect: `/anime/${animeId}?tab=reviews` }}
+            >
+              Login to Get Started
+            </Link>
+          </Button>
+        ) : null}
+      </div>
       {editor && (
         <ReviewForm
           animeId={animeId}
@@ -149,23 +171,6 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
         />
       )}
       <div className="space-y-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <h3
-            ref={heading}
-            tabIndex={-1}
-            className="text-lg font-semibold focus-visible:outline focus-visible:outline-ring"
-          >
-            Comments
-          </h3>
-          <Button
-            size="sm"
-            variant="ghost"
-            disabled={loading}
-            onClick={refresh}
-          >
-            Refresh reviews
-          </Button>
-        </div>
         {loading ? (
           <p
             role="status"
@@ -174,9 +179,11 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
             Loading comments…
           </p>
         ) : error ? (
-          <div className="space-y-3">
-            <p role="alert">{error}</p>
-            <Button variant="secondary" onClick={refresh}>
+          <div className="space-y-4 rounded-lg border border-dashed border-zinc-800 px-6 py-10 text-center">
+            <p role="alert" className="text-sm">
+              {error}
+            </p>
+            <Button variant="secondary" size="default" onClick={refresh}>
               Retry reviews
             </Button>
           </div>
@@ -200,19 +207,27 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
             ))}
             <div className="flex flex-wrap gap-3">
               {page > 1 && (
-                <Button variant="secondary" onClick={() => setPage(page - 1)}>
+                <Button
+                  variant="secondary"
+                  size="default"
+                  onClick={() => setPage(page - 1)}
+                >
                   Previous reviews
                 </Button>
               )}
               {data.hasNextPage && (
-                <Button variant="secondary" onClick={() => setPage(page + 1)}>
+                <Button
+                  variant="secondary"
+                  size="default"
+                  onClick={() => setPage(page + 1)}
+                >
                   More reviews
                 </Button>
               )}
             </div>
           </>
         ) : (
-          <p className="text-center text-muted-foreground">
+          <p className="rounded-lg border border-dashed border-zinc-800 px-6 py-12 text-center text-sm text-muted-foreground">
             No comments yet. Be the first to share your thoughts!
           </p>
         )}
@@ -261,7 +276,7 @@ function ReviewCard({
   };
 
   return (
-    <Card className="max-w-lg overflow-hidden" data-review-id={review.id}>
+    <Card className="overflow-hidden" data-review-id={review.id}>
       <CardHeader className="space-y-3 pb-4">
         <div className="flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-3">

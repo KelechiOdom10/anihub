@@ -25,7 +25,7 @@ export function CreateCollectionDialog({
 
   if (!signedIn)
     return (
-      <Button variant="secondary" asChild>
+      <Button variant="secondary" size="default" asChild>
         <Link to="/sign-in" search={{ redirect: returnPath }}>
           <PlusIcon className="mr-2 h-4 w-4" />
           Create collection
@@ -91,6 +91,7 @@ export function CreateCollectionDialog({
       <Button
         ref={trigger}
         variant="secondary"
+        size="default"
         onClick={() => {
           dialog.current?.showModal();
           nameInput.current?.focus();

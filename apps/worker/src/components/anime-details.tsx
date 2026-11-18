@@ -35,7 +35,7 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
   const { viewer } = useRouteContext({ from: "__root__" });
 
   return (
-    <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
+    <div className="mx-auto flex max-w-5xl items-center gap-8 px-6 py-8 xl:max-w-7xl">
       <img
         fetchPriority="high"
         loading="eager"
@@ -45,12 +45,12 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
         height={270}
         className="z-30 -mt-24 hidden aspect-[2/3] w-[180px] rounded-md object-cover lg:block"
       />
-      <div className="flex w-full flex-col gap-4 self-start">
+      <div className="flex w-full flex-col gap-3 self-start">
         <h1 className="text-xl font-semibold lg:text-2xl">
           {englishTitle(anime)}
         </h1>
-        {rating && <p className="text-lg text-gray-400">★ {rating}</p>}
-        <div className="flex flex-wrap items-center gap-2.5">
+        {rating && <p className="text-base text-gray-400">★ {rating}</p>}
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           <ChooseCollectionDialog
             animeId={anime.id}
             signedIn={Boolean(viewer)}
@@ -78,7 +78,7 @@ export function AnimeOverview({ anime }: { anime: Anime }) {
   return (
     <div className="grid w-full grid-cols-1 gap-20 md:grid-cols-4 md:gap-24">
       <div className="col-span-1 flex flex-col gap-3">
-        <h2 className="text-2xl font-bold">Details</h2>
+        <h2 className="text-xl font-bold">Details</h2>
         {anime.format && <Detail label="Type" value={anime.format} />}
         {anime.episodes && (
           <Detail label="Episodes" value={String(anime.episodes)} />
@@ -95,8 +95,10 @@ export function AnimeOverview({ anime }: { anime: Anime }) {
         />
       </div>
       <div className="col-span-1 flex flex-col gap-3 md:col-span-3">
-        <h2 className="text-2xl font-bold">Description</h2>
-        <p>{plainDescription(anime)}</p>
+        <h2 className="text-xl font-bold">Description</h2>
+        <p className="leading-relaxed text-zinc-300">
+          {plainDescription(anime)}
+        </p>
       </div>
     </div>
   );

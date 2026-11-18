@@ -41,14 +41,14 @@ function Home() {
       <div className="container isolate mx-auto py-20 lg:-mt-64">
         <AnimeCarousel heading="Top Airing" animeList={airing} />
       </div>
+      {categories.length > 0 && (
+        <div className="container mx-auto pb-[6.25rem] pt-8">
+          <GenresSection categories={categories} />
+        </div>
+      )}
       {popular.length > 0 && (
         <div className="container mx-auto py-8">
           <AnimeCarousel heading="Popular Anime" animeList={popular} />
-        </div>
-      )}
-      {categories.length > 0 && (
-        <div className="container mx-auto py-8">
-          <GenresSection categories={categories} />
         </div>
       )}
     </>

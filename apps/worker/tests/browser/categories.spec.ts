@@ -19,6 +19,12 @@ test("home restores the Categories cards with covers from each card's genre", as
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "Categories" })).toBeVisible();
+  expect(
+    await page
+      .getByRole("heading")
+      .filter({ hasText: /^(Top Airing|Categories|Popular Anime)$/ })
+      .allTextContents()
+  ).toEqual(["Top Airing", "Categories", "Popular Anime"]);
 
   const action = page.getByRole("link", { name: /The best Action Animes/ });
 

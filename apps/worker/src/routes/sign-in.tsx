@@ -53,7 +53,6 @@ const providers = [
 function SignIn() {
   const search = Route.useSearch();
   const [pending, setPending] = useState<string | null>(null);
-  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
     if (search.error)
@@ -82,43 +81,36 @@ function SignIn() {
     <div className="grid min-h-screen place-items-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <Logo className="mb-2 h-12 w-auto fill-white" />
+          <Logo className="mx-auto mb-2 h-12 w-auto fill-white" />
           <CardDescription>
             Log in to your account with Google or Discord
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <label className="flex items-center gap-2 text-sm text-muted-foreground">
-            <input
-              type="checkbox"
-              className="h-4 w-4 accent-white"
-              checked={agreed}
-              onChange={(event) => setAgreed(event.target.checked)}
-            />
-            <span>
-              I agree to the{" "}
-              <Link
-                to="/privacy"
-                target="_blank"
-                className="text-foreground underline underline-offset-4"
-              >
-                privacy policy
-              </Link>
-            </span>
-          </label>
+        <CardContent className="flex flex-col items-center gap-3">
           {providers.map(({ id, label, icon: Icon }) => (
             <Button
               key={id}
               variant="outline"
+              size="default"
               className="w-full"
-              disabled={!agreed || pending !== null}
+              disabled={pending !== null}
               onClick={() => signIn(id)}
             >
               <Icon className="mr-2 h-5 w-5" />
               {pending === id ? "Redirecting…" : label}
             </Button>
           ))}
-          <Button variant="outline" className="w-full" asChild>
+          <p className="pt-1 text-center text-xs text-muted-foreground">
+            By continuing, you agree to the{" "}
+            <Link
+              to="/privacy"
+              target="_blank"
+              className="text-foreground underline underline-offset-4"
+            >
+              Privacy Policy
+            </Link>
+          </p>
+          <Button variant="ghost" size="default" asChild>
             <Link to="/">Cancel</Link>
           </Button>
         </CardContent>
