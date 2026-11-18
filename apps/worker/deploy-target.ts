@@ -39,6 +39,7 @@ export function cloudflareTarget(
       name: productionWorker,
       account_id: productionAccount,
       workers_dev: true,
+      preview_urls: false,
       routes: [{ pattern: productionDomain, custom_domain: true }],
       d1_databases: [database(productionWorker)],
     };
