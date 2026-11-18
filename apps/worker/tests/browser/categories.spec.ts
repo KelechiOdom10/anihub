@@ -75,7 +75,7 @@ test("a category opens its genre results, which page with Show More", async ({
   expect(errors).toEqual([]);
 });
 
-test("legacy numeric genre links redirect to the matching AniList genre", async ({
+test("legacy numeric genre links redirect to the matching genre", async ({
   page,
 }) => {
   const response = await page.goto("/catalog?genres=22");

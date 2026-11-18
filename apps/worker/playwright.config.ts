@@ -21,6 +21,7 @@ export default defineConfig({
       GOOGLE_CLIENT_SECRET: "browser-smoke",
       DISCORD_CLIENT_ID: "browser-smoke",
       DISCORD_CLIENT_SECRET: "browser-smoke",
+      MAL_CLIENT_ID: "browser-smoke",
     },
     timeout: 30000,
   },

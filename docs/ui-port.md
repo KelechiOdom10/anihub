@@ -19,18 +19,18 @@ The Worker renders AniHub's original design system, ported from the root Next.js
 These controls in the original either belong to features outside this milestone or no longer work, so they are left out rather than shipped as buttons that do nothing:
 
 - Header navigation to Catalog, News and Collections, the search field, and the mobile menu that only held those links.
-- "Save to Watchlist", "Watching", "To Watch", "Watched", "Add to Collection" and "Watch Trailer". AniList data in the cache has no trailer.
+- "Save to Watchlist", "Watching", "To Watch", "Watched", "Add to Collection" and "Watch Trailer". Cached MyAnimeList data has no trailer.
 - The anime page tabs (Relations, Characters, Reviews) and the home characters section.
 - The catalog's filter sidebar, sort dropdown, mobile filter sheet and search. `/catalog` keeps only its results area (see below).
 - Email/password fields, sign-up and password reset. Login and Register become one "Sign in" button, and the card offers Google and Discord.
 
 ## Data and states
 
-The home page shows AniList trending (as "Trending Now", overlapping the hero) and popular lists from the D1 cache. The hero is the fifth trending entry, matching the original's choice of the fifth item in its first list, and shows the romaji title as the original did. Statuses use the original Jikan wording ("Currently Airing").
+The home page shows MyAnimeList's top airing ranking (as "Top Airing", overlapping the hero) and its popularity ranking from the D1 cache. The hero is the fifth trending entry, matching the original's choice of the fifth item in its first list, and shows the romaji title as the original did. Statuses use the original Jikan wording ("Currently Airing").
 
-Old `/anime/<id>` links used MyAnimeList ids; the Worker uses AniList ids. Imported comments and collection items keep both ids, so links can be remapped when those features return.
+Old `/anime/<id>` links used MyAnimeList ids, and so does the Worker, so they keep working. Imported comments and collection items keep their `mal_id`.
 
-Each route has loading, empty, not-found (404) and AniList-unavailable states with a retry.
+Each route has loading, empty, not-found (404) and MyAnimeList-unavailable states with a retry.
 
 ## Categories
 
@@ -38,11 +38,11 @@ The original home page shuffled every Jikan genre on each request and showed thr
 
 The Worker keeps the cards' markup and styling and fixes the data:
 
-- The three genres come from AniList's genre list (without Hentai), picked deterministically per UTC day and cached in D1, so they don't change between renders or during hydration. The meteor positions are deterministic for the same reason.
+- The three genres come from the 17 legacy MyAnimeList genres below, picked deterministically per UTC day and cached in D1, so they don't change between renders or during hydration. The meteor positions are deterministic for the same reason.
 - Each card shows three covers from its own genre's most popular titles, skipping titles already shown on an earlier card.
-- Cards link to `/catalog?genres=<AniList genre>`. The page renders the original catalog results area: the "Catalog" heading, the removable genre tag, the five-column `AnimeCard` grid, the "No results found" empty state and "Show More" pagination. Removing the tag lists all anime by popularity.
-- Old numeric links keep working where the MyAnimeList genre has the same name on AniList: 1 Action, 2 Adventure, 4 Comedy, 7 Mystery, 8 Drama, 9 Ecchi, 10 Fantasy, 14 Horror, 18 Mecha, 19 Music, 22 Romance, 24 Sci-Fi, 30 Sports, 36 Slice of Life, 37 Supernatural, 40 Psychological and 66 Mahou Shoujo redirect (301) to the genre name. Every other value, including MyAnimeList-only genres such as 41 Suspense, theme ids such as 62 Isekai, and multi-genre values such as `1,4`, shows "Genre not available" instead of unrelated results.
-- The genre list is cached for a day and each results page for an hour, with the same stale-copy fallback as the home lists. If AniList is down and nothing is cached, the Categories section is hidden and the catalog shows the unavailable state with a retry.
+- Cards link to `/catalog?genres=<genre name>`. The page renders the original catalog results area: the "Catalog" heading, the removable genre tag, the five-column `AnimeCard` grid, the "No results found" empty state and "Show More" pagination. Removing the tag lists all anime by popularity.
+- Old numeric links keep working for the genres AniHub lists: 1 Action, 2 Adventure, 4 Comedy, 7 Mystery, 8 Drama, 9 Ecchi, 10 Fantasy, 14 Horror, 18 Mecha, 19 Music, 22 Romance, 24 Sci-Fi, 30 Sports, 36 Slice of Life, 37 Supernatural, 40 Psychological and 66 Mahou Shoujo redirect (301) to the genre name. Every other value, including other MyAnimeList genres such as 41 Suspense, theme ids such as 62 Isekai, and multi-genre values such as `1,4`, shows "Genre not available" instead of unrelated results.
+- MyAnimeList's API has no genre filter, so genre results filter its 500 most popular titles, fetched once a day and cached in D1; niche genres therefore list fewer titles, and the results page says the list isn't the full genre. All-anime pages are cached for an hour, with the same stale-copy fallback as the home lists. If MyAnimeList is down and nothing is cached, the Categories section is hidden and the catalog shows the unavailable state with a retry.
 
 ## Comparison method
 
@@ -52,4 +52,4 @@ Artifacts in Capy Drive under `renders/ANIH-3/ui-comparison/`: `compare-{home,an
 
 ## Tests
 
-`pnpm --filter @anihub/worker test:browser` seeds local D1 from `tests/fixtures/home.json` (public AniList data) and drives the built Worker in Chromium. It checks the hero, carousels, Inter loading, header transparency before and after scrolling, keyboard focus and navigation, the anime details, 404 states, the sign-in card offering only Google and Discord, its error message, and that nothing overflows horizontally at 390px. It also seeds `tests/fixtures/catalog.json` and checks the Categories cards and their covers, opening a genre, "Show More", removing the tag, the legacy-id redirect and unsupported genre values.
+`pnpm --filter @anihub/worker test:browser` seeds local D1 from `tests/fixtures/home.json` and drives the built Worker in Chromium. It checks the hero, carousels, Inter loading, header transparency before and after scrolling, keyboard focus and navigation, the anime details, 404 states, the sign-in card offering only Google and Discord, its error message, and that nothing overflows horizontally at 390px. It also seeds `tests/fixtures/catalog.json` and checks the Categories cards and their covers, opening a genre, "Show More", removing the tag, the legacy-id redirect and unsupported genre values.

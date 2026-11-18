@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import type { Anime } from "../src/server/anime";
 import { buildImportStatements } from "../scripts/legacy-import";
 import { createTestDatabase } from "./d1";
 
@@ -62,37 +61,14 @@ const legacy = {
   ],
 };
 
-const mapped: Anime = {
-  id: 42,
-  idMal: 999,
-  title: { romaji: "Fixture", english: null },
-  description: null,
-  coverImage: { extraLarge: "https://example.com/poster.jpg" },
-  bannerImage: null,
-  averageScore: 80,
-  episodes: 12,
-  seasonYear: 2024,
-  startDate: { year: 1999, month: 10, day: 20 },
-  endDate: { year: null, month: null, day: null },
-  format: "TV",
-  status: "FINISHED",
-  genres: ["Action"],
-  studios: { nodes: [] },
-};
-
 test("legacy import applies to migrated D1 preserving ids, text, timestamps and relationships", async () => {
   const { d1, dispose } = await createTestDatabase();
 
   try {
-    const { statements, unresolvedMalIds } = buildImportStatements(
-      legacy,
-      [mapped],
-      1
-    );
+    const statements = buildImportStatements(legacy);
 
     await d1.batch(statements.map((statement) => d1.prepare(statement)));
 
-    assert.deepEqual(unresolvedMalIds, [555]);
     assert.deepEqual(
       await d1.prepare("SELECT id, email, created_at FROM user").first(),
       {
@@ -108,7 +84,7 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
           .all()
       ).results,
       [
-        { anime_id: 42, mal_id: 999 },
+        { anime_id: null, mal_id: 999 },
         { anime_id: null, mal_id: 555 },
       ]
     );
@@ -116,7 +92,7 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
       await d1.prepare("SELECT text, anime_id, mal_id FROM comments").first(),
       {
         text: "It's good\nreally",
-        anime_id: 42,
+        anime_id: null,
         mal_id: 999,
       }
     );
@@ -136,35 +112,26 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
 test("legacy import refuses case-folded email collisions instead of merging accounts", () => {
   assert.throws(
     () =>
-      buildImportStatements(
-        {
-          ...legacy,
-          users: [
-            owner,
-            { ...owner, id: 2, username: "copy", email: "owner@example.com" },
-          ],
-        },
-        [],
-        1
-      ),
+      buildImportStatements({
+        ...legacy,
+        users: [
+          owner,
+          { ...owner, id: 2, username: "copy", email: "owner@example.com" },
+        ],
+      }),
     /email collision/
   );
 });
 
 test("legacy import rejects malformed emails and timestamps", () => {
   assert.throws(() =>
-    buildImportStatements(
-      { ...legacy, users: [{ ...owner, email: "nope" }] },
-      [],
-      1
-    )
+    buildImportStatements({ ...legacy, users: [{ ...owner, email: "nope" }] })
   );
   assert.throws(() =>
-    buildImportStatements(
-      { ...legacy, users: [{ ...owner, created_at: "yesterday" }] },
-      [],
-      1
-    )
+    buildImportStatements({
+      ...legacy,
+      users: [{ ...owner, created_at: "yesterday" }],
+    })
   );
 });
 

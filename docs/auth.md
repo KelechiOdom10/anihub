@@ -19,7 +19,7 @@ The default guards against someone pre-registering an unverified account at anot
 
 ## Configuration
 
-`apps/worker/src/env.ts` declares `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET`. Locally they go in `apps/worker/.env` (git-ignored). In production they are Worker secrets set with `void secret put`. Void validates them at Worker startup and `void deploy` refuses to run without them. The browser smoke test uses placeholder values.
+`apps/worker/src/env.ts` declares `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET` and `MAL_CLIENT_ID` (the MyAnimeList API client ID). Locally they go in `apps/worker/.env` (git-ignored). In production they are Worker secrets set with `void secret put`. Void validates them at Worker startup and `void deploy` refuses to run without them. The browser smoke test uses placeholder values.
 
 Register these OAuth callback URLs with each provider:
 

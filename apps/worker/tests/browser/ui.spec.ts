@@ -21,9 +21,7 @@ test("home restores the original hero, overlapping carousels and transparent hea
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Shiotaiou no Satou-san ga Ore ni dake Amai"
   );
-  await expect(
-    page.getByRole("heading", { name: "Trending Now" })
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Top Airing" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Popular Anime" })
   ).toBeVisible();
@@ -56,7 +54,7 @@ test("carousels and the header are keyboard reachable", async ({ page }) => {
   await expect(page).toHaveURL(/\/anime\/21$/);
 });
 
-test("anime page shows details from the cached AniList record", async ({
+test("anime page shows details from the cached MyAnimeList record", async ({
   page,
 }) => {
   const errors = trackErrors(page);

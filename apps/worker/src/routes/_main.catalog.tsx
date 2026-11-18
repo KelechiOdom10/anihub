@@ -58,7 +58,7 @@ function CatalogPage() {
     return (
       <PageMessage
         heading="Genre not available"
-        body={`"${catalog.kind === "unsupported" ? catalog.value : ""}" isn't one of the AniList genres AniHub lists. Pick a category from the home page instead.`}
+        body={`"${catalog.kind === "unsupported" ? catalog.value : ""}" isn't one of the genres AniHub lists. Pick a category from the home page instead.`}
       />
     );
 
@@ -84,6 +84,12 @@ function CatalogPage() {
                 />
               </div>
             </div>
+            {catalog.genre && (
+              <p className="mb-4 text-sm text-muted-foreground">
+                {catalog.genre} titles among MyAnimeList's 500 most popular
+                anime. This isn't a full list of the genre.
+              </p>
+            )}
             <AnimeList
               key={catalog.genre ?? "all"}
               genre={catalog.genre}
@@ -114,7 +120,7 @@ function CatalogError() {
   return (
     <PageMessage
       heading="Anime data is unavailable"
-      body="AniList didn't respond. Please try again shortly."
+      body="MyAnimeList didn't respond. Please try again shortly."
       onRetry={() => router.invalidate()}
     />
   );

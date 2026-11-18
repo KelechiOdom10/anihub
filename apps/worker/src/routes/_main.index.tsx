@@ -17,15 +17,15 @@ export const Route = createFileRoute("/_main/")({
   component: Home,
   pendingComponent: () => (
     <div className="container mx-auto py-28">
-      <AnimeCarouselSkeleton heading="Trending Now" />
+      <AnimeCarouselSkeleton heading="Top Airing" />
     </div>
   ),
   errorComponent: HomeError,
 });
 
 function Home() {
-  const { trending, popular, categories } = Route.useLoaderData();
-  const hero = trending[4] ?? trending[0];
+  const { airing, popular, categories } = Route.useLoaderData();
+  const hero = airing[4] ?? airing[0];
 
   if (!hero)
     return (
@@ -39,7 +39,7 @@ function Home() {
     <>
       <Hero anime={hero} />
       <div className="container isolate mx-auto py-20 lg:-mt-64">
-        <AnimeCarousel heading="Trending Now" animeList={trending} />
+        <AnimeCarousel heading="Top Airing" animeList={airing} />
       </div>
       {popular.length > 0 && (
         <div className="container mx-auto py-8">
@@ -61,7 +61,7 @@ function HomeError() {
   return (
     <PageMessage
       heading="Anime data is unavailable"
-      body="AniList didn't respond. Please try again shortly."
+      body="MyAnimeList didn't respond. Please try again shortly."
       onRetry={() => router.invalidate()}
     />
   );

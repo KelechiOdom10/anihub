@@ -4,6 +4,7 @@ import { z } from "zod";
 import {
   catalogPageSchema,
   homeSchema,
+  type Anime,
   type CatalogPage,
   type Categories,
   type Home,
@@ -11,7 +12,6 @@ import {
 import { chooseCovers } from "../../src/server/genres";
 
 const catalogFixture = z.object({
-  genres: z.array(z.string()),
   pages: z.record(z.string(), catalogPageSchema),
 });
 
@@ -45,26 +45,33 @@ export default function seedCatalog() {
 
   const entry = (
     key: string,
-    data: Home | CatalogPage | Categories | string[]
+    data: Home | CatalogPage | Categories | Anime[]
   ) =>
     `INSERT INTO cache_entries (key, data, updated_at) VALUES (${quote(key)}, ${quote(JSON.stringify(data))}, ${now});`;
 
   const anime = new Map(
-    [...home.trending, ...home.popular].map((value) => [value.id, value])
+    [...home.airing, ...home.popular].map((value) => [value.id, value])
   );
 
   const statements = [
     "DELETE FROM cache_entries;",
     "DELETE FROM anime_cache;",
     entry("home", home),
-    entry("genres", catalog.genres),
-    ...Object.entries(catalog.pages).map(([key, page]) =>
-      entry(`catalog:${key}`, page)
+    ...Object.entries(catalog.pages).flatMap(([key, page]) =>
+      key.startsWith("all:") ? [entry(`catalog:${key}`, page)] : []
+    ),
+    ...["Action", "Romance", "Sci-Fi"].map((genre) =>
+      entry(
+        `genre:${genre}`,
+        Object.entries(catalog.pages).flatMap(([key, page]) =>
+          key.startsWith(`${genre}:`) ? page.anime : []
+        )
+      )
     ),
     ...days.map((day) => entry(`categories:${day}`, categories)),
     ...[...anime.values()].map(
       (value) =>
-        `INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (${value.id}, ${value.idMal ?? "NULL"}, ${quote(JSON.stringify(value))}, ${now});`
+        `INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (${value.id}, ${value.id}, ${quote(JSON.stringify(value))}, ${now});`
     ),
   ];
 

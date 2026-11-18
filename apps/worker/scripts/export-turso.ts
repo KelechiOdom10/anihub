@@ -2,7 +2,6 @@ import { writeFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 import { createClient } from "@libsql/client/web";
 import { z } from "zod";
-import { animeSchema, mediaFields, type Anime } from "../src/server/anime";
 import { buildImportStatements, legacySchema } from "./legacy-import";
 
 const { values } = parseArgs({
@@ -65,51 +64,7 @@ try {
     comments: snapshot[4]?.rows,
   });
 
-  const malIds = [
-    ...new Set(
-      [...data.items, ...data.comments].map((value) => value.anime_id)
-    ),
-  ];
-
-  const media: Anime[] = [];
-
-  const mappingResponse = z.object({
-    data: z.record(z.string(), animeSchema.nullable()),
-  });
-
-  for (let offset = 0; offset < malIds.length; offset += 10) {
-    const fields = malIds
-      .slice(offset, offset + 10)
-      .map(
-        (id) => `m${id}: Media(idMal: ${id}, type: ANIME) { ${mediaFields} }`
-      )
-      .join(" ");
-
-    const response = await fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: `{ ${fields} }` }),
-      signal: AbortSignal.timeout(15000),
-    });
-
-    if (!response.ok)
-      throw new Error(
-        `AniList mapping failed (${response.status}); no import file was written`
-      );
-
-    const result = mappingResponse.parse(await response.json());
-
-    media.push(...Object.values(result.data).filter((value) => value !== null));
-
-    if (offset + 10 < malIds.length)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-
-  const { statements, unresolvedMalIds } = buildImportStatements(
-    data,
-    media,
-    Date.now()
-  );
+  const statements = buildImportStatements(data);
 
   await writeFile(output, statements.join("\n") + "\n", {
     mode: 0o600,
@@ -122,8 +77,6 @@ try {
       items: data.items.length,
       likes: data.likes.length,
       comments: data.comments.length,
-      mappedAnime: media.length,
-      unresolvedMalIds,
     })
   );
   console.log("Offline SQL written. No D1 writes were performed.");

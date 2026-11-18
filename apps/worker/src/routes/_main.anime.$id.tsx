@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_main/anime/$id")({
   notFoundComponent: () => (
     <PageMessage
       heading="Anime not found"
-      body="We couldn't find that anime on AniList."
+      body="We couldn't find that anime on MyAnimeList."
     />
   ),
   errorComponent: AnimeError,
@@ -58,7 +58,7 @@ function AnimeError() {
   return (
     <PageMessage
       heading="Anime data is unavailable"
-      body="AniList didn't respond. Please try again shortly."
+      body="MyAnimeList didn't respond. Please try again shortly."
       onRetry={() => router.invalidate()}
     />
   );

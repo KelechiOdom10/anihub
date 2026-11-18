@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { Anime } from "../src/server/anime";
 import { normalizedEmail } from "../src/server/email";
 
 const integerId = z.number().int().nonnegative();
@@ -94,11 +93,7 @@ function time(value: string) {
   return String(legacyTimestamp.parse(value));
 }
 
-export function buildImportStatements(
-  data: LegacyData,
-  media: Anime[],
-  importedAt: number
-) {
+export function buildImportStatements(data: LegacyData) {
   const emails = new Set<string>();
   const statements = ["PRAGMA defer_foreign_keys = ON;"];
 
@@ -125,22 +120,6 @@ export function buildImportStatements(
     );
   }
 
-  const byMalId = new Map(
-    media.flatMap((value) =>
-      value.idMal === null ? [] : [[value.idMal, value.id] as const]
-    )
-  );
-
-  for (const value of media)
-    statements.push(
-      insert("anime_cache", {
-        id: integer(value.id),
-        mal_id: integer(value.idMal),
-        data: quote(JSON.stringify(value)),
-        updated_at: integer(importedAt),
-      })
-    );
-
   for (const value of data.collections)
     statements.push(
       insert("collections", {
@@ -160,7 +139,6 @@ export function buildImportStatements(
       insert("collection_items", {
         id: quote(String(value.id)),
         collection_id: quote(String(value.collection_id)),
-        anime_id: integer(byMalId.get(value.anime_id)),
         mal_id: integer(value.anime_id),
         anime_image: optional(value.anime_image),
         added_at: time(value.added_at),
@@ -185,7 +163,6 @@ export function buildImportStatements(
         rating: integer(value.rating),
         is_spoiler: integer(value.is_spoiler),
         user_id: quote(String(value.user_id)),
-        anime_id: integer(byMalId.get(value.anime_id)),
         mal_id: integer(value.anime_id),
         parent_id: optional(
           value.parent_id === null ? null : String(value.parent_id)
@@ -195,12 +172,5 @@ export function buildImportStatements(
       })
     );
 
-  const malIds = new Set(
-    [...data.items, ...data.comments].map((value) => value.anime_id)
-  );
-
-  return {
-    statements,
-    unresolvedMalIds: [...malIds].filter((id) => !byMalId.has(id)),
-  };
+  return statements;
 }

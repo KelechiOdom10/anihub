@@ -6,24 +6,28 @@ import {
   animeSchema,
   catalogPageSchema,
   categoriesSchema,
+  detailFields,
   homeSchema,
-  mediaFields,
+  listFields,
+  malAnimeSchema,
   type Anime,
   type CatalogPage,
   type Categories,
   type Home,
 } from "./anime";
-import { chooseCovers, legacyGenreIds, pickCategories } from "./genres";
+import { chooseCovers, genres, legacyGenreIds, pickCategories } from "./genres";
 
 const homeTtl = 3_600_000;
 const animeTtl = 86_400_000;
-
-const genresTtl = 86_400_000;
+const genreTtl = 86_400_000;
+const pageSize = 25;
+const genrePoolSize = 500;
 
 export type CatalogSource = {
   db: DrizzleD1Database;
   fetch: typeof fetch;
   now: () => number;
+  clientId: string;
 };
 
 export class AnimeUnavailableError extends Error {
@@ -32,20 +36,20 @@ export class AnimeUnavailableError extends Error {
   }
 }
 
-async function queryAniList<T>(
+async function queryMal<T>(
   source: CatalogSource,
-  query: string,
-  variables: Record<string, number | string | undefined>,
+  path: string,
+  params: Record<string, string | number>,
   schema: z.ZodType<T>
 ): Promise<T | null> {
+  const url = new URL(`https://api.myanimelist.net/v2${path}`);
+
+  for (const [key, value] of Object.entries(params))
+    url.searchParams.set(key, String(value));
+
   const response = await source
-    .fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ query, variables }),
+    .fetch(url, {
+      headers: { "X-MAL-CLIENT-ID": source.clientId },
       signal: AbortSignal.timeout(8000),
     })
     .catch(() => {
@@ -63,118 +67,24 @@ async function queryAniList<T>(
   return parsed.data;
 }
 
-const homeResponse = z.object({
-  data: z.object({
-    trending: z.object({ media: z.array(animeSchema) }),
-    popular: z.object({ media: z.array(animeSchema) }),
-  }),
+const listResponse = z.object({
+  data: z.array(z.object({ node: malAnimeSchema })),
+  paging: z.object({ next: z.string().optional() }).default({}),
 });
 
-const animeResponse = z.object({
-  data: z.object({ Media: animeSchema.nullable() }),
-});
-
-export async function loadHome(source: CatalogSource): Promise<Home> {
-  const cached = await source.db
-    .select()
-    .from(cacheEntries)
-    .where(eq(cacheEntries.key, "home"))
-    .get();
-
-  const previous = homeSchema.safeParse(cached?.data);
-
-  if (
-    cached &&
-    previous.success &&
-    source.now() - cached.updatedAt.getTime() < homeTtl
-  )
-    return previous.data;
-
-  try {
-    const response = await queryAniList(
-      source,
-      `{
-        trending: Page(perPage: 12) { media(type: ANIME, sort: TRENDING_DESC, isAdult: false) { ${mediaFields} } }
-        popular: Page(perPage: 12) { media(type: ANIME, sort: POPULARITY_DESC, isAdult: false) { ${mediaFields} } }
-      }`,
-      {},
-      homeResponse
-    );
-
-    if (!response) throw new AnimeUnavailableError();
-
-    const home = {
-      trending: response.data.trending.media,
-      popular: response.data.popular.media,
-    };
-
-    const updatedAt = new Date(source.now());
-
-    await source.db
-      .insert(cacheEntries)
-      .values({ key: "home", data: home, updatedAt })
-      .onConflictDoUpdate({
-        target: cacheEntries.key,
-        set: { data: home, updatedAt },
-      });
-
-    return home;
-  } catch (error) {
-    if (error instanceof AnimeUnavailableError && previous.success)
-      return previous.data;
-
-    throw error;
-  }
-}
-
-export async function loadAnime(
+async function loadList(
   source: CatalogSource,
-  id: number
-): Promise<Anime | null> {
-  const cached = await source.db
-    .select()
-    .from(animeCache)
-    .where(eq(animeCache.id, id))
-    .get();
+  path: string,
+  params: Record<string, string | number>
+) {
+  const response = await queryMal(source, path, params, listResponse);
 
-  const previous = animeSchema.safeParse(cached?.data);
+  if (!response) throw new AnimeUnavailableError();
 
-  if (
-    cached &&
-    previous.success &&
-    source.now() - cached.updatedAt.getTime() < animeTtl
-  )
-    return previous.data;
-
-  try {
-    const response = await queryAniList(
-      source,
-      `query ($id: Int!) { Media(id: $id, type: ANIME, isAdult: false) { ${mediaFields} } }`,
-      { id },
-      animeResponse
-    );
-
-    const anime = response?.data.Media ?? null;
-
-    if (!anime) return null;
-
-    const updatedAt = new Date(source.now());
-
-    await source.db
-      .insert(animeCache)
-      .values({ id, malId: anime.idMal, data: anime, updatedAt })
-      .onConflictDoUpdate({
-        target: animeCache.id,
-        set: { malId: anime.idMal, data: anime, updatedAt },
-      });
-
-    return anime;
-  } catch (error) {
-    if (error instanceof AnimeUnavailableError && previous.success)
-      return previous.data;
-
-    throw error;
-  }
+  return {
+    anime: response.data.map((entry) => entry.node),
+    hasNextPage: response.paging.next !== undefined,
+  };
 }
 
 async function cached<T>(
@@ -216,65 +126,136 @@ async function cached<T>(
   }
 }
 
-const genresResponse = z.object({
-  data: z.object({ GenreCollection: z.array(z.string()) }),
-});
+export function loadHome(source: CatalogSource): Promise<Home> {
+  return cached(source, "home", homeTtl, homeSchema, async () => {
+    const fields = `${listFields},synopsis`;
 
-const pageResponse = z.object({
-  data: z.object({
-    Page: z.object({
-      pageInfo: z.object({ hasNextPage: z.boolean() }),
-      media: z.array(animeSchema),
-    }),
-  }),
-});
+    const [airing, popular] = await Promise.all([
+      loadList(source, "/anime/ranking", {
+        ranking_type: "airing",
+        limit: 12,
+        fields,
+      }),
+      loadList(source, "/anime/ranking", {
+        ranking_type: "bypopularity",
+        limit: 12,
+        fields,
+      }),
+    ]);
 
-export function loadGenres(source: CatalogSource) {
-  return cached(source, "genres", genresTtl, z.array(z.string()), async () => {
-    const response = await queryAniList(
-      source,
-      "{ GenreCollection }",
-      {},
-      genresResponse
-    );
-
-    if (!response) throw new AnimeUnavailableError();
-
-    return response.data.GenreCollection.filter((genre) => genre !== "Hentai");
+    return { airing: airing.anime, popular: popular.anime };
   });
 }
 
-export function loadCatalogPage(
+const adultRating = z.object({ rating: z.literal("rx") });
+
+export async function loadAnime(
+  source: CatalogSource,
+  id: number
+): Promise<Anime | null> {
+  const cached = await source.db
+    .select()
+    .from(animeCache)
+    .where(eq(animeCache.id, id))
+    .get();
+
+  const previous = animeSchema.safeParse(cached?.data);
+
+  if (
+    cached &&
+    previous.success &&
+    source.now() - cached.updatedAt.getTime() < animeTtl
+  )
+    return previous.data;
+
+  try {
+    const response = await queryMal(
+      source,
+      `/anime/${id}`,
+      { fields: detailFields },
+      z.unknown()
+    );
+
+    if (response === null || adultRating.safeParse(response).success)
+      return null;
+
+    const parsed = malAnimeSchema.safeParse(response);
+
+    if (!parsed.success) throw new AnimeUnavailableError();
+
+    const anime = parsed.data;
+    const updatedAt = new Date(source.now());
+
+    await source.db
+      .insert(animeCache)
+      .values({ id, malId: id, data: anime, updatedAt })
+      .onConflictDoUpdate({
+        target: animeCache.id,
+        set: { data: anime, updatedAt },
+      });
+
+    return anime;
+  } catch (error) {
+    if (error instanceof AnimeUnavailableError && previous.success)
+      return previous.data;
+
+    throw error;
+  }
+}
+
+function loadGenre(source: CatalogSource, genre: string) {
+  return cached(
+    source,
+    `genre:${genre}`,
+    genreTtl,
+    z.array(animeSchema),
+    async () => {
+      const pool = await cached(
+        source,
+        "genre-pool",
+        genreTtl,
+        z.array(animeSchema),
+        async () =>
+          (
+            await loadList(source, "/anime/ranking", {
+              ranking_type: "bypopularity",
+              limit: genrePoolSize,
+              fields: listFields,
+            })
+          ).anime
+      );
+
+      return pool.filter((entry) => entry.genres.includes(genre));
+    }
+  );
+}
+
+export async function loadCatalogPage(
   source: CatalogSource,
   genre: string | undefined,
   page: number
 ): Promise<CatalogPage> {
-  return cached(
-    source,
-    `catalog:${genre ?? "all"}:${page}`,
-    homeTtl,
-    catalogPageSchema,
-    async () => {
-      const response = await queryAniList(
-        source,
-        `query ($page: Int!, $genre: String) {
-          Page(page: $page, perPage: 25) {
-            pageInfo { hasNextPage }
-            media(type: ANIME, sort: POPULARITY_DESC, isAdult: false, genre: $genre) { ${mediaFields} }
-          }
-        }`,
-        { page, genre },
-        pageResponse
-      );
+  if (genre === undefined)
+    return cached(
+      source,
+      `catalog:all:${page}`,
+      homeTtl,
+      catalogPageSchema,
+      () =>
+        loadList(source, "/anime/ranking", {
+          ranking_type: "bypopularity",
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+          fields: listFields,
+        })
+    );
 
-      if (!response) throw new AnimeUnavailableError();
+  const anime = await loadGenre(source, genre);
 
-      return {
-        anime: response.data.Page.media,
-        hasNextPage: response.data.Page.pageInfo.hasNextPage,
-      };
-    }
-  );
+  return {
+    anime: anime.slice((page - 1) * pageSize, page * pageSize),
+    hasNextPage: anime.length > page * pageSize,
+  };
 }
 
 export type Catalog =
@@ -297,7 +278,7 @@ export async function loadCatalog(
 
   if (legacy) return { kind: "redirect", genre: legacy };
 
-  if (!(await loadGenres(source)).includes(query.genres))
+  if (!genres.includes(query.genres))
     return { kind: "unsupported", value: query.genres };
 
   return {
@@ -316,21 +297,16 @@ export async function loadCategories(
     return await cached(
       source,
       `categories:${day}`,
-      genresTtl,
+      genreTtl,
       categoriesSchema,
       async () => {
-        const genres = pickCategories(await loadGenres(source), day);
+        const picked = pickCategories(genres, day);
+        const pages = [];
 
-        const pages = await Promise.all(
-          genres.map((genre) => loadCatalogPage(source, genre, 1))
-        );
+        for (const genre of picked)
+          pages.push({ genre, anime: await loadGenre(source, genre) });
 
-        return chooseCovers(
-          genres.map((genre, index) => ({
-            genre,
-            anime: pages[index]?.anime ?? [],
-          }))
-        );
+        return chooseCovers(pages);
       }
     );
   } catch (error) {
