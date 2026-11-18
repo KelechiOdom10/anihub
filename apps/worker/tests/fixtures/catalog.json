@@ -5,12 +5,12 @@
         {
           "id": 16498,
           "title": {
-            "english": "Attack on Titan",
-            "romaji": "Shingeki no Kyojin"
+            "english": null,
+            "romaji": "Fixture Anime 16498"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 25,
@@ -31,7 +31,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -39,12 +39,12 @@
         {
           "id": 101922,
           "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba",
-            "romaji": "Kimetsu no Yaiba"
+            "english": null,
+            "romaji": "Fixture Anime 101922"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 26,
@@ -65,7 +65,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "ufotable"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -73,12 +73,12 @@
         {
           "id": 113415,
           "title": {
-            "english": "JUJUTSU KAISEN",
-            "romaji": "Jujutsu Kaisen"
+            "english": null,
+            "romaji": "Fixture Anime 113415"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 24,
@@ -99,7 +99,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -107,12 +107,12 @@
         {
           "id": 1535,
           "title": {
-            "english": "Death Note",
-            "romaji": "DEATH NOTE"
+            "english": null,
+            "romaji": "Fixture Anime 1535"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1535-kUgkcrfOrkUM.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 37,
@@ -133,7 +133,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -141,12 +141,12 @@
         {
           "id": 21459,
           "title": {
-            "english": "My Hero Academia",
-            "romaji": "Boku no Hero Academia"
+            "english": null,
+            "romaji": "Fixture Anime 21459"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 13,
@@ -167,7 +167,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -175,12 +175,12 @@
         {
           "id": 11061,
           "title": {
-            "english": "Hunter x Hunter (2011)",
-            "romaji": "HUNTER×HUNTER (2011)"
+            "english": null,
+            "romaji": "Fixture Anime 11061"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
           "episodes": 148,
@@ -201,7 +201,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -209,12 +209,12 @@
         {
           "id": 21087,
           "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
+            "english": null,
+            "romaji": "Fixture Anime 21087"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 12,
@@ -235,7 +235,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -243,12 +243,12 @@
         {
           "id": 21,
           "title": {
-            "english": "ONE PIECE",
-            "romaji": "ONE PIECE"
+            "english": null,
+            "romaji": "Fixture Anime 21"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": null,
@@ -269,7 +269,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Toei Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -277,12 +277,12 @@
         {
           "id": 20605,
           "title": {
-            "english": "Tokyo Ghoul",
-            "romaji": "Tokyo Ghoul"
+            "english": null,
+            "romaji": "Fixture Anime 20605"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 12,
@@ -310,7 +310,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -318,12 +318,12 @@
         {
           "id": 20958,
           "title": {
-            "english": "Attack on Titan Season 2",
-            "romaji": "Shingeki no Kyojin Season 2"
+            "english": null,
+            "romaji": "Fixture Anime 20958"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 12,
@@ -344,7 +344,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -352,12 +352,12 @@
         {
           "id": 5114,
           "title": {
-            "english": "Fullmetal Alchemist: Brotherhood",
-            "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
+            "english": null,
+            "romaji": "Fixture Anime 5114"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 9,
           "episodes": 64,
@@ -378,7 +378,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -386,12 +386,12 @@
         {
           "id": 20,
           "title": {
-            "english": "Naruto",
-            "romaji": "NARUTO"
+            "english": null,
+            "romaji": "Fixture Anime 20"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 220,
@@ -419,7 +419,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -427,12 +427,12 @@
         {
           "id": 20954,
           "title": {
-            "english": "A Silent Voice",
-            "romaji": "Koe no Katachi"
+            "english": null,
+            "romaji": "Fixture Anime 20954"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.8,
           "episodes": 1,
@@ -453,7 +453,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -461,12 +461,12 @@
         {
           "id": 11757,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 11757"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7,
           "episodes": 25,
@@ -487,7 +487,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -495,12 +495,12 @@
         {
           "id": 21519,
           "title": {
-            "english": "Your Name.",
-            "romaji": "Kimi no Na wa."
+            "english": null,
+            "romaji": "Fixture Anime 21519"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 1,
@@ -521,7 +521,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CoMix Wave"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -529,12 +529,12 @@
         {
           "id": 99147,
           "title": {
-            "english": "Attack on Titan Season 3",
-            "romaji": "Shingeki no Kyojin Season 3"
+            "english": null,
+            "romaji": "Fixture Anime 99147"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.6,
           "episodes": 12,
@@ -555,7 +555,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -563,12 +563,12 @@
         {
           "id": 21856,
           "title": {
-            "english": "My Hero Academia Season 2",
-            "romaji": "Boku no Hero Academia 2"
+            "english": null,
+            "romaji": "Fixture Anime 21856"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 25,
@@ -589,7 +589,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -597,12 +597,12 @@
         {
           "id": 110277,
           "title": {
-            "english": "Attack on Titan Final Season",
-            "romaji": "Shingeki no Kyojin: The Final Season"
+            "english": null,
+            "romaji": "Fixture Anime 110277"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 16,
@@ -623,7 +623,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -631,12 +631,12 @@
         {
           "id": 127230,
           "title": {
-            "english": "Chainsaw Man",
-            "romaji": "Chainsaw Man"
+            "english": null,
+            "romaji": "Fixture Anime 127230"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -657,7 +657,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -665,12 +665,12 @@
         {
           "id": 101759,
           "title": {
-            "english": "The Promised Neverland",
-            "romaji": "Yakusoku no Neverland"
+            "english": null,
+            "romaji": "Fixture Anime 101759"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101759-8UR7r9MNVpz2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -698,7 +698,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -706,12 +706,12 @@
         {
           "id": 20755,
           "title": {
-            "english": "Assassination Classroom",
-            "romaji": "Ansatsu Kyoushitsu"
+            "english": null,
+            "romaji": "Fixture Anime 20755"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 22,
@@ -732,7 +732,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Lerche"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -740,12 +740,12 @@
         {
           "id": 21507,
           "title": {
-            "english": "Mob Psycho 100",
-            "romaji": "Mob Psycho 100"
+            "english": null,
+            "romaji": "Fixture Anime 21507"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 12,
@@ -773,7 +773,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -781,12 +781,12 @@
         {
           "id": 21355,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 21355"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 25,
@@ -815,7 +815,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -823,12 +823,12 @@
         {
           "id": 20665,
           "title": {
-            "english": "Your lie in April",
-            "romaji": "Shigatsu wa Kimi no Uso"
+            "english": null,
+            "romaji": "Fixture Anime 20665"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 22,
@@ -849,7 +849,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -857,12 +857,12 @@
         {
           "id": 104578,
           "title": {
-            "english": "Attack on Titan Season 3 Part 2",
-            "romaji": "Shingeki no Kyojin Season 3 Part 2"
+            "english": null,
+            "romaji": "Fixture Anime 104578"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
           "episodes": 10,
@@ -883,7 +883,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -896,12 +896,12 @@
         {
           "id": 16498,
           "title": {
-            "english": "Attack on Titan",
-            "romaji": "Shingeki no Kyojin"
+            "english": null,
+            "romaji": "Fixture Anime 16498"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 25,
@@ -922,7 +922,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -930,12 +930,12 @@
         {
           "id": 101922,
           "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba",
-            "romaji": "Kimetsu no Yaiba"
+            "english": null,
+            "romaji": "Fixture Anime 101922"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 26,
@@ -956,7 +956,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "ufotable"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -964,12 +964,12 @@
         {
           "id": 113415,
           "title": {
-            "english": "JUJUTSU KAISEN",
-            "romaji": "Jujutsu Kaisen"
+            "english": null,
+            "romaji": "Fixture Anime 113415"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 24,
@@ -990,7 +990,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -998,12 +998,12 @@
         {
           "id": 21459,
           "title": {
-            "english": "My Hero Academia",
-            "romaji": "Boku no Hero Academia"
+            "english": null,
+            "romaji": "Fixture Anime 21459"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 13,
@@ -1024,7 +1024,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1032,12 +1032,12 @@
         {
           "id": 11061,
           "title": {
-            "english": "Hunter x Hunter (2011)",
-            "romaji": "HUNTER×HUNTER (2011)"
+            "english": null,
+            "romaji": "Fixture Anime 11061"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
           "episodes": 148,
@@ -1058,7 +1058,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1066,12 +1066,12 @@
         {
           "id": 21087,
           "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
+            "english": null,
+            "romaji": "Fixture Anime 21087"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 12,
@@ -1092,7 +1092,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1100,12 +1100,12 @@
         {
           "id": 21,
           "title": {
-            "english": "ONE PIECE",
-            "romaji": "ONE PIECE"
+            "english": null,
+            "romaji": "Fixture Anime 21"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": null,
@@ -1126,7 +1126,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Toei Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1134,12 +1134,12 @@
         {
           "id": 20605,
           "title": {
-            "english": "Tokyo Ghoul",
-            "romaji": "Tokyo Ghoul"
+            "english": null,
+            "romaji": "Fixture Anime 20605"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 12,
@@ -1167,7 +1167,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1175,12 +1175,12 @@
         {
           "id": 20958,
           "title": {
-            "english": "Attack on Titan Season 2",
-            "romaji": "Shingeki no Kyojin Season 2"
+            "english": null,
+            "romaji": "Fixture Anime 20958"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 12,
@@ -1201,7 +1201,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1209,12 +1209,12 @@
         {
           "id": 5114,
           "title": {
-            "english": "Fullmetal Alchemist: Brotherhood",
-            "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
+            "english": null,
+            "romaji": "Fixture Anime 5114"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 9,
           "episodes": 64,
@@ -1235,7 +1235,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1243,12 +1243,12 @@
         {
           "id": 20,
           "title": {
-            "english": "Naruto",
-            "romaji": "NARUTO"
+            "english": null,
+            "romaji": "Fixture Anime 20"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 220,
@@ -1276,7 +1276,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1284,12 +1284,12 @@
         {
           "id": 11757,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 11757"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7,
           "episodes": 25,
@@ -1310,7 +1310,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1318,12 +1318,12 @@
         {
           "id": 99147,
           "title": {
-            "english": "Attack on Titan Season 3",
-            "romaji": "Shingeki no Kyojin Season 3"
+            "english": null,
+            "romaji": "Fixture Anime 99147"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.6,
           "episodes": 12,
@@ -1344,7 +1344,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1352,12 +1352,12 @@
         {
           "id": 21856,
           "title": {
-            "english": "My Hero Academia Season 2",
-            "romaji": "Boku no Hero Academia 2"
+            "english": null,
+            "romaji": "Fixture Anime 21856"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 25,
@@ -1378,7 +1378,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1386,12 +1386,12 @@
         {
           "id": 110277,
           "title": {
-            "english": "Attack on Titan Final Season",
-            "romaji": "Shingeki no Kyojin: The Final Season"
+            "english": null,
+            "romaji": "Fixture Anime 110277"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 16,
@@ -1412,7 +1412,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1420,12 +1420,12 @@
         {
           "id": 127230,
           "title": {
-            "english": "Chainsaw Man",
-            "romaji": "Chainsaw Man"
+            "english": null,
+            "romaji": "Fixture Anime 127230"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -1446,7 +1446,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1454,12 +1454,12 @@
         {
           "id": 20755,
           "title": {
-            "english": "Assassination Classroom",
-            "romaji": "Ansatsu Kyoushitsu"
+            "english": null,
+            "romaji": "Fixture Anime 20755"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 22,
@@ -1480,7 +1480,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Lerche"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1488,12 +1488,12 @@
         {
           "id": 21507,
           "title": {
-            "english": "Mob Psycho 100",
-            "romaji": "Mob Psycho 100"
+            "english": null,
+            "romaji": "Fixture Anime 21507"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 12,
@@ -1521,7 +1521,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1529,12 +1529,12 @@
         {
           "id": 21355,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 21355"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 25,
@@ -1563,7 +1563,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1571,12 +1571,12 @@
         {
           "id": 104578,
           "title": {
-            "english": "Attack on Titan Season 3 Part 2",
-            "romaji": "Shingeki no Kyojin Season 3 Part 2"
+            "english": null,
+            "romaji": "Fixture Anime 104578"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
           "episodes": 10,
@@ -1597,7 +1597,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1605,12 +1605,12 @@
         {
           "id": 1735,
           "title": {
-            "english": "Naruto: Shippuden",
-            "romaji": "NARUTO: Shippuuden"
+            "english": null,
+            "romaji": "Fixture Anime 1735"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1735-kGfVm0YqCPcu.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 500,
@@ -1638,7 +1638,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1646,12 +1646,12 @@
         {
           "id": 100166,
           "title": {
-            "english": "My Hero Academia Season 3",
-            "romaji": "Boku no Hero Academia 3"
+            "english": null,
+            "romaji": "Fixture Anime 100166"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100166-jUCZYbzn2XLw.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 25,
@@ -1672,7 +1672,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1680,12 +1680,12 @@
         {
           "id": 97940,
           "title": {
-            "english": "Black Clover",
-            "romaji": "Black Clover"
+            "english": null,
+            "romaji": "Fixture Anime 97940"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97940-fyh8o7gNbha0.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 170,
@@ -1706,7 +1706,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1714,12 +1714,12 @@
         {
           "id": 140960,
           "title": {
-            "english": "SPY x FAMILY",
-            "romaji": "SPY×FAMILY"
+            "english": null,
+            "romaji": "Fixture Anime 140960"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Kb6R5nYQfjmP.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -1740,10 +1740,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -1751,12 +1751,12 @@
         {
           "id": 105333,
           "title": {
-            "english": "Dr. STONE",
-            "romaji": "Dr. STONE"
+            "english": null,
+            "romaji": "Fixture Anime 105333"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 24,
@@ -1777,7 +1777,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1790,12 +1790,12 @@
         {
           "id": 101348,
           "title": {
-            "english": "Vinland Saga",
-            "romaji": "VINLAND SAGA"
+            "english": null,
+            "romaji": "Fixture Anime 101348"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101348-2fhDFPCuMNiz.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 24,
@@ -1816,7 +1816,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1824,12 +1824,12 @@
         {
           "id": 20613,
           "title": {
-            "english": "Akame ga Kill!",
-            "romaji": "Akame ga Kill!"
+            "english": null,
+            "romaji": "Fixture Anime 20613"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20613-HXHpec4bemk5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.3,
           "episodes": 24,
@@ -1858,7 +1858,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1866,12 +1866,12 @@
         {
           "id": 20447,
           "title": {
-            "english": "Noragami",
-            "romaji": "Noragami"
+            "english": null,
+            "romaji": "Fixture Anime 20447"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20447-EoQXeygHaVCK.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 12,
@@ -1892,7 +1892,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1900,12 +1900,12 @@
         {
           "id": 104276,
           "title": {
-            "english": "My Hero Academia Season 4",
-            "romaji": "Boku no Hero Academia 4"
+            "english": null,
+            "romaji": "Fixture Anime 104276"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 25,
@@ -1926,7 +1926,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1934,12 +1934,12 @@
         {
           "id": 20789,
           "title": {
-            "english": "The Seven Deadly Sins",
-            "romaji": "Nanatsu no Taizai"
+            "english": null,
+            "romaji": "Fixture Anime 20789"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20789-Ma5ouSYPkru9.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.2,
           "episodes": 24,
@@ -1967,7 +1967,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -1975,12 +1975,12 @@
         {
           "id": 269,
           "title": {
-            "english": "Bleach",
-            "romaji": "BLEACH"
+            "english": null,
+            "romaji": "Fixture Anime 269"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx269-d2GmRkJbMopq.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.9,
           "episodes": 366,
@@ -2001,7 +2001,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2009,12 +2009,12 @@
         {
           "id": 112151,
           "title": {
-            "english": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
-            "romaji": "Kimetsu no Yaiba: Mugen Ressha-hen"
+            "english": null,
+            "romaji": "Fixture Anime 112151"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112151-1qlQwPB1RrJe.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 1,
@@ -2042,7 +2042,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "ufotable"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2050,12 +2050,12 @@
         {
           "id": 1575,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion",
-            "romaji": "Code Geass: Hangyaku no Lelouch"
+            "english": null,
+            "romaji": "Fixture Anime 1575"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 25,
@@ -2076,7 +2076,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2084,12 +2084,12 @@
         {
           "id": 99423,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 99423"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 6.9,
           "episodes": 24,
@@ -2117,10 +2117,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -2128,12 +2128,12 @@
         {
           "id": 20623,
           "title": {
-            "english": "Parasyte -the maxim-",
-            "romaji": "Kiseijuu: Sei no Kakuritsu"
+            "english": null,
+            "romaji": "Fixture Anime 20623"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 24,
@@ -2154,7 +2154,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2162,12 +2162,12 @@
         {
           "id": 145064,
           "title": {
-            "english": "JUJUTSU KAISEN Season 2",
-            "romaji": "Jujutsu Kaisen 2nd Season"
+            "english": null,
+            "romaji": "Fixture Anime 145064"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx145064-hSNRJM03pvv1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.6,
           "episodes": 23,
@@ -2188,7 +2188,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2196,12 +2196,12 @@
         {
           "id": 30,
           "title": {
-            "english": "Neon Genesis Evangelion",
-            "romaji": "Shin Seiki Evangelion"
+            "english": null,
+            "romaji": "Fixture Anime 30"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 26,
@@ -2229,10 +2229,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "Tatsunoko Production"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -2240,12 +2240,12 @@
         {
           "id": 142329,
           "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba Entertainment District Arc",
-            "romaji": "Kimetsu no Yaiba: Yuukaku-hen"
+            "english": null,
+            "romaji": "Fixture Anime 142329"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx142329-kET1PIXJv2eW.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 11,
@@ -2266,7 +2266,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "ufotable"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2274,12 +2274,12 @@
         {
           "id": 105310,
           "title": {
-            "english": "Fire Force",
-            "romaji": "Enen no Shouboutai"
+            "english": null,
+            "romaji": "Fixture Anime 105310"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 24,
@@ -2300,7 +2300,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2308,12 +2308,12 @@
         {
           "id": 14719,
           "title": {
-            "english": "JoJo's Bizarre Adventure (TV)",
-            "romaji": "JoJo no Kimyou na Bouken (TV)"
+            "english": null,
+            "romaji": "Fixture Anime 14719"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14719-VT5dRzTBSZ0w.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.7,
           "episodes": 26,
@@ -2334,7 +2334,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2342,12 +2342,12 @@
         {
           "id": 1,
           "title": {
-            "english": "Cowboy Bebop",
-            "romaji": "Cowboy Bebop"
+            "english": null,
+            "romaji": "Fixture Anime 1"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.6,
           "episodes": 26,
@@ -2368,7 +2368,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2376,12 +2376,12 @@
         {
           "id": 101280,
           "title": {
-            "english": "That Time I Got Reincarnated as a Slime",
-            "romaji": "Tensei Shitara Slime Datta Ken"
+            "english": null,
+            "romaji": "Fixture Anime 101280"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101280-tDxCVJm714nt.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 24,
@@ -2402,7 +2402,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "8-bit"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2410,12 +2410,12 @@
         {
           "id": 97668,
           "title": {
-            "english": "One-Punch Man Season 2",
-            "romaji": "One Punch Man 2"
+            "english": null,
+            "romaji": "Fixture Anime 97668"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.4,
           "episodes": 12,
@@ -2436,7 +2436,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2444,12 +2444,12 @@
         {
           "id": 99263,
           "title": {
-            "english": "The Rising of the Shield Hero",
-            "romaji": "Tate no Yuusha no Nariagari"
+            "english": null,
+            "romaji": "Fixture Anime 99263"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99263-LcazQwdlWzMy.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 25,
@@ -2470,7 +2470,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kinema Citrus"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2478,12 +2478,12 @@
         {
           "id": 9919,
           "title": {
-            "english": "Blue Exorcist",
-            "romaji": "Ao no Exorcist"
+            "english": null,
+            "romaji": "Fixture Anime 9919"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9919-nXS7JOZrWHfS.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.2,
           "episodes": 25,
@@ -2504,7 +2504,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2512,12 +2512,12 @@
         {
           "id": 151807,
           "title": {
-            "english": "Solo Leveling",
-            "romaji": "Ore dake Level Up na Ken"
+            "english": null,
+            "romaji": "Fixture Anime 151807"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151807-it355ZgzquUd.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 12,
@@ -2538,7 +2538,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2546,12 +2546,12 @@
         {
           "id": 20594,
           "title": {
-            "english": "Sword Art Online II",
-            "romaji": "Sword Art Online II"
+            "english": null,
+            "romaji": "Fixture Anime 20594"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 6.5,
           "episodes": 24,
@@ -2572,7 +2572,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2580,12 +2580,12 @@
         {
           "id": 101338,
           "title": {
-            "english": "Mob Psycho 100 II",
-            "romaji": "Mob Psycho 100 II"
+            "english": null,
+            "romaji": "Fixture Anime 101338"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101338-rokVscjRYzdP.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 13,
@@ -2613,7 +2613,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2621,12 +2621,12 @@
         {
           "id": 120120,
           "title": {
-            "english": "Tokyo Revengers",
-            "romaji": "Tokyo Revengers"
+            "english": null,
+            "romaji": "Fixture Anime 120120"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.7,
           "episodes": 24,
@@ -2647,7 +2647,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "LIDENFILMS"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2655,12 +2655,12 @@
         {
           "id": 131681,
           "title": {
-            "english": "Attack on Titan Final Season Part 2",
-            "romaji": "Shingeki no Kyojin: The Final Season Part 2"
+            "english": null,
+            "romaji": "Fixture Anime 131681"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx131681-5ooUqvqNtee1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 12,
@@ -2681,7 +2681,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2694,12 +2694,12 @@
         {
           "id": 20954,
           "title": {
-            "english": "A Silent Voice",
-            "romaji": "Koe no Katachi"
+            "english": null,
+            "romaji": "Fixture Anime 20954"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.8,
           "episodes": 1,
@@ -2720,7 +2720,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2728,12 +2728,12 @@
         {
           "id": 11757,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 11757"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7,
           "episodes": 25,
@@ -2754,7 +2754,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2762,12 +2762,12 @@
         {
           "id": 21519,
           "title": {
-            "english": "Your Name.",
-            "romaji": "Kimi no Na wa."
+            "english": null,
+            "romaji": "Fixture Anime 21519"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 1,
@@ -2788,7 +2788,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CoMix Wave"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2796,12 +2796,12 @@
         {
           "id": 21355,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 21355"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 25,
@@ -2830,7 +2830,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2838,12 +2838,12 @@
         {
           "id": 20665,
           "title": {
-            "english": "Your lie in April",
-            "romaji": "Shigatsu wa Kimi no Uso"
+            "english": null,
+            "romaji": "Fixture Anime 20665"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 22,
@@ -2864,7 +2864,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2872,12 +2872,12 @@
         {
           "id": 101291,
           "title": {
-            "english": "Rascal Does Not Dream of Bunny Girl Senpai",
-            "romaji": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai"
+            "english": null,
+            "romaji": "Fixture Anime 101291"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101291-wfEdgPqtfU0l.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 13,
@@ -2905,7 +2905,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2913,12 +2913,12 @@
         {
           "id": 101921,
           "title": {
-            "english": "Kaguya-sama: Love is War",
-            "romaji": "Kaguya-sama wa Kokurasetai: Tensaitachi no Renai Zunousen"
+            "english": null,
+            "romaji": "Fixture Anime 101921"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101921-ufrjLzhSz7L1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -2939,7 +2939,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2947,12 +2947,12 @@
         {
           "id": 124080,
           "title": {
-            "english": "Horimiya",
-            "romaji": "Horimiya"
+            "english": null,
+            "romaji": "Fixture Anime 124080"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx124080-3i22mRVPBS0T.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 13,
@@ -2973,7 +2973,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -2981,12 +2981,12 @@
         {
           "id": 4224,
           "title": {
-            "english": "Toradora!",
-            "romaji": "Toradora!"
+            "english": null,
+            "romaji": "Fixture Anime 4224"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx4224-PXVMBLNwy2aF.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.7,
           "episodes": 25,
@@ -3007,7 +3007,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3015,12 +3015,12 @@
         {
           "id": 99423,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 99423"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 6.9,
           "episodes": 24,
@@ -3048,10 +3048,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -3059,12 +3059,12 @@
         {
           "id": 120120,
           "title": {
-            "english": "Tokyo Revengers",
-            "romaji": "Tokyo Revengers"
+            "english": null,
+            "romaji": "Fixture Anime 120120"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.7,
           "episodes": 24,
@@ -3085,7 +3085,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "LIDENFILMS"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3093,12 +3093,12 @@
         {
           "id": 132405,
           "title": {
-            "english": "My Dress-Up Darling",
-            "romaji": "Sono Bisque Doll wa Koi wo Suru"
+            "english": null,
+            "romaji": "Fixture Anime 132405"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx132405-qP7FQYGmNI3d.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 12,
@@ -3119,7 +3119,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3127,12 +3127,12 @@
         {
           "id": 112641,
           "title": {
-            "english": "Kaguya-sama: Love is War?",
-            "romaji": "Kaguya-sama wa Kokurasetai?: Tensaitachi no Renai Zunousen"
+            "english": null,
+            "romaji": "Fixture Anime 112641"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112641-zoGC8d6FaPXU.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 12,
@@ -3153,7 +3153,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3162,11 +3162,11 @@
           "id": 20997,
           "title": {
             "english": null,
-            "romaji": "Charlotte"
+            "romaji": "Fixture Anime 20997"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.5,
           "episodes": 13,
@@ -3187,7 +3187,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "P.A.WORKS"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3195,12 +3195,12 @@
         {
           "id": 20920,
           "title": {
-            "english": "Is It Wrong to Try to Pick Up Girls in a Dungeon?",
-            "romaji": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka"
+            "english": null,
+            "romaji": "Fixture Anime 20920"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20920-MTREwZOG4BAD.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.3,
           "episodes": 13,
@@ -3221,7 +3221,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3229,12 +3229,12 @@
         {
           "id": 15809,
           "title": {
-            "english": "The Devil is a Part-Timer!",
-            "romaji": "Hataraku Maou-sama!"
+            "english": null,
+            "romaji": "Fixture Anime 15809"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx15809-ECv3HyOYJKrk.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.5,
           "episodes": 13,
@@ -3255,7 +3255,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3263,12 +3263,12 @@
         {
           "id": 9989,
           "title": {
-            "english": "Anohana: The Flower We Saw That Day",
-            "romaji": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai."
+            "english": null,
+            "romaji": "Fixture Anime 9989"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8,
           "episodes": 11,
@@ -3289,7 +3289,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3297,12 +3297,12 @@
         {
           "id": 171018,
           "title": {
-            "english": "DAN DA DAN",
-            "romaji": "Dandadan"
+            "english": null,
+            "romaji": "Fixture Anime 171018"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -3330,7 +3330,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Science SARU"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3338,12 +3338,12 @@
         {
           "id": 14813,
           "title": {
-            "english": "My Teen Romantic Comedy SNAFU",
-            "romaji": "Yahari Ore no Seishun Love Come wa Machigatteiru."
+            "english": null,
+            "romaji": "Fixture Anime 14813"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14813-3mNvcKNEQcDs.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 13,
@@ -3364,7 +3364,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Brain's Base"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3372,12 +3372,12 @@
         {
           "id": 2001,
           "title": {
-            "english": "Gurren Lagann",
-            "romaji": "Tengen Toppa Gurren Lagann"
+            "english": null,
+            "romaji": "Fixture Anime 2001"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 27,
@@ -3398,7 +3398,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3406,12 +3406,12 @@
         {
           "id": 99750,
           "title": {
-            "english": "I Want to Eat Your Pancreas",
-            "romaji": "Kimi no Suizou wo Tabetai"
+            "english": null,
+            "romaji": "Fixture Anime 99750"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99750-pNyly9d3MEgV.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 1,
@@ -3432,7 +3432,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio VOLN"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3440,12 +3440,12 @@
         {
           "id": 431,
           "title": {
-            "english": "Howl‘s Moving Castle",
-            "romaji": "Howl no Ugoku Shiro"
+            "english": null,
+            "romaji": "Fixture Anime 431"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx431-o8Lj3XkjHm2k.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 1,
@@ -3466,7 +3466,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Studio Ghibli"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3474,12 +3474,12 @@
         {
           "id": 106286,
           "title": {
-            "english": "Weathering With You",
-            "romaji": "Tenki no Ko"
+            "english": null,
+            "romaji": "Fixture Anime 106286"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx106286-5COcpd0J9VbL.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 1,
@@ -3500,7 +3500,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "CoMix Wave"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3508,12 +3508,12 @@
         {
           "id": 14741,
           "title": {
-            "english": "Love, Chunibyo & Other Delusions",
-            "romaji": "Chuunibyou demo Koi ga Shitai!"
+            "english": null,
+            "romaji": "Fixture Anime 14741"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14741-CGXEIeUe2roA.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.5,
           "episodes": 12,
@@ -3534,7 +3534,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3542,12 +3542,12 @@
         {
           "id": 12189,
           "title": {
-            "english": "Hyouka",
-            "romaji": "Hyouka"
+            "english": null,
+            "romaji": "Fixture Anime 12189"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx12189-zj5AWUYO53Fv.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 22,
@@ -3568,7 +3568,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3581,12 +3581,12 @@
         {
           "id": 21087,
           "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
+            "english": null,
+            "romaji": "Fixture Anime 21087"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.2,
           "episodes": 12,
@@ -3607,7 +3607,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3615,12 +3615,12 @@
         {
           "id": 9253,
           "title": {
-            "english": "Steins;Gate",
-            "romaji": "Steins;Gate"
+            "english": null,
+            "romaji": "Fixture Anime 9253"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9253-tIUXF2gfU8Sg.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
           "episodes": 24,
@@ -3641,7 +3641,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3649,12 +3649,12 @@
         {
           "id": 105333,
           "title": {
-            "english": "Dr. STONE",
-            "romaji": "Dr. STONE"
+            "english": null,
+            "romaji": "Fixture Anime 105333"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 24,
@@ -3675,7 +3675,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3683,12 +3683,12 @@
         {
           "id": 104276,
           "title": {
-            "english": "My Hero Academia Season 4",
-            "romaji": "Boku no Hero Academia 4"
+            "english": null,
+            "romaji": "Fixture Anime 104276"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 25,
@@ -3709,7 +3709,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3717,12 +3717,12 @@
         {
           "id": 1575,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion",
-            "romaji": "Code Geass: Hangyaku no Lelouch"
+            "english": null,
+            "romaji": "Fixture Anime 1575"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 25,
@@ -3743,7 +3743,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3751,12 +3751,12 @@
         {
           "id": 99423,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 99423"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 6.9,
           "episodes": 24,
@@ -3784,10 +3784,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -3795,12 +3795,12 @@
         {
           "id": 20623,
           "title": {
-            "english": "Parasyte -the maxim-",
-            "romaji": "Kiseijuu: Sei no Kakuritsu"
+            "english": null,
+            "romaji": "Fixture Anime 20623"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 24,
@@ -3821,7 +3821,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3829,12 +3829,12 @@
         {
           "id": 30,
           "title": {
-            "english": "Neon Genesis Evangelion",
-            "romaji": "Shin Seiki Evangelion"
+            "english": null,
+            "romaji": "Fixture Anime 30"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 26,
@@ -3862,10 +3862,10 @@
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
+                "name": "Fixture Studio 1"
               },
               {
-                "name": "Tatsunoko Production"
+                "name": "Fixture Studio 2"
               }
             ]
           }
@@ -3873,12 +3873,12 @@
         {
           "id": 105310,
           "title": {
-            "english": "Fire Force",
-            "romaji": "Enen no Shouboutai"
+            "english": null,
+            "romaji": "Fixture Anime 105310"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.6,
           "episodes": 24,
@@ -3899,7 +3899,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3907,12 +3907,12 @@
         {
           "id": 1,
           "title": {
-            "english": "Cowboy Bebop",
-            "romaji": "Cowboy Bebop"
+            "english": null,
+            "romaji": "Fixture Anime 1"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.6,
           "episodes": 26,
@@ -3933,7 +3933,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3941,12 +3941,12 @@
         {
           "id": 97668,
           "title": {
-            "english": "One-Punch Man Season 2",
-            "romaji": "One Punch Man 2"
+            "english": null,
+            "romaji": "Fixture Anime 97668"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.4,
           "episodes": 12,
@@ -3967,7 +3967,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -3975,12 +3975,12 @@
         {
           "id": 20594,
           "title": {
-            "english": "Sword Art Online II",
-            "romaji": "Sword Art Online II"
+            "english": null,
+            "romaji": "Fixture Anime 20594"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 6.5,
           "episodes": 24,
@@ -4001,7 +4001,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4010,11 +4010,11 @@
           "id": 20997,
           "title": {
             "english": null,
-            "romaji": "Charlotte"
+            "romaji": "Fixture Anime 20997"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.5,
           "episodes": 13,
@@ -4035,7 +4035,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "P.A.WORKS"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4043,12 +4043,12 @@
         {
           "id": 117193,
           "title": {
-            "english": "My Hero Academia Season 5",
-            "romaji": "Boku no Hero Academia 5"
+            "english": null,
+            "romaji": "Fixture Anime 117193"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117193-E75BlZmDh1aB.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.3,
           "episodes": 25,
@@ -4069,7 +4069,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4077,12 +4077,12 @@
         {
           "id": 97986,
           "title": {
-            "english": "Made in Abyss",
-            "romaji": "Made in Abyss"
+            "english": null,
+            "romaji": "Fixture Anime 97986"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97986-TQ7dCgbS3y5s.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.4,
           "episodes": 13,
@@ -4110,7 +4110,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Kinema Citrus"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4118,12 +4118,12 @@
         {
           "id": 120377,
           "title": {
-            "english": "Cyberpunk: Edgerunners",
-            "romaji": "Cyberpunk: Edgerunners"
+            "english": null,
+            "romaji": "Fixture Anime 120377"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120377-ayZPoxiWt4Li.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 10,
@@ -4144,7 +4144,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4152,12 +4152,12 @@
         {
           "id": 171018,
           "title": {
-            "english": "DAN DA DAN",
-            "romaji": "Dandadan"
+            "english": null,
+            "romaji": "Fixture Anime 171018"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 12,
@@ -4185,7 +4185,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Science SARU"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4193,12 +4193,12 @@
         {
           "id": 2001,
           "title": {
-            "english": "Gurren Lagann",
-            "romaji": "Tengen Toppa Gurren Lagann"
+            "english": null,
+            "romaji": "Fixture Anime 2001"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 27,
@@ -4219,7 +4219,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4227,12 +4227,12 @@
         {
           "id": 2904,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion R2",
-            "romaji": "Code Geass: Hangyaku no Lelouch R2"
+            "english": null,
+            "romaji": "Fixture Anime 2904"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2904-Fet9Q33suC7G.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.7,
           "episodes": 25,
@@ -4253,7 +4253,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4261,12 +4261,12 @@
         {
           "id": 13601,
           "title": {
-            "english": "PSYCHO-PASS",
-            "romaji": "PSYCHO-PASS"
+            "english": null,
+            "romaji": "Fixture Anime 13601"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx13601-i42VFuHpqEOJ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 22,
@@ -4287,7 +4287,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Production I.G"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4295,12 +4295,12 @@
         {
           "id": 113936,
           "title": {
-            "english": "Dr. STONE: STONE WARS",
-            "romaji": "Dr. STONE: STONE WARS"
+            "english": null,
+            "romaji": "Fixture Anime 113936"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113936-D4eYd4XwslVI.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.1,
           "episodes": 11,
@@ -4321,7 +4321,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4329,12 +4329,12 @@
         {
           "id": 116589,
           "title": {
-            "english": "86 EIGHTY-SIX",
-            "romaji": "86: Eighty Six"
+            "english": null,
+            "romaji": "Fixture Anime 116589"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116589-KawXHB6sApFt.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
           "episodes": 11,
@@ -4355,7 +4355,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4363,12 +4363,12 @@
         {
           "id": 114236,
           "title": {
-            "english": "Fire Force Season 2",
-            "romaji": "Enen no Shouboutai: Ni no Shou"
+            "english": null,
+            "romaji": "Fixture Anime 114236"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114236-wfQOWF0Ii3h2.png"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.8,
           "episodes": 24,
@@ -4389,7 +4389,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4397,12 +4397,12 @@
         {
           "id": 918,
           "title": {
-            "english": "Gintama",
-            "romaji": "Gintama"
+            "english": null,
+            "romaji": "Fixture Anime 918"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx918-iOaeBVUn4uK7.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 201,
@@ -4423,7 +4423,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
@@ -4431,12 +4431,12 @@
         {
           "id": 100182,
           "title": {
-            "english": "Sword Art Online: Alicization",
-            "romaji": "Sword Art Online: Alicization"
+            "english": null,
+            "romaji": "Fixture Anime 100182"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx100182-KctPmCJ2smHQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 7.5,
           "episodes": 24,
@@ -4457,7 +4457,7 @@
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }

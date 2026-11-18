@@ -19,13 +19,15 @@ test("home restores the original hero, overlapping carousels and transparent hea
   await page.goto("/");
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Shiotaiou no Satou-san ga Ore ni dake Amai"
+    "Fixture Anime 209502"
   );
   await expect(page.getByRole("heading", { name: "Top Airing" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Popular Anime" })
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "ONE PIECE" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Fixture Anime 21", exact: true })
+  ).toBeVisible();
   expect(
     await page.evaluate(() => getComputedStyle(document.body).fontFamily)
   ).toContain("Inter");
@@ -57,7 +59,9 @@ test("carousels and the header are keyboard reachable", async ({ page }) => {
   ).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Sign in" })).toBeFocused();
-  await page.getByRole("link", { name: "ONE PIECE" }).focus();
+  await page
+    .getByRole("link", { name: "Fixture Anime 21", exact: true })
+    .focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/anime\/21$/);
 });
@@ -69,15 +73,19 @@ test("anime page shows details from the cached MyAnimeList record", async ({
   const response = await page.goto("/anime/21");
 
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle("ONE PIECE | Anihub");
+  await expect(page).toHaveTitle("Fixture Anime 21 | Anihub");
   await expect(
-    page.getByRole("heading", { level: 1, name: "ONE PIECE" })
+    page.getByRole("heading", {
+      level: 1,
+      name: "Fixture Anime 21",
+      exact: true,
+    })
   ).toBeVisible();
   await expect(page.getByText("Currently Airing")).toBeVisible();
   await expect(page.getByText("20 October 1999 to Unknown")).toBeVisible();
-  await expect(page.getByText("Toei Animation")).toBeVisible();
+  await expect(page.getByText("Fixture Studio 1")).toBeVisible();
   await expect(page.locator("main")).toContainText(
-    "Synthetic synopsis for ONE PIECE."
+    "Synthetic synopsis for Fixture Anime 21."
   );
   expect(errors).toEqual([]);
 });

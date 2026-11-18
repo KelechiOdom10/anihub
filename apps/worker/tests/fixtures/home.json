@@ -3,12 +3,12 @@
     {
       "id": 207329,
       "title": {
-        "english": "The Laid-Off Cheat-Granting Mage Enjoys a Second Lease on Life",
-        "romaji": "Tsuihou Sareta Cheat Fuyo Majutsushi wa Kimama na Second Life wo Ouka Suru.: Ore wa Buki dake ja Naku, Arayuru Mono ni \"Kyouka Point\" wo Fuyo Dekiru shi, Ore no Ishi de Itsudemo Kouka wo Kaijo Dekiru kedo, Nokotta Hitotachi Daijoubu?"
+        "english": null,
+        "romaji": "Fixture Anime 207329"
       },
-      "description": "Synthetic synopsis for Tsuihou Sareta Cheat Fuyo Majutsushi wa Kimama na Second Life wo Ouka Suru.: Ore wa Buki dake ja Naku, Arayuru Mono ni \"Kyouka Point\" wo Fuyo Dekiru shi, Ore no Ishi de Itsudemo Kouka wo Kaijo Dekiru kedo, Nokotta Hitotachi Daijoubu?.",
+      "description": "Synthetic synopsis for Fixture Anime 207329.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b207329-6VPeZIDfF4Sr.png"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 7.4,
       "episodes": 12,
@@ -29,7 +29,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "P.A.WORKS"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -37,12 +37,12 @@
     {
       "id": 206949,
       "title": {
-        "english": "Nia Liston: The Merciless Maiden",
-        "romaji": "Kyouran Reijou Nia Liston"
+        "english": null,
+        "romaji": "Fixture Anime 206949"
       },
-      "description": "Synthetic synopsis for Kyouran Reijou Nia Liston.",
+      "description": "Synthetic synopsis for Fixture Anime 206949.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx206949-4HYI3YuP0eLI.png"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 7.4,
       "episodes": 25,
@@ -63,7 +63,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "KONAMI animation"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -71,12 +71,12 @@
     {
       "id": 21,
       "title": {
-        "english": "ONE PIECE",
-        "romaji": "ONE PIECE"
+        "english": null,
+        "romaji": "Fixture Anime 21"
       },
-      "description": "Synthetic synopsis for ONE PIECE.",
+      "description": "Synthetic synopsis for Fixture Anime 21.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 8.7,
       "episodes": null,
@@ -97,7 +97,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "Toei Animation"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -105,12 +105,12 @@
     {
       "id": 212888,
       "title": {
-        "english": "Overgeared",
-        "romaji": "Tempal: Item no Chikara"
+        "english": null,
+        "romaji": "Fixture Anime 212888"
       },
-      "description": "Synthetic synopsis for Tempal: Item no Chikara.",
+      "description": "Synthetic synopsis for Fixture Anime 212888.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx212888-NhyvqPt5aIuJ.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 7.6,
       "episodes": 12,
@@ -131,7 +131,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "J.C.STAFF"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -139,12 +139,12 @@
     {
       "id": 209502,
       "title": {
-        "english": "The Cold Sato-san is Only Sweet to Me",
-        "romaji": "Shiotaiou no Satou-san ga Ore ni dake Amai"
+        "english": null,
+        "romaji": "Fixture Anime 209502"
       },
-      "description": "Synthetic synopsis for Shiotaiou no Satou-san ga Ore ni dake Amai.",
+      "description": "Synthetic synopsis for Fixture Anime 209502.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx209502-C81oN8M4Smlo.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 6.7,
       "episodes": 12,
@@ -165,7 +165,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "Tezuka Productions"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -173,12 +173,12 @@
     {
       "id": 198727,
       "title": {
-        "english": "Chitose Is in the Ramune Bottle 2nd Cour",
-        "romaji": "Chitose-kun wa Ramune Bin no Naka Part 2"
+        "english": null,
+        "romaji": "Fixture Anime 198727"
       },
-      "description": "Synthetic synopsis for Chitose-kun wa Ramune Bin no Naka Part 2.",
+      "description": "Synthetic synopsis for Fixture Anime 198727.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx198727-BL0JTpg0G8tq.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 7.8,
       "episodes": 11,
@@ -199,7 +199,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "feel."
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -209,12 +209,12 @@
     {
       "id": 16498,
       "title": {
-        "english": "Attack on Titan",
-        "romaji": "Shingeki no Kyojin"
+        "english": null,
+        "romaji": "Fixture Anime 16498"
       },
-      "description": "Synthetic synopsis for Shingeki no Kyojin.",
+      "description": "Synthetic synopsis for Fixture Anime 16498.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 8.5,
       "episodes": 25,
@@ -235,7 +235,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "WIT STUDIO"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -243,12 +243,12 @@
     {
       "id": 101922,
       "title": {
-        "english": "Demon Slayer: Kimetsu no Yaiba",
-        "romaji": "Kimetsu no Yaiba"
+        "english": null,
+        "romaji": "Fixture Anime 101922"
       },
-      "description": "Synthetic synopsis for Kimetsu no Yaiba.",
+      "description": "Synthetic synopsis for Fixture Anime 101922.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 8.2,
       "episodes": 26,
@@ -269,7 +269,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "ufotable"
+            "name": "Fixture Studio 1"
           }
         ]
       }
@@ -277,12 +277,12 @@
     {
       "id": 113415,
       "title": {
-        "english": "JUJUTSU KAISEN",
-        "romaji": "Jujutsu Kaisen"
+        "english": null,
+        "romaji": "Fixture Anime 113415"
       },
-      "description": "Synthetic synopsis for Jujutsu Kaisen.",
+      "description": "Synthetic synopsis for Fixture Anime 113415.",
       "coverImage": {
-        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
+        "extraLarge": "/fallback-anime.avif"
       },
       "averageScore": 8.4,
       "episodes": 24,
@@ -303,7 +303,7 @@
       "studios": {
         "nodes": [
           {
-            "name": "MAPPA"
+            "name": "Fixture Studio 1"
           }
         ]
       }
