@@ -1442,14 +1442,27 @@ test("the new collection page creates a public collection from several picked ti
   await results.nth(1).click();
   await expect(page.getByText("2 selected")).toBeVisible();
   await page.getByRole("button", { name: "Create Collection" }).click();
-  await expect(page.getByText("Collection created successfully!")).toBeVisible({
-    timeout: 15_000,
-  });
+
+  const db = libraryDatabase();
+
+  const saved = () =>
+    z
+      .object({ n: z.number() })
+      .parse(
+        db
+          .prepare(
+            "SELECT count(*) AS n FROM collections WHERE name = 'Picked pair'"
+          )
+          .get()
+      ).n;
+
+  await expect.poll(saved, { timeout: 15_000 }).toBe(1);
+  await expect(notification(page)).toContainText(
+    "Collection created successfully!"
+  );
   await expect(page).toHaveURL(/\/collections(\?page=1)?$/, {
     timeout: 15_000,
   });
-
-  const db = libraryDatabase();
 
   const created = z
     .object({ id: z.string(), isPublic: z.number() })
