@@ -36,6 +36,8 @@ jobs:
       - run: pnpm build
   worker:
     runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/google-chrome
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -50,7 +52,6 @@ jobs:
       - run: pnpm --filter @anihub/worker typecheck
       - run: pnpm --filter @anihub/worker test
       - run: pnpm --filter @anihub/worker build
-      - run: pnpm --filter @anihub/worker exec playwright install --with-deps chromium
       - run: pnpm --filter @anihub/worker test:browser
       - run: pnpm --filter @anihub/worker test:library
       - run: pnpm --filter @anihub/worker check:bundle
