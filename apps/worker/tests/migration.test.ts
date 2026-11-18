@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { buildImportStatements } from "../scripts/legacy-import";
 import { createTestDatabase } from "./d1";
@@ -146,6 +147,63 @@ test("D1 rejects a second user whose email differs only by case or whitespace", 
     await assert.rejects(
       d1.prepare(insert).bind("b", "B", " OWNER@example.com").run(),
       /UNIQUE/
+    );
+  } finally {
+    await dispose();
+  }
+});
+
+test("clearing AniList data keeps every user row and MAL id", async () => {
+  const { d1, dispose } = await createTestDatabase();
+
+  try {
+    await d1.batch(
+      buildImportStatements(legacy).map((statement) => d1.prepare(statement))
+    );
+    await d1.batch([
+      d1.prepare("UPDATE collection_items SET anime_id = mal_id + 1000"),
+      d1.prepare("UPDATE comments SET anime_id = mal_id + 1000"),
+      d1.prepare(
+        "INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (42, 999, '{}', 1)"
+      ),
+      d1.prepare(
+        "INSERT INTO cache_entries (key, data, updated_at) VALUES ('home', '{}', 1)"
+      ),
+    ]);
+
+    const counts = () =>
+      d1
+        .prepare(
+          "SELECT (SELECT count(*) FROM user) users, (SELECT count(*) FROM collections) collections, (SELECT count(*) FROM collection_items) items, (SELECT count(*) FROM collection_likes) likes, (SELECT count(*) FROM comments) comments, (SELECT group_concat(mal_id) FROM collection_items) itemMalIds, (SELECT group_concat(mal_id) FROM comments) commentMalIds"
+        )
+        .first();
+
+    const before = await counts();
+
+    const sql = await readFile(
+      new URL(
+        "../src/db/migrations/20261118025919_clear_anilist.sql",
+        import.meta.url
+      ),
+      "utf8"
+    );
+
+    await d1.batch(
+      sql
+        .split("--> statement-breakpoint")
+        .map((statement) => statement.trim())
+        .filter(Boolean)
+        .map((statement) => d1.prepare(statement))
+    );
+
+    assert.deepEqual(await counts(), before);
+    assert.deepEqual(
+      await d1
+        .prepare(
+          "SELECT (SELECT count(*) FROM anime_cache) cache, (SELECT count(*) FROM cache_entries) entries, (SELECT count(anime_id) FROM collection_items) itemAniList, (SELECT count(anime_id) FROM comments) commentAniList"
+        )
+        .first(),
+      { cache: 0, entries: 0, itemAniList: 0, commentAniList: 0 }
     );
   } finally {
     await dispose();

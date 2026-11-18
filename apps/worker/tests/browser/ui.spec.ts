@@ -68,7 +68,9 @@ test("anime page shows details from the cached MyAnimeList record", async ({
   await expect(page.getByText("Currently Airing")).toBeVisible();
   await expect(page.getByText("20 October 1999 to Unknown")).toBeVisible();
   await expect(page.getByText("Toei Animation")).toBeVisible();
-  await expect(page.locator("main")).not.toContainText("<br>");
+  await expect(page.locator("main")).toContainText(
+    "Synthetic synopsis for ONE PIECE."
+  );
   expect(errors).toEqual([]);
 });
 

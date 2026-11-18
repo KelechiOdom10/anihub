@@ -11,14 +11,7 @@ export function englishTitle(anime: Anime) {
 }
 
 export function plainDescription(anime: Anime) {
-  return (anime.description ?? "")
-    .replace(/<br\s*\/?>/gi, " ")
-    .replace(/<[^>]*>/g, "")
-    .replaceAll("&amp;", "&")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#39;", "'")
-    .replace(/\s+/g, " ")
-    .trim();
+  return anime.description ?? "";
 }
 
 export function statusLabel(anime: Anime) {

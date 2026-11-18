@@ -45,7 +45,7 @@ export default function seedCatalog() {
 
   const entry = (
     key: string,
-    data: Home | CatalogPage | Categories | Anime[]
+    data: Home | CatalogPage | Categories | Anime[] | Anime
   ) =>
     `INSERT INTO cache_entries (key, data, updated_at) VALUES (${quote(key)}, ${quote(JSON.stringify(data))}, ${now});`;
 
@@ -55,23 +55,21 @@ export default function seedCatalog() {
 
   const statements = [
     "DELETE FROM cache_entries;",
-    "DELETE FROM anime_cache;",
-    entry("home", home),
+    entry("mal:home", home),
     ...Object.entries(catalog.pages).flatMap(([key, page]) =>
-      key.startsWith("all:") ? [entry(`catalog:${key}`, page)] : []
+      key.startsWith("all:") ? [entry(`mal:catalog:${key.slice(4)}`, page)] : []
     ),
     ...["Action", "Romance", "Sci-Fi"].map((genre) =>
       entry(
-        `genre:${genre}`,
+        `mal:genre:${genre}`,
         Object.entries(catalog.pages).flatMap(([key, page]) =>
           key.startsWith(`${genre}:`) ? page.anime : []
         )
       )
     ),
-    ...days.map((day) => entry(`categories:${day}`, categories)),
-    ...[...anime.values()].map(
-      (value) =>
-        `INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (${value.id}, ${value.id}, ${quote(JSON.stringify(value))}, ${now});`
+    ...days.map((day) => entry(`mal:categories:${day}`, categories)),
+    ...[...anime.values()].map((value) =>
+      entry(`mal:anime:${value.id}`, value)
     ),
   ];
 

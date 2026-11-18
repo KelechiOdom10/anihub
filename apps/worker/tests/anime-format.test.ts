@@ -25,14 +25,10 @@ test("titles prefer English and fall back to romaji", () => {
   );
 });
 
-test("descriptions lose markup and entities", () => {
-  assert.equal(
-    plainDescription({
-      ...anime,
-      description: "A<br><br>B &amp; <i>C</i> &quot;D&quot; &#39;E&#39;",
-    }),
-    "A B & C \"D\" 'E'"
-  );
+test("descriptions keep MyAnimeList text exactly, including angle brackets", () => {
+  const synopsis = 'A <B> & "C"\n\n[Written by MAL Rewrite]';
+
+  assert.equal(plainDescription({ ...anime, description: synopsis }), synopsis);
   assert.equal(plainDescription({ ...anime, description: null }), "");
 });
 

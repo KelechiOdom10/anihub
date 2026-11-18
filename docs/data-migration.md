@@ -10,7 +10,20 @@ The Workers candidate stores its data in D1 using Void's database conventions. T
 
 ## MyAnimeList catalog
 
-`apps/worker/src/server/catalog.ts` serves home lists for an hour and individual anime for a day from D1. Requests use the official MyAnimeList API v2 with the `MAL_CLIENT_ID` Worker secret in the `X-MAL-CLIENT-ID` header. When MyAnimeList times out, errors or returns an unexpected shape, the last cached copy is served; without one the call fails with `AnimeUnavailableError`. A missing anime resolves to null and is not cached.
+`apps/worker/src/server/catalog.ts` serves home lists for an hour and individual anime for a day from D1. Requests use the official MyAnimeList API v2 with the `MAL_CLIENT_ID` Worker secret in the `X-MAL-CLIENT-ID` header. When MyAnimeList times out, errors or returns an unexpected shape, the last cached copy is served; without one the call fails with `AnimeUnavailableError`. A missing (404) or Rx-rated anime resolves to null and its cached copy is deleted, so a later outage cannot bring it back. Rx-rated titles are also filtered out of every ranking list. Requests never follow redirects, so the client ID is only ever sent to `api.myanimelist.net`.
+
+Every MyAnimeList cache row lives in `cache_entries` under a `mal:` key (`mal:home`, `mal:anime:<id>`, `mal:catalog:<page>`, `mal:pool`, `mal:genre:<name>`, `mal:categories:<day>`). The prefix keeps them apart from anything the AniList version wrote. `anime_cache` is no longer used and will be dropped in a later migration.
+
+### Removing a title on request
+
+The MyAnimeList API agreement (§3(e)) requires removing or correcting MyAnimeList content within 24 hours of a request from MyAnimeList or the affected user. Kelechi owns this. Delete the cached copies so they are refetched (a removed title then 404s and stays out):
+
+```sh
+cd apps/worker
+pnpm exec void db execute --remote "DELETE FROM cache_entries WHERE key = 'mal:anime:<id>' OR key IN ('mal:home', 'mal:pool') OR key LIKE 'mal:catalog:%' OR key LIKE 'mal:genre:%' OR key LIKE 'mal:categories:%'"
+```
+
+This never touches user, collection, item, like or comment rows.
 
 ## Legacy export
 

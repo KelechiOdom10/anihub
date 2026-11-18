@@ -44,9 +44,11 @@ export const categoriesSchema = z.array(
 
 export type Categories = z.infer<typeof categoriesSchema>;
 
+export const maxPage = 200;
+
 export const catalogQuerySchema = z.object({
   genres: z.string().trim().max(100).optional(),
-  page: z.number().int().min(1).max(200).default(1),
+  page: z.number().int().min(1).max(maxPage).default(1),
 });
 
 export const animeIdSchema = z.coerce.number().int().positive().max(2147483647);
@@ -74,55 +76,64 @@ const mediaTypes = new Map([
   ["pv", "PV"],
 ]);
 
-export const malAnimeSchema = z
-  .object({
-    id: z.number().int().positive(),
-    title: z.string(),
-    main_picture: z
-      .object({ medium: z.string(), large: z.string().optional() })
-      .optional(),
-    alternative_titles: z.object({ en: z.string().optional() }).optional(),
-    synopsis: z.string().optional(),
-    mean: z.number().optional(),
-    num_episodes: z.number().int().optional(),
-    start_season: z.object({ year: z.number().int() }).optional(),
-    start_date: malDate.optional(),
-    end_date: malDate.optional(),
-    media_type: z.string().optional(),
-    status: z.string(),
-    genres: z.array(z.object({ name: z.string() })).default([]),
-    studios: z.array(z.object({ name: z.string() })).default([]),
-    rating: z.string().optional(),
-  })
-  .transform(
-    (value): Anime => ({
-      id: value.id,
-      title: {
-        english: value.alternative_titles?.en || null,
-        romaji: value.title,
-      },
-      description: value.synopsis || null,
-      coverImage: {
-        extraLarge:
-          value.main_picture?.large ??
-          value.main_picture?.medium ??
-          "/fallback-anime.avif",
-      },
-      averageScore: value.mean ?? null,
-      episodes: value.num_episodes || null,
-      seasonYear: value.start_season?.year ?? value.start_date?.year ?? null,
-      startDate: value.start_date ?? unknownDate,
-      endDate: value.end_date ?? unknownDate,
-      format: value.media_type
-        ? (mediaTypes.get(value.media_type) ?? value.media_type)
-        : null,
-      status: value.status,
-      genres: value.genres.map((genre) => genre.name),
-      studios: { nodes: value.studios },
-    })
-  );
+export const malNodeSchema = z.object({
+  id: z.number().int().positive(),
+  title: z.string(),
+  main_picture: z
+    .object({ medium: z.string(), large: z.string().nullish() })
+    .nullish(),
+  alternative_titles: z.object({ en: z.string().nullish() }).nullish(),
+  synopsis: z.string().nullish(),
+  mean: z.number().nullish(),
+  num_episodes: z.number().int().nullish(),
+  start_season: z.object({ year: z.number().int() }).nullish(),
+  start_date: malDate.nullish(),
+  end_date: malDate.nullish(),
+  media_type: z.string().nullish(),
+  status: z.string(),
+  genres: z
+    .array(z.object({ name: z.string() }))
+    .nullish()
+    .transform((value) => value ?? []),
+  studios: z
+    .array(z.object({ name: z.string() }))
+    .nullish()
+    .transform((value) => value ?? []),
+  rating: z.string().nullish(),
+});
+
+export type MalNode = z.infer<typeof malNodeSchema>;
+
+export function isAdult(node: MalNode) {
+  return node.rating === "rx";
+}
+
+export function toAnime(node: MalNode): Anime {
+  return {
+    id: node.id,
+    title: { english: node.alternative_titles?.en || null, romaji: node.title },
+    description: node.synopsis || null,
+    coverImage: {
+      extraLarge:
+        node.main_picture?.large ??
+        node.main_picture?.medium ??
+        "/fallback-anime.avif",
+    },
+    averageScore: node.mean ?? null,
+    episodes: node.num_episodes || null,
+    seasonYear: node.start_season?.year ?? node.start_date?.year ?? null,
+    startDate: node.start_date ?? unknownDate,
+    endDate: node.end_date ?? unknownDate,
+    format: node.media_type
+      ? (mediaTypes.get(node.media_type) ?? node.media_type)
+      : null,
+    status: node.status,
+    genres: node.genres.map((genre) => genre.name),
+    studios: { nodes: node.studios },
+  };
+}
 
 export const listFields =
-  "alternative_titles,mean,num_episodes,start_season,start_date,end_date,media_type,status,genres";
+  "alternative_titles,mean,num_episodes,start_season,start_date,end_date,media_type,status,genres,rating";
 
-export const detailFields = `${listFields},synopsis,studios,rating`;
+export const detailFields = `${listFields},synopsis,studios`;

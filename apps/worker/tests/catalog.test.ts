@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { animeCache } from "../src/db/schema";
+import { animeCache, cacheEntries } from "../src/db/schema";
 import { animeIdSchema, type Anime } from "../src/server/anime";
 import {
   AnimeUnavailableError,
@@ -110,7 +110,7 @@ test("only the public anime contract is cached, never extra upstream fields", as
     );
     await loadAnime(source, 21);
 
-    const [row] = await source.db.select().from(animeCache);
+    const [row] = await source.db.select().from(cacheEntries);
 
     assert.deepEqual(row?.data, anime);
   });
@@ -158,7 +158,7 @@ test("missing anime resolves to null and caches nothing", async () => {
     );
 
     assert.equal(await loadAnime(source, 999999), null);
-    assert.equal((await source.db.select().from(animeCache)).length, 0);
+    assert.equal((await source.db.select().from(cacheEntries)).length, 0);
   });
 });
 
@@ -204,7 +204,7 @@ function ranking(url: URL) {
   const offset = Number(url.searchParams.get("offset") ?? 0);
 
   return Response.json({
-    data: Array.from({ length: Math.min(limit, 100) }, (_, index) => {
+    data: Array.from({ length: limit }, (_, index) => {
       const id = offset + index + 1;
       const genre = genres[id % genres.length] ?? "Action";
 
@@ -316,7 +316,7 @@ test("adult titles and unknown ids resolve to not found", async () => {
     respond(() => Response.json({ ...mal, rating: "rx" }));
 
     assert.equal(await loadAnime(source, 21), null);
-    assert.equal((await source.db.select().from(animeCache)).length, 0);
+    assert.equal((await source.db.select().from(cacheEntries)).length, 0);
   });
 });
 
@@ -393,5 +393,175 @@ test("a stale catalog page is served when MyAnimeList times out", async () => {
       loadCatalog(source, { genres: "Drama", page: 1 }),
       AnimeUnavailableError
     );
+  });
+});
+
+test("documented MyAnimeList nulls and partial dates map to the existing fallbacks", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    respond(() =>
+      Response.json({
+        ...mal,
+        main_picture: null,
+        alternative_titles: { en: null },
+        synopsis: null,
+        mean: null,
+        start_season: null,
+        start_date: "2023-09",
+        end_date: null,
+        media_type: null,
+        genres: null,
+        studios: null,
+        rating: null,
+      })
+    );
+
+    assert.deepEqual(await loadAnime(source, 21), {
+      ...anime,
+      title: { romaji: "One Piece", english: null },
+      description: null,
+      coverImage: { extraLarge: "/fallback-anime.avif" },
+      averageScore: null,
+      seasonYear: 2023,
+      startDate: { year: 2023, month: 9, day: null },
+      format: null,
+      genres: [],
+      studios: { nodes: [] },
+    });
+  });
+});
+
+test("a removed or adult title drops its cached copy instead of resurrecting it later", async () => {
+  for (const removal of [
+    () => Response.json({ error: "not_found" }, { status: 404 }),
+    () => Response.json({ ...mal, rating: "rx" }),
+  ])
+    await withCatalog(async ({ source, respond, now }) => {
+      respond(() => Response.json(mal));
+      await loadAnime(source, 21);
+      now(1_000_000 + 86_400_001);
+      respond(removal);
+
+      assert.equal(await loadAnime(source, 21), null);
+
+      respond(() => Promise.reject(new TypeError("network down")));
+
+      await assert.rejects(loadAnime(source, 21), AnimeUnavailableError);
+    });
+});
+
+test("a malformed success body is an outage, served from the stale copy", async () => {
+  await withCatalog(async ({ source, respond, now }) => {
+    respond(() => Response.json(mal));
+    await loadAnime(source, 21);
+    now(1_000_000 + 86_400_001);
+
+    for (const body of ["null", "<html>"]) {
+      respond(() => new Response(body, { status: 200 }));
+
+      assert.deepEqual(await loadAnime(source, 21), anime);
+    }
+  });
+});
+
+test("adult titles are filtered out of ranking lists", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    respond((url) => {
+      assert.match(url.searchParams.get("fields") ?? "", /rating/);
+
+      return Response.json({
+        data: [
+          { node: { ...mal, id: 1, rating: "rx" } },
+          { node: { ...mal, id: 2 } },
+        ],
+        paging: {},
+      });
+    });
+
+    const page = await loadCatalog(source, { page: 1 });
+
+    assert.ok(page.kind === "results");
+    assert.deepEqual(
+      page.anime.map((entry) => entry.id),
+      [2]
+    );
+    assert.equal(page.hasNextPage, false);
+  });
+});
+
+test("requests never follow redirects, so the client id stays on MyAnimeList", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    let redirect: RequestRedirect | undefined;
+
+    respond((_url, init) => {
+      redirect = init?.redirect;
+
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "https://example.com/" },
+      });
+    });
+
+    await assert.rejects(loadAnime(source, 21), AnimeUnavailableError);
+    assert.equal(redirect, "manual");
+  });
+});
+
+test("Show More stops at the last page the catalog accepts", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    respond(ranking);
+
+    const last = await loadCatalog(source, { page: 200 });
+
+    assert.ok(last.kind === "results" && !last.hasNextPage);
+
+    const action = await loadCatalog(source, { genres: "Action", page: 1 });
+    const lastAction = await loadCatalog(source, { genres: "Action", page: 2 });
+
+    assert.ok(action.kind === "results" && action.hasNextPage);
+    assert.ok(
+      lastAction.kind === "results" &&
+        lastAction.anime.length > 0 &&
+        !lastAction.hasNextPage
+    );
+  });
+});
+
+test("AniList rows left in the old cache tables are never served for MyAnimeList ids", async () => {
+  await withCatalog(async ({ source, calls, respond }) => {
+    const aniList = { ...anime, title: { romaji: "AniList", english: null } };
+
+    await source.db.insert(animeCache).values({
+      id: 21,
+      malId: 999,
+      data: aniList,
+      updatedAt: new Date(1_000_000),
+    });
+    await source.db.insert(cacheEntries).values([
+      {
+        key: "home",
+        data: { airing: [aniList], popular: [] },
+        updatedAt: new Date(1_000_000),
+      },
+      {
+        key: "catalog:all:1",
+        data: { anime: [aniList], hasNextPage: false },
+        updatedAt: new Date(1_000_000),
+      },
+    ]);
+    respond((url) =>
+      url.pathname.endsWith("/ranking") ? ranking(url) : Response.json(mal)
+    );
+
+    assert.deepEqual(await loadAnime(source, 21), anime);
+
+    const home = await loadHome(source);
+    const page = await loadCatalog(source, { page: 1 });
+
+    assert.ok(home.airing.every((entry) => entry.title.romaji !== "AniList"));
+    assert.ok(
+      page.kind === "results" &&
+        page.anime.every((entry) => entry.title.romaji !== "AniList")
+    );
+    assert.equal(calls(), 4);
   });
 });
