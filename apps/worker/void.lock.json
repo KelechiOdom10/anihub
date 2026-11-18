@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "source": {
+    "name": "anihub",
+    "account_id": "ab6145b5f4d74c798229173319deaf21",
+    "workers_dev": true,
+    "routes": [
+      {
+        "pattern": "anihub.kellycooks.dev",
+        "custom_domain": true
+      }
+    ],
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "anihub-db",
+        "database_id": "local",
+        "migrations_dir": "src/db/migrations"
+      }
+    ]
+  },
+  "resolved": {
+    "name": "anihub",
+    "account_id": "ab6145b5f4d74c798229173319deaf21",
+    "workers_dev": true,
+    "routes": [
+      {
+        "pattern": "anihub.kellycooks.dev",
+        "custom_domain": true
+      }
+    ],
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "anihub-db",
+        "database_id": "7fb14157-5553-4b0c-a49d-accb938e6744",
+        "migrations_dir": "src/db/migrations"
+      }
+    ]
+  },
+  "text": "{\n  \"name\": \"anihub\",\n  \"account_id\": \"ab6145b5f4d74c798229173319deaf21\",\n  \"workers_dev\": true,\n  \"routes\": [\n    {\n      \"pattern\": \"anihub.kellycooks.dev\",\n      \"custom_domain\": true\n    }\n  ],\n  \"d1_databases\": [\n    {\n      \"binding\": \"DB\",\n      \"database_name\": \"anihub-db\",\n      \"database_id\": \"7fb14157-5553-4b0c-a49d-accb938e6744\",\n      \"migrations_dir\": \"src/db/migrations\"\n    }\n  ]\n}\n"
+}
