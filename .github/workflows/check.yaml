@@ -30,10 +30,24 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm format:check
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
+      - name: Format check, lint, typecheck and test the root app in parallel
+        run: |
+          checks=(format:check lint typecheck test)
+          pids=()
+          for check in "${checks[@]}"; do
+            pnpm "$check" > "$RUNNER_TEMP/root-$check.log" 2>&1 &
+            pids+=("$!")
+          done
+          status=0
+          for index in "${!checks[@]}"; do
+            check=${checks[$index]}
+            if wait "${pids[$index]}"; then result=passed; else result=failed; status=1; fi
+            echo "::group::$check ($result)"
+            cat "$RUNNER_TEMP/root-$check.log"
+            echo "::endgroup::"
+            if [ "$result" = failed ]; then echo "::error::Root $check failed"; fi
+          done
+          exit $status
       - name: Build the root app (lint already ran above)
         run: pnpm exec next build --no-lint
   worker:
@@ -58,7 +72,11 @@ jobs:
           run_bg() {
             name=$1
             shift
-            ("$@" > "$RUNNER_TEMP/$name.log" 2>&1; echo $? > "$RUNNER_TEMP/$name.status") > /dev/null 2>&1 &
+            (
+              code=0
+              "$@" > "$RUNNER_TEMP/$name.log" 2>&1 || code=$?
+              echo "$code" > "$RUNNER_TEMP/$name.status"
+            ) > /dev/null 2>&1 &
           }
           run_bg chrome "$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version
           run_bg typecheck pnpm --filter @anihub/worker exec tsc --noEmit
