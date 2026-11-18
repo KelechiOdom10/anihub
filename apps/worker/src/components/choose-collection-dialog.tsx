@@ -16,6 +16,7 @@ export function ChooseCollectionDialog({
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const inFlight = useRef(false);
+  const generation = useRef(0);
   const [collections, setCollections] = useState<Membership["collections"]>([]);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [pages, setPages] = useState(0);
@@ -29,6 +30,7 @@ export function ChooseCollectionDialog({
 
   useEffect(() => {
     const clear = () => {
+      generation.current++;
       dialog.current?.close();
       setCollections([]);
       setChanges(new Map());
@@ -51,11 +53,15 @@ export function ChooseCollectionDialog({
     );
 
   const load = async (page: number) => {
+    const current = ++generation.current;
+
     setLoading(true);
     setError("");
 
     try {
       const result = await getMembership({ data: { animeId, page } });
+
+      if (current !== generation.current) return;
 
       if (!result) {
         setCollections([]);
@@ -73,7 +79,8 @@ export function ChooseCollectionDialog({
       setHasNextPage(result.hasNextPage);
       setPages(page);
     } catch {
-      setError("Couldn't load your collections. Please try again.");
+      if (current === generation.current)
+        setError("Couldn't load your collections. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -106,7 +113,7 @@ export function ChooseCollectionDialog({
     });
 
   const save = async () => {
-    if (inFlight.current || !changes.size) return;
+    if (inFlight.current || !changes.size || changes.size > 50) return;
 
     inFlight.current = true;
     setPending(true);
@@ -128,12 +135,16 @@ export function ChooseCollectionDialog({
         setError(result.message);
         setSignedOut(result.kind === "signed-out");
 
+        if (result.kind === "signed-out") setCollections([]);
+
         return;
       }
 
       setChanges(new Map());
       setStatus(
-        `Updated ${result.changed} collection${result.changed === 1 ? "" : "s"}.`
+        result.changed
+          ? `Updated ${result.changed} collection${result.changed === 1 ? "" : "s"}.`
+          : "Already up to date."
       );
       await load(1);
     } catch {
@@ -272,6 +283,11 @@ export function ChooseCollectionDialog({
               Loading your collections…
             </p>
           )}
+          {changes.size > 50 && (
+            <p className="text-sm text-destructive">
+              Save up to 50 changes at a time.
+            </p>
+          )}
           {error && (
             <p role="alert" className="break-words text-sm text-destructive">
               {error}
@@ -307,7 +323,7 @@ export function ChooseCollectionDialog({
                 type="button"
                 size="default"
                 fullWidth
-                disabled={pending || signedOut}
+                disabled={pending || signedOut || changes.size > 50}
                 onClick={() => void save()}
               >
                 {pending ? "Saving…" : `Save Changes (${changes.size})`}

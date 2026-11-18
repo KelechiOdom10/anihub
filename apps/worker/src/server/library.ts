@@ -39,8 +39,10 @@ const membershipInput = z
   .refine(({ add, remove }) => {
     const ids = [...add, ...remove];
 
-    return ids.length > 0 && new Set(ids).size === ids.length;
-  }, "Choose each collection once.");
+    return (
+      ids.length > 0 && ids.length <= 50 && new Set(ids).size === ids.length
+    );
+  }, "Choose up to 50 collections, each once.");
 
 const collectionRow = z.object({
   id: z.string(),
@@ -401,7 +403,12 @@ export const setMembership = createServerFn({ method: "POST" })
     ];
 
     try {
-      await bindings.DB.batch(statements);
+      const results = await bindings.DB.batch(statements);
+
+      return {
+        kind: "saved",
+        changed: results.filter((result) => result.meta.changes > 0).length,
+      } as const;
     } catch {
       return {
         kind: "error",
@@ -409,6 +416,4 @@ export const setMembership = createServerFn({ method: "POST" })
           "Couldn't save your changes. Nothing was changed. Your selections are still here.",
       } as const;
     }
-
-    return { kind: "saved", changed: ids.length } as const;
   });

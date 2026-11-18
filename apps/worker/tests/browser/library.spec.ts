@@ -962,6 +962,11 @@ test("membership HTTP validates every list before writing, is idempotent and own
       [21, ["library-alice-public"], ["library-alice-public"]],
       [21, [], []],
       [21, Array.from({ length: 51 }, (_, index) => `list-${index}`), []],
+      [
+        21,
+        Array.from({ length: 25 }, (_, index) => `add-${index}`),
+        Array.from({ length: 26 }, (_, index) => `remove-${index}`),
+      ],
       [21, [""], []],
       [-1, ["library-alice-public"], []],
       [1.5, [], ["library-alice-private"]],
@@ -1154,7 +1159,7 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   await expect(imported).toBeChecked();
   await page.unrouteAll();
   await dialog.getByRole("button", { name: "Save Changes (1)" }).click();
-  await expect(dialog.getByRole("status")).toHaveText("Updated 1 collection.");
+  await expect(dialog.getByRole("status")).toHaveText("Already up to date.");
 
   const overflow = await page.evaluate(() => ({
     page: document.documentElement.scrollWidth - innerWidth,
@@ -1194,5 +1199,7 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   await expect(
     page.getByRole("dialog", { name: "Add to Collection" })
   ).toBeHidden();
-  await expect(page.getByText("Alice secret", { exact: true })).toBeHidden();
+  await expect(
+    page.locator("dialog").getByText("Alice secret", { exact: true })
+  ).toHaveCount(0);
 });
