@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "test": "tsx --test tests/*.test.ts",
     "test:browser": "playwright test",
+    "test:library": "playwright test --config library.playwright.config.ts",
     "export:legacy": "tsx scripts/export-turso.ts",
     "check:bundle": "tsx scripts/check-bundle.ts",
     "deploy:guard": "tsx scripts/deploy-guard.ts",
