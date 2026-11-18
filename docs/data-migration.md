@@ -25,6 +25,8 @@ pnpm exec void db execute --remote "DELETE FROM cache_entries WHERE key = 'mal:a
 
 This never touches user, collection, item, like or comment rows.
 
+Then check the removal held: open `/anime/<id>` (expect 404 or the corrected text), the home page and the genre pages the title belonged to. Ranking lists are refetched independently of the detail page, so if MyAnimeList still lists the title there, or a refresh that was in flight brought it back, filter that id out in `apps/worker/src/server/catalog.ts` (detail and `loadList`), deploy, and run the delete again. Tell MyAnimeList when its API still serves content it asked AniHub to remove.
+
 ## Legacy export
 
 `pnpm --filter @anihub/worker export:legacy --output /private/path/anihub.import.sql` reads one Turso snapshot using `DATABASE_URL` and `DATABASE_AUTH_TOKEN` from the shell, and writes an owner-only SQL file. It performs no D1 writes. The file contains personal data: keep it outside the repository and Drive.

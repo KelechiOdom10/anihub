@@ -153,7 +153,7 @@ test("D1 rejects a second user whose email differs only by case or whitespace", 
   }
 });
 
-test("clearing AniList data keeps every user row and MAL id", async () => {
+test("clearing AniList data keeps every user row, MAL id and MAL cache row", async () => {
   const { d1, dispose } = await createTestDatabase();
 
   try {
@@ -167,7 +167,7 @@ test("clearing AniList data keeps every user row and MAL id", async () => {
         "INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (42, 999, '{}', 1)"
       ),
       d1.prepare(
-        "INSERT INTO cache_entries (key, data, updated_at) VALUES ('home', '{}', 1)"
+        "INSERT INTO cache_entries (key, data, updated_at) VALUES ('home', '{}', 1), ('mal:home', '{}', 1)"
       ),
     ]);
 
@@ -200,10 +200,10 @@ test("clearing AniList data keeps every user row and MAL id", async () => {
     assert.deepEqual(
       await d1
         .prepare(
-          "SELECT (SELECT count(*) FROM anime_cache) cache, (SELECT count(*) FROM cache_entries) entries, (SELECT count(anime_id) FROM collection_items) itemAniList, (SELECT count(anime_id) FROM comments) commentAniList"
+          "SELECT (SELECT count(*) FROM anime_cache) cache, (SELECT group_concat(key) FROM cache_entries) entries, (SELECT count(anime_id) FROM collection_items) itemAniList, (SELECT count(anime_id) FROM comments) commentAniList"
         )
         .first(),
-      { cache: 0, entries: 0, itemAniList: 0, commentAniList: 0 }
+      { cache: 0, entries: "mal:home", itemAniList: 0, commentAniList: 0 }
     );
   } finally {
     await dispose();
