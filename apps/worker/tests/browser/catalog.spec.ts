@@ -99,3 +99,20 @@ test("on a phone the filters open in a sheet", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(sheet).toBeHidden();
 });
+
+test("the year is a dropdown, and removing it keeps the chosen season", async ({
+  page,
+}) => {
+  await page.goto("/catalog");
+
+  await page.getByRole("checkbox", { name: "Winter" }).click();
+  await expect(page).toHaveURL(/season=winter/);
+  await page.getByRole("combobox", { name: "Year" }).selectOption("2026");
+  await expect(page).toHaveURL(/year=2026/);
+
+  await page.getByRole("button", { name: "2026" }).click();
+  await expect(page).not.toHaveURL(/year=/);
+  await expect(page).toHaveURL(/season=winter/);
+  await expect(page.getByRole("checkbox", { name: "Winter" })).toBeChecked();
+  await expect(page.getByRole("combobox", { name: "Year" })).toHaveValue("");
+});

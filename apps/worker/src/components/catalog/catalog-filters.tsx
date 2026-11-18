@@ -12,6 +12,7 @@ import { cn } from "../../lib/utils";
 import { genres } from "../../server/genres";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
+import { NativeSelect } from "../ui/native-select";
 
 export interface CatalogFiltersProps {
   search: CatalogSearch;
@@ -91,7 +92,6 @@ export function CatalogFilters({
   onChange,
   onClear,
 }: CatalogFiltersProps) {
-  const [allYears, setAllYears] = useState(false);
   const [allGenres, setAllGenres] = useState(false);
   const latest = currentYear() + 1;
 
@@ -102,10 +102,6 @@ export function CatalogFilters({
 
   const pickedGenres = search.genres?.split(",") ?? [];
   const pickedSeasons = search.season?.split(",") ?? [];
-
-  const shownYears = allYears
-    ? years
-    : years.filter((year, index) => index < 6 || year === search.year);
 
   const shownGenres = allGenres
     ? genres
@@ -120,29 +116,22 @@ export function CatalogFilters({
   return (
     <aside className="w-full px-4">
       <Section title="Year" open>
-        <div className="flex flex-wrap gap-2">
-          {shownYears.map((year) => (
-            <Button
-              key={year}
-              variant="outline"
-              size="sm"
-              aria-pressed={search.year === year}
-              className={cn("font-medium text-primary/60", {
-                "border-primary text-primary": search.year === year,
-              })}
-              onClick={() =>
-                onChange(
-                  search.year === year
-                    ? { year: undefined, season: undefined }
-                    : { year }
-                )
-              }
-            >
+        <NativeSelect
+          aria-label="Year"
+          value={search.year ?? ""}
+          onChange={(event) =>
+            onChange({
+              year: event.target.value ? Number(event.target.value) : undefined,
+            })
+          }
+        >
+          <option value="">Any</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
               {year}
-            </Button>
+            </option>
           ))}
-        </div>
-        <ShowAll all={allYears} onToggle={() => setAllYears((all) => !all)} />
+        </NativeSelect>
       </Section>
 
       <Section title="Season" open>
@@ -154,7 +143,6 @@ export function CatalogFilters({
             onCheckedChange={(checked) =>
               onChange({
                 season: toggle(search.season, season.value, checked),
-                year: search.year ?? currentYear(),
               })
             }
           />

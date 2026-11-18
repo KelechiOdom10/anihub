@@ -358,13 +358,14 @@ const sortValue: Record<
 
 function matches(anime: Anime, query: Query, genreList: string[]) {
   const season = seasonOf(anime.startDate.month);
+  const fromSeasonList = Boolean(query.year && !query.q);
 
   return (
     (!query.type || anime.format === mediaTypes.get(query.type)) &&
     (!query.status || anime.status === statusValues[query.status]) &&
     genreList.every((genre) => anime.genres.includes(genre)) &&
     (!query.q || !query.year || anime.seasonYear === query.year) &&
-    (!query.q ||
+    (fromSeasonList ||
       !query.season?.length ||
       (season !== undefined && query.season.includes(season)))
   );

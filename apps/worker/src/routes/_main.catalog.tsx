@@ -144,11 +144,7 @@ function CatalogPage() {
       return;
     }
 
-    update(
-      key === "year"
-        ? { year: undefined, season: undefined }
-        : { [key]: undefined }
-    );
+    update({ [key]: undefined });
   };
 
   const filters = { search, onChange: update, onClear: clear };

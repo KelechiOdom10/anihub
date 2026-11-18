@@ -742,3 +742,31 @@ test("the catalog URL keeps valid filters and drops unusable ones", () => {
     }
   );
 });
+
+test("a season without a year filters by start month and keeps the source note", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    const requested: URL[] = [];
+
+    respond((url) => {
+      requested.push(url);
+
+      return listOf(
+        [
+          { id: 1, start_date: "2020-01-10" },
+          { id: 2, start_date: "2021-04-02" },
+          { id: 3, start_date: "2019-02-20" },
+        ],
+        true
+      );
+    });
+
+    const winter = await loadCatalog(source, { season: ["winter"], page: 1 });
+
+    assert.match(requested[0]?.search ?? "", /ranking_type=bypopularity/);
+    assert.ok(
+      winter.kind === "results" &&
+        winter.anime.map((entry) => entry.id).join() === "1,3" &&
+        winter.subset === "Among MyAnimeList's 500 most popular anime."
+    );
+  });
+});

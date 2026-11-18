@@ -54,26 +54,16 @@ const list = <T extends string>(allowed: readonly T[]) =>
     .optional()
     .catch(undefined);
 
-export const catalogSearchSchema = z
-  .object({
-    q: text.pipe(z.string().min(3).max(100)).optional().catch(undefined),
-    year: z.coerce
-      .number()
-      .int()
-      .min(1917)
-      .max(2100)
-      .optional()
-      .catch(undefined),
-    season: list(seasons),
-    type: z.enum(formats).optional().catch(undefined),
-    status: z.enum(statuses).optional().catch(undefined),
-    genres: text.pipe(z.string().min(1)).optional().catch(undefined),
-    order_by: z.enum(orders).optional().catch(undefined),
-    sort: z.enum(directions).optional().catch(undefined),
-  })
-  .transform((search) =>
-    search.year ? search : { ...search, season: undefined }
-  );
+export const catalogSearchSchema = z.object({
+  q: text.pipe(z.string().min(3).max(100)).optional().catch(undefined),
+  year: z.coerce.number().int().min(1917).max(2100).optional().catch(undefined),
+  season: list(seasons),
+  type: z.enum(formats).optional().catch(undefined),
+  status: z.enum(statuses).optional().catch(undefined),
+  genres: text.pipe(z.string().min(1)).optional().catch(undefined),
+  order_by: z.enum(orders).optional().catch(undefined),
+  sort: z.enum(directions).optional().catch(undefined),
+});
 
 export type CatalogSearch = z.infer<typeof catalogSearchSchema>;
 
