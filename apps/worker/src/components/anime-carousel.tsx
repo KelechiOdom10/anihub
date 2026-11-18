@@ -25,7 +25,7 @@ export function AnimeCarousel({
         className="w-full"
       >
         <CarouselContent>
-          {animeList.map((anime, index) => (
+          {animeList.map((anime) => (
             <CarouselItem key={anime.id} className="basis-auto p-2">
               <Link
                 aria-label={englishTitle(anime)}
@@ -35,7 +35,8 @@ export function AnimeCarousel({
                 <AnimeCard
                   anime={anime}
                   className="w-56"
-                  loading={index < 6 ? "eager" : "lazy"}
+                  sizes="224px"
+                  loading="lazy"
                 />
               </Link>
             </CarouselItem>
