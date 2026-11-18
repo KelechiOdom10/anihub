@@ -3,7 +3,16 @@ import { z } from "zod";
 
 const result = spawnSync(
   "pnpm",
-  ["exec", "wrangler", "deploy", "--dry-run", "--outdir", ".void/dry-run"],
+  [
+    "exec",
+    "wrangler",
+    "deploy",
+    "--config",
+    "dist/server/wrangler.json",
+    "--dry-run",
+    "--outdir",
+    ".void/dry-run",
+  ],
   {
     encoding: "utf8",
   }

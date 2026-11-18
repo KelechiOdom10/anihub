@@ -7,18 +7,18 @@ permissions:
 concurrency:
   group: validate-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+env:
+  DATABASE_URL: libsql://ci.invalid
+  DATABASE_AUTH_TOKEN: ci-placeholder
+  SENDGRID_API_KEY: ci-placeholder
+  NEXT_PUBLIC_APP_URL: http://localhost:3000
+  DISCORD_CLIENT_ID: ci-placeholder
+  DISCORD_CLIENT_SECRET: ci-placeholder
+  GOOGLE_CLIENT_ID: ci-placeholder
+  GOOGLE_CLIENT_SECRET: ci-placeholder
 jobs:
   check:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: libsql://ci.invalid
-      DATABASE_AUTH_TOKEN: ci-placeholder
-      SENDGRID_API_KEY: ci-placeholder
-      NEXT_PUBLIC_APP_URL: http://localhost:3000
-      DISCORD_CLIENT_ID: ci-placeholder
-      DISCORD_CLIENT_SECRET: ci-placeholder
-      GOOGLE_CLIENT_ID: ci-placeholder
-      GOOGLE_CLIENT_SECRET: ci-placeholder
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -34,10 +34,24 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+  worker:
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @anihub/worker prepare:types
       - run: pnpm --filter @anihub/worker typecheck
       - run: pnpm --filter @anihub/worker test
       - run: pnpm --filter @anihub/worker build
-      - run: pnpm --filter @anihub/worker exec playwright install --with-deps chromium
       - run: pnpm --filter @anihub/worker test:browser
+      - run: pnpm --filter @anihub/worker test:library
       - run: pnpm --filter @anihub/worker check:bundle

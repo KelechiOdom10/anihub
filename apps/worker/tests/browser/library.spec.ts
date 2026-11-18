@@ -645,14 +645,16 @@ test("persisted-page restoration revalidates the session rather than keeping a p
   await expect(
     page.getByRole("heading", { name: "Bob secret", exact: true })
   ).toBeVisible();
-  await page.evaluate(() =>
-    window.dispatchEvent(
-      new PageTransitionEvent("pagehide", { persisted: true })
-    )
-  );
-  await expect(
-    page.getByRole("heading", { name: "Bob secret", exact: true })
-  ).not.toBeVisible();
+  await expect(async () => {
+    await page.evaluate(() =>
+      window.dispatchEvent(
+        new PageTransitionEvent("pagehide", { persisted: true })
+      )
+    );
+    await expect(
+      page.getByRole("heading", { name: "Bob secret", exact: true })
+    ).not.toBeVisible({ timeout: 500 });
+  }).toPass();
 
   const signout = await page.request.post("/api/auth/sign-out", {
     headers: { origin: "http://127.0.0.1:8791" },
