@@ -32,7 +32,7 @@ export function Hero({ anime }: { anime: Anime }) {
             {plainDescription(anime)}
           </p>
           <div className="flex flex-col gap-4 lg:flex-row">
-            <Button asChild size={isMobileDevice ? "default" : "xl"}>
+            <Button asChild size={isMobileDevice ? "default" : "lg"}>
               <Link to="/anime/$id" params={{ id: String(anime.id) }}>
                 Learn More
               </Link>
