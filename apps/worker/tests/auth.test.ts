@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test, type TestContext } from "node:test";
 import { z } from "zod";
+import { privacyPolicyVersion } from "../src/lib/privacy";
 import { createAuth, type AuthSettings } from "../src/server/auth";
 import { createTestDatabase } from "./d1";
 
@@ -83,16 +84,31 @@ function stubProviders(t: TestContext, identity: () => Identity) {
   return requests;
 }
 
-async function signIn(auth: ReturnType<typeof createAuth>, provider: string) {
+type SignInBody = {
+  provider: string;
+  callbackURL: string;
+  errorCallbackURL: string;
+  additionalData?: { privacyConsent: string };
+};
+
+async function signIn(
+  auth: ReturnType<typeof createAuth>,
+  provider: string,
+  consent: string | null = privacyPolicyVersion
+) {
+  const body: SignInBody = {
+    provider,
+    callbackURL: "/",
+    errorCallbackURL: "/sign-in",
+  };
+
+  if (consent !== null) body.additionalData = { privacyConsent: consent };
+
   const start = await auth.handler(
     new Request(origin + "/api/auth/sign-in/social", {
       method: "POST",
       headers: { "content-type": "application/json", origin },
-      body: JSON.stringify({
-        provider,
-        callbackURL: "/",
-        errorCallbackURL: "/sign-in",
-      }),
+      body: JSON.stringify(body),
     })
   );
 
@@ -308,6 +324,82 @@ test("direct ID tokens, passwords, cross-site requests and foreign callbacks are
       0
     );
     assert.deepEqual(requests, []);
+  } finally {
+    await dispose();
+  }
+});
+
+for (const provider of ["google", "discord"])
+  test(`${provider} sign-up needs privacy consent and stores no tokens or picture`, async (t) => {
+    const { d1, dispose } = await createTestDatabase();
+
+    const count = async (sql: string) =>
+      z.number().parse(await d1.prepare(sql).first("n"));
+
+    stubProviders(t, () => ({
+      subject: "2001",
+      email: "new@example.com",
+      verified: true,
+    }));
+
+    const auth = createAuth(d1, settings);
+
+    try {
+      for (const consent of [null, "an-older-version"]) {
+        assert.notEqual(await signIn(auth, provider, consent), "/");
+        assert.equal(await count("SELECT count(*) AS n FROM user"), 0);
+        assert.equal(await count("SELECT count(*) AS n FROM account"), 0);
+      }
+
+      assert.equal(await signIn(auth, provider), "/");
+      assert.deepEqual(
+        await d1
+          .prepare("SELECT image, privacy_policy_version AS version FROM user")
+          .first(),
+        { image: null, version: privacyPolicyVersion }
+      );
+      assert.ok(
+        await d1
+          .prepare("SELECT privacy_consented_at FROM user")
+          .first("privacy_consented_at")
+      );
+      assert.equal(
+        await count(
+          "SELECT count(*) AS n FROM account WHERE access_token IS NOT NULL OR refresh_token IS NOT NULL OR id_token IS NOT NULL"
+        ),
+        0
+      );
+    } finally {
+      await dispose();
+    }
+  });
+
+test("imported users can still sign in, and their consent is recorded only when given", async (t) => {
+  const { d1, dispose } = await createTestDatabase();
+
+  stubProviders(t, () => ({
+    subject: "3001",
+    email: "legacy@example.com",
+    verified: true,
+  }));
+
+  const auth = createAuth(d1, settings);
+
+  const version = () =>
+    d1.prepare("SELECT privacy_policy_version AS v FROM user").first("v");
+
+  try {
+    await d1
+      .prepare(
+        "INSERT INTO user (id, name, email, email_verified, created_at, updated_at) VALUES ('legacy', 'Legacy', 'legacy@example.com', 0, 1, 1)"
+      )
+      .run();
+
+    assert.equal(await signIn(auth, "discord", null), "/");
+    assert.equal(await version(), null);
+
+    assert.equal(await signIn(auth, "discord"), "/");
+    assert.equal(await version(), privacyPolicyVersion);
   } finally {
     await dispose();
   }

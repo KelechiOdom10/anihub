@@ -11,6 +11,7 @@ import {
   CardHeader,
 } from "../components/ui/card";
 import { authClient } from "../lib/auth-client";
+import { privacyPolicyVersion } from "../lib/privacy";
 
 const searchSchema = z.object({
   redirect: z
@@ -51,6 +52,7 @@ const providers = [
 function SignIn() {
   const search = Route.useSearch();
   const [pending, setPending] = useState<string | null>(null);
+  const [agreed, setAgreed] = useState(false);
 
   const signIn = async (provider: (typeof providers)[number]["id"]) => {
     setPending(provider);
@@ -59,6 +61,7 @@ function SignIn() {
       provider,
       callbackURL: search.redirect ?? "/",
       errorCallbackURL: "/sign-in",
+      additionalData: { privacyConsent: privacyPolicyVersion },
     });
 
     if (result.error) setPending(null);
@@ -74,12 +77,32 @@ function SignIn() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <label className="flex items-start gap-3 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 accent-white"
+              checked={agreed}
+              onChange={(event) => setAgreed(event.target.checked)}
+            />
+            <span>
+              I have read and agree to the{" "}
+              <Link
+                to="/privacy"
+                target="_blank"
+                className="text-foreground underline underline-offset-4"
+              >
+                privacy policy
+              </Link>
+              . AniHub keeps your verified email and display name from Google or
+              Discord, and nothing else from them.
+            </span>
+          </label>
           {providers.map(({ id, label, icon: Icon }) => (
             <Button
               key={id}
               variant="outline"
               className="w-full"
-              disabled={pending !== null}
+              disabled={!agreed || pending !== null}
               onClick={() => signIn(id)}
             >
               <Icon className="mr-2 h-5 w-5" />
@@ -91,8 +114,8 @@ function SignIn() {
               role="alert"
               className="rounded-lg border bg-destructive/10 p-2 text-[0.8rem] font-medium text-destructive"
             >
-              Sign in needs a verified email address from Google or Discord.
-              Please try again.
+              Sign in needs a verified email address from Google or Discord and
+              agreement to the privacy policy. Please try again.
             </p>
           )}
           <Button variant="outline" className="w-full" asChild>

@@ -1,8 +1,10 @@
 import { betterAuth } from "better-auth";
-import { APIError } from "better-auth/api";
+import { APIError, getOAuthState } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { drizzle } from "drizzle-orm/d1";
+import { z } from "zod";
 import { account, session, user, verification } from "../db/schema";
+import { privacyPolicyVersion } from "../lib/privacy";
 import { normalizedEmail } from "./email";
 
 export type AuthSettings = {
@@ -24,6 +26,25 @@ function verifiedEmail(email: string | null | undefined, verified: boolean) {
 
   return { email: parsed.data, emailVerified: true };
 }
+
+const consentState = z.object({
+  privacyConsent: z.literal(privacyPolicyVersion),
+});
+
+async function consented() {
+  return consentState.safeParse(await getOAuthState()).success;
+}
+
+const withoutTokens = <T extends object>(account: T) => ({
+  data: {
+    ...account,
+    accessToken: null,
+    refreshToken: null,
+    idToken: null,
+    accessTokenExpiresAt: null,
+    refreshTokenExpiresAt: null,
+  },
+});
 
 export function createAuth(database: D1Database, settings: AuthSettings) {
   return betterAuth({
@@ -60,6 +81,44 @@ export function createAuth(database: D1Database, settings: AuthSettings) {
     user: {
       additionalFields: {
         username: { type: "string", required: false, input: false },
+        privacyPolicyVersion: { type: "string", required: false, input: false },
+        privacyConsentedAt: { type: "date", required: false, input: false },
+      },
+    },
+    databaseHooks: {
+      user: {
+        create: {
+          before: async (data) => {
+            if (!(await consented()))
+              throw new APIError("FORBIDDEN", {
+                message: "Sign up needs agreement to the privacy policy",
+              });
+
+            return {
+              data: {
+                ...data,
+                image: null,
+                privacyPolicyVersion,
+                privacyConsentedAt: new Date(),
+              },
+            };
+          },
+        },
+      },
+      session: {
+        create: {
+          after: async (created, context) => {
+            if (context && (await consented()))
+              await context.context.internalAdapter.updateUser(created.userId, {
+                privacyPolicyVersion,
+                privacyConsentedAt: new Date(),
+              });
+          },
+        },
+      },
+      account: {
+        create: { before: async (account) => withoutTokens(account) },
+        update: { before: async (account) => withoutTokens(account) },
       },
     },
   });

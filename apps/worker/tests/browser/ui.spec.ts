@@ -124,6 +124,22 @@ test("sign-in is a standalone centred card offering only Google and Discord", as
   ).toBeVisible();
   await expect(page.getByRole("textbox")).toHaveCount(0);
 
+  const google = page.getByRole("button", { name: "Log in with Google" });
+  const consent = page.getByRole("checkbox", { name: /privacy policy/ });
+
+  await expect(google).toBeDisabled();
+  await consent.check();
+  await expect(google).toBeEnabled();
+  await expect(
+    page.getByRole("link", { name: "privacy policy" })
+  ).toHaveAttribute("href", "/privacy");
+
+  await page.goto("/privacy");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Privacy policy" })
+  ).toBeVisible();
+  await expect(page.getByRole("note")).toContainText("Draft for review");
+
   await page.goto("/sign-in?error=email_not_verified");
   await expect(page.getByRole("alert")).toContainText("verified email");
 });

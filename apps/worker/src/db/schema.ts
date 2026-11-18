@@ -35,6 +35,10 @@ export const user = sqliteTable(
       .default(false),
     image: text("image"),
     username: text("username").unique(),
+    privacyPolicyVersion: text("privacy_policy_version"),
+    privacyConsentedAt: integer("privacy_consented_at", {
+      mode: "timestamp_ms",
+    }),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
   },
