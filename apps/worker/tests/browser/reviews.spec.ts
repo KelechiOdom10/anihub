@@ -224,24 +224,18 @@ test("anonymous public pages preserve dated imports, canonical identity and exac
       '[data-review-id="review-10"] a, [data-review-id="review-10"] img[src="x"]'
     )
   ).toHaveCount(0);
+  const spoiler = page.locator('[data-review-id="review-11"]');
+
+  await expect(spoiler).toContainText("This review may contain spoilers.");
   await expect(
     page.getByText("Imported review 11", { exact: true })
-  ).toHaveAttribute("aria-hidden", "true");
-
-  const reveal = page.getByRole("button", {
-    name: "This comment contains spoilers. Click to reveal.",
-  });
-
-  await reveal.focus();
+  ).toHaveCount(0);
+  await capture(page, "cards-desktop");
+  await spoiler.getByRole("button", { name: "Show anyway" }).focus();
   await page.keyboard.press("Enter");
   await expect(
     page.getByText("Imported review 11", { exact: true })
   ).toBeVisible();
-  await page.getByRole("button", { name: "Hide spoilers" }).click();
-  await expect(
-    page.getByText("Imported review 11", { exact: true })
-  ).toHaveAttribute("aria-hidden", "true");
-  await capture(page, "cards-desktop");
   await page.setViewportSize({ width: 390, height: 844 });
   await capture(page, "cards-mobile");
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
@@ -353,6 +347,9 @@ test("blank drafts, keyboard stars, focus containment and durable create edit de
 }) => {
   await signIn(page);
   await openReviews(page);
+  await expect(
+    page.getByText("Imported review 11", { exact: true })
+  ).toBeVisible();
   await page
     .getByRole("button", { name: "Write a Review", exact: true })
     .click();
@@ -425,7 +422,7 @@ test("blank drafts, keyboard stars, focus containment and durable create edit de
 
   await expect(edited.getByLabel("5 out of 5 stars")).toBeVisible();
   await edited.getByRole("button", { name: "Delete review" }).click();
-  await edited.getByRole("button", { name: "Confirm delete" }).click();
+  await edited.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(
     page.getByText("Edited durable review", { exact: true })
   ).toHaveCount(0);
@@ -482,7 +479,7 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
   await own.getByRole("button", { name: "Delete review" }).click();
   const deleting = postRequest(page);
 
-  await own.getByRole("button", { name: "Confirm delete" }).click();
+  await own.getByRole("button", { name: "Delete", exact: true }).click();
   const remove = await deleting;
   const db = libraryDatabase();
 
@@ -821,7 +818,7 @@ test("drafts never cross viewer or pagehide boundaries and deleting the final la
     .locator('[data-review-id="review-01"]')
     .getByRole("button", { name: "Delete review" })
     .click();
-  await page.getByRole("button", { name: "Confirm delete" }).click();
+  await page.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(page.locator("[data-review-id]")).toHaveCount(10);
   await expect(
     page.getByRole("button", { name: "Previous reviews" })
@@ -897,7 +894,7 @@ test("pending publish is single-flight and reply deletion explains why discussio
   const parent = page.locator('[data-review-id="review-11"]');
 
   await parent.getByRole("button", { name: "Delete review" }).click();
-  await parent.getByRole("button", { name: "Confirm delete" }).click();
+  await parent.getByRole("button", { name: "Delete", exact: true }).click();
   await expect(notification(page)).toContainText(
     "It has replies or is no longer available"
   );
