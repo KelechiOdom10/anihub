@@ -6,6 +6,7 @@ import {
 import { env as bindings } from "cloudflare:workers";
 import { env } from "void/env";
 import { z } from "zod";
+import { publicIdentity } from "../lib/identity";
 import { animeSchema } from "./anime";
 import { createAuth } from "./auth";
 
@@ -84,11 +85,13 @@ const publicCollectionRow = z.object({
   description: z.string().nullable(),
   ownerId: z.string(),
   ownerName: z.string(),
+  ownerImage: z.string().nullable(),
 });
 
 const ownerRow = z.object({
   id: z.string(),
   name: z.string(),
+  image: z.string().nullable(),
 });
 
 const summaryRow = z.object({
@@ -282,14 +285,13 @@ export const createCollection = createServerFn({ method: "POST" })
     if (rejectedRequest())
       return {
         kind: "error",
-        message: "This request isn't allowed. Reload and try again.",
+        message: "Request not allowed",
       } as const;
 
     if (!userId)
       return {
         kind: "signed-out",
-        message:
-          "Your session has ended. Sign in again before saving. Your draft is still here.",
+        message: "Sign in again",
       } as const;
 
     const animeIds = [
@@ -304,8 +306,7 @@ export const createCollection = createServerFn({ method: "POST" })
     if (!covers)
       return {
         kind: "error",
-        message:
-          "One of these titles is unavailable. Reload before trying again.",
+        message: "Anime unavailable",
       } as const;
 
     const id = crypto.randomUUID();
@@ -341,8 +342,7 @@ export const createCollection = createServerFn({ method: "POST" })
     } catch {
       return {
         kind: "error",
-        message:
-          "Couldn't save the collection. Your draft is still here. Please try again.",
+        message: "Couldn't create collection",
       } as const;
     }
 
@@ -411,14 +411,13 @@ export const setMembership = createServerFn({ method: "POST" })
     if (rejectedRequest())
       return {
         kind: "error",
-        message: "This request isn't allowed. Reload and try again.",
+        message: "Request not allowed",
       } as const;
 
     if (!userId)
       return {
         kind: "signed-out",
-        message:
-          "Your session has ended. Sign in again before saving. Your selections are still here.",
+        message: "Sign in again",
       } as const;
 
     const ids = [...data.add, ...data.remove];
@@ -434,8 +433,7 @@ export const setMembership = createServerFn({ method: "POST" })
     if (owned !== ids.length)
       return {
         kind: "error",
-        message:
-          "One of these collections is no longer available. Nothing was changed. Reload and try again.",
+        message: "Collection unavailable",
       } as const;
 
     const image = data.add.length ? await savedCover(data.animeId) : null;
@@ -443,8 +441,7 @@ export const setMembership = createServerFn({ method: "POST" })
     if (data.add.length && !image)
       return {
         kind: "error",
-        message:
-          "This anime is unavailable. Nothing was changed. Reload its page before trying again.",
+        message: "Anime unavailable",
       } as const;
 
     const now = Date.now();
@@ -488,8 +485,7 @@ export const setMembership = createServerFn({ method: "POST" })
     } catch {
       return {
         kind: "error",
-        message:
-          "Couldn't save your changes. Nothing was changed. Your selections are still here.",
+        message: "Couldn't update collections",
       } as const;
     }
   });
@@ -549,7 +545,9 @@ export const getPublicCollection = createServerFn({ method: "GET" })
 
     const row = await bindings.DB.prepare(
       `
-      SELECT l.id, l.name, l.description, u.id AS ownerId, u.name AS ownerName
+      SELECT
+        l.id, l.name, l.description,
+        u.id AS ownerId, u.name AS ownerName, u.image AS ownerImage
       FROM collections l
       JOIN user u ON u.id = l.user_id
       WHERE l.id = ? AND l.is_public = 1
@@ -561,8 +559,21 @@ export const getPublicCollection = createServerFn({ method: "GET" })
     if (!row) return null;
 
     const items = itemPage(await publicItemStatement(data.id, data.page).all());
+    const found = publicCollectionRow.parse(row);
 
-    return { collection: publicCollectionRow.parse(row), ...items };
+    return {
+      collection: {
+        id: found.id,
+        name: found.name,
+        description: found.description,
+        ownerId: found.ownerId,
+        owner: publicIdentity({
+          name: found.ownerName,
+          image: found.ownerImage,
+        }),
+      },
+      ...items,
+    };
   });
 
 export const getPublicCollections = createServerFn({ method: "GET" })
@@ -571,7 +582,7 @@ export const getPublicCollections = createServerFn({ method: "GET" })
     setResponseHeader("Cache-Control", "public, max-age=60");
 
     const found = await bindings.DB.prepare(
-      "SELECT id, name FROM user WHERE id = ?"
+      "SELECT id, name, image FROM user WHERE id = ?"
     )
       .bind(data.userId)
       .first();
@@ -597,8 +608,13 @@ export const getPublicCollections = createServerFn({ method: "GET" })
         )
       : [];
 
+    const account = ownerRow.parse(found);
+
     return {
-      owner: ownerRow.parse(found),
+      owner: {
+        id: account.id,
+        ...publicIdentity(account),
+      },
       collections: visible.map((row, index) => ({
         ...row,
         ...itemPage(pages[index]),

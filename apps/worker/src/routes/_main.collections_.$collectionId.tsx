@@ -81,13 +81,13 @@ function PublicCollection() {
           className="flex w-fit items-center gap-3 rounded-full py-1 pr-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
         >
           <img
-            src="/anime-male-avatar.avif"
+            src={collection.owner.avatar}
             alt=""
             width={36}
             height={36}
             className="h-9 w-9 rounded-full object-cover"
           />
-          {collection.ownerName}
+          {collection.owner.name}
         </Link>
         <h1 className="text-2xl font-semibold">{collection.name}</h1>
         {collection.description && (

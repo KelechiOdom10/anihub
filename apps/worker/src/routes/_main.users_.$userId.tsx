@@ -42,7 +42,7 @@ function PublicProfile() {
     <section className="container mt-28 max-w-5xl space-y-8 px-4 py-8">
       <div className="flex items-center gap-3">
         <img
-          src="/anime-male-avatar.avif"
+          src={owner.avatar}
           alt=""
           width={48}
           height={48}
