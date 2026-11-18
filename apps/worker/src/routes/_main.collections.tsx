@@ -4,7 +4,7 @@ import {
   redirect,
   useRouter,
 } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { CreateCollectionDialog } from "../components/create-collection-dialog";
 import { PageMessage } from "../components/page-message";
@@ -151,19 +151,28 @@ function CollectionContents({ collection }: { collection: Collection }) {
 function Collections() {
   const library = Route.useLoaderData();
   const { page } = Route.useSearch();
+  const content = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const hide = () => {
+      if (content.current) content.current.hidden = true;
+    };
+
     const restore = (event: PageTransitionEvent) => {
       if (event.persisted) window.location.reload();
     };
 
     window.addEventListener("pageshow", restore);
+    window.addEventListener("pagehide", hide);
 
-    return () => window.removeEventListener("pageshow", restore);
+    return () => {
+      window.removeEventListener("pageshow", restore);
+      window.removeEventListener("pagehide", hide);
+    };
   }, []);
 
   return (
-    <section className="container mt-28 space-y-8 px-4 py-8">
+    <section ref={content} className="container mt-28 space-y-8 px-4 py-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-semibold">My Collections</h1>
         <CreateCollectionDialog signedIn />

@@ -645,6 +645,14 @@ test("persisted-page restoration revalidates the session rather than keeping a p
   await expect(
     page.getByRole("heading", { name: "Bob secret", exact: true })
   ).toBeVisible();
+  await page.evaluate(() =>
+    window.dispatchEvent(
+      new PageTransitionEvent("pagehide", { persisted: true })
+    )
+  );
+  await expect(
+    page.getByRole("heading", { name: "Bob secret", exact: true })
+  ).not.toBeVisible();
 
   const signout = await page.request.post("/api/auth/sign-out", {
     headers: { origin: "http://127.0.0.1:8791" },
@@ -717,8 +725,7 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await expect(
     page.getByRole("link", { name: "Sign in", exact: true })
   ).toBeVisible();
-  await page.goBack();
-  await page.goBack();
+  await page.evaluate(() => history.go(-2));
   await expect(page).toHaveURL(/sign-in/);
   await expect(page.getByText("Alice secret", { exact: true })).toHaveCount(0);
   await page.goto("/collections");
