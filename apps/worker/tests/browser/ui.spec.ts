@@ -19,14 +19,14 @@ test("home restores the original hero, overlapping carousels and transparent hea
   await page.goto("/");
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Fixture Anime 209502"
+    "Fixture Anime 1005"
   );
   await expect(page.getByRole("heading", { name: "Top Airing" })).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Popular Anime" })
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Fixture Anime 21", exact: true })
+    page.getByRole("link", { name: "Fixture Anime 1003", exact: true })
   ).toBeVisible();
   expect(
     await page.evaluate(() => getComputedStyle(document.body).fontFamily)
@@ -43,7 +43,9 @@ test("home restores the original hero, overlapping carousels and transparent hea
   expect(errors).toEqual([]);
 });
 
-test("carousels and the header are keyboard reachable", async ({ page }) => {
+test("the header is Tab-reachable and a carousel link opens with Enter", async ({
+  page,
+}) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
   await expect(
@@ -60,32 +62,32 @@ test("carousels and the header are keyboard reachable", async ({ page }) => {
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Sign in" })).toBeFocused();
   await page
-    .getByRole("link", { name: "Fixture Anime 21", exact: true })
+    .getByRole("link", { name: "Fixture Anime 1003", exact: true })
     .focus();
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/anime\/21$/);
+  await expect(page).toHaveURL(/\/anime\/1003$/);
 });
 
 test("anime page shows details from the cached MyAnimeList record", async ({
   page,
 }) => {
   const errors = trackErrors(page);
-  const response = await page.goto("/anime/21");
+  const response = await page.goto("/anime/1003");
 
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle("Fixture Anime 21 | Anihub");
+  await expect(page).toHaveTitle("Fixture Anime 1003 | Anihub");
   await expect(
     page.getByRole("heading", {
       level: 1,
-      name: "Fixture Anime 21",
+      name: "Fixture Anime 1003",
       exact: true,
     })
   ).toBeVisible();
-  await expect(page.getByText("Currently Airing")).toBeVisible();
-  await expect(page.getByText("20 October 1999 to Unknown")).toBeVisible();
-  await expect(page.getByText("Fixture Studio 1")).toBeVisible();
+  await expect(page.getByText("Finished Airing")).toBeVisible();
+  await expect(page.getByText("3 March 2002 to 3 March 2003")).toBeVisible();
+  await expect(page.getByText("Fixture Studio 3")).toBeVisible();
   await expect(page.locator("main")).toContainText(
-    "Synthetic synopsis for Fixture Anime 21."
+    "Synthetic synopsis for Fixture Anime 1003."
   );
   expect(errors).toEqual([]);
 });
@@ -132,7 +134,7 @@ test.describe("mobile", () => {
   test("home and anime pages fit a narrow viewport without horizontal scrolling", async ({
     page,
   }) => {
-    for (const path of ["/", "/anime/21", "/sign-in"]) {
+    for (const path of ["/", "/anime/1003", "/sign-in"]) {
       await page.goto(path);
 
       const overflow = await page.evaluate(

@@ -26,14 +26,14 @@ test("home restores the Categories cards with covers from each card's genre", as
   await expect(action.getByRole("img")).toHaveCount(3);
   await expect(action.getByRole("img").first()).toHaveAttribute(
     "alt",
-    "Fixture Anime 16498"
+    "Fixture Anime 1007"
   );
   await expect(
     page
       .getByRole("link", { name: /The best Romance Animes/ })
       .getByRole("img")
       .first()
-  ).toHaveAttribute("alt", "Fixture Anime 20954");
+  ).toHaveAttribute("alt", "Fixture Anime 1018");
   await expect(
     page.getByRole("link", { name: /The best Sci-Fi Animes/ })
   ).toBeVisible();
@@ -62,14 +62,14 @@ test("a category opens its genre results, which page with Show More", async ({
   await expect(results).toHaveCount(25);
   await expect(results.first()).toHaveAttribute(
     "aria-label",
-    "Fixture Anime 16498"
+    "Fixture Anime 1007"
   );
 
   await page.getByRole("button", { name: "Show More" }).click();
   await expect(results).toHaveCount(50);
   await expect(results.nth(25)).toHaveAttribute(
     "aria-label",
-    "Fixture Anime 101348"
+    "Fixture Anime 1036"
   );
 
   await page.getByRole("button", { name: "Action" }).click();
@@ -87,7 +87,7 @@ test("legacy numeric genre links redirect to the matching genre", async ({
   expect(response?.ok()).toBe(true);
   await expect(page.locator('a[href^="/anime/"]').first()).toHaveAttribute(
     "aria-label",
-    "Fixture Anime 20954"
+    "Fixture Anime 1018"
   );
 });
 
