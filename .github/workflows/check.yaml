@@ -1,6 +1,7 @@
 name: Validate
 on:
   push:
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -49,10 +50,22 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @anihub/worker prepare:types
-      - run: pnpm --filter @anihub/worker typecheck
-      - run: pnpm --filter @anihub/worker test
-      - run: pnpm --filter @anihub/worker build
+      - name: Start Worker unit tests in the background
+        run: |
+          (pnpm --filter @anihub/worker test > "$RUNNER_TEMP/unit.log" 2>&1; echo $? > "$RUNNER_TEMP/unit.status") &
+      - name: Typecheck and build the Worker in parallel
+        run: |
+          pnpm --filter @anihub/worker exec tsc --noEmit &
+          typecheck=$!
+          pnpm --filter @anihub/worker build
+          wait "$typecheck"
       - run: '"$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version'
       - run: pnpm --filter @anihub/worker test:browser
       - run: pnpm --filter @anihub/worker test:library
       - run: pnpm --filter @anihub/worker check:bundle
+      - name: Worker unit test results
+        if: always()
+        run: |
+          timeout 300 bash -c 'until [ -f "$RUNNER_TEMP/unit.status" ]; do sleep 1; done'
+          cat "$RUNNER_TEMP/unit.log"
+          exit "$(cat "$RUNNER_TEMP/unit.status")"
