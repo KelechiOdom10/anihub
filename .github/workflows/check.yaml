@@ -34,7 +34,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
+      - name: Build the root app (lint already ran above)
+        run: pnpm exec next build --no-lint
   worker:
     runs-on: ubuntu-latest
     env:
@@ -50,22 +51,37 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @anihub/worker prepare:types
-      - name: Start Worker unit tests in the background
+      - run: pnpm --filter @anihub/worker build
+      - name: Start Worker typecheck, unit tests and bundle check in the background
+        id: background
         run: |
-          (pnpm --filter @anihub/worker test > "$RUNNER_TEMP/unit.log" 2>&1; echo $? > "$RUNNER_TEMP/unit.status") &
-      - name: Typecheck and build the Worker in parallel
-        run: |
-          pnpm --filter @anihub/worker exec tsc --noEmit &
-          typecheck=$!
-          pnpm --filter @anihub/worker build
-          wait "$typecheck"
-      - run: '"$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version'
+          run_bg() {
+            name=$1
+            shift
+            ("$@" > "$RUNNER_TEMP/$name.log" 2>&1; echo $? > "$RUNNER_TEMP/$name.status") > /dev/null 2>&1 &
+          }
+          run_bg chrome "$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version
+          run_bg typecheck pnpm --filter @anihub/worker exec tsc --noEmit
+          run_bg unit pnpm --filter @anihub/worker test
+          run_bg bundle pnpm --filter @anihub/worker check:bundle
       - run: pnpm --filter @anihub/worker test:browser
       - run: pnpm --filter @anihub/worker test:library
-      - run: pnpm --filter @anihub/worker check:bundle
-      - name: Worker unit test results
-        if: always()
+      - name: Background Worker check results
+        if: always() && steps.background.outcome == 'success'
         run: |
-          timeout 300 bash -c 'until [ -f "$RUNNER_TEMP/unit.status" ]; do sleep 1; done'
-          cat "$RUNNER_TEMP/unit.log"
-          exit "$(cat "$RUNNER_TEMP/unit.status")"
+          status=0
+          for check in chrome typecheck unit bundle; do
+            if ! timeout 300 bash -c "until [ -f '$RUNNER_TEMP/$check.status' ]; do sleep 1; done"; then
+              echo "::error::Worker $check did not finish"
+              status=1
+              continue
+            fi
+            echo "::group::$check"
+            cat "$RUNNER_TEMP/$check.log"
+            echo "::endgroup::"
+            if [ "$(cat "$RUNNER_TEMP/$check.status")" != 0 ]; then
+              echo "::error::Worker $check failed"
+              status=1
+            fi
+          done
+          exit $status
