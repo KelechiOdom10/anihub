@@ -15,38 +15,38 @@ import { createTestDatabase } from "./d1";
 
 const mal = {
   id: 21,
-  title: "One Piece",
+  title: "Fixture Show",
   main_picture: {
-    medium: "https://example.com/one-piece.jpg",
-    large: "https://example.com/one-piece-large.jpg",
+    medium: "https://example.com/fixture-show.jpg",
+    large: "https://example.com/fixture-show-large.jpg",
   },
-  alternative_titles: { en: "One Piece", ja: "ワンピース" },
-  synopsis: "Pirates",
-  mean: 8.72,
+  alternative_titles: { en: "Fixture Show" },
+  synopsis: "Synthetic synopsis",
+  mean: 7.5,
   num_episodes: 0,
-  start_season: { year: 1999, season: "fall" },
-  start_date: "1999-10-20",
+  start_season: { year: 2001, season: "winter" },
+  start_date: "2001-02-03",
   media_type: "tv",
   status: "currently_airing",
   genres: [{ id: 2, name: "Adventure" }],
-  studios: [{ id: 18, name: "Toei Animation" }],
+  studios: [{ id: 18, name: "Fixture Studio" }],
   rating: "pg_13",
 };
 
 const anime: Anime = {
   id: 21,
-  title: { romaji: "One Piece", english: "One Piece" },
-  description: "Pirates",
-  coverImage: { extraLarge: "https://example.com/one-piece-large.jpg" },
-  averageScore: 8.72,
+  title: { romaji: "Fixture Show", english: "Fixture Show" },
+  description: "Synthetic synopsis",
+  coverImage: { extraLarge: "https://example.com/fixture-show-large.jpg" },
+  averageScore: 7.5,
   episodes: null,
-  seasonYear: 1999,
-  startDate: { year: 1999, month: 10, day: 20 },
+  seasonYear: 2001,
+  startDate: { year: 2001, month: 2, day: 3 },
   endDate: { year: null, month: null, day: null },
   format: "TV",
   status: "currently_airing",
   genres: ["Adventure"],
-  studios: { nodes: [{ name: "Toei Animation" }] },
+  studios: { nodes: [{ name: "Fixture Studio" }] },
 };
 
 type Upstream = (url: URL, init?: RequestInit) => Response | Promise<Response>;
@@ -417,7 +417,7 @@ test("documented MyAnimeList nulls and partial dates map to the existing fallbac
 
     assert.deepEqual(await loadAnime(source, 21), {
       ...anime,
-      title: { romaji: "One Piece", english: null },
+      title: { romaji: "Fixture Show", english: null },
       description: null,
       coverImage: { extraLarge: "/fallback-anime.avif" },
       averageScore: null,

@@ -3,263 +3,25 @@
     "all:1": {
       "anime": [
         {
-          "id": 16498,
+          "id": 1007,
           "title": {
-            "english": "Attack on Titan",
-            "romaji": "Shingeki no Kyojin"
+            "english": null,
+            "romaji": "Fixture Anime 1007"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 25,
-          "seasonYear": 2013,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.6,
+          "episodes": null,
+          "seasonYear": 2006,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
-            "year": 2013,
-            "month": 4,
-            "day": 7
-          },
-          "endDate": {
-            "year": 2013,
-            "month": 9,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "WIT STUDIO"
-              }
-            ]
-          }
-        },
-        {
-          "id": 101922,
-          "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba",
-            "romaji": "Kimetsu no Yaiba"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
-          },
-          "averageScore": 8.2,
-          "episodes": 26,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
-          "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 6
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 9,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "ufotable"
-              }
-            ]
-          }
-        },
-        {
-          "id": 113415,
-          "title": {
-            "english": "JUJUTSU KAISEN",
-            "romaji": "Jujutsu Kaisen"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
-          },
-          "averageScore": 8.4,
-          "episodes": 24,
-          "seasonYear": 2020,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Supernatural"],
-          "startDate": {
-            "year": 2020,
-            "month": 10,
-            "day": 3
-          },
-          "endDate": {
-            "year": 2021,
-            "month": 3,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MAPPA"
-              }
-            ]
-          }
-        },
-        {
-          "id": 1535,
-          "title": {
-            "english": "Death Note",
-            "romaji": "DEATH NOTE"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1535-kUgkcrfOrkUM.jpg"
-          },
-          "averageScore": 8.4,
-          "episodes": 37,
-          "seasonYear": 2006,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Mystery", "Psychological", "Supernatural", "Thriller"],
-          "startDate": {
             "year": 2006,
-            "month": 10,
-            "day": 4
-          },
-          "endDate": {
-            "year": 2007,
-            "month": 6,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MADHOUSE"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21459,
-          "title": {
-            "english": "My Hero Academia",
-            "romaji": "Boku no Hero Academia"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
-          },
-          "averageScore": 7.6,
-          "episodes": 13,
-          "seasonYear": 2016,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": {
-            "year": 2016,
-            "month": 4,
-            "day": 3
-          },
-          "endDate": {
-            "year": 2016,
-            "month": 6,
-            "day": 26
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "bones"
-              }
-            ]
-          }
-        },
-        {
-          "id": 11061,
-          "title": {
-            "english": "Hunter x Hunter (2011)",
-            "romaji": "HUNTER×HUNTER (2011)"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
-          },
-          "averageScore": 8.9,
-          "episodes": 148,
-          "seasonYear": 2011,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": {
-            "year": 2011,
-            "month": 10,
-            "day": 2
-          },
-          "endDate": {
-            "year": 2014,
-            "month": 9,
-            "day": 24
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MADHOUSE"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21087,
-          "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
-          },
-          "averageScore": 8.2,
-          "episodes": 12,
-          "seasonYear": 2015,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": {
-            "year": 2015,
-            "month": 10,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2015,
-            "month": 12,
-            "day": 21
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MADHOUSE"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21,
-          "title": {
-            "english": "ONE PIECE",
-            "romaji": "ONE PIECE"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
-          },
-          "averageScore": 8.7,
-          "episodes": null,
-          "seasonYear": 1999,
-          "format": "TV",
-          "status": "currently_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
-          "startDate": {
-            "year": 1999,
-            "month": 10,
-            "day": 20
+            "month": 7,
+            "day": 7
           },
           "endDate": {
             "year": null,
@@ -269,25 +31,263 @@
           "studios": {
             "nodes": [
               {
-                "name": "Toei Animation"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 20605,
+          "id": 1008,
           "title": {
-            "english": "Tokyo Ghoul",
-            "romaji": "Tokyo Ghoul"
+            "english": null,
+            "romaji": "Fixture Anime 1008"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.6,
-          "episodes": 12,
-          "seasonYear": 2014,
+          "averageScore": 6.7,
+          "episodes": 19,
+          "seasonYear": 2007,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
+          "startDate": {
+            "year": 2007,
+            "month": 8,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2008,
+            "month": 8,
+            "day": 8
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1009,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1009"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.8,
+          "episodes": 20,
+          "seasonYear": 2008,
           "format": "TV",
+          "status": "finished_airing",
+          "genres": ["Action", "Drama", "Supernatural"],
+          "startDate": {
+            "year": 2008,
+            "month": 9,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2009,
+            "month": 9,
+            "day": 9
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1010,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1010"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.9,
+          "episodes": null,
+          "seasonYear": 2009,
+          "format": "Movie",
+          "status": "currently_airing",
+          "genres": ["Mystery", "Psychological", "Supernatural", "Thriller"],
+          "startDate": {
+            "year": 2009,
+            "month": 10,
+            "day": 10
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1011,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1011"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7,
+          "episodes": 22,
+          "seasonYear": 2010,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy"],
+          "startDate": {
+            "year": 2010,
+            "month": 11,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2011,
+            "month": 11,
+            "day": 11
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1012,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1012"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.1,
+          "episodes": 23,
+          "seasonYear": 2011,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy"],
+          "startDate": {
+            "year": 2011,
+            "month": 12,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 12
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1013,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1013"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.2,
+          "episodes": null,
+          "seasonYear": 2012,
+          "format": "TV",
+          "status": "currently_airing",
+          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2012,
+            "month": 1,
+            "day": 13
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1003,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1003"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.2,
+          "episodes": 14,
+          "seasonYear": 2002,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
+          "startDate": {
+            "year": 2002,
+            "month": 3,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2003,
+            "month": 3,
+            "day": 3
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1014,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1014"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.3,
+          "episodes": 12,
+          "seasonYear": 2013,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -298,104 +298,104 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2014,
-            "month": 7,
-            "day": 4
+            "year": 2013,
+            "month": 2,
+            "day": 14
           },
           "endDate": {
             "year": 2014,
-            "month": 9,
-            "day": 19
+            "month": 2,
+            "day": 14
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 20958,
+          "id": 1015,
           "title": {
-            "english": "Attack on Titan Season 2",
-            "romaji": "Shingeki no Kyojin Season 2"
+            "english": null,
+            "romaji": "Fixture Anime 1015"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 12,
-          "seasonYear": 2017,
-          "format": "TV",
+          "averageScore": 7.4,
+          "episodes": 13,
+          "seasonYear": 2014,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
-            "year": 2017,
-            "month": 4,
-            "day": 1
+            "year": 2014,
+            "month": 3,
+            "day": 15
           },
           "endDate": {
-            "year": 2017,
-            "month": 6,
-            "day": 17
+            "year": 2015,
+            "month": 3,
+            "day": 15
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 5114,
+          "id": 1016,
           "title": {
-            "english": "Fullmetal Alchemist: Brotherhood",
-            "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
+            "english": null,
+            "romaji": "Fixture Anime 1016"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 9,
-          "episodes": 64,
-          "seasonYear": 2009,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 7.5,
+          "episodes": null,
+          "seasonYear": 2015,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy"],
           "startDate": {
-            "year": 2009,
+            "year": 2015,
             "month": 4,
-            "day": 5
+            "day": 16
           },
           "endDate": {
-            "year": 2010,
-            "month": 7,
-            "day": 4
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 20,
+          "id": 1017,
           "title": {
-            "english": "Naruto",
-            "romaji": "NARUTO"
+            "english": null,
+            "romaji": "Fixture Anime 1017"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8,
-          "episodes": 220,
-          "seasonYear": 2002,
+          "averageScore": 7.6,
+          "episodes": 15,
+          "seasonYear": 2016,
           "format": "TV",
           "status": "finished_airing",
           "genres": [
@@ -407,276 +407,276 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2002,
-            "month": 10,
-            "day": 3
+            "year": 2016,
+            "month": 5,
+            "day": 17
           },
           "endDate": {
-            "year": 2007,
-            "month": 2,
-            "day": 8
+            "year": 2017,
+            "month": 5,
+            "day": 17
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 20954,
+          "id": 1018,
           "title": {
-            "english": "A Silent Voice",
-            "romaji": "Koe no Katachi"
+            "english": null,
+            "romaji": "Fixture Anime 1018"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.8,
-          "episodes": 1,
-          "seasonYear": 2016,
-          "format": "MOVIE",
+          "averageScore": 7.7,
+          "episodes": 16,
+          "seasonYear": 2017,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 17
+            "year": 2017,
+            "month": 6,
+            "day": 18
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 17
+            "year": 2018,
+            "month": 6,
+            "day": 18
           },
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 11757,
+          "id": 1019,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 1019"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7,
-          "episodes": 25,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 7.8,
+          "episodes": null,
+          "seasonYear": 2018,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
           "startDate": {
-            "year": 2012,
+            "year": 2018,
             "month": 7,
-            "day": 8
+            "day": 19
           },
           "endDate": {
-            "year": 2012,
-            "month": 12,
-            "day": 23
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 21519,
+          "id": 1020,
           "title": {
-            "english": "Your Name.",
-            "romaji": "Kimi no Na wa."
+            "english": null,
+            "romaji": "Fixture Anime 1020"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 1,
-          "seasonYear": 2016,
-          "format": "MOVIE",
+          "averageScore": 7.9,
+          "episodes": 18,
+          "seasonYear": 2019,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Drama", "Romance", "Supernatural"],
           "startDate": {
-            "year": 2016,
+            "year": 2019,
             "month": 8,
-            "day": 26
+            "day": 20
           },
           "endDate": {
-            "year": 2016,
+            "year": 2020,
             "month": 8,
-            "day": 26
+            "day": 20
           },
           "studios": {
             "nodes": [
               {
-                "name": "CoMix Wave"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 99147,
+          "id": 1021,
           "title": {
-            "english": "Attack on Titan Season 3",
-            "romaji": "Shingeki no Kyojin Season 3"
+            "english": null,
+            "romaji": "Fixture Anime 1021"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.6,
-          "episodes": 12,
-          "seasonYear": 2018,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": {
-            "year": 2018,
-            "month": 7,
-            "day": 23
-          },
-          "endDate": {
-            "year": 2018,
-            "month": 10,
-            "day": 15
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "WIT STUDIO"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21856,
-          "title": {
-            "english": "My Hero Academia Season 2",
-            "romaji": "Boku no Hero Academia 2"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
-          },
-          "averageScore": 7.9,
-          "episodes": 25,
-          "seasonYear": 2017,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": {
-            "year": 2017,
-            "month": 4,
-            "day": 1
-          },
-          "endDate": {
-            "year": 2017,
-            "month": 9,
-            "day": 30
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "bones"
-              }
-            ]
-          }
-        },
-        {
-          "id": 110277,
-          "title": {
-            "english": "Attack on Titan Final Season",
-            "romaji": "Shingeki no Kyojin: The Final Season"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
-          },
-          "averageScore": 8.7,
-          "episodes": 16,
-          "seasonYear": 2021,
+          "averageScore": 8,
+          "episodes": 19,
+          "seasonYear": 2020,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
             "year": 2020,
-            "month": 12,
-            "day": 7
+            "month": 9,
+            "day": 21
           },
           "endDate": {
             "year": 2021,
-            "month": 3,
-            "day": 29
+            "month": 9,
+            "day": 21
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 127230,
+          "id": 1022,
           "title": {
-            "english": "Chainsaw Man",
-            "romaji": "Chainsaw Man"
+            "english": null,
+            "romaji": "Fixture Anime 1022"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.1,
+          "episodes": null,
+          "seasonYear": 2021,
+          "format": "Movie",
+          "status": "currently_airing",
+          "genres": ["Action", "Adventure", "Comedy"],
+          "startDate": {
+            "year": 2021,
+            "month": 10,
+            "day": 22
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1023,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1023"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.2,
+          "episodes": 21,
+          "seasonYear": 2022,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
+          "startDate": {
+            "year": 2022,
+            "month": 11,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1024,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1024"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2022,
-          "format": "TV",
+          "episodes": 22,
+          "seasonYear": 2023,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Supernatural"],
           "startDate": {
-            "year": 2022,
-            "month": 10,
-            "day": 12
+            "year": 2023,
+            "month": 12,
+            "day": 24
           },
           "endDate": {
-            "year": 2022,
+            "year": 2024,
             "month": 12,
-            "day": 28
+            "day": 24
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 101759,
+          "id": 1025,
           "title": {
-            "english": "The Promised Neverland",
-            "romaji": "Yakusoku no Neverland"
+            "english": null,
+            "romaji": "Fixture Anime 1025"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101759-8UR7r9MNVpz2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2019,
+          "averageScore": 8.4,
+          "episodes": null,
+          "seasonYear": 2024,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": [
             "Drama",
             "Fantasy",
@@ -686,71 +686,71 @@
             "Thriller"
           ],
           "startDate": {
-            "year": 2019,
+            "year": 2024,
             "month": 1,
-            "day": 10
+            "day": 25
           },
           "endDate": {
-            "year": 2019,
-            "month": 3,
-            "day": 29
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 20755,
+          "id": 1026,
           "title": {
-            "english": "Assassination Classroom",
-            "romaji": "Ansatsu Kyoushitsu"
+            "english": null,
+            "romaji": "Fixture Anime 1026"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 22,
-          "seasonYear": 2015,
-          "format": "TV",
+          "averageScore": 8.5,
+          "episodes": 24,
+          "seasonYear": 2000,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Supernatural"],
           "startDate": {
-            "year": 2015,
-            "month": 1,
-            "day": 10
+            "year": 2000,
+            "month": 2,
+            "day": 26
           },
           "endDate": {
-            "year": 2015,
-            "month": 6,
-            "day": 20
+            "year": 2001,
+            "month": 2,
+            "day": 26
           },
           "studios": {
             "nodes": [
               {
-                "name": "Lerche"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 21507,
+          "id": 1027,
           "title": {
-            "english": "Mob Psycho 100",
-            "romaji": "Mob Psycho 100"
+            "english": null,
+            "romaji": "Fixture Anime 1027"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
+          "averageScore": 8.6,
           "episodes": 12,
-          "seasonYear": 2016,
-          "format": "TV",
+          "seasonYear": 2001,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -761,38 +761,38 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2016,
-            "month": 7,
-            "day": 12
+            "year": 2001,
+            "month": 3,
+            "day": 27
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
+            "year": 2002,
+            "month": 3,
             "day": 27
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 21355,
+          "id": 1028,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 1028"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 25,
-          "seasonYear": 2016,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 8.7,
+          "episodes": null,
+          "seasonYear": 2002,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -803,87 +803,87 @@
             "Thriller"
           ],
           "startDate": {
-            "year": 2016,
+            "year": 2002,
             "month": 4,
-            "day": 4
+            "day": 28
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 19
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 20665,
+          "id": 1029,
           "title": {
-            "english": "Your lie in April",
-            "romaji": "Shigatsu wa Kimi no Uso"
+            "english": null,
+            "romaji": "Fixture Anime 1029"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
-          "episodes": 22,
-          "seasonYear": 2014,
+          "averageScore": 8.8,
+          "episodes": 14,
+          "seasonYear": 2003,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Drama", "Music", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2014,
-            "month": 10,
-            "day": 10
+            "year": 2003,
+            "month": 5,
+            "day": 1
           },
           "endDate": {
-            "year": 2015,
-            "month": 3,
-            "day": 20
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "A-1 Pictures"
-              }
-            ]
-          }
-        },
-        {
-          "id": 104578,
-          "title": {
-            "english": "Attack on Titan Season 3 Part 2",
-            "romaji": "Shingeki no Kyojin Season 3 Part 2"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
-          },
-          "averageScore": 8.9,
-          "episodes": 10,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 29
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 7,
+            "year": 2004,
+            "month": 5,
             "day": 1
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1030,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1030"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.9,
+          "episodes": 15,
+          "seasonYear": 2004,
+          "format": "Movie",
+          "status": "finished_airing",
+          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
+          "startDate": {
+            "year": 2004,
+            "month": 6,
+            "day": 2
+          },
+          "endDate": {
+            "year": 2005,
+            "month": 6,
+            "day": 2
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
               }
             ]
           }
@@ -894,229 +894,25 @@
     "Action:1": {
       "anime": [
         {
-          "id": 16498,
+          "id": 1007,
           "title": {
-            "english": "Attack on Titan",
-            "romaji": "Shingeki no Kyojin"
+            "english": null,
+            "romaji": "Fixture Anime 1007"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 25,
-          "seasonYear": 2013,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.6,
+          "episodes": null,
+          "seasonYear": 2006,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
-            "year": 2013,
-            "month": 4,
+            "year": 2006,
+            "month": 7,
             "day": 7
-          },
-          "endDate": {
-            "year": 2013,
-            "month": 9,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "WIT STUDIO"
-              }
-            ]
-          }
-        },
-        {
-          "id": 101922,
-          "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba",
-            "romaji": "Kimetsu no Yaiba"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
-          },
-          "averageScore": 8.2,
-          "episodes": 26,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
-          "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 6
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 9,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "ufotable"
-              }
-            ]
-          }
-        },
-        {
-          "id": 113415,
-          "title": {
-            "english": "JUJUTSU KAISEN",
-            "romaji": "Jujutsu Kaisen"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
-          },
-          "averageScore": 8.4,
-          "episodes": 24,
-          "seasonYear": 2020,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Supernatural"],
-          "startDate": {
-            "year": 2020,
-            "month": 10,
-            "day": 3
-          },
-          "endDate": {
-            "year": 2021,
-            "month": 3,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MAPPA"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21459,
-          "title": {
-            "english": "My Hero Academia",
-            "romaji": "Boku no Hero Academia"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
-          },
-          "averageScore": 7.6,
-          "episodes": 13,
-          "seasonYear": 2016,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": {
-            "year": 2016,
-            "month": 4,
-            "day": 3
-          },
-          "endDate": {
-            "year": 2016,
-            "month": 6,
-            "day": 26
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "bones"
-              }
-            ]
-          }
-        },
-        {
-          "id": 11061,
-          "title": {
-            "english": "Hunter x Hunter (2011)",
-            "romaji": "HUNTER×HUNTER (2011)"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
-          },
-          "averageScore": 8.9,
-          "episodes": 148,
-          "seasonYear": 2011,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": {
-            "year": 2011,
-            "month": 10,
-            "day": 2
-          },
-          "endDate": {
-            "year": 2014,
-            "month": 9,
-            "day": 24
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MADHOUSE"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21087,
-          "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
-          },
-          "averageScore": 8.2,
-          "episodes": 12,
-          "seasonYear": 2015,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": {
-            "year": 2015,
-            "month": 10,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2015,
-            "month": 12,
-            "day": 21
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "MADHOUSE"
-              }
-            ]
-          }
-        },
-        {
-          "id": 21,
-          "title": {
-            "english": "ONE PIECE",
-            "romaji": "ONE PIECE"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
-          },
-          "averageScore": 8.7,
-          "episodes": null,
-          "seasonYear": 1999,
-          "format": "TV",
-          "status": "currently_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
-          "startDate": {
-            "year": 1999,
-            "month": 10,
-            "day": 20
           },
           "endDate": {
             "year": null,
@@ -1126,25 +922,229 @@
           "studios": {
             "nodes": [
               {
-                "name": "Toei Animation"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 20605,
+          "id": 1008,
           "title": {
-            "english": "Tokyo Ghoul",
-            "romaji": "Tokyo Ghoul"
+            "english": null,
+            "romaji": "Fixture Anime 1008"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.6,
-          "episodes": 12,
-          "seasonYear": 2014,
+          "averageScore": 6.7,
+          "episodes": 19,
+          "seasonYear": 2007,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
+          "startDate": {
+            "year": 2007,
+            "month": 8,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2008,
+            "month": 8,
+            "day": 8
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1009,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1009"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.8,
+          "episodes": 20,
+          "seasonYear": 2008,
           "format": "TV",
+          "status": "finished_airing",
+          "genres": ["Action", "Drama", "Supernatural"],
+          "startDate": {
+            "year": 2008,
+            "month": 9,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2009,
+            "month": 9,
+            "day": 9
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1011,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1011"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7,
+          "episodes": 22,
+          "seasonYear": 2010,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy"],
+          "startDate": {
+            "year": 2010,
+            "month": 11,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2011,
+            "month": 11,
+            "day": 11
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1012,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1012"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.1,
+          "episodes": 23,
+          "seasonYear": 2011,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy"],
+          "startDate": {
+            "year": 2011,
+            "month": 12,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 12
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1013,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1013"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.2,
+          "episodes": null,
+          "seasonYear": 2012,
+          "format": "TV",
+          "status": "currently_airing",
+          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2012,
+            "month": 1,
+            "day": 13
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1003,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1003"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.2,
+          "episodes": 14,
+          "seasonYear": 2002,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
+          "startDate": {
+            "year": 2002,
+            "month": 3,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2003,
+            "month": 3,
+            "day": 3
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1014,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1014"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.3,
+          "episodes": 12,
+          "seasonYear": 2013,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -1155,104 +1155,104 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2014,
-            "month": 7,
-            "day": 4
+            "year": 2013,
+            "month": 2,
+            "day": 14
           },
           "endDate": {
             "year": 2014,
-            "month": 9,
-            "day": 19
+            "month": 2,
+            "day": 14
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 20958,
+          "id": 1015,
           "title": {
-            "english": "Attack on Titan Season 2",
-            "romaji": "Shingeki no Kyojin Season 2"
+            "english": null,
+            "romaji": "Fixture Anime 1015"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 12,
-          "seasonYear": 2017,
-          "format": "TV",
+          "averageScore": 7.4,
+          "episodes": 13,
+          "seasonYear": 2014,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
-            "year": 2017,
-            "month": 4,
-            "day": 1
+            "year": 2014,
+            "month": 3,
+            "day": 15
           },
           "endDate": {
-            "year": 2017,
-            "month": 6,
-            "day": 17
+            "year": 2015,
+            "month": 3,
+            "day": 15
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 5114,
+          "id": 1016,
           "title": {
-            "english": "Fullmetal Alchemist: Brotherhood",
-            "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
+            "english": null,
+            "romaji": "Fixture Anime 1016"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 9,
-          "episodes": 64,
-          "seasonYear": 2009,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 7.5,
+          "episodes": null,
+          "seasonYear": 2015,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy"],
           "startDate": {
-            "year": 2009,
+            "year": 2015,
             "month": 4,
-            "day": 5
+            "day": 16
           },
           "endDate": {
-            "year": 2010,
-            "month": 7,
-            "day": 4
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 20,
+          "id": 1017,
           "title": {
-            "english": "Naruto",
-            "romaji": "NARUTO"
+            "english": null,
+            "romaji": "Fixture Anime 1017"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8,
-          "episodes": 220,
-          "seasonYear": 2002,
+          "averageScore": 7.6,
+          "episodes": 15,
+          "seasonYear": 2016,
           "format": "TV",
           "status": "finished_airing",
           "genres": [
@@ -1264,241 +1264,241 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2002,
-            "month": 10,
-            "day": 3
+            "year": 2016,
+            "month": 5,
+            "day": 17
           },
           "endDate": {
-            "year": 2007,
-            "month": 2,
-            "day": 8
+            "year": 2017,
+            "month": 5,
+            "day": 17
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 11757,
+          "id": 1019,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 1019"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7,
-          "episodes": 25,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 7.8,
+          "episodes": null,
+          "seasonYear": 2018,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
           "startDate": {
-            "year": 2012,
-            "month": 7,
-            "day": 8
-          },
-          "endDate": {
-            "year": 2012,
-            "month": 12,
-            "day": 23
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "A-1 Pictures"
-              }
-            ]
-          }
-        },
-        {
-          "id": 99147,
-          "title": {
-            "english": "Attack on Titan Season 3",
-            "romaji": "Shingeki no Kyojin Season 3"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
-          },
-          "averageScore": 8.6,
-          "episodes": 12,
-          "seasonYear": 2018,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": {
             "year": 2018,
             "month": 7,
-            "day": 23
+            "day": 19
           },
           "endDate": {
-            "year": 2018,
-            "month": 10,
-            "day": 15
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 21856,
+          "id": 1021,
           "title": {
-            "english": "My Hero Academia Season 2",
-            "romaji": "Boku no Hero Academia 2"
+            "english": null,
+            "romaji": "Fixture Anime 1021"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 25,
-          "seasonYear": 2017,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": {
-            "year": 2017,
-            "month": 4,
-            "day": 1
-          },
-          "endDate": {
-            "year": 2017,
-            "month": 9,
-            "day": 30
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "bones"
-              }
-            ]
-          }
-        },
-        {
-          "id": 110277,
-          "title": {
-            "english": "Attack on Titan Final Season",
-            "romaji": "Shingeki no Kyojin: The Final Season"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
-          },
-          "averageScore": 8.7,
-          "episodes": 16,
-          "seasonYear": 2021,
+          "averageScore": 8,
+          "episodes": 19,
+          "seasonYear": 2020,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
             "year": 2020,
-            "month": 12,
-            "day": 7
+            "month": 9,
+            "day": 21
           },
           "endDate": {
             "year": 2021,
-            "month": 3,
-            "day": 29
+            "month": 9,
+            "day": 21
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 127230,
+          "id": 1022,
           "title": {
-            "english": "Chainsaw Man",
-            "romaji": "Chainsaw Man"
+            "english": null,
+            "romaji": "Fixture Anime 1022"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.1,
+          "episodes": null,
+          "seasonYear": 2021,
+          "format": "Movie",
+          "status": "currently_airing",
+          "genres": ["Action", "Adventure", "Comedy"],
+          "startDate": {
+            "year": 2021,
+            "month": 10,
+            "day": 22
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1023,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1023"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.2,
+          "episodes": 21,
+          "seasonYear": 2022,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Drama", "Fantasy", "Mystery"],
+          "startDate": {
+            "year": 2022,
+            "month": 11,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1024,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1024"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2022,
-          "format": "TV",
+          "episodes": 22,
+          "seasonYear": 2023,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Supernatural"],
           "startDate": {
-            "year": 2022,
-            "month": 10,
-            "day": 12
+            "year": 2023,
+            "month": 12,
+            "day": 24
           },
           "endDate": {
-            "year": 2022,
+            "year": 2024,
             "month": 12,
-            "day": 28
+            "day": 24
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 20755,
+          "id": 1026,
           "title": {
-            "english": "Assassination Classroom",
-            "romaji": "Ansatsu Kyoushitsu"
+            "english": null,
+            "romaji": "Fixture Anime 1026"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 22,
-          "seasonYear": 2015,
-          "format": "TV",
+          "averageScore": 8.5,
+          "episodes": 24,
+          "seasonYear": 2000,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Supernatural"],
           "startDate": {
-            "year": 2015,
-            "month": 1,
-            "day": 10
+            "year": 2000,
+            "month": 2,
+            "day": 26
           },
           "endDate": {
-            "year": 2015,
-            "month": 6,
-            "day": 20
+            "year": 2001,
+            "month": 2,
+            "day": 26
           },
           "studios": {
             "nodes": [
               {
-                "name": "Lerche"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 21507,
+          "id": 1027,
           "title": {
-            "english": "Mob Psycho 100",
-            "romaji": "Mob Psycho 100"
+            "english": null,
+            "romaji": "Fixture Anime 1027"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
+          "averageScore": 8.6,
           "episodes": 12,
-          "seasonYear": 2016,
-          "format": "TV",
+          "seasonYear": 2001,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -1509,38 +1509,38 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2016,
-            "month": 7,
-            "day": 12
+            "year": 2001,
+            "month": 3,
+            "day": 27
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
+            "year": 2002,
+            "month": 3,
             "day": 27
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 21355,
+          "id": 1028,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 1028"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 25,
-          "seasonYear": 2016,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 8.7,
+          "episodes": null,
+          "seasonYear": 2002,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1551,72 +1551,72 @@
             "Thriller"
           ],
           "startDate": {
-            "year": 2016,
+            "year": 2002,
             "month": 4,
-            "day": 4
+            "day": 28
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 19
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 104578,
+          "id": 1030,
           "title": {
-            "english": "Attack on Titan Season 3 Part 2",
-            "romaji": "Shingeki no Kyojin Season 3 Part 2"
+            "english": null,
+            "romaji": "Fixture Anime 1030"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.9,
-          "episodes": 10,
-          "seasonYear": 2019,
-          "format": "TV",
+          "episodes": 15,
+          "seasonYear": 2004,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
           "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 29
+            "year": 2004,
+            "month": 6,
+            "day": 2
           },
           "endDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 1
+            "year": 2005,
+            "month": 6,
+            "day": 2
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 1735,
+          "id": 1031,
           "title": {
-            "english": "Naruto: Shippuden",
-            "romaji": "NARUTO: Shippuuden"
+            "english": null,
+            "romaji": "Fixture Anime 1031"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1735-kGfVm0YqCPcu.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.2,
-          "episodes": 500,
-          "seasonYear": 2007,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 9,
+          "episodes": null,
+          "seasonYear": 2005,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1626,158 +1626,155 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2007,
-            "month": 2,
-            "day": 15
+            "year": 2005,
+            "month": 7,
+            "day": 3
           },
           "endDate": {
-            "year": 2017,
-            "month": 3,
-            "day": 23
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 100166,
+          "id": 1032,
           "title": {
-            "english": "My Hero Academia Season 3",
-            "romaji": "Boku no Hero Academia 3"
+            "english": null,
+            "romaji": "Fixture Anime 1032"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100166-jUCZYbzn2XLw.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 25,
-          "seasonYear": 2018,
-          "format": "TV",
+          "averageScore": 9.1,
+          "episodes": 17,
+          "seasonYear": 2006,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama"],
           "startDate": {
-            "year": 2018,
-            "month": 4,
-            "day": 7
+            "year": 2006,
+            "month": 8,
+            "day": 4
           },
           "endDate": {
-            "year": 2018,
-            "month": 9,
-            "day": 29
+            "year": 2007,
+            "month": 8,
+            "day": 4
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 97940,
+          "id": 1033,
           "title": {
-            "english": "Black Clover",
-            "romaji": "Black Clover"
+            "english": null,
+            "romaji": "Fixture Anime 1033"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97940-fyh8o7gNbha0.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 170,
-          "seasonYear": 2017,
+          "averageScore": 9.2,
+          "episodes": 18,
+          "seasonYear": 2007,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Fantasy"],
           "startDate": {
-            "year": 2017,
-            "month": 10,
-            "day": 3
-          },
-          "endDate": {
-            "year": 2021,
-            "month": 3,
-            "day": 30
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Studio Pierrot"
-              }
-            ]
-          }
-        },
-        {
-          "id": 140960,
-          "title": {
-            "english": "SPY x FAMILY",
-            "romaji": "SPY×FAMILY"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Kb6R5nYQfjmP.jpg"
-          },
-          "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2022,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Comedy", "Slice of Life", "Supernatural"],
-          "startDate": {
-            "year": 2022,
-            "month": 4,
-            "day": 9
-          },
-          "endDate": {
-            "year": 2022,
-            "month": 6,
-            "day": 25
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "CloverWorks"
-              },
-              {
-                "name": "WIT STUDIO"
-              }
-            ]
-          }
-        },
-        {
-          "id": 105333,
-          "title": {
-            "english": "Dr. STONE",
-            "romaji": "Dr. STONE"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
-          },
-          "averageScore": 8.1,
-          "episodes": 24,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": {
-            "year": 2019,
-            "month": 7,
+            "year": 2007,
+            "month": 9,
             "day": 5
           },
           "endDate": {
-            "year": 2019,
-            "month": 12,
-            "day": 13
+            "year": 2008,
+            "month": 9,
+            "day": 5
           },
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1034,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1034"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.3,
+          "episodes": null,
+          "seasonYear": 2008,
+          "format": "Movie",
+          "status": "currently_airing",
+          "genres": ["Action", "Comedy", "Slice of Life", "Supernatural"],
+          "startDate": {
+            "year": 2008,
+            "month": 10,
+            "day": 6
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1035,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1035"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.4,
+          "episodes": 20,
+          "seasonYear": 2009,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
+          "startDate": {
+            "year": 2009,
+            "month": 11,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2010,
+            "month": 11,
+            "day": 7
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
               }
             ]
           }
@@ -1788,54 +1785,54 @@
     "Action:2": {
       "anime": [
         {
-          "id": 101348,
+          "id": 1036,
           "title": {
-            "english": "Vinland Saga",
-            "romaji": "VINLAND SAGA"
+            "english": null,
+            "romaji": "Fixture Anime 1036"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101348-2fhDFPCuMNiz.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.7,
-          "episodes": 24,
-          "seasonYear": 2019,
-          "format": "TV",
+          "averageScore": 9.5,
+          "episodes": 21,
+          "seasonYear": 2010,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama"],
           "startDate": {
-            "year": 2019,
-            "month": 7,
+            "year": 2010,
+            "month": 12,
             "day": 8
           },
           "endDate": {
-            "year": 2019,
+            "year": 2011,
             "month": 12,
-            "day": 30
+            "day": 8
           },
           "studios": {
             "nodes": [
               {
-                "name": "WIT STUDIO"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 20613,
+          "id": 1037,
           "title": {
-            "english": "Akame ga Kill!",
-            "romaji": "Akame ga Kill!"
+            "english": null,
+            "romaji": "Fixture Anime 1037"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20613-HXHpec4bemk5.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.3,
-          "episodes": 24,
-          "seasonYear": 2014,
+          "averageScore": 9.6,
+          "episodes": null,
+          "seasonYear": 2011,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1846,106 +1843,106 @@
             "Thriller"
           ],
           "startDate": {
-            "year": 2014,
-            "month": 7,
-            "day": 7
+            "year": 2011,
+            "month": 1,
+            "day": 9
           },
           "endDate": {
-            "year": 2014,
-            "month": 12,
-            "day": 15
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 20447,
+          "id": 1038,
           "title": {
-            "english": "Noragami",
-            "romaji": "Noragami"
+            "english": null,
+            "romaji": "Fixture Anime 1038"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20447-EoQXeygHaVCK.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.8,
-          "episodes": 12,
-          "seasonYear": 2014,
-          "format": "TV",
+          "averageScore": 9.7,
+          "episodes": 23,
+          "seasonYear": 2012,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Supernatural"],
           "startDate": {
-            "year": 2014,
-            "month": 1,
-            "day": 5
+            "year": 2012,
+            "month": 2,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 2,
+            "day": 10
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1039,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1039"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.8,
+          "episodes": 24,
+          "seasonYear": 2013,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"],
+          "startDate": {
+            "year": 2013,
+            "month": 3,
+            "day": 11
           },
           "endDate": {
             "year": 2014,
             "month": 3,
-            "day": 23
+            "day": 11
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 104276,
+          "id": 1040,
           "title": {
-            "english": "My Hero Academia Season 4",
-            "romaji": "Boku no Hero Academia 4"
+            "english": null,
+            "romaji": "Fixture Anime 1040"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.8,
-          "episodes": 25,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"],
-          "startDate": {
-            "year": 2019,
-            "month": 10,
-            "day": 12
-          },
-          "endDate": {
-            "year": 2020,
-            "month": 4,
-            "day": 4
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "bones"
-              }
-            ]
-          }
-        },
-        {
-          "id": 20789,
-          "title": {
-            "english": "The Seven Deadly Sins",
-            "romaji": "Nanatsu no Taizai"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20789-Ma5ouSYPkru9.jpg"
-          },
-          "averageScore": 7.2,
-          "episodes": 24,
+          "averageScore": 9.9,
+          "episodes": null,
           "seasonYear": 2014,
-          "format": "TV",
-          "status": "finished_airing",
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1956,70 +1953,70 @@
           ],
           "startDate": {
             "year": 2014,
-            "month": 10,
-            "day": 5
+            "month": 4,
+            "day": 12
           },
           "endDate": {
-            "year": 2015,
-            "month": 3,
-            "day": 29
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 269,
+          "id": 1041,
           "title": {
-            "english": "Bleach",
-            "romaji": "BLEACH"
+            "english": null,
+            "romaji": "Fixture Anime 1041"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx269-d2GmRkJbMopq.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.9,
-          "episodes": 366,
-          "seasonYear": 2004,
+          "averageScore": 6,
+          "episodes": 13,
+          "seasonYear": 2015,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Supernatural"],
           "startDate": {
-            "year": 2004,
-            "month": 10,
-            "day": 5
+            "year": 2015,
+            "month": 5,
+            "day": 13
           },
           "endDate": {
-            "year": 2012,
-            "month": 3,
-            "day": 27
+            "year": 2016,
+            "month": 5,
+            "day": 13
           },
           "studios": {
             "nodes": [
               {
-                "name": "Studio Pierrot"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 112151,
+          "id": 1042,
           "title": {
-            "english": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
-            "romaji": "Kimetsu no Yaiba: Mugen Ressha-hen"
+            "english": null,
+            "romaji": "Fixture Anime 1042"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112151-1qlQwPB1RrJe.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
-          "episodes": 1,
-          "seasonYear": 2020,
-          "format": "MOVIE",
+          "averageScore": 6.1,
+          "episodes": 14,
+          "seasonYear": 2016,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -2030,71 +2027,71 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2020,
-            "month": 10,
-            "day": 16
+            "year": 2016,
+            "month": 6,
+            "day": 14
           },
           "endDate": {
-            "year": 2020,
-            "month": 10,
-            "day": 16
+            "year": 2017,
+            "month": 6,
+            "day": 14
           },
           "studios": {
             "nodes": [
               {
-                "name": "ufotable"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 1575,
+          "id": 1043,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion",
-            "romaji": "Code Geass: Hangyaku no Lelouch"
+            "english": null,
+            "romaji": "Fixture Anime 1043"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 25,
-          "seasonYear": 2006,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.2,
+          "episodes": null,
+          "seasonYear": 2017,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
           "startDate": {
-            "year": 2006,
-            "month": 10,
-            "day": 6
+            "year": 2017,
+            "month": 7,
+            "day": 15
           },
           "endDate": {
-            "year": 2007,
-            "month": 7,
-            "day": 28
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 99423,
+          "id": 1044,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 1044"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 6.9,
-          "episodes": 24,
+          "averageScore": 6.3,
+          "episodes": 16,
           "seasonYear": 2018,
-          "format": "TV",
+          "format": "ONA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -2106,107 +2103,104 @@
           ],
           "startDate": {
             "year": 2018,
-            "month": 1,
-            "day": 13
+            "month": 8,
+            "day": 16
           },
           "endDate": {
-            "year": 2018,
-            "month": 7,
-            "day": 7
+            "year": 2019,
+            "month": 8,
+            "day": 16
           },
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
-              },
-              {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 20623,
+          "id": 1045,
           "title": {
-            "english": "Parasyte -the maxim-",
-            "romaji": "Kiseijuu: Sei no Kakuritsu"
+            "english": null,
+            "romaji": "Fixture Anime 1045"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 24,
-          "seasonYear": 2014,
+          "averageScore": 6.4,
+          "episodes": 17,
+          "seasonYear": 2019,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Psychological", "Sci-Fi"],
           "startDate": {
-            "year": 2014,
-            "month": 10,
-            "day": 9
+            "year": 2019,
+            "month": 9,
+            "day": 17
           },
           "endDate": {
-            "year": 2015,
-            "month": 3,
-            "day": 26
+            "year": 2020,
+            "month": 9,
+            "day": 17
           },
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 145064,
+          "id": 1046,
           "title": {
-            "english": "JUJUTSU KAISEN Season 2",
-            "romaji": "Jujutsu Kaisen 2nd Season"
+            "english": null,
+            "romaji": "Fixture Anime 1046"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx145064-hSNRJM03pvv1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.6,
-          "episodes": 23,
-          "seasonYear": 2023,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.5,
+          "episodes": null,
+          "seasonYear": 2020,
+          "format": "Movie",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Supernatural"],
           "startDate": {
-            "year": 2023,
-            "month": 7,
-            "day": 6
+            "year": 2020,
+            "month": 10,
+            "day": 18
           },
           "endDate": {
-            "year": 2023,
-            "month": 12,
-            "day": 28
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 30,
+          "id": 1047,
           "title": {
-            "english": "Neon Genesis Evangelion",
-            "romaji": "Shin Seiki Evangelion"
+            "english": null,
+            "romaji": "Fixture Anime 1047"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 26,
-          "seasonYear": 1995,
-          "format": "TV",
+          "averageScore": 6.6,
+          "episodes": 19,
+          "seasonYear": 2021,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -2217,381 +2211,378 @@
             "Sci-Fi"
           ],
           "startDate": {
-            "year": 1995,
-            "month": 10,
-            "day": 3
-          },
-          "endDate": {
-            "year": 1996,
-            "month": 3,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "GAINAX"
-              },
-              {
-                "name": "Tatsunoko Production"
-              }
-            ]
-          }
-        },
-        {
-          "id": 142329,
-          "title": {
-            "english": "Demon Slayer: Kimetsu no Yaiba Entertainment District Arc",
-            "romaji": "Kimetsu no Yaiba: Yuukaku-hen"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx142329-kET1PIXJv2eW.jpg"
-          },
-          "averageScore": 8.5,
-          "episodes": 11,
-          "seasonYear": 2022,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy", "Supernatural"],
-          "startDate": {
             "year": 2021,
-            "month": 12,
-            "day": 5
+            "month": 11,
+            "day": 19
           },
           "endDate": {
             "year": 2022,
-            "month": 2,
-            "day": 13
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "ufotable"
-              }
-            ]
-          }
-        },
-        {
-          "id": 105310,
-          "title": {
-            "english": "Fire Force",
-            "romaji": "Enen no Shouboutai"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
-          },
-          "averageScore": 7.6,
-          "episodes": 24,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
-          "startDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 6
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 12,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "david production"
-              }
-            ]
-          }
-        },
-        {
-          "id": 14719,
-          "title": {
-            "english": "JoJo's Bizarre Adventure (TV)",
-            "romaji": "JoJo no Kimyou na Bouken (TV)"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14719-VT5dRzTBSZ0w.jpg"
-          },
-          "averageScore": 7.7,
-          "episodes": 26,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Supernatural"],
-          "startDate": {
-            "year": 2012,
-            "month": 10,
-            "day": 6
-          },
-          "endDate": {
-            "year": 2013,
-            "month": 4,
-            "day": 6
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "david production"
-              }
-            ]
-          }
-        },
-        {
-          "id": 1,
-          "title": {
-            "english": "Cowboy Bebop",
-            "romaji": "Cowboy Bebop"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
-          },
-          "averageScore": 8.6,
-          "episodes": 26,
-          "seasonYear": 1998,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Drama", "Sci-Fi"],
-          "startDate": {
-            "year": 1998,
-            "month": 4,
-            "day": 3
-          },
-          "endDate": {
-            "year": 1999,
-            "month": 4,
-            "day": 24
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Sunrise"
-              }
-            ]
-          }
-        },
-        {
-          "id": 101280,
-          "title": {
-            "english": "That Time I Got Reincarnated as a Slime",
-            "romaji": "Tensei Shitara Slime Datta Ken"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101280-tDxCVJm714nt.jpg"
-          },
-          "averageScore": 8,
-          "episodes": 24,
-          "seasonYear": 2018,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Fantasy"],
-          "startDate": {
-            "year": 2018,
-            "month": 10,
-            "day": 2
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 3,
+            "month": 11,
             "day": 19
           },
           "studios": {
             "nodes": [
               {
-                "name": "8-bit"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 97668,
+          "id": 1048,
           "title": {
-            "english": "One-Punch Man Season 2",
-            "romaji": "One Punch Man 2"
+            "english": null,
+            "romaji": "Fixture Anime 1048"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.4,
-          "episodes": 12,
-          "seasonYear": 2019,
-          "format": "TV",
+          "averageScore": 6.7,
+          "episodes": 20,
+          "seasonYear": 2022,
+          "format": "ONA",
           "status": "finished_airing",
-          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
+          "genres": ["Action", "Adventure", "Fantasy", "Supernatural"],
           "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 10
+            "year": 2022,
+            "month": 12,
+            "day": 20
           },
           "endDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 3
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "J.C.STAFF"
-              }
-            ]
-          }
-        },
-        {
-          "id": 99263,
-          "title": {
-            "english": "The Rising of the Shield Hero",
-            "romaji": "Tate no Yuusha no Nariagari"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99263-LcazQwdlWzMy.jpg"
-          },
-          "averageScore": 7.6,
-          "episodes": 25,
-          "seasonYear": 2019,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": {
-            "year": 2019,
-            "month": 1,
-            "day": 9
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 6,
-            "day": 26
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Kinema Citrus"
-              }
-            ]
-          }
-        },
-        {
-          "id": 9919,
-          "title": {
-            "english": "Blue Exorcist",
-            "romaji": "Ao no Exorcist"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9919-nXS7JOZrWHfS.jpg"
-          },
-          "averageScore": 7.2,
-          "episodes": 25,
-          "seasonYear": 2011,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Fantasy", "Supernatural"],
-          "startDate": {
-            "year": 2011,
-            "month": 4,
-            "day": 17
-          },
-          "endDate": {
-            "year": 2011,
-            "month": 10,
-            "day": 2
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "A-1 Pictures"
-              }
-            ]
-          }
-        },
-        {
-          "id": 151807,
-          "title": {
-            "english": "Solo Leveling",
-            "romaji": "Ore dake Level Up na Ken"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151807-it355ZgzquUd.png"
-          },
-          "averageScore": 8,
-          "episodes": 12,
-          "seasonYear": 2024,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": {
-            "year": 2024,
-            "month": 1,
-            "day": 7
-          },
-          "endDate": {
-            "year": 2024,
-            "month": 3,
-            "day": 31
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "A-1 Pictures"
-              }
-            ]
-          }
-        },
-        {
-          "id": 20594,
-          "title": {
-            "english": "Sword Art Online II",
-            "romaji": "Sword Art Online II"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
-          },
-          "averageScore": 6.5,
-          "episodes": 24,
-          "seasonYear": 2014,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
-          "startDate": {
-            "year": 2014,
-            "month": 7,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2014,
+            "year": 2023,
             "month": 12,
             "day": 20
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 101338,
+          "id": 1049,
           "title": {
-            "english": "Mob Psycho 100 II",
-            "romaji": "Mob Psycho 100 II"
+            "english": null,
+            "romaji": "Fixture Anime 1049"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101338-rokVscjRYzdP.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.7,
-          "episodes": 13,
-          "seasonYear": 2019,
+          "averageScore": 6.8,
+          "episodes": null,
+          "seasonYear": 2023,
+          "format": "TV",
+          "status": "currently_airing",
+          "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2023,
+            "month": 1,
+            "day": 21
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1050,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1050"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.9,
+          "episodes": 22,
+          "seasonYear": 2024,
+          "format": "Movie",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Supernatural"],
+          "startDate": {
+            "year": 2024,
+            "month": 2,
+            "day": 22
+          },
+          "endDate": {
+            "year": 2025,
+            "month": 2,
+            "day": 22
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1051,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1051"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7,
+          "episodes": 23,
+          "seasonYear": 2000,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Drama", "Sci-Fi"],
+          "startDate": {
+            "year": 2000,
+            "month": 3,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2001,
+            "month": 3,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1052,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1052"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.1,
+          "episodes": null,
+          "seasonYear": 2001,
+          "format": "ONA",
+          "status": "currently_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Fantasy"],
+          "startDate": {
+            "year": 2001,
+            "month": 4,
+            "day": 24
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1053,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1053"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.2,
+          "episodes": 12,
+          "seasonYear": 2002,
           "format": "TV",
           "status": "finished_airing",
+          "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2002,
+            "month": 5,
+            "day": 25
+          },
+          "endDate": {
+            "year": 2003,
+            "month": 5,
+            "day": 25
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1054,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1054"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.3,
+          "episodes": 13,
+          "seasonYear": 2003,
+          "format": "Movie",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy"],
+          "startDate": {
+            "year": 2003,
+            "month": 6,
+            "day": 26
+          },
+          "endDate": {
+            "year": 2004,
+            "month": 6,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1055,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1055"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.4,
+          "episodes": null,
+          "seasonYear": 2004,
+          "format": "OVA",
+          "status": "currently_airing",
+          "genres": ["Action", "Fantasy", "Supernatural"],
+          "startDate": {
+            "year": 2004,
+            "month": 7,
+            "day": 27
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1056,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1056"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.5,
+          "episodes": 15,
+          "seasonYear": 2005,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy"],
+          "startDate": {
+            "year": 2005,
+            "month": 8,
+            "day": 28
+          },
+          "endDate": {
+            "year": 2006,
+            "month": 8,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1057,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1057"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.6,
+          "episodes": 16,
+          "seasonYear": 2006,
+          "format": "TV",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
+          "startDate": {
+            "year": 2006,
+            "month": 9,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 9,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1058,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1058"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 7.7,
+          "episodes": null,
+          "seasonYear": 2007,
+          "format": "Movie",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -2601,87 +2592,87 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2019,
-            "month": 1,
-            "day": 7
+            "year": 2007,
+            "month": 10,
+            "day": 2
           },
           "endDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 1
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 120120,
+          "id": 1059,
           "title": {
-            "english": "Tokyo Revengers",
-            "romaji": "Tokyo Revengers"
+            "english": null,
+            "romaji": "Fixture Anime 1059"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.7,
-          "episodes": 24,
-          "seasonYear": 2021,
-          "format": "TV",
+          "averageScore": 7.8,
+          "episodes": 18,
+          "seasonYear": 2008,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Romance", "Supernatural"],
           "startDate": {
-            "year": 2021,
-            "month": 4,
-            "day": 11
+            "year": 2008,
+            "month": 11,
+            "day": 3
           },
           "endDate": {
-            "year": 2021,
-            "month": 9,
-            "day": 19
+            "year": 2009,
+            "month": 11,
+            "day": 3
           },
           "studios": {
             "nodes": [
               {
-                "name": "LIDENFILMS"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 131681,
+          "id": 1060,
           "title": {
-            "english": "Attack on Titan Final Season Part 2",
-            "romaji": "Shingeki no Kyojin: The Final Season Part 2"
+            "english": null,
+            "romaji": "Fixture Anime 1060"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx131681-5ooUqvqNtee1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.7,
-          "episodes": 12,
-          "seasonYear": 2022,
-          "format": "TV",
+          "averageScore": 7.9,
+          "episodes": 19,
+          "seasonYear": 2009,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery", "Psychological"],
           "startDate": {
-            "year": 2022,
-            "month": 1,
-            "day": 10
+            "year": 2009,
+            "month": 12,
+            "day": 4
           },
           "endDate": {
-            "year": 2022,
-            "month": 4,
+            "year": 2010,
+            "month": 12,
             "day": 4
           },
           "studios": {
             "nodes": [
               {
-                "name": "MAPPA"
+                "name": "Fixture Studio 5"
               }
             ]
           }
@@ -2692,122 +2683,122 @@
     "Romance:1": {
       "anime": [
         {
-          "id": 20954,
+          "id": 1018,
           "title": {
-            "english": "A Silent Voice",
-            "romaji": "Koe no Katachi"
+            "english": null,
+            "romaji": "Fixture Anime 1018"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.8,
-          "episodes": 1,
-          "seasonYear": 2016,
-          "format": "MOVIE",
+          "averageScore": 7.7,
+          "episodes": 16,
+          "seasonYear": 2017,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 17
+            "year": 2017,
+            "month": 6,
+            "day": 18
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 17
+            "year": 2018,
+            "month": 6,
+            "day": 18
           },
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 11757,
+          "id": 1019,
           "title": {
-            "english": "Sword Art Online",
-            "romaji": "Sword Art Online"
+            "english": null,
+            "romaji": "Fixture Anime 1019"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7,
-          "episodes": 25,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 7.8,
+          "episodes": null,
+          "seasonYear": 2018,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
           "startDate": {
-            "year": 2012,
+            "year": 2018,
             "month": 7,
-            "day": 8
+            "day": 19
           },
           "endDate": {
-            "year": 2012,
-            "month": 12,
-            "day": 23
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 21519,
+          "id": 1020,
           "title": {
-            "english": "Your Name.",
-            "romaji": "Kimi no Na wa."
+            "english": null,
+            "romaji": "Fixture Anime 1020"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 1,
-          "seasonYear": 2016,
-          "format": "MOVIE",
+          "averageScore": 7.9,
+          "episodes": 18,
+          "seasonYear": 2019,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Drama", "Romance", "Supernatural"],
           "startDate": {
-            "year": 2016,
+            "year": 2019,
             "month": 8,
-            "day": 26
+            "day": 20
           },
           "endDate": {
-            "year": 2016,
+            "year": 2020,
             "month": 8,
-            "day": 26
+            "day": 20
           },
           "studios": {
             "nodes": [
               {
-                "name": "CoMix Wave"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 21355,
+          "id": 1028,
           "title": {
-            "english": "Re:ZERO -Starting Life in Another World-",
-            "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
+            "english": null,
+            "romaji": "Fixture Anime 1028"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 25,
-          "seasonYear": 2016,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 8.7,
+          "episodes": null,
+          "seasonYear": 2002,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -2818,72 +2809,72 @@
             "Thriller"
           ],
           "startDate": {
-            "year": 2016,
+            "year": 2002,
             "month": 4,
-            "day": 4
+            "day": 28
           },
           "endDate": {
-            "year": 2016,
-            "month": 9,
-            "day": 19
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 20665,
+          "id": 1029,
           "title": {
-            "english": "Your lie in April",
-            "romaji": "Shigatsu wa Kimi no Uso"
+            "english": null,
+            "romaji": "Fixture Anime 1029"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
-          "episodes": 22,
-          "seasonYear": 2014,
+          "averageScore": 8.8,
+          "episodes": 14,
+          "seasonYear": 2003,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Drama", "Music", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2014,
-            "month": 10,
-            "day": 10
+            "year": 2003,
+            "month": 5,
+            "day": 1
           },
           "endDate": {
-            "year": 2015,
-            "month": 3,
-            "day": 20
+            "year": 2004,
+            "month": 5,
+            "day": 1
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 101291,
+          "id": 1061,
           "title": {
-            "english": "Rascal Does Not Dream of Bunny Girl Senpai",
-            "romaji": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai"
+            "english": null,
+            "romaji": "Fixture Anime 1061"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101291-wfEdgPqtfU0l.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 13,
-          "seasonYear": 2018,
+          "averageScore": 8,
+          "episodes": null,
+          "seasonYear": 2010,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": [
             "Comedy",
             "Drama",
@@ -2893,139 +2884,139 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2018,
-            "month": 10,
-            "day": 4
+            "year": 2010,
+            "month": 1,
+            "day": 5
           },
           "endDate": {
-            "year": 2018,
-            "month": 12,
-            "day": 27
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 101921,
+          "id": 1062,
           "title": {
-            "english": "Kaguya-sama: Love is War",
-            "romaji": "Kaguya-sama wa Kokurasetai: Tensaitachi no Renai Zunousen"
+            "english": null,
+            "romaji": "Fixture Anime 1062"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101921-ufrjLzhSz7L1.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2019,
-          "format": "TV",
+          "averageScore": 8.1,
+          "episodes": 21,
+          "seasonYear": 2011,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Comedy", "Psychological", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2019,
-            "month": 1,
-            "day": 12
+            "year": 2011,
+            "month": 2,
+            "day": 6
           },
           "endDate": {
-            "year": 2019,
-            "month": 3,
-            "day": 30
+            "year": 2012,
+            "month": 2,
+            "day": 6
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 124080,
+          "id": 1063,
           "title": {
-            "english": "Horimiya",
-            "romaji": "Horimiya"
+            "english": null,
+            "romaji": "Fixture Anime 1063"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx124080-3i22mRVPBS0T.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 13,
-          "seasonYear": 2021,
-          "format": "TV",
+          "averageScore": 8.2,
+          "episodes": 22,
+          "seasonYear": 2012,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Comedy", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2021,
-            "month": 1,
-            "day": 10
+            "year": 2012,
+            "month": 3,
+            "day": 7
           },
           "endDate": {
-            "year": 2021,
-            "month": 4,
-            "day": 4
+            "year": 2013,
+            "month": 3,
+            "day": 7
           },
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 4224,
+          "id": 1064,
           "title": {
-            "english": "Toradora!",
-            "romaji": "Toradora!"
+            "english": null,
+            "romaji": "Fixture Anime 1064"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx4224-PXVMBLNwy2aF.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.7,
-          "episodes": 25,
-          "seasonYear": 2008,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 8.3,
+          "episodes": null,
+          "seasonYear": 2013,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2008,
-            "month": 10,
-            "day": 2
+            "year": 2013,
+            "month": 4,
+            "day": 8
           },
           "endDate": {
-            "year": 2009,
-            "month": 3,
-            "day": 26
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 99423,
+          "id": 1044,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 1044"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 6.9,
-          "episodes": 24,
+          "averageScore": 6.3,
+          "episodes": 16,
           "seasonYear": 2018,
-          "format": "TV",
+          "format": "ONA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -3037,277 +3028,274 @@
           ],
           "startDate": {
             "year": 2018,
-            "month": 1,
-            "day": 13
+            "month": 8,
+            "day": 16
           },
           "endDate": {
-            "year": 2018,
-            "month": 7,
-            "day": 7
+            "year": 2019,
+            "month": 8,
+            "day": 16
           },
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
-              },
-              {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 120120,
+          "id": 1059,
           "title": {
-            "english": "Tokyo Revengers",
-            "romaji": "Tokyo Revengers"
+            "english": null,
+            "romaji": "Fixture Anime 1059"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.7,
-          "episodes": 24,
-          "seasonYear": 2021,
-          "format": "TV",
+          "averageScore": 7.8,
+          "episodes": 18,
+          "seasonYear": 2008,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Romance", "Supernatural"],
           "startDate": {
-            "year": 2021,
-            "month": 4,
-            "day": 11
+            "year": 2008,
+            "month": 11,
+            "day": 3
           },
           "endDate": {
-            "year": 2021,
-            "month": 9,
-            "day": 19
+            "year": 2009,
+            "month": 11,
+            "day": 3
           },
           "studios": {
             "nodes": [
               {
-                "name": "LIDENFILMS"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 132405,
+          "id": 1065,
           "title": {
-            "english": "My Dress-Up Darling",
-            "romaji": "Sono Bisque Doll wa Koi wo Suru"
+            "english": null,
+            "romaji": "Fixture Anime 1065"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx132405-qP7FQYGmNI3d.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8,
-          "episodes": 12,
-          "seasonYear": 2022,
+          "averageScore": 8.4,
+          "episodes": 24,
+          "seasonYear": 2014,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Comedy", "Ecchi", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2022,
-            "month": 1,
+            "year": 2014,
+            "month": 5,
             "day": 9
           },
           "endDate": {
-            "year": 2022,
-            "month": 3,
-            "day": 27
+            "year": 2015,
+            "month": 5,
+            "day": 9
           },
           "studios": {
             "nodes": [
               {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 112641,
+          "id": 1066,
           "title": {
-            "english": "Kaguya-sama: Love is War?",
-            "romaji": "Kaguya-sama wa Kokurasetai?: Tensaitachi no Renai Zunousen"
+            "english": null,
+            "romaji": "Fixture Anime 1066"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112641-zoGC8d6FaPXU.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
           "averageScore": 8.5,
           "episodes": 12,
-          "seasonYear": 2020,
-          "format": "TV",
+          "seasonYear": 2015,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Comedy", "Psychological", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2020,
-            "month": 4,
+            "year": 2015,
+            "month": 6,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 6,
+            "day": 10
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1067,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1067"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.6,
+          "episodes": null,
+          "seasonYear": 2016,
+          "format": "OVA",
+          "status": "currently_airing",
+          "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2016,
+            "month": 7,
             "day": 11
           },
           "endDate": {
-            "year": 2020,
-            "month": 6,
-            "day": 27
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 20997,
+          "id": 1068,
           "title": {
             "english": null,
-            "romaji": "Charlotte"
+            "romaji": "Fixture Anime 1068"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.5,
-          "episodes": 13,
-          "seasonYear": 2015,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
-          "startDate": {
-            "year": 2015,
-            "month": 7,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2015,
-            "month": 9,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "P.A.WORKS"
-              }
-            ]
-          }
-        },
-        {
-          "id": 20920,
-          "title": {
-            "english": "Is It Wrong to Try to Pick Up Girls in a Dungeon?",
-            "romaji": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20920-MTREwZOG4BAD.jpg"
-          },
-          "averageScore": 7.3,
-          "episodes": 13,
-          "seasonYear": 2015,
-          "format": "TV",
+          "averageScore": 8.7,
+          "episodes": 14,
+          "seasonYear": 2017,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Fantasy", "Romance"],
           "startDate": {
-            "year": 2015,
-            "month": 4,
-            "day": 4
+            "year": 2017,
+            "month": 8,
+            "day": 12
           },
           "endDate": {
-            "year": 2015,
-            "month": 6,
-            "day": 27
+            "year": 2018,
+            "month": 8,
+            "day": 12
           },
           "studios": {
             "nodes": [
               {
-                "name": "J.C.STAFF"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 15809,
+          "id": 1069,
           "title": {
-            "english": "The Devil is a Part-Timer!",
-            "romaji": "Hataraku Maou-sama!"
+            "english": null,
+            "romaji": "Fixture Anime 1069"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx15809-ECv3HyOYJKrk.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.5,
-          "episodes": 13,
-          "seasonYear": 2013,
+          "averageScore": 8.8,
+          "episodes": 15,
+          "seasonYear": 2018,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Comedy", "Fantasy", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2013,
-            "month": 4,
-            "day": 4
+            "year": 2018,
+            "month": 9,
+            "day": 13
           },
           "endDate": {
-            "year": 2013,
-            "month": 6,
-            "day": 27
+            "year": 2019,
+            "month": 9,
+            "day": 13
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 9989,
+          "id": 1070,
           "title": {
-            "english": "Anohana: The Flower We Saw That Day",
-            "romaji": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai."
+            "english": null,
+            "romaji": "Fixture Anime 1070"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8,
-          "episodes": 11,
-          "seasonYear": 2011,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 8.9,
+          "episodes": null,
+          "seasonYear": 2019,
+          "format": "Movie",
+          "status": "currently_airing",
           "genres": ["Drama", "Romance", "Slice of Life", "Supernatural"],
           "startDate": {
-            "year": 2011,
-            "month": 4,
-            "day": 15
+            "year": 2019,
+            "month": 10,
+            "day": 14
           },
           "endDate": {
-            "year": 2011,
-            "month": 6,
-            "day": 24
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 171018,
+          "id": 1071,
           "title": {
-            "english": "DAN DA DAN",
-            "romaji": "Dandadan"
+            "english": null,
+            "romaji": "Fixture Anime 1071"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2024,
-          "format": "TV",
+          "averageScore": 9,
+          "episodes": 17,
+          "seasonYear": 2020,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -3318,257 +3306,257 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2024,
-            "month": 10,
-            "day": 4
+            "year": 2020,
+            "month": 11,
+            "day": 15
           },
           "endDate": {
-            "year": 2024,
-            "month": 12,
-            "day": 20
+            "year": 2021,
+            "month": 11,
+            "day": 15
           },
           "studios": {
             "nodes": [
               {
-                "name": "Science SARU"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 14813,
+          "id": 1072,
           "title": {
-            "english": "My Teen Romantic Comedy SNAFU",
-            "romaji": "Yahari Ore no Seishun Love Come wa Machigatteiru."
+            "english": null,
+            "romaji": "Fixture Anime 1072"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14813-3mNvcKNEQcDs.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.8,
-          "episodes": 13,
-          "seasonYear": 2013,
-          "format": "TV",
+          "averageScore": 9.1,
+          "episodes": 18,
+          "seasonYear": 2021,
+          "format": "ONA",
           "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
           "startDate": {
-            "year": 2013,
-            "month": 4,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2013,
-            "month": 6,
-            "day": 28
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Brain's Base"
-              }
-            ]
-          }
-        },
-        {
-          "id": 2001,
-          "title": {
-            "english": "Gurren Lagann",
-            "romaji": "Tengen Toppa Gurren Lagann"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
-          },
-          "averageScore": 8.5,
-          "episodes": 27,
-          "seasonYear": 2007,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Comedy", "Drama", "Mecha", "Romance", "Sci-Fi"],
-          "startDate": {
-            "year": 2007,
-            "month": 4,
-            "day": 1
-          },
-          "endDate": {
-            "year": 2007,
-            "month": 9,
-            "day": 30
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "GAINAX"
-              }
-            ]
-          }
-        },
-        {
-          "id": 99750,
-          "title": {
-            "english": "I Want to Eat Your Pancreas",
-            "romaji": "Kimi no Suizou wo Tabetai"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99750-pNyly9d3MEgV.jpg"
-          },
-          "averageScore": 8.4,
-          "episodes": 1,
-          "seasonYear": 2018,
-          "format": "MOVIE",
-          "status": "finished_airing",
-          "genres": ["Drama", "Romance", "Slice of Life"],
-          "startDate": {
-            "year": 2018,
-            "month": 9,
-            "day": 1
-          },
-          "endDate": {
-            "year": 2018,
-            "month": 9,
-            "day": 1
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Studio VOLN"
-              }
-            ]
-          }
-        },
-        {
-          "id": 431,
-          "title": {
-            "english": "Howl‘s Moving Castle",
-            "romaji": "Howl no Ugoku Shiro"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx431-o8Lj3XkjHm2k.jpg"
-          },
-          "averageScore": 8.5,
-          "episodes": 1,
-          "seasonYear": 2004,
-          "format": "MOVIE",
-          "status": "finished_airing",
-          "genres": ["Adventure", "Drama", "Fantasy", "Romance"],
-          "startDate": {
-            "year": 2004,
-            "month": 11,
-            "day": 20
-          },
-          "endDate": {
-            "year": 2004,
-            "month": 11,
-            "day": 20
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Studio Ghibli"
-              }
-            ]
-          }
-        },
-        {
-          "id": 106286,
-          "title": {
-            "english": "Weathering With You",
-            "romaji": "Tenki no Ko"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx106286-5COcpd0J9VbL.png"
-          },
-          "averageScore": 8.1,
-          "episodes": 1,
-          "seasonYear": 2019,
-          "format": "MOVIE",
-          "status": "finished_airing",
-          "genres": ["Drama", "Romance", "Slice of Life", "Supernatural"],
-          "startDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 19
-          },
-          "endDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 19
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "CoMix Wave"
-              }
-            ]
-          }
-        },
-        {
-          "id": 14741,
-          "title": {
-            "english": "Love, Chunibyo & Other Delusions",
-            "romaji": "Chuunibyou demo Koi ga Shitai!"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14741-CGXEIeUe2roA.jpg"
-          },
-          "averageScore": 7.5,
-          "episodes": 12,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
-          "startDate": {
-            "year": 2012,
-            "month": 10,
-            "day": 4
-          },
-          "endDate": {
-            "year": 2012,
+            "year": 2021,
             "month": 12,
-            "day": 20
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Kyoto Animation"
-              }
-            ]
-          }
-        },
-        {
-          "id": 12189,
-          "title": {
-            "english": "Hyouka",
-            "romaji": "Hyouka"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx12189-zj5AWUYO53Fv.jpg"
-          },
-          "averageScore": 7.8,
-          "episodes": 22,
-          "seasonYear": 2012,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Mystery", "Romance", "Slice of Life"],
-          "startDate": {
-            "year": 2012,
-            "month": 4,
-            "day": 23
+            "day": 16
           },
           "endDate": {
-            "year": 2012,
-            "month": 9,
+            "year": 2022,
+            "month": 12,
             "day": 16
           },
           "studios": {
             "nodes": [
               {
-                "name": "Kyoto Animation"
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1073,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1073"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.2,
+          "episodes": null,
+          "seasonYear": 2022,
+          "format": "TV",
+          "status": "currently_airing",
+          "genres": ["Action", "Comedy", "Drama", "Mecha", "Romance", "Sci-Fi"],
+          "startDate": {
+            "year": 2022,
+            "month": 1,
+            "day": 17
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1074,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1074"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.3,
+          "episodes": 20,
+          "seasonYear": 2023,
+          "format": "Movie",
+          "status": "finished_airing",
+          "genres": ["Drama", "Romance", "Slice of Life"],
+          "startDate": {
+            "year": 2023,
+            "month": 2,
+            "day": 18
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 2,
+            "day": 18
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1075,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1075"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.4,
+          "episodes": 21,
+          "seasonYear": 2024,
+          "format": "OVA",
+          "status": "finished_airing",
+          "genres": ["Adventure", "Drama", "Fantasy", "Romance"],
+          "startDate": {
+            "year": 2024,
+            "month": 3,
+            "day": 19
+          },
+          "endDate": {
+            "year": 2025,
+            "month": 3,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1076,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1076"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.5,
+          "episodes": null,
+          "seasonYear": 2000,
+          "format": "ONA",
+          "status": "currently_airing",
+          "genres": ["Drama", "Romance", "Slice of Life", "Supernatural"],
+          "startDate": {
+            "year": 2000,
+            "month": 4,
+            "day": 20
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 1"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1077,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1077"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.6,
+          "episodes": 23,
+          "seasonYear": 2001,
+          "format": "TV",
+          "status": "finished_airing",
+          "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
+          "startDate": {
+            "year": 2001,
+            "month": 5,
+            "day": 21
+          },
+          "endDate": {
+            "year": 2002,
+            "month": 5,
+            "day": 21
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1078,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1078"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.7,
+          "episodes": 24,
+          "seasonYear": 2002,
+          "format": "Movie",
+          "status": "finished_airing",
+          "genres": ["Mystery", "Romance", "Slice of Life"],
+          "startDate": {
+            "year": 2002,
+            "month": 6,
+            "day": 22
+          },
+          "endDate": {
+            "year": 2003,
+            "month": 6,
+            "day": 22
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
               }
             ]
           }
@@ -3579,189 +3567,189 @@
     "Sci-Fi:1": {
       "anime": [
         {
-          "id": 21087,
+          "id": 1013,
           "title": {
-            "english": "One-Punch Man",
-            "romaji": "One Punch Man"
+            "english": null,
+            "romaji": "Fixture Anime 1013"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.2,
-          "episodes": 12,
-          "seasonYear": 2015,
+          "averageScore": 7.2,
+          "episodes": null,
+          "seasonYear": 2012,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
           "startDate": {
-            "year": 2015,
-            "month": 10,
-            "day": 5
+            "year": 2012,
+            "month": 1,
+            "day": 13
           },
           "endDate": {
-            "year": 2015,
-            "month": 12,
-            "day": 21
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 9253,
+          "id": 1079,
           "title": {
-            "english": "Steins;Gate",
-            "romaji": "Steins;Gate"
+            "english": null,
+            "romaji": "Fixture Anime 1079"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9253-tIUXF2gfU8Sg.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.9,
-          "episodes": 24,
-          "seasonYear": 2011,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 9.8,
+          "episodes": null,
+          "seasonYear": 2003,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Drama", "Psychological", "Sci-Fi", "Thriller"],
           "startDate": {
-            "year": 2011,
-            "month": 4,
-            "day": 6
+            "year": 2003,
+            "month": 7,
+            "day": 23
           },
           "endDate": {
-            "year": 2011,
-            "month": 9,
-            "day": 14
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "WHITE FOX"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 105333,
+          "id": 1035,
           "title": {
-            "english": "Dr. STONE",
-            "romaji": "Dr. STONE"
+            "english": null,
+            "romaji": "Fixture Anime 1035"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 24,
-          "seasonYear": 2019,
-          "format": "TV",
+          "averageScore": 9.4,
+          "episodes": 20,
+          "seasonYear": 2009,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
           "startDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 5
+            "year": 2009,
+            "month": 11,
+            "day": 7
           },
           "endDate": {
-            "year": 2019,
-            "month": 12,
-            "day": 13
+            "year": 2010,
+            "month": 11,
+            "day": 7
           },
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 104276,
+          "id": 1039,
           "title": {
-            "english": "My Hero Academia Season 4",
-            "romaji": "Boku no Hero Academia 4"
+            "english": null,
+            "romaji": "Fixture Anime 1039"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.8,
-          "episodes": 25,
-          "seasonYear": 2019,
-          "format": "TV",
+          "averageScore": 9.8,
+          "episodes": 24,
+          "seasonYear": 2013,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"],
           "startDate": {
-            "year": 2019,
-            "month": 10,
-            "day": 12
+            "year": 2013,
+            "month": 3,
+            "day": 11
           },
           "endDate": {
-            "year": 2020,
-            "month": 4,
-            "day": 4
+            "year": 2014,
+            "month": 3,
+            "day": 11
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 1575,
+          "id": 1043,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion",
-            "romaji": "Code Geass: Hangyaku no Lelouch"
+            "english": null,
+            "romaji": "Fixture Anime 1043"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 25,
-          "seasonYear": 2006,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.2,
+          "episodes": null,
+          "seasonYear": 2017,
+          "format": "OVA",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
           "startDate": {
-            "year": 2006,
-            "month": 10,
-            "day": 6
+            "year": 2017,
+            "month": 7,
+            "day": 15
           },
           "endDate": {
-            "year": 2007,
-            "month": 7,
-            "day": 28
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 99423,
+          "id": 1044,
           "title": {
-            "english": "DARLING in the FRANXX",
-            "romaji": "Darling in the Franxx"
+            "english": null,
+            "romaji": "Fixture Anime 1044"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 6.9,
-          "episodes": 24,
+          "averageScore": 6.3,
+          "episodes": 16,
           "seasonYear": 2018,
-          "format": "TV",
+          "format": "ONA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -3773,73 +3761,70 @@
           ],
           "startDate": {
             "year": 2018,
-            "month": 1,
-            "day": 13
+            "month": 8,
+            "day": 16
           },
           "endDate": {
-            "year": 2018,
-            "month": 7,
-            "day": 7
+            "year": 2019,
+            "month": 8,
+            "day": 16
           },
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
-              },
-              {
-                "name": "CloverWorks"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 20623,
+          "id": 1045,
           "title": {
-            "english": "Parasyte -the maxim-",
-            "romaji": "Kiseijuu: Sei no Kakuritsu"
+            "english": null,
+            "romaji": "Fixture Anime 1045"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 24,
-          "seasonYear": 2014,
+          "averageScore": 6.4,
+          "episodes": 17,
+          "seasonYear": 2019,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Psychological", "Sci-Fi"],
           "startDate": {
-            "year": 2014,
-            "month": 10,
-            "day": 9
+            "year": 2019,
+            "month": 9,
+            "day": 17
           },
           "endDate": {
-            "year": 2015,
-            "month": 3,
-            "day": 26
+            "year": 2020,
+            "month": 9,
+            "day": 17
           },
           "studios": {
             "nodes": [
               {
-                "name": "MADHOUSE"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 30,
+          "id": 1047,
           "title": {
-            "english": "Neon Genesis Evangelion",
-            "romaji": "Shin Seiki Evangelion"
+            "english": null,
+            "romaji": "Fixture Anime 1047"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 26,
-          "seasonYear": 1995,
-          "format": "TV",
+          "averageScore": 6.6,
+          "episodes": 19,
+          "seasonYear": 2021,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -3850,243 +3835,240 @@
             "Sci-Fi"
           ],
           "startDate": {
-            "year": 1995,
-            "month": 10,
-            "day": 3
+            "year": 2021,
+            "month": 11,
+            "day": 19
           },
           "endDate": {
-            "year": 1996,
-            "month": 3,
-            "day": 27
+            "year": 2022,
+            "month": 11,
+            "day": 19
           },
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
-              },
-              {
-                "name": "Tatsunoko Production"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 105310,
+          "id": 1049,
           "title": {
-            "english": "Fire Force",
-            "romaji": "Enen no Shouboutai"
+            "english": null,
+            "romaji": "Fixture Anime 1049"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.6,
-          "episodes": 24,
-          "seasonYear": 2019,
+          "averageScore": 6.8,
+          "episodes": null,
+          "seasonYear": 2023,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
           "startDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 6
+            "year": 2023,
+            "month": 1,
+            "day": 21
           },
           "endDate": {
-            "year": 2019,
-            "month": 12,
-            "day": 28
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 1,
+          "id": 1051,
           "title": {
-            "english": "Cowboy Bebop",
-            "romaji": "Cowboy Bebop"
+            "english": null,
+            "romaji": "Fixture Anime 1051"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.6,
-          "episodes": 26,
-          "seasonYear": 1998,
-          "format": "TV",
+          "averageScore": 7,
+          "episodes": 23,
+          "seasonYear": 2000,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Sci-Fi"],
           "startDate": {
-            "year": 1998,
-            "month": 4,
-            "day": 3
+            "year": 2000,
+            "month": 3,
+            "day": 23
           },
           "endDate": {
-            "year": 1999,
-            "month": 4,
-            "day": 24
+            "year": 2001,
+            "month": 3,
+            "day": 23
           },
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 97668,
+          "id": 1053,
           "title": {
-            "english": "One-Punch Man Season 2",
-            "romaji": "One Punch Man 2"
+            "english": null,
+            "romaji": "Fixture Anime 1053"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.4,
+          "averageScore": 7.2,
           "episodes": 12,
-          "seasonYear": 2019,
+          "seasonYear": 2002,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
           "startDate": {
-            "year": 2019,
-            "month": 4,
-            "day": 10
+            "year": 2002,
+            "month": 5,
+            "day": 25
           },
           "endDate": {
-            "year": 2019,
-            "month": 7,
-            "day": 3
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "J.C.STAFF"
-              }
-            ]
-          }
-        },
-        {
-          "id": 20594,
-          "title": {
-            "english": "Sword Art Online II",
-            "romaji": "Sword Art Online II"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
-          },
-          "averageScore": 6.5,
-          "episodes": 24,
-          "seasonYear": 2014,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
-          "startDate": {
-            "year": 2014,
-            "month": 7,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2014,
-            "month": 12,
-            "day": 20
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "A-1 Pictures"
-              }
-            ]
-          }
-        },
-        {
-          "id": 20997,
-          "title": {
-            "english": null,
-            "romaji": "Charlotte"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
-          },
-          "averageScore": 7.5,
-          "episodes": 13,
-          "seasonYear": 2015,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
-          "startDate": {
-            "year": 2015,
-            "month": 7,
-            "day": 5
-          },
-          "endDate": {
-            "year": 2015,
-            "month": 9,
-            "day": 27
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "P.A.WORKS"
-              }
-            ]
-          }
-        },
-        {
-          "id": 117193,
-          "title": {
-            "english": "My Hero Academia Season 5",
-            "romaji": "Boku no Hero Academia 5"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117193-E75BlZmDh1aB.jpg"
-          },
-          "averageScore": 7.3,
-          "episodes": 25,
-          "seasonYear": 2021,
-          "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": {
-            "year": 2021,
-            "month": 3,
-            "day": 27
-          },
-          "endDate": {
-            "year": 2021,
-            "month": 9,
+            "year": 2003,
+            "month": 5,
             "day": 25
           },
           "studios": {
             "nodes": [
               {
-                "name": "bones"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 97986,
+          "id": 1057,
           "title": {
-            "english": "Made in Abyss",
-            "romaji": "Made in Abyss"
+            "english": null,
+            "romaji": "Fixture Anime 1057"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97986-TQ7dCgbS3y5s.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.4,
+          "averageScore": 7.6,
+          "episodes": 16,
+          "seasonYear": 2006,
+          "format": "TV",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
+          "startDate": {
+            "year": 2006,
+            "month": 9,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 9,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1067,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1067"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 8.6,
+          "episodes": null,
+          "seasonYear": 2016,
+          "format": "OVA",
+          "status": "currently_airing",
+          "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
+          "startDate": {
+            "year": 2016,
+            "month": 7,
+            "day": 11
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1080,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1080"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 9.9,
           "episodes": 13,
-          "seasonYear": 2017,
+          "seasonYear": 2004,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
+          "startDate": {
+            "year": 2004,
+            "month": 8,
+            "day": 24
+          },
+          "endDate": {
+            "year": 2005,
+            "month": 8,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 5"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1081,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1081"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6,
+          "episodes": 14,
+          "seasonYear": 2005,
           "format": "TV",
           "status": "finished_airing",
           "genres": [
@@ -4098,71 +4080,71 @@
             "Sci-Fi"
           ],
           "startDate": {
-            "year": 2017,
-            "month": 7,
-            "day": 7
+            "year": 2005,
+            "month": 9,
+            "day": 25
           },
           "endDate": {
-            "year": 2017,
+            "year": 2006,
             "month": 9,
-            "day": 29
+            "day": 25
           },
           "studios": {
             "nodes": [
               {
-                "name": "Kinema Citrus"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 120377,
+          "id": 1082,
           "title": {
-            "english": "Cyberpunk: Edgerunners",
-            "romaji": "Cyberpunk: Edgerunners"
+            "english": null,
+            "romaji": "Fixture Anime 1082"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120377-ayZPoxiWt4Li.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 10,
-          "seasonYear": 2022,
-          "format": "ONA",
-          "status": "finished_airing",
+          "averageScore": 6.1,
+          "episodes": null,
+          "seasonYear": 2006,
+          "format": "Movie",
+          "status": "currently_airing",
           "genres": ["Action", "Drama", "Psychological", "Sci-Fi"],
           "startDate": {
-            "year": 2022,
-            "month": 9,
-            "day": 13
+            "year": 2006,
+            "month": 10,
+            "day": 26
           },
           "endDate": {
-            "year": 2022,
-            "month": 9,
-            "day": 13
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "TRIGGER"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 171018,
+          "id": 1071,
           "title": {
-            "english": "DAN DA DAN",
-            "romaji": "Dandadan"
+            "english": null,
+            "romaji": "Fixture Anime 1071"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 12,
-          "seasonYear": 2024,
-          "format": "TV",
+          "averageScore": 9,
+          "episodes": 17,
+          "seasonYear": 2020,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": [
             "Action",
@@ -4173,291 +4155,291 @@
             "Supernatural"
           ],
           "startDate": {
-            "year": 2024,
-            "month": 10,
-            "day": 4
+            "year": 2020,
+            "month": 11,
+            "day": 15
           },
           "endDate": {
-            "year": 2024,
-            "month": 12,
-            "day": 20
+            "year": 2021,
+            "month": 11,
+            "day": 15
           },
           "studios": {
             "nodes": [
               {
-                "name": "Science SARU"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 2001,
+          "id": 1073,
           "title": {
-            "english": "Gurren Lagann",
-            "romaji": "Tengen Toppa Gurren Lagann"
+            "english": null,
+            "romaji": "Fixture Anime 1073"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 27,
-          "seasonYear": 2007,
+          "averageScore": 9.2,
+          "episodes": null,
+          "seasonYear": 2022,
           "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": ["Action", "Comedy", "Drama", "Mecha", "Romance", "Sci-Fi"],
           "startDate": {
-            "year": 2007,
-            "month": 4,
-            "day": 1
+            "year": 2022,
+            "month": 1,
+            "day": 17
           },
           "endDate": {
-            "year": 2007,
-            "month": 9,
-            "day": 30
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "GAINAX"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 2904,
+          "id": 1083,
           "title": {
-            "english": "Code Geass: Lelouch of the Rebellion R2",
-            "romaji": "Code Geass: Hangyaku no Lelouch R2"
+            "english": null,
+            "romaji": "Fixture Anime 1083"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2904-Fet9Q33suC7G.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.7,
-          "episodes": 25,
-          "seasonYear": 2008,
-          "format": "TV",
+          "averageScore": 6.2,
+          "episodes": 16,
+          "seasonYear": 2007,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
           "startDate": {
-            "year": 2008,
-            "month": 4,
-            "day": 6
+            "year": 2007,
+            "month": 11,
+            "day": 27
           },
           "endDate": {
             "year": 2008,
-            "month": 9,
+            "month": 11,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Fixture Studio 3"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1084,
+          "title": {
+            "english": null,
+            "romaji": "Fixture Anime 1084"
+          },
+          "description": null,
+          "coverImage": {
+            "extraLarge": "/fallback-anime.avif"
+          },
+          "averageScore": 6.3,
+          "episodes": 17,
+          "seasonYear": 2008,
+          "format": "ONA",
+          "status": "finished_airing",
+          "genres": ["Action", "Psychological", "Sci-Fi", "Thriller"],
+          "startDate": {
+            "year": 2008,
+            "month": 12,
+            "day": 28
+          },
+          "endDate": {
+            "year": 2009,
+            "month": 12,
             "day": 28
           },
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 4"
               }
             ]
           }
         },
         {
-          "id": 13601,
+          "id": 1085,
           "title": {
-            "english": "PSYCHO-PASS",
-            "romaji": "PSYCHO-PASS"
+            "english": null,
+            "romaji": "Fixture Anime 1085"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx13601-i42VFuHpqEOJ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.1,
-          "episodes": 22,
-          "seasonYear": 2012,
+          "averageScore": 6.4,
+          "episodes": null,
+          "seasonYear": 2009,
           "format": "TV",
-          "status": "finished_airing",
-          "genres": ["Action", "Psychological", "Sci-Fi", "Thriller"],
-          "startDate": {
-            "year": 2012,
-            "month": 10,
-            "day": 12
-          },
-          "endDate": {
-            "year": 2013,
-            "month": 3,
-            "day": 22
-          },
-          "studios": {
-            "nodes": [
-              {
-                "name": "Production I.G"
-              }
-            ]
-          }
-        },
-        {
-          "id": 113936,
-          "title": {
-            "english": "Dr. STONE: STONE WARS",
-            "romaji": "Dr. STONE: STONE WARS"
-          },
-          "description": null,
-          "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113936-D4eYd4XwslVI.jpg"
-          },
-          "averageScore": 8.1,
-          "episodes": 11,
-          "seasonYear": 2021,
-          "format": "TV",
-          "status": "finished_airing",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
           "startDate": {
-            "year": 2021,
+            "year": 2009,
             "month": 1,
-            "day": 14
+            "day": 1
           },
           "endDate": {
-            "year": 2021,
-            "month": 3,
-            "day": 25
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "TMS Entertainment"
+                "name": "Fixture Studio 5"
               }
             ]
           }
         },
         {
-          "id": 116589,
+          "id": 1086,
           "title": {
-            "english": "86 EIGHTY-SIX",
-            "romaji": "86: Eighty Six"
+            "english": null,
+            "romaji": "Fixture Anime 1086"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116589-KawXHB6sApFt.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.3,
-          "episodes": 11,
-          "seasonYear": 2021,
-          "format": "TV",
+          "averageScore": 6.5,
+          "episodes": 19,
+          "seasonYear": 2010,
+          "format": "Movie",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi"],
           "startDate": {
-            "year": 2021,
-            "month": 4,
-            "day": 11
+            "year": 2010,
+            "month": 2,
+            "day": 2
           },
           "endDate": {
-            "year": 2021,
-            "month": 6,
-            "day": 20
+            "year": 2011,
+            "month": 2,
+            "day": 2
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 1"
               }
             ]
           }
         },
         {
-          "id": 114236,
+          "id": 1087,
           "title": {
-            "english": "Fire Force Season 2",
-            "romaji": "Enen no Shouboutai: Ni no Shou"
+            "english": null,
+            "romaji": "Fixture Anime 1087"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114236-wfQOWF0Ii3h2.png"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.8,
-          "episodes": 24,
-          "seasonYear": 2020,
-          "format": "TV",
+          "averageScore": 6.6,
+          "episodes": 20,
+          "seasonYear": 2011,
+          "format": "OVA",
           "status": "finished_airing",
           "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
           "startDate": {
-            "year": 2020,
-            "month": 7,
-            "day": 4
+            "year": 2011,
+            "month": 3,
+            "day": 3
           },
           "endDate": {
-            "year": 2020,
-            "month": 12,
-            "day": 12
+            "year": 2012,
+            "month": 3,
+            "day": 3
           },
           "studios": {
             "nodes": [
               {
-                "name": "david production"
+                "name": "Fixture Studio 2"
               }
             ]
           }
         },
         {
-          "id": 918,
+          "id": 1088,
           "title": {
-            "english": "Gintama",
-            "romaji": "Gintama"
+            "english": null,
+            "romaji": "Fixture Anime 1088"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx918-iOaeBVUn4uK7.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 8.5,
-          "episodes": 201,
-          "seasonYear": 2006,
-          "format": "TV",
-          "status": "finished_airing",
+          "averageScore": 6.7,
+          "episodes": null,
+          "seasonYear": 2012,
+          "format": "ONA",
+          "status": "currently_airing",
           "genres": ["Action", "Comedy", "Drama", "Sci-Fi"],
           "startDate": {
-            "year": 2006,
+            "year": 2012,
             "month": 4,
             "day": 4
           },
           "endDate": {
-            "year": 2010,
-            "month": 3,
-            "day": 25
+            "year": null,
+            "month": null,
+            "day": null
           },
           "studios": {
             "nodes": [
               {
-                "name": "Sunrise"
+                "name": "Fixture Studio 3"
               }
             ]
           }
         },
         {
-          "id": 100182,
+          "id": 1089,
           "title": {
-            "english": "Sword Art Online: Alicization",
-            "romaji": "Sword Art Online: Alicization"
+            "english": null,
+            "romaji": "Fixture Anime 1089"
           },
           "description": null,
           "coverImage": {
-            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx100182-KctPmCJ2smHQ.jpg"
+            "extraLarge": "/fallback-anime.avif"
           },
-          "averageScore": 7.5,
-          "episodes": 24,
-          "seasonYear": 2018,
+          "averageScore": 6.8,
+          "episodes": 22,
+          "seasonYear": 2013,
           "format": "TV",
           "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
           "startDate": {
-            "year": 2018,
-            "month": 10,
-            "day": 7
+            "year": 2013,
+            "month": 5,
+            "day": 5
           },
           "endDate": {
-            "year": 2019,
-            "month": 3,
-            "day": 31
+            "year": 2014,
+            "month": 5,
+            "day": 5
           },
           "studios": {
             "nodes": [
               {
-                "name": "A-1 Pictures"
+                "name": "Fixture Studio 4"
               }
             ]
           }

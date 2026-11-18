@@ -334,7 +334,7 @@ test("generated HTTP handlers enforce owner, session, input, DTO and cross-origi
     for (const value of [
       "library-known",
       "library-unmapped",
-      "ONE PIECE",
+      "Fixture Anime 21",
       "cdn.myanimelist.net",
     ])
       expect(bobItems).not.toContain(value);
@@ -403,7 +403,7 @@ test("generated HTTP handlers enforce owner, session, input, DTO and cross-origi
       expect(offline).toContain("Alice secret");
       expect(offline).toContain("Trimmed HTTP");
       expect(offline).toContain("Anime unavailable");
-      expect(offline).not.toContain("ONE PIECE");
+      expect(offline).not.toContain("Fixture Anime 21");
     } finally {
       db.prepare(
         "UPDATE cache_entries SET data = ? WHERE key = 'mal:anime:21'"
@@ -562,7 +562,7 @@ for (const size of [
     });
     persisted.close();
     await page
-      .getByRole("link", { name: "ONE PIECE", exact: true })
+      .getByRole("link", { name: "Fixture Anime 21", exact: true })
       .first()
       .click();
     await expect(page).toHaveURL(/\/anime\/21$/);
