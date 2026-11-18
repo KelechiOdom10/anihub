@@ -24,14 +24,28 @@ function Privacy() {
         <h2 className="text-xl font-semibold text-white">What AniHub keeps</h2>
         <p>
           When you sign in with Google or Discord, AniHub keeps your verified
-          email address, your display name and the provider&apos;s account id so
-          it can recognise you next time. It does not keep your profile picture
-          or the provider&apos;s access tokens.
+          email address, your display name, which provider you used, that
+          provider&apos;s id for your account and the permissions you granted,
+          so it can recognise you next time. It also records which version of
+          this policy you agreed to and when. It does not keep the
+          provider&apos;s access tokens or, for new accounts, your profile
+          picture.
         </p>
         <p>
           AniHub also keeps what you create: collections, the anime in them,
-          likes and comments. Each session stores the IP address and browser
-          user agent it was created from, for security.
+          likes and comments. Signing in sets a session cookie, and each session
+          stores the IP address and browser user agent it was created from, for
+          security.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="text-xl font-semibold text-white">
+          What other people can see
+        </h2>
+        <p>
+          Collections are public unless you make them private, and comments are
+          public. Both show your display name.
         </p>
       </section>
 
@@ -47,7 +61,9 @@ function Privacy() {
         <h2 className="text-xl font-semibold text-white">Where it is stored</h2>
         <p>
           AniHub runs on Cloudflare Workers and stores its data in Cloudflare
-          D1. It has no advertising and does not sell or share your data.
+          D1, so Cloudflare processes it on AniHub&apos;s behalf. Google or
+          Discord handle the sign-in itself. AniHub has no advertising and does
+          not sell your data or share it with anyone else.
         </p>
       </section>
 
@@ -56,8 +72,10 @@ function Privacy() {
           Accounts from the original AniHub
         </h2>
         <p>
-          Accounts created on the original AniHub were copied to this version.
-          You will be asked to agree to this policy the next time you sign in.
+          Accounts created on the original AniHub were copied to this version,
+          including the profile picture link if you had one. You will be asked
+          to agree to this policy before your account is first connected to
+          Google or Discord.
         </p>
       </section>
 

@@ -93,8 +93,8 @@ function SignIn() {
               >
                 privacy policy
               </Link>
-              . AniHub keeps your verified email and display name from Google or
-              Discord, and nothing else from them.
+              . From Google or Discord, AniHub keeps your verified email,
+              display name and account id, never your access tokens.
             </span>
           </label>
           {providers.map(({ id, label, icon: Icon }) => (

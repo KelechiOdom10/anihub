@@ -31,6 +31,10 @@ const consentState = z.object({
   privacyConsent: z.literal(privacyPolicyVersion),
 });
 
+const recordedConsent = z.object({
+  privacyPolicyVersion: z.literal(privacyPolicyVersion),
+});
+
 async function consented() {
   return consentState.safeParse(await getOAuthState()).success;
 }
@@ -104,21 +108,51 @@ export function createAuth(database: D1Database, settings: AuthSettings) {
             };
           },
         },
-      },
-      session: {
-        create: {
-          after: async (created, context) => {
-            if (context && (await consented()))
-              await context.context.internalAdapter.updateUser(created.userId, {
-                privacyPolicyVersion,
-                privacyConsentedAt: new Date(),
-              });
-          },
+        update: {
+          before: async (data) => ({ data: { ...data, image: undefined } }),
         },
       },
       account: {
-        create: { before: async (account) => withoutTokens(account) },
+        create: {
+          before: async (account, context) => {
+            const adapter = context?.context.internalAdapter;
+            const owner = await adapter?.findUserById(account.userId);
+
+            if (!recordedConsent.safeParse(owner).success) {
+              if (!adapter || !(await consented()))
+                throw new APIError("FORBIDDEN", {
+                  message:
+                    "Linking a sign-in needs agreement to the privacy policy",
+                });
+
+              await adapter.updateUser(account.userId, {
+                privacyPolicyVersion,
+                privacyConsentedAt: new Date(),
+              });
+            }
+
+            return withoutTokens(account);
+          },
+        },
         update: { before: async (account) => withoutTokens(account) },
+      },
+      session: {
+        create: {
+          before: async (created, context) => {
+            const adapter = context?.context.internalAdapter;
+
+            if (!adapter || !(await consented())) return;
+
+            const owner = await adapter.findUserById(created.userId);
+
+            if (recordedConsent.safeParse(owner).success) return;
+
+            await adapter.updateUser(created.userId, {
+              privacyPolicyVersion,
+              privacyConsentedAt: new Date(),
+            });
+          },
+        },
       },
     },
   });

@@ -91,10 +91,13 @@ type SignInBody = {
   additionalData?: { privacyConsent: string };
 };
 
+let sessionCookie = "";
+
 async function signIn(
   auth: ReturnType<typeof createAuth>,
   provider: string,
-  consent: string | null = privacyPolicyVersion
+  consent: string | null = privacyPolicyVersion,
+  linkTo?: string
 ) {
   const body: SignInBody = {
     provider,
@@ -105,11 +108,18 @@ async function signIn(
   if (consent !== null) body.additionalData = { privacyConsent: consent };
 
   const start = await auth.handler(
-    new Request(origin + "/api/auth/sign-in/social", {
-      method: "POST",
-      headers: { "content-type": "application/json", origin },
-      body: JSON.stringify(body),
-    })
+    new Request(
+      origin + (linkTo ? "/api/auth/link-social" : "/api/auth/sign-in/social"),
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          origin,
+          cookie: linkTo ?? "",
+        },
+        body: JSON.stringify(body),
+      }
+    )
   );
 
   assert.equal(start.status, 200);
@@ -117,9 +127,11 @@ async function signIn(
   const { url } = z.object({ url: z.url() }).parse(await start.json());
   const state = z.string().parse(new URL(url).searchParams.get("state"));
 
-  const cookie = start.headers
-    .getSetCookie()
-    .map((value) => value.split(";")[0])
+  const cookie = [
+    linkTo ?? "",
+    ...start.headers.getSetCookie().map((value) => value.split(";")[0]),
+  ]
+    .filter(Boolean)
     .join("; ");
 
   const callback = await auth.handler(
@@ -130,6 +142,12 @@ async function signIn(
       }
     )
   );
+
+  sessionCookie = callback.headers
+    .getSetCookie()
+    .map((value) => value.split(";")[0])
+    .filter((value) => value.includes("session_token"))
+    .join("; ");
 
   return callback.headers.get("location");
 }
@@ -374,7 +392,7 @@ for (const provider of ["google", "discord"])
     }
   });
 
-test("imported users can still sign in, and their consent is recorded only when given", async (t) => {
+test("imported users must consent before a sign-in is linked, and linked users are not locked out", async (t) => {
   const { d1, dispose } = await createTestDatabase();
 
   stubProviders(t, () => ({
@@ -385,8 +403,7 @@ test("imported users can still sign in, and their consent is recorded only when 
 
   const auth = createAuth(d1, settings);
 
-  const version = () =>
-    d1.prepare("SELECT privacy_policy_version AS v FROM user").first("v");
+  const read = (sql: string) => d1.prepare(sql).first("v");
 
   try {
     await d1
@@ -395,11 +412,80 @@ test("imported users can still sign in, and their consent is recorded only when 
       )
       .run();
 
-    assert.equal(await signIn(auth, "discord", null), "/");
-    assert.equal(await version(), null);
+    assert.notEqual(await signIn(auth, "discord", null), "/");
+    assert.equal(await read("SELECT count(*) AS v FROM account"), 0);
+    assert.equal(await read("SELECT count(*) AS v FROM session"), 0);
 
     assert.equal(await signIn(auth, "discord"), "/");
-    assert.equal(await version(), privacyPolicyVersion);
+    assert.equal(
+      await read("SELECT privacy_policy_version AS v FROM user"),
+      privacyPolicyVersion
+    );
+
+    const consentedAt = await read(
+      "SELECT privacy_consented_at AS v FROM user"
+    );
+
+    await d1
+      .prepare(
+        "UPDATE account SET access_token = 'old', refresh_token = 'old', id_token = 'old', access_token_expires_at = 1"
+      )
+      .run();
+
+    assert.equal(await signIn(auth, "discord"), "/");
+    assert.equal(
+      await read("SELECT privacy_consented_at AS v FROM user"),
+      consentedAt
+    );
+    assert.equal(
+      await read(
+        "SELECT count(*) AS v FROM account WHERE access_token IS NOT NULL OR refresh_token IS NOT NULL OR id_token IS NOT NULL OR access_token_expires_at IS NOT NULL"
+      ),
+      0
+    );
+
+    await d1.prepare("UPDATE user SET privacy_policy_version = NULL").run();
+
+    assert.equal(await signIn(auth, "discord", null), "/");
+    assert.equal(
+      await read("SELECT privacy_policy_version AS v FROM user"),
+      null
+    );
+    assert.ok(sessionCookie);
+
+    const session = sessionCookie;
+
+    assert.notEqual(await signIn(auth, "google", null), "/");
+    assert.equal(
+      await read(
+        "SELECT count(*) AS v FROM account WHERE provider_id = 'google'"
+      ),
+      0
+    );
+
+    await signIn(auth, "google", null, session);
+    assert.equal(
+      await read(
+        "SELECT count(*) AS v FROM account WHERE provider_id = 'google'"
+      ),
+      0
+    );
+    assert.equal(
+      await read("SELECT privacy_policy_version AS v FROM user"),
+      null
+    );
+
+    await signIn(auth, "google", privacyPolicyVersion, session);
+    assert.equal(
+      await read(
+        "SELECT count(*) AS v FROM account WHERE provider_id = 'google'"
+      ),
+      1
+    );
+    assert.equal(
+      await read("SELECT privacy_policy_version AS v FROM user"),
+      privacyPolicyVersion
+    );
   } finally {
     await dispose();
   }
