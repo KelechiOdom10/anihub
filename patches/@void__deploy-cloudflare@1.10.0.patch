@@ -1,0 +1,125 @@
+diff --git a/dist/index.d.mts b/dist/index.d.mts
+index 5b412da47ff72f07836aefbb7a50bb9e542832aa..c0d4749ce679cb93010308b2170b0a5207fd98fb 100644
+--- a/dist/index.d.mts
++++ b/dist/index.d.mts
+@@ -500,6 +500,9 @@ type CloudflareVersionActivationOptions = {
+   fetch?: typeof globalThis.fetch;
+   sleep?: (milliseconds: number) => Promise<void>;
+   readinessAttempts?: number;
++  /** Deployment reads after an atomic publish that may still name the previous version. */
++  publicationConfirmAttempts?: number;
++  publicationConfirmDelayMs?: number;
+   /** Require readiness to report the uploaded Worker's actual version UUID. */
+   requireVersionMetadata?: boolean;
+   /** A binding-preserving handoff without metadata may use only a genuine version preview. */
+@@ -522,6 +525,8 @@ type CloudflareVersionActivationOptions = {
+ };
+ /** Upload, probe, and atomically activate a verified Worker Version. */
+ export declare function activateCloudflareVersion(options: CloudflareVersionActivationOptions): Promise<CloudflareVersionActivation>;
++/** Confirm the published version owns 100% of production traffic, re-reading a stale predecessor within a bound. */
++export declare function verifyPublishedCloudflareOwner(options: Pick<CloudflareVersionActivationOptions, "runWrangler" | "configPath" | "workerName" | "sleep" | "publicationConfirmAttempts" | "publicationConfirmDelayMs">, versionId: string, previousVersionId: string | null): Promise<CloudflareVersionActivation | null>;
+ /**
+  * Normalize an operator-selected readiness origin. Returns `undefined` unless the value is one
+  * exact `https:` origin without a wildcard, credentials, a path, a query, or a fragment. A probe
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 8ae3a41f80085353e0f91add02204647e80cfe1f..c3d386db95b645e2595ff25c85a4ff88555ed496 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -2045,39 +2045,7 @@ async function bootstrapFirstDeployment(options, previousVersionId, atomic = fal
+ 		publishEmptyCustomDomains: options.publishEmptyCustomDomains,
+ 		publishEmptyCrons: options.publishEmptyCrons
+ 	};
+-	const verifyPublishedOwner = async () => {
+-		const owner = await readCurrentProductionVersion(options);
+-		if (owner.kind === "failed") return {
+-			ok: false,
+-			reason: "status-failed",
+-			status: owner.status,
+-			versionId,
+-			previousVersionId,
+-			rollback: "unsafe"
+-		};
+-		if (owner.kind !== "ok" || owner.versionId !== versionId || !productionVersionPercentagesEqual(owner.versions, [{
+-			versionId,
+-			percentage: 100
+-		}])) {
+-			const repair = owner.kind === "ok" && owner.versionId && owner.versionId !== versionId && options.verifyUploader() ? await stabilizeCloudflareVersionTriggers({
+-				...triggerOptions,
+-				targetTriggerConfig: {
+-					...desiredTriggerConfig,
+-					preserve: true
+-				}
+-			}) : null;
+-			return {
+-				ok: false,
+-				reason: "deployment-changed",
+-				versionId,
+-				previousVersionId,
+-				activeVersionId: repair?.activeVersionId ?? (owner.kind === "ok" ? owner.versionId : null),
+-				rollback: "not-needed",
+-				...repair ? { triggerRepair: repair.ok && !repair.targetOwnsTraffic ? "succeeded" : !repair.ok && repair.reason !== "metadata-unavailable" ? "failed" : "unavailable" } : {}
+-			};
+-		}
+-		return null;
+-	};
++	const verifyPublishedOwner = () => verifyPublishedCloudflareOwner(options, versionId, previousVersionId);
+ 	const publishedOwnerFailure = await verifyPublishedOwner();
+ 	if (publishedOwnerFailure) return publishedOwnerFailure;
+ 	if (options.validateUploadedVersion || options.recordVerifiedCandidate) {
+@@ -2256,6 +2224,50 @@ async function readCurrentProductionVersion(options) {
+ function productionVersionPercentagesEqual(actual, expected) {
+ 	return actual.length === expected.length && expected.every((entry) => actual.some((candidate) => candidate.versionId === entry.versionId && candidate.percentage === entry.percentage));
+ }
++/**
++* Confirm which Worker Version owns production traffic after publication. A deployment read taken
++* immediately after an atomic publish can still report the version that served before it, so the
++* known predecessor is re-read within a bound; any other owner still fails closed.
++*/
++async function verifyPublishedCloudflareOwner(options, versionId, previousVersionId) {
++	const attempts = Math.max(1, options.publicationConfirmAttempts ?? 3);
++	let status = await readCurrentProductionVersion(options);
++	for (let attempt = 1; attempt <= attempts; attempt++) {
++		if (status.kind === "failed") return {
++			ok: false,
++			reason: "status-failed",
++			status: status.status,
++			versionId,
++			previousVersionId,
++			rollback: "unsafe"
++		};
++		if (status.kind === "split") return {
++			ok: false,
++			reason: "deployment-changed",
++			versionId,
++			previousVersionId,
++			activeVersionId: null,
++			rollback: "not-needed"
++		};
++		if (status.versionId === versionId && productionVersionPercentagesEqual(status.versions, [{
++			versionId,
++			percentage: 100
++		}])) return null;
++		if (!previousVersionId || status.versionId !== previousVersionId || attempt === attempts) return {
++			ok: false,
++			reason: "deployment-changed",
++			versionId,
++			previousVersionId,
++			activeVersionId: status.versionId,
++			rollback: "not-needed"
++		};
++		await (options.sleep ?? pauseBeforeOwnerRecheck)(options.publicationConfirmDelayMs ?? 1e3);
++		status = await readCurrentProductionVersion(options);
++	}
++}
++function pauseBeforeOwnerRecheck(milliseconds) {
++	return new Promise((resolve) => setTimeout(resolve, milliseconds));
++}
+ function stagedVersionPercentages(previousVersionId, versionId) {
+ 	return previousVersionId ? [{
+ 		versionId: previousVersionId,
+@@ -2622,4 +2634,4 @@ function createCloudflareMetadataRunner(options) {
+ 		return fallback(operation, runOptions);
+ 	};
+ }
+-export { CloudflareWorkerInspectionError, VOID_SECRET_DRAFT_MESSAGE, VOID_SECRET_DRAFT_SOURCE, activateCloudflareVersion, assertCloudflareBindingsPreserved, assertCloudflareDurableObjectLifecycleSupported, assertExistingCloudflareConfig, cloudflareCommandDiagnostic, createCloudflareMetadataRunner, deployCloudflareVersionTraffic, deployCloudflareVersionTriggers, encodeCloudflareVersionMessage, executeCloudflareDeploy, extractWorkersDevSubdomain, normalizeReadinessAccessOrigin, normalizeWorkersDevSubdomain, parseCloudflareVersionMessage, parseRootWranglerConfig, readBindingFieldPresence, readCloudflareTriggerConfig, readCloudflareVersionMigrationTag, readCloudflareWorkerMigrationTag, readConfigEntryString, readExistingCloudflareWorker, readStoredResourceName, readWranglerTopLevelString, renderCloudflareStaticEntry, resolveD1MigrateTarget, stabilizeCloudflareVersionTriggers, stageCloudflareStaticAssets, writeCloudflareFrameworkDeployConfig, writeCloudflareStaticDeployConfig };
++export { CloudflareWorkerInspectionError, VOID_SECRET_DRAFT_MESSAGE, VOID_SECRET_DRAFT_SOURCE, activateCloudflareVersion, assertCloudflareBindingsPreserved, assertCloudflareDurableObjectLifecycleSupported, assertExistingCloudflareConfig, cloudflareCommandDiagnostic, createCloudflareMetadataRunner, deployCloudflareVersionTraffic, deployCloudflareVersionTriggers, encodeCloudflareVersionMessage, executeCloudflareDeploy, extractWorkersDevSubdomain, normalizeReadinessAccessOrigin, normalizeWorkersDevSubdomain, parseCloudflareVersionMessage, parseRootWranglerConfig, readBindingFieldPresence, readCloudflareTriggerConfig, readCloudflareVersionMigrationTag, readCloudflareWorkerMigrationTag, readConfigEntryString, readExistingCloudflareWorker, readStoredResourceName, readWranglerTopLevelString, renderCloudflareStaticEntry, resolveD1MigrateTarget, stabilizeCloudflareVersionTriggers, stageCloudflareStaticAssets, verifyPublishedCloudflareOwner, writeCloudflareFrameworkDeployConfig, writeCloudflareStaticDeployConfig };

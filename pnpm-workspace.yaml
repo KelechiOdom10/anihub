@@ -10,3 +10,5 @@ packageExtensions:
       drizzle-orm: 0.45.4
 overrides:
   "@cloudflare/vite-plugin": 2.0.0-rc.1
+patchedDependencies:
+  "@void/deploy-cloudflare@1.10.0": patches/@void__deploy-cloudflare@1.10.0.patch
