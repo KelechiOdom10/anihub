@@ -48,6 +48,14 @@ test("carousels and the header are keyboard reachable", async ({ page }) => {
     page.getByRole("link", { name: "Home page" }).first()
   ).toBeFocused();
   await page.keyboard.press("Tab");
+  await expect(
+    page.getByRole("link", { name: "Catalog", exact: true })
+  ).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(
+    page.getByRole("link", { name: "My Collections", exact: true })
+  ).toBeFocused();
+  await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Sign in" })).toBeFocused();
   await page.getByRole("link", { name: "ONE PIECE" }).focus();
   await page.keyboard.press("Enter");
