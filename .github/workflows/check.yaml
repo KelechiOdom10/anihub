@@ -60,7 +60,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [browser, library, static]
+        suite: [browser, library, reviews, static]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -76,7 +76,9 @@ jobs:
       - if: matrix.suite == 'browser'
         run: pnpm --filter @anihub/worker test:browser
       - if: matrix.suite == 'library'
-        run: pnpm --filter @anihub/worker test:library
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts library.spec.ts
+      - if: matrix.suite == 'reviews'
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts reviews.spec.ts
       - name: Worker typecheck, unit tests and bundle check
         if: matrix.suite == 'static'
         run: |
@@ -111,4 +113,4 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - run: echo "Worker typecheck, unit tests, bundle and browser suites passed."
+      - run: echo "Worker typecheck, unit tests, bundle, browser and library suites passed."
