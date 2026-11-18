@@ -76,7 +76,7 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({
       </div>
       {failed && (
         <p className="mb-4 text-center text-muted-foreground">
-          AniList didn't respond. Please try again shortly.
+          MyAnimeList didn't respond. Please try again shortly.
         </p>
       )}
       {hasNextPage && (

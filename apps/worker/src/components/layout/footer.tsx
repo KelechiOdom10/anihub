@@ -23,6 +23,17 @@ export function Footer() {
         <Link aria-label="Home page" to="/">
           <Logo aria-label="Logo" className="h-9 w-auto fill-white" />
         </Link>
+        <p className="text-sm text-muted-foreground">
+          Anime data from{" "}
+          <a
+            className="underline underline-offset-4"
+            href="https://myanimelist.net"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MyAnimeList
+          </a>
+        </p>
         <div className="flex gap-2">
           {socials.map(({ name, url, icon: Icon }) => (
             <Button

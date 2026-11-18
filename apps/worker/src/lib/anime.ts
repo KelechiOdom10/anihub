@@ -1,11 +1,9 @@
 import type { Anime } from "../server/anime";
 
 const statusLabels = new Map([
-  ["FINISHED", "Finished Airing"],
-  ["RELEASING", "Currently Airing"],
-  ["NOT_YET_RELEASED", "Not yet aired"],
-  ["CANCELLED", "Cancelled"],
-  ["HIATUS", "On Hiatus"],
+  ["finished_airing", "Finished Airing"],
+  ["currently_airing", "Currently Airing"],
+  ["not_yet_aired", "Not yet aired"],
 ]);
 
 export function englishTitle(anime: Anime) {
@@ -13,14 +11,7 @@ export function englishTitle(anime: Anime) {
 }
 
 export function plainDescription(anime: Anime) {
-  return (anime.description ?? "")
-    .replace(/<br\s*\/?>/gi, " ")
-    .replace(/<[^>]*>/g, "")
-    .replaceAll("&amp;", "&")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#39;", "'")
-    .replace(/\s+/g, " ")
-    .trim();
+  return anime.description ?? "";
 }
 
 export function statusLabel(anime: Anime) {
@@ -28,9 +19,7 @@ export function statusLabel(anime: Anime) {
 }
 
 export function score(anime: Anime) {
-  return anime.averageScore === null
-    ? null
-    : (anime.averageScore / 10).toFixed(1);
+  return anime.averageScore === null ? null : anime.averageScore.toFixed(2);
 }
 
 export function airedDate({ year, month, day }: Anime["startDate"]) {

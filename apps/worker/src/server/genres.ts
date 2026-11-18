@@ -20,6 +20,8 @@ export const legacyGenreIds = new Map([
   ["66", "Mahou Shoujo"],
 ]);
 
+export const genres = [...legacyGenreIds.values()];
+
 export function pickCategories(genres: string[], day: string) {
   let seed = [...day].reduce(
     (hash, character) => Math.imul(hash ^ character.charCodeAt(0), 16777619),

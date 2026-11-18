@@ -1,30 +1,9 @@
 {
-  "genres": [
-    "Action",
-    "Adventure",
-    "Comedy",
-    "Drama",
-    "Ecchi",
-    "Fantasy",
-    "Horror",
-    "Mahou Shoujo",
-    "Mecha",
-    "Music",
-    "Mystery",
-    "Psychological",
-    "Romance",
-    "Sci-Fi",
-    "Slice of Life",
-    "Sports",
-    "Supernatural",
-    "Thriller"
-  ],
   "pages": {
     "all:1": {
       "anime": [
         {
           "id": 16498,
-          "idMal": 16498,
           "title": {
             "english": "Attack on Titan",
             "romaji": "Shingeki no Kyojin"
@@ -33,20 +12,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/16498-8jpFCOcDmneX.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 25,
           "seasonYear": 2013,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2013, "month": 4, "day": 7 },
-          "endDate": { "year": 2013, "month": 9, "day": 28 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 9,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 101922,
-          "idMal": 38000,
           "title": {
             "english": "Demon Slayer: Kimetsu no Yaiba",
             "romaji": "Kimetsu no Yaiba"
@@ -55,58 +46,100 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101922-33MtJGsUSxga.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 26,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
-          "startDate": { "year": 2019, "month": 4, "day": 6 },
-          "endDate": { "year": 2019, "month": 9, "day": 28 },
-          "studios": { "nodes": [{ "name": "ufotable" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 9,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "ufotable"
+              }
+            ]
+          }
         },
         {
           "id": 113415,
-          "idMal": 40748,
-          "title": { "english": "JUJUTSU KAISEN", "romaji": "Jujutsu Kaisen" },
+          "title": {
+            "english": "JUJUTSU KAISEN",
+            "romaji": "Jujutsu Kaisen"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/113415-jQBSkxWAAk83.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 24,
           "seasonYear": 2020,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Supernatural"],
-          "startDate": { "year": 2020, "month": 10, "day": 3 },
-          "endDate": { "year": 2021, "month": 3, "day": 27 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 1535,
-          "idMal": 1535,
-          "title": { "english": "Death Note", "romaji": "DEATH NOTE" },
+          "title": {
+            "english": "Death Note",
+            "romaji": "DEATH NOTE"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1535-kUgkcrfOrkUM.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1535.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 37,
           "seasonYear": 2006,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Mystery", "Psychological", "Supernatural", "Thriller"],
-          "startDate": { "year": 2006, "month": 10, "day": 4 },
-          "endDate": { "year": 2007, "month": 6, "day": 27 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2006,
+            "month": 10,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 6,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 21459,
-          "idMal": 31964,
           "title": {
             "english": "My Hero Academia",
             "romaji": "Boku no Hero Academia"
@@ -115,20 +148,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21459-yeVkolGKdGUV.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 13,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": { "year": 2016, "month": 4, "day": 3 },
-          "endDate": { "year": 2016, "month": 6, "day": 26 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 4,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 6,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 11061,
-          "idMal": 11061,
           "title": {
             "english": "Hunter x Hunter (2011)",
             "romaji": "HUNTER×HUNTER (2011)"
@@ -137,69 +182,113 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11061-8WkkTZ6duKpq.jpg",
-          "averageScore": 89,
+          "averageScore": 8.9,
           "episodes": 148,
           "seasonYear": 2011,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": { "year": 2011, "month": 10, "day": 2 },
-          "endDate": { "year": 2014, "month": 9, "day": 24 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2011,
+            "month": 10,
+            "day": 2
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 9,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 21087,
-          "idMal": 30276,
-          "title": { "english": "One-Punch Man", "romaji": "One Punch Man" },
+          "title": {
+            "english": "One-Punch Man",
+            "romaji": "One Punch Man"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21087-sHb9zUZFsHe1.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 12,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2015, "month": 10, "day": 5 },
-          "endDate": { "year": 2015, "month": 12, "day": 21 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 10,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 12,
+            "day": 21
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 21,
-          "idMal": 21,
-          "title": { "english": "ONE PIECE", "romaji": "ONE PIECE" },
+          "title": {
+            "english": "ONE PIECE",
+            "romaji": "ONE PIECE"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21-wf37VakJmZqs.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": null,
           "seasonYear": 1999,
           "format": "TV",
-          "status": "RELEASING",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
-          "startDate": { "year": 1999, "month": 10, "day": 20 },
-          "endDate": { "year": null, "month": null, "day": null },
-          "studios": { "nodes": [{ "name": "Toei Animation" }] }
+          "startDate": {
+            "year": 1999,
+            "month": 10,
+            "day": 20
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Toei Animation"
+              }
+            ]
+          }
         },
         {
           "id": 20605,
-          "idMal": 22319,
-          "title": { "english": "Tokyo Ghoul", "romaji": "Tokyo Ghoul" },
+          "title": {
+            "english": "Tokyo Ghoul",
+            "romaji": "Tokyo Ghoul"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20605-RCJ7M71zLmrh.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 12,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -208,13 +297,26 @@
             "Psychological",
             "Supernatural"
           ],
-          "startDate": { "year": 2014, "month": 7, "day": 4 },
-          "endDate": { "year": 2014, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 7,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 20958,
-          "idMal": 25777,
           "title": {
             "english": "Attack on Titan Season 2",
             "romaji": "Shingeki no Kyojin Season 2"
@@ -223,20 +325,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20958-Y7eQdz9VENBD.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 12,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2017, "month": 4, "day": 1 },
-          "endDate": { "year": 2017, "month": 6, "day": 17 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 6,
+            "day": 17
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 5114,
-          "idMal": 5114,
           "title": {
             "english": "Fullmetal Alchemist: Brotherhood",
             "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
@@ -245,31 +359,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5114-q0V5URebphSG.jpg",
-          "averageScore": 90,
+          "averageScore": 9,
           "episodes": 64,
           "seasonYear": 2009,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy"],
-          "startDate": { "year": 2009, "month": 4, "day": 5 },
-          "endDate": { "year": 2010, "month": 7, "day": 4 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2009,
+            "month": 4,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2010,
+            "month": 7,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 20,
-          "idMal": 20,
-          "title": { "english": "Naruto", "romaji": "NARUTO" },
+          "title": {
+            "english": "Naruto",
+            "romaji": "NARUTO"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20-HHxhPj5JD13a.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 220,
           "seasonYear": 2002,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -278,32 +406,60 @@
             "Fantasy",
             "Supernatural"
           ],
-          "startDate": { "year": 2002, "month": 10, "day": 3 },
-          "endDate": { "year": 2007, "month": 2, "day": 8 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2002,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 2,
+            "day": 8
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 20954,
-          "idMal": 28851,
-          "title": { "english": "A Silent Voice", "romaji": "Koe no Katachi" },
+          "title": {
+            "english": "A Silent Voice",
+            "romaji": "Koe no Katachi"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20954-f30bHMXa5Qoe.jpg",
-          "averageScore": 88,
+          "averageScore": 8.8,
           "episodes": 1,
           "seasonYear": 2016,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2016, "month": 9, "day": 17 },
-          "endDate": { "year": 2016, "month": 9, "day": 17 },
-          "studios": { "nodes": [{ "name": "Kyoto Animation" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 17
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 17
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kyoto Animation"
+              }
+            ]
+          }
         },
         {
           "id": 11757,
-          "idMal": 11757,
           "title": {
             "english": "Sword Art Online",
             "romaji": "Sword Art Online"
@@ -312,39 +468,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11757-TlEEV9weG4Ag.jpg",
-          "averageScore": 70,
+          "averageScore": 7,
           "episodes": 25,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
-          "startDate": { "year": 2012, "month": 7, "day": 8 },
-          "endDate": { "year": 2012, "month": 12, "day": 23 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 7,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 21519,
-          "idMal": 32281,
-          "title": { "english": "Your Name.", "romaji": "Kimi no Na wa." },
+          "title": {
+            "english": "Your Name.",
+            "romaji": "Kimi no Na wa."
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21519-1ayMXgNlmByb.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 1,
           "seasonYear": 2016,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Supernatural"],
-          "startDate": { "year": 2016, "month": 8, "day": 26 },
-          "endDate": { "year": 2016, "month": 8, "day": 26 },
-          "studios": { "nodes": [{ "name": "CoMix Wave" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 8,
+            "day": 26
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 8,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CoMix Wave"
+              }
+            ]
+          }
         },
         {
           "id": 99147,
-          "idMal": 35760,
           "title": {
             "english": "Attack on Titan Season 3",
             "romaji": "Shingeki no Kyojin Season 3"
@@ -353,20 +536,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99147-HACsFVrynFf5.jpg",
-          "averageScore": 86,
+          "averageScore": 8.6,
           "episodes": 12,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2018, "month": 7, "day": 23 },
-          "endDate": { "year": 2018, "month": 10, "day": 15 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 7,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 10,
+            "day": 15
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 21856,
-          "idMal": 33486,
           "title": {
             "english": "My Hero Academia Season 2",
             "romaji": "Boku no Hero Academia 2"
@@ -375,20 +570,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21856-wtSHgeHFmzdG.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 25,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": { "year": 2017, "month": 4, "day": 1 },
-          "endDate": { "year": 2017, "month": 9, "day": 30 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 9,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 110277,
-          "idMal": 40028,
           "title": {
             "english": "Attack on Titan Final Season",
             "romaji": "Shingeki no Kyojin: The Final Season"
@@ -397,39 +604,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/110277-iuGn6F5bK1U1.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 16,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2020, "month": 12, "day": 7 },
-          "endDate": { "year": 2021, "month": 3, "day": 29 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 12,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 127230,
-          "idMal": 44511,
-          "title": { "english": "Chainsaw Man", "romaji": "Chainsaw Man" },
+          "title": {
+            "english": "Chainsaw Man",
+            "romaji": "Chainsaw Man"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/127230-o8IRwCGVr9KW.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Supernatural"],
-          "startDate": { "year": 2022, "month": 10, "day": 12 },
-          "endDate": { "year": 2022, "month": 12, "day": 28 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2022,
+            "month": 10,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 12,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 101759,
-          "idMal": 37779,
           "title": {
             "english": "The Promised Neverland",
             "romaji": "Yakusoku no Neverland"
@@ -438,12 +672,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101759-8UR7r9MNVpz2.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101759-MhlCoeqnODso.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Drama",
             "Fantasy",
@@ -452,13 +685,26 @@
             "Psychological",
             "Thriller"
           ],
-          "startDate": { "year": 2019, "month": 1, "day": 10 },
-          "endDate": { "year": 2019, "month": 3, "day": 29 },
-          "studios": { "nodes": [{ "name": "CloverWorks" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 1,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 3,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CloverWorks"
+              }
+            ]
+          }
         },
         {
           "id": 20755,
-          "idMal": 24833,
           "title": {
             "english": "Assassination Classroom",
             "romaji": "Ansatsu Kyoushitsu"
@@ -467,31 +713,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20755-D4ipww9U8YkC.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 22,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Supernatural"],
-          "startDate": { "year": 2015, "month": 1, "day": 10 },
-          "endDate": { "year": 2015, "month": 6, "day": 20 },
-          "studios": { "nodes": [{ "name": "Lerche" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 1,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 6,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Lerche"
+              }
+            ]
+          }
         },
         {
           "id": 21507,
-          "idMal": 32182,
-          "title": { "english": "Mob Psycho 100", "romaji": "Mob Psycho 100" },
+          "title": {
+            "english": "Mob Psycho 100",
+            "romaji": "Mob Psycho 100"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21507-Qx8bGsLXUgLo.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 12,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -500,13 +760,26 @@
             "Slice of Life",
             "Supernatural"
           ],
-          "startDate": { "year": 2016, "month": 7, "day": 12 },
-          "endDate": { "year": 2016, "month": 9, "day": 27 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 7,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 21355,
-          "idMal": 31240,
           "title": {
             "english": "Re:ZERO -Starting Life in Another World-",
             "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
@@ -515,12 +788,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21355-f9SjOfEJMk5P.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 25,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -530,13 +802,26 @@
             "Romance",
             "Thriller"
           ],
-          "startDate": { "year": 2016, "month": 4, "day": 4 },
-          "endDate": { "year": 2016, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 20665,
-          "idMal": 23273,
           "title": {
             "english": "Your lie in April",
             "romaji": "Shigatsu wa Kimi no Uso"
@@ -545,20 +830,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20665-j4kSsfhfkM24.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 22,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Music", "Romance", "Slice of Life"],
-          "startDate": { "year": 2014, "month": 10, "day": 10 },
-          "endDate": { "year": 2015, "month": 3, "day": 20 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 10,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 3,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 104578,
-          "idMal": 38524,
           "title": {
             "english": "Attack on Titan Season 3 Part 2",
             "romaji": "Shingeki no Kyojin Season 3 Part 2"
@@ -567,16 +864,29 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/104578-z7SadpYEuAsy.jpg",
-          "averageScore": 89,
+          "averageScore": 8.9,
           "episodes": 10,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2019, "month": 4, "day": 29 },
-          "endDate": { "year": 2019, "month": 7, "day": 1 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 29
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         }
       ],
       "hasNextPage": true
@@ -585,7 +895,6 @@
       "anime": [
         {
           "id": 16498,
-          "idMal": 16498,
           "title": {
             "english": "Attack on Titan",
             "romaji": "Shingeki no Kyojin"
@@ -594,20 +903,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/16498-8jpFCOcDmneX.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 25,
           "seasonYear": 2013,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2013, "month": 4, "day": 7 },
-          "endDate": { "year": 2013, "month": 9, "day": 28 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 9,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 101922,
-          "idMal": 38000,
           "title": {
             "english": "Demon Slayer: Kimetsu no Yaiba",
             "romaji": "Kimetsu no Yaiba"
@@ -616,39 +937,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101922-33MtJGsUSxga.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 26,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy", "Supernatural"],
-          "startDate": { "year": 2019, "month": 4, "day": 6 },
-          "endDate": { "year": 2019, "month": 9, "day": 28 },
-          "studios": { "nodes": [{ "name": "ufotable" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 9,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "ufotable"
+              }
+            ]
+          }
         },
         {
           "id": 113415,
-          "idMal": 40748,
-          "title": { "english": "JUJUTSU KAISEN", "romaji": "Jujutsu Kaisen" },
+          "title": {
+            "english": "JUJUTSU KAISEN",
+            "romaji": "Jujutsu Kaisen"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/113415-jQBSkxWAAk83.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 24,
           "seasonYear": 2020,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Supernatural"],
-          "startDate": { "year": 2020, "month": 10, "day": 3 },
-          "endDate": { "year": 2021, "month": 3, "day": 27 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 21459,
-          "idMal": 31964,
           "title": {
             "english": "My Hero Academia",
             "romaji": "Boku no Hero Academia"
@@ -657,20 +1005,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21459-nYh85uj2Fuwr.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21459-yeVkolGKdGUV.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 13,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": { "year": 2016, "month": 4, "day": 3 },
-          "endDate": { "year": 2016, "month": 6, "day": 26 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 4,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 6,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 11061,
-          "idMal": 11061,
           "title": {
             "english": "Hunter x Hunter (2011)",
             "romaji": "HUNTER×HUNTER (2011)"
@@ -679,69 +1039,113 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11061-y5gsT1hoHuHw.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11061-8WkkTZ6duKpq.jpg",
-          "averageScore": 89,
+          "averageScore": 8.9,
           "episodes": 148,
           "seasonYear": 2011,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": { "year": 2011, "month": 10, "day": 2 },
-          "endDate": { "year": 2014, "month": 9, "day": 24 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2011,
+            "month": 10,
+            "day": 2
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 9,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 21087,
-          "idMal": 30276,
-          "title": { "english": "One-Punch Man", "romaji": "One Punch Man" },
+          "title": {
+            "english": "One-Punch Man",
+            "romaji": "One Punch Man"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21087-sHb9zUZFsHe1.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 12,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2015, "month": 10, "day": 5 },
-          "endDate": { "year": 2015, "month": 12, "day": 21 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 10,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 12,
+            "day": 21
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 21,
-          "idMal": 21,
-          "title": { "english": "ONE PIECE", "romaji": "ONE PIECE" },
+          "title": {
+            "english": "ONE PIECE",
+            "romaji": "ONE PIECE"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21-wf37VakJmZqs.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": null,
           "seasonYear": 1999,
           "format": "TV",
-          "status": "RELEASING",
+          "status": "currently_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama", "Fantasy"],
-          "startDate": { "year": 1999, "month": 10, "day": 20 },
-          "endDate": { "year": null, "month": null, "day": null },
-          "studios": { "nodes": [{ "name": "Toei Animation" }] }
+          "startDate": {
+            "year": 1999,
+            "month": 10,
+            "day": 20
+          },
+          "endDate": {
+            "year": null,
+            "month": null,
+            "day": null
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Toei Animation"
+              }
+            ]
+          }
         },
         {
           "id": 20605,
-          "idMal": 22319,
-          "title": { "english": "Tokyo Ghoul", "romaji": "Tokyo Ghoul" },
+          "title": {
+            "english": "Tokyo Ghoul",
+            "romaji": "Tokyo Ghoul"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20605-RCJ7M71zLmrh.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 12,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -750,13 +1154,26 @@
             "Psychological",
             "Supernatural"
           ],
-          "startDate": { "year": 2014, "month": 7, "day": 4 },
-          "endDate": { "year": 2014, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 7,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 20958,
-          "idMal": 25777,
           "title": {
             "english": "Attack on Titan Season 2",
             "romaji": "Shingeki no Kyojin Season 2"
@@ -765,20 +1182,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20958-HuFJyr54Mmir.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20958-Y7eQdz9VENBD.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 12,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2017, "month": 4, "day": 1 },
-          "endDate": { "year": 2017, "month": 6, "day": 17 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 6,
+            "day": 17
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 5114,
-          "idMal": 5114,
           "title": {
             "english": "Fullmetal Alchemist: Brotherhood",
             "romaji": "Hagane no Renkinjutsushi: FULLMETAL ALCHEMIST"
@@ -787,31 +1216,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx5114-nSWCgQlmOMtj.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/5114-q0V5URebphSG.jpg",
-          "averageScore": 90,
+          "averageScore": 9,
           "episodes": 64,
           "seasonYear": 2009,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Fantasy"],
-          "startDate": { "year": 2009, "month": 4, "day": 5 },
-          "endDate": { "year": 2010, "month": 7, "day": 4 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2009,
+            "month": 4,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2010,
+            "month": 7,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 20,
-          "idMal": 20,
-          "title": { "english": "Naruto", "romaji": "NARUTO" },
+          "title": {
+            "english": "Naruto",
+            "romaji": "NARUTO"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20-dE6UHbFFg1A5.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20-HHxhPj5JD13a.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 220,
           "seasonYear": 2002,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -820,13 +1263,26 @@
             "Fantasy",
             "Supernatural"
           ],
-          "startDate": { "year": 2002, "month": 10, "day": 3 },
-          "endDate": { "year": 2007, "month": 2, "day": 8 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2002,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 2,
+            "day": 8
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 11757,
-          "idMal": 11757,
           "title": {
             "english": "Sword Art Online",
             "romaji": "Sword Art Online"
@@ -835,20 +1291,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11757-TlEEV9weG4Ag.jpg",
-          "averageScore": 70,
+          "averageScore": 7,
           "episodes": 25,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
-          "startDate": { "year": 2012, "month": 7, "day": 8 },
-          "endDate": { "year": 2012, "month": 12, "day": 23 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 7,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 99147,
-          "idMal": 35760,
           "title": {
             "english": "Attack on Titan Season 3",
             "romaji": "Shingeki no Kyojin Season 3"
@@ -857,20 +1325,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99147-AiPDD8cwlCfi.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99147-HACsFVrynFf5.jpg",
-          "averageScore": 86,
+          "averageScore": 8.6,
           "episodes": 12,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2018, "month": 7, "day": 23 },
-          "endDate": { "year": 2018, "month": 10, "day": 15 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 7,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 10,
+            "day": 15
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 21856,
-          "idMal": 33486,
           "title": {
             "english": "My Hero Academia Season 2",
             "romaji": "Boku no Hero Academia 2"
@@ -879,20 +1359,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21856-gutauxhWAwn6.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21856-wtSHgeHFmzdG.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 25,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy"],
-          "startDate": { "year": 2017, "month": 4, "day": 1 },
-          "endDate": { "year": 2017, "month": 9, "day": 30 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 9,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 110277,
-          "idMal": 40028,
           "title": {
             "english": "Attack on Titan Final Season",
             "romaji": "Shingeki no Kyojin: The Final Season"
@@ -901,39 +1393,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110277-sKUNXAsWMNFw.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/110277-iuGn6F5bK1U1.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 16,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2020, "month": 12, "day": 7 },
-          "endDate": { "year": 2021, "month": 3, "day": 29 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 12,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 127230,
-          "idMal": 44511,
-          "title": { "english": "Chainsaw Man", "romaji": "Chainsaw Man" },
+          "title": {
+            "english": "Chainsaw Man",
+            "romaji": "Chainsaw Man"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx127230-DdP4vAdssLoz.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/127230-o8IRwCGVr9KW.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Supernatural"],
-          "startDate": { "year": 2022, "month": 10, "day": 12 },
-          "endDate": { "year": 2022, "month": 12, "day": 28 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2022,
+            "month": 10,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 12,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 20755,
-          "idMal": 24833,
           "title": {
             "english": "Assassination Classroom",
             "romaji": "Ansatsu Kyoushitsu"
@@ -942,31 +1461,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20755-dWrhs569YGUO.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20755-D4ipww9U8YkC.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 22,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Supernatural"],
-          "startDate": { "year": 2015, "month": 1, "day": 10 },
-          "endDate": { "year": 2015, "month": 6, "day": 20 },
-          "studios": { "nodes": [{ "name": "Lerche" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 1,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 6,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Lerche"
+              }
+            ]
+          }
         },
         {
           "id": 21507,
-          "idMal": 32182,
-          "title": { "english": "Mob Psycho 100", "romaji": "Mob Psycho 100" },
+          "title": {
+            "english": "Mob Psycho 100",
+            "romaji": "Mob Psycho 100"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21507-6YUSbh2m0N1p.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21507-Qx8bGsLXUgLo.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 12,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -975,13 +1508,26 @@
             "Slice of Life",
             "Supernatural"
           ],
-          "startDate": { "year": 2016, "month": 7, "day": 12 },
-          "endDate": { "year": 2016, "month": 9, "day": 27 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 7,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 21355,
-          "idMal": 31240,
           "title": {
             "english": "Re:ZERO -Starting Life in Another World-",
             "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
@@ -990,12 +1536,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21355-f9SjOfEJMk5P.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 25,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1005,13 +1550,26 @@
             "Romance",
             "Thriller"
           ],
-          "startDate": { "year": 2016, "month": 4, "day": 4 },
-          "endDate": { "year": 2016, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 104578,
-          "idMal": 38524,
           "title": {
             "english": "Attack on Titan Season 3 Part 2",
             "romaji": "Shingeki no Kyojin Season 3 Part 2"
@@ -1020,20 +1578,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104578-k61nx3LPjvgd.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/104578-z7SadpYEuAsy.jpg",
-          "averageScore": 89,
+          "averageScore": 8.9,
           "episodes": 10,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery"],
-          "startDate": { "year": 2019, "month": 4, "day": 29 },
-          "endDate": { "year": 2019, "month": 7, "day": 1 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 29
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 1735,
-          "idMal": 1735,
           "title": {
             "english": "Naruto: Shippuden",
             "romaji": "NARUTO: Shippuuden"
@@ -1042,12 +1612,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1735-kGfVm0YqCPcu.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1735.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 500,
           "seasonYear": 2007,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1056,13 +1625,26 @@
             "Fantasy",
             "Supernatural"
           ],
-          "startDate": { "year": 2007, "month": 2, "day": 15 },
-          "endDate": { "year": 2017, "month": 3, "day": 23 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2007,
+            "month": 2,
+            "day": 15
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 3,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 100166,
-          "idMal": 36456,
           "title": {
             "english": "My Hero Academia Season 3",
             "romaji": "Boku no Hero Academia 3"
@@ -1071,75 +1653,134 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100166-jUCZYbzn2XLw.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/100166-k7RXwN5vZg0r.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 25,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama"],
-          "startDate": { "year": 2018, "month": 4, "day": 7 },
-          "endDate": { "year": 2018, "month": 9, "day": 29 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 4,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 9,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 97940,
-          "idMal": 34572,
-          "title": { "english": "Black Clover", "romaji": "Black Clover" },
+          "title": {
+            "english": "Black Clover",
+            "romaji": "Black Clover"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97940-fyh8o7gNbha0.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/97940-1URQdQ4U1a0b.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 170,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Fantasy"],
-          "startDate": { "year": 2017, "month": 10, "day": 3 },
-          "endDate": { "year": 2021, "month": 3, "day": 30 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 140960,
-          "idMal": 50265,
-          "title": { "english": "SPY x FAMILY", "romaji": "SPY×FAMILY" },
+          "title": {
+            "english": "SPY x FAMILY",
+            "romaji": "SPY×FAMILY"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Kb6R5nYQfjmP.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/140960-Z7xSvkRxHKfj.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Slice of Life", "Supernatural"],
-          "startDate": { "year": 2022, "month": 4, "day": 9 },
-          "endDate": { "year": 2022, "month": 6, "day": 25 },
+          "startDate": {
+            "year": 2022,
+            "month": 4,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 6,
+            "day": 25
+          },
           "studios": {
-            "nodes": [{ "name": "CloverWorks" }, { "name": "WIT STUDIO" }]
+            "nodes": [
+              {
+                "name": "CloverWorks"
+              },
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
           }
         },
         {
           "id": 105333,
-          "idMal": 38691,
-          "title": { "english": "Dr. STONE", "romaji": "Dr. STONE" },
+          "title": {
+            "english": "Dr. STONE",
+            "romaji": "Dr. STONE"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/105333-KWKGvBM8Hyga.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 24,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": { "year": 2019, "month": 7, "day": 5 },
-          "endDate": { "year": 2019, "month": 12, "day": 13 },
-          "studios": { "nodes": [{ "name": "TMS Entertainment" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 12,
+            "day": 13
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "TMS Entertainment"
+              }
+            ]
+          }
         }
       ],
       "hasNextPage": true
@@ -1148,37 +1789,53 @@
       "anime": [
         {
           "id": 101348,
-          "idMal": 37521,
-          "title": { "english": "Vinland Saga", "romaji": "VINLAND SAGA" },
+          "title": {
+            "english": "Vinland Saga",
+            "romaji": "VINLAND SAGA"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101348-2fhDFPCuMNiz.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101348-pivKKffCAwAY.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 24,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama"],
-          "startDate": { "year": 2019, "month": 7, "day": 8 },
-          "endDate": { "year": 2019, "month": 12, "day": 30 },
-          "studios": { "nodes": [{ "name": "WIT STUDIO" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 12,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WIT STUDIO"
+              }
+            ]
+          }
         },
         {
           "id": 20613,
-          "idMal": 22199,
-          "title": { "english": "Akame ga Kill!", "romaji": "Akame ga Kill!" },
+          "title": {
+            "english": "Akame ga Kill!",
+            "romaji": "Akame ga Kill!"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20613-HXHpec4bemk5.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20613-CoEQF4qKiWDX.jpg",
-          "averageScore": 73,
+          "averageScore": 7.3,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1188,32 +1845,60 @@
             "Psychological",
             "Thriller"
           ],
-          "startDate": { "year": 2014, "month": 7, "day": 7 },
-          "endDate": { "year": 2014, "month": 12, "day": 15 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 7,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 12,
+            "day": 15
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 20447,
-          "idMal": 20507,
-          "title": { "english": "Noragami", "romaji": "Noragami" },
+          "title": {
+            "english": "Noragami",
+            "romaji": "Noragami"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20447-EoQXeygHaVCK.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20447-nlgQQzcgWbgw.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 12,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Supernatural"],
-          "startDate": { "year": 2014, "month": 1, "day": 5 },
-          "endDate": { "year": 2014, "month": 3, "day": 23 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 1,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 3,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 104276,
-          "idMal": 38408,
           "title": {
             "english": "My Hero Academia Season 4",
             "romaji": "Boku no Hero Academia 4"
@@ -1222,20 +1907,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/104276-PQO1pcNzzWT0.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 25,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"],
-          "startDate": { "year": 2019, "month": 10, "day": 12 },
-          "endDate": { "year": 2020, "month": 4, "day": 4 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 10,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 4,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 20789,
-          "idMal": 23755,
           "title": {
             "english": "The Seven Deadly Sins",
             "romaji": "Nanatsu no Taizai"
@@ -1244,12 +1941,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20789-Ma5ouSYPkru9.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20789-qwG9GcxIrmVE.jpg",
-          "averageScore": 72,
+          "averageScore": 7.2,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1258,32 +1954,60 @@
             "Fantasy",
             "Supernatural"
           ],
-          "startDate": { "year": 2014, "month": 10, "day": 5 },
-          "endDate": { "year": 2015, "month": 3, "day": 29 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 10,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 3,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 269,
-          "idMal": 269,
-          "title": { "english": "Bleach", "romaji": "BLEACH" },
+          "title": {
+            "english": "Bleach",
+            "romaji": "BLEACH"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx269-d2GmRkJbMopq.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/269-08ar2HJOUAuL.jpg",
-          "averageScore": 79,
+          "averageScore": 7.9,
           "episodes": 366,
           "seasonYear": 2004,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Supernatural"],
-          "startDate": { "year": 2004, "month": 10, "day": 5 },
-          "endDate": { "year": 2012, "month": 3, "day": 27 },
-          "studios": { "nodes": [{ "name": "Studio Pierrot" }] }
+          "startDate": {
+            "year": 2004,
+            "month": 10,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 3,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Pierrot"
+              }
+            ]
+          }
         },
         {
           "id": 112151,
-          "idMal": 40456,
           "title": {
             "english": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
             "romaji": "Kimetsu no Yaiba: Mugen Ressha-hen"
@@ -1292,12 +2016,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112151-1qlQwPB1RrJe.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/112151-eHCBz19nf2yC.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 1,
           "seasonYear": 2020,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1306,13 +2029,26 @@
             "Mystery",
             "Supernatural"
           ],
-          "startDate": { "year": 2020, "month": 10, "day": 16 },
-          "endDate": { "year": 2020, "month": 10, "day": 16 },
-          "studios": { "nodes": [{ "name": "ufotable" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 16
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 16
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "ufotable"
+              }
+            ]
+          }
         },
         {
           "id": 1575,
-          "idMal": 1575,
           "title": {
             "english": "Code Geass: Lelouch of the Rebellion",
             "romaji": "Code Geass: Hangyaku no Lelouch"
@@ -1321,20 +2057,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1575.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 25,
           "seasonYear": 2006,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
-          "startDate": { "year": 2006, "month": 10, "day": 6 },
-          "endDate": { "year": 2007, "month": 7, "day": 28 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 2006,
+            "month": 10,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 7,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 99423,
-          "idMal": 35849,
           "title": {
             "english": "DARLING in the FRANXX",
             "romaji": "Darling in the Franxx"
@@ -1343,12 +2091,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99423-OQfem628gdxD.jpg",
-          "averageScore": 69,
+          "averageScore": 6.9,
           "episodes": 24,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -1357,15 +2104,29 @@
             "Romance",
             "Sci-Fi"
           ],
-          "startDate": { "year": 2018, "month": 1, "day": 13 },
-          "endDate": { "year": 2018, "month": 7, "day": 7 },
+          "startDate": {
+            "year": 2018,
+            "month": 1,
+            "day": 13
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 7,
+            "day": 7
+          },
           "studios": {
-            "nodes": [{ "name": "TRIGGER" }, { "name": "CloverWorks" }]
+            "nodes": [
+              {
+                "name": "TRIGGER"
+              },
+              {
+                "name": "CloverWorks"
+              }
+            ]
           }
         },
         {
           "id": 20623,
-          "idMal": 22535,
           "title": {
             "english": "Parasyte -the maxim-",
             "romaji": "Kiseijuu: Sei no Kakuritsu"
@@ -1374,20 +2135,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20623-xb9PPf8rGOsG.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Psychological", "Sci-Fi"],
-          "startDate": { "year": 2014, "month": 10, "day": 9 },
-          "endDate": { "year": 2015, "month": 3, "day": 26 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 10,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 3,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 145064,
-          "idMal": 51009,
           "title": {
             "english": "JUJUTSU KAISEN Season 2",
             "romaji": "Jujutsu Kaisen 2nd Season"
@@ -1396,20 +2169,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx145064-hSNRJM03pvv1.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/145064-esDtAY2He7sk.jpg",
-          "averageScore": 86,
+          "averageScore": 8.6,
           "episodes": 23,
           "seasonYear": 2023,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Supernatural"],
-          "startDate": { "year": 2023, "month": 7, "day": 6 },
-          "endDate": { "year": 2023, "month": 12, "day": 28 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2023,
+            "month": 7,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 12,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         },
         {
           "id": 30,
-          "idMal": 30,
           "title": {
             "english": "Neon Genesis Evangelion",
             "romaji": "Shin Seiki Evangelion"
@@ -1418,12 +2203,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/30-gEMoHHIqxDgN.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 26,
           "seasonYear": 1995,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -1432,15 +2216,29 @@
             "Psychological",
             "Sci-Fi"
           ],
-          "startDate": { "year": 1995, "month": 10, "day": 3 },
-          "endDate": { "year": 1996, "month": 3, "day": 27 },
+          "startDate": {
+            "year": 1995,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 1996,
+            "month": 3,
+            "day": 27
+          },
           "studios": {
-            "nodes": [{ "name": "GAINAX" }, { "name": "Tatsunoko Production" }]
+            "nodes": [
+              {
+                "name": "GAINAX"
+              },
+              {
+                "name": "Tatsunoko Production"
+              }
+            ]
           }
         },
         {
           "id": 142329,
-          "idMal": 47778,
           "title": {
             "english": "Demon Slayer: Kimetsu no Yaiba Entertainment District Arc",
             "romaji": "Kimetsu no Yaiba: Yuukaku-hen"
@@ -1449,39 +2247,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx142329-kET1PIXJv2eW.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/142329-i413SzLmToZN.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 11,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Supernatural"],
-          "startDate": { "year": 2021, "month": 12, "day": 5 },
-          "endDate": { "year": 2022, "month": 2, "day": 13 },
-          "studios": { "nodes": [{ "name": "ufotable" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 12,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 2,
+            "day": 13
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "ufotable"
+              }
+            ]
+          }
         },
         {
           "id": 105310,
-          "idMal": 38671,
-          "title": { "english": "Fire Force", "romaji": "Enen no Shouboutai" },
+          "title": {
+            "english": "Fire Force",
+            "romaji": "Enen no Shouboutai"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/105310-ygGL9yweZM2Q.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 24,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2019, "month": 7, "day": 6 },
-          "endDate": { "year": 2019, "month": 12, "day": 28 },
-          "studios": { "nodes": [{ "name": "david production" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 12,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "david production"
+              }
+            ]
+          }
         },
         {
           "id": 14719,
-          "idMal": 14719,
           "title": {
             "english": "JoJo's Bizarre Adventure (TV)",
             "romaji": "JoJo no Kimyou na Bouken (TV)"
@@ -1490,39 +2315,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14719-VT5dRzTBSZ0w.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/14719-m7Hv2AxcNNjM.jpg",
-          "averageScore": 77,
+          "averageScore": 7.7,
           "episodes": 26,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Supernatural"],
-          "startDate": { "year": 2012, "month": 10, "day": 6 },
-          "endDate": { "year": 2013, "month": 4, "day": 6 },
-          "studios": { "nodes": [{ "name": "david production" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 10,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 6
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "david production"
+              }
+            ]
+          }
         },
         {
           "id": 1,
-          "idMal": 1,
-          "title": { "english": "Cowboy Bebop", "romaji": "Cowboy Bebop" },
+          "title": {
+            "english": "Cowboy Bebop",
+            "romaji": "Cowboy Bebop"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1-OquNCNB6srGe.jpg",
-          "averageScore": 86,
+          "averageScore": 8.6,
           "episodes": 26,
           "seasonYear": 1998,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Sci-Fi"],
-          "startDate": { "year": 1998, "month": 4, "day": 3 },
-          "endDate": { "year": 1999, "month": 4, "day": 24 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 1998,
+            "month": 4,
+            "day": 3
+          },
+          "endDate": {
+            "year": 1999,
+            "month": 4,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 101280,
-          "idMal": 37430,
           "title": {
             "english": "That Time I Got Reincarnated as a Slime",
             "romaji": "Tensei Shitara Slime Datta Ken"
@@ -1531,20 +2383,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101280-tDxCVJm714nt.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101280-9t7J3774n955.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 24,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Fantasy"],
-          "startDate": { "year": 2018, "month": 10, "day": 2 },
-          "endDate": { "year": 2019, "month": 3, "day": 19 },
-          "studios": { "nodes": [{ "name": "8-bit" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 10,
+            "day": 2
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 3,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "8-bit"
+              }
+            ]
+          }
         },
         {
           "id": 97668,
-          "idMal": 34134,
           "title": {
             "english": "One-Punch Man Season 2",
             "romaji": "One Punch Man 2"
@@ -1553,20 +2417,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/97668-8Yo3iH2fxbKR.jpg",
-          "averageScore": 74,
+          "averageScore": 7.4,
           "episodes": 12,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2019, "month": 4, "day": 10 },
-          "endDate": { "year": 2019, "month": 7, "day": 3 },
-          "studios": { "nodes": [{ "name": "J.C.STAFF" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 3
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "J.C.STAFF"
+              }
+            ]
+          }
         },
         {
           "id": 99263,
-          "idMal": 35790,
           "title": {
             "english": "The Rising of the Shield Hero",
             "romaji": "Tate no Yuusha no Nariagari"
@@ -1575,39 +2451,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99263-LcazQwdlWzMy.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99263-IwkmdCTsDY1t.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 25,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": { "year": 2019, "month": 1, "day": 9 },
-          "endDate": { "year": 2019, "month": 6, "day": 26 },
-          "studios": { "nodes": [{ "name": "Kinema Citrus" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 1,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 6,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kinema Citrus"
+              }
+            ]
+          }
         },
         {
           "id": 9919,
-          "idMal": 9919,
-          "title": { "english": "Blue Exorcist", "romaji": "Ao no Exorcist" },
+          "title": {
+            "english": "Blue Exorcist",
+            "romaji": "Ao no Exorcist"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9919-nXS7JOZrWHfS.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9919-S5idQm3GbZ80.jpg",
-          "averageScore": 72,
+          "averageScore": 7.2,
           "episodes": 25,
           "seasonYear": 2011,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Fantasy", "Supernatural"],
-          "startDate": { "year": 2011, "month": 4, "day": 17 },
-          "endDate": { "year": 2011, "month": 10, "day": 2 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2011,
+            "month": 4,
+            "day": 17
+          },
+          "endDate": {
+            "year": 2011,
+            "month": 10,
+            "day": 2
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 151807,
-          "idMal": 52299,
           "title": {
             "english": "Solo Leveling",
             "romaji": "Ore dake Level Up na Ken"
@@ -1616,20 +2519,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151807-it355ZgzquUd.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/151807-37yfQA3ym8PA.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 12,
           "seasonYear": 2024,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy"],
-          "startDate": { "year": 2024, "month": 1, "day": 7 },
-          "endDate": { "year": 2024, "month": 3, "day": 31 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2024,
+            "month": 1,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 3,
+            "day": 31
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 20594,
-          "idMal": 21881,
           "title": {
             "english": "Sword Art Online II",
             "romaji": "Sword Art Online II"
@@ -1638,20 +2553,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20594-BZOLwqidcS1G.jpg",
-          "averageScore": 65,
+          "averageScore": 6.5,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
-          "startDate": { "year": 2014, "month": 7, "day": 5 },
-          "endDate": { "year": 2014, "month": 12, "day": 20 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 12,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 101338,
-          "idMal": 37510,
           "title": {
             "english": "Mob Psycho 100 II",
             "romaji": "Mob Psycho 100 II"
@@ -1660,12 +2587,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101338-rokVscjRYzdP.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101338-Rl54Qhx71dUq.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 13,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -1674,13 +2600,26 @@
             "Slice of Life",
             "Supernatural"
           ],
-          "startDate": { "year": 2019, "month": 1, "day": 7 },
-          "endDate": { "year": 2019, "month": 4, "day": 1 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 1,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 120120,
-          "idMal": 42249,
           "title": {
             "english": "Tokyo Revengers",
             "romaji": "Tokyo Revengers"
@@ -1689,20 +2628,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/120120-UDYgoHA69peT.jpg",
-          "averageScore": 77,
+          "averageScore": 7.7,
           "episodes": 24,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Romance", "Supernatural"],
-          "startDate": { "year": 2021, "month": 4, "day": 11 },
-          "endDate": { "year": 2021, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "LIDENFILMS" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 4,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "LIDENFILMS"
+              }
+            ]
+          }
         },
         {
           "id": 131681,
-          "idMal": 48583,
           "title": {
             "english": "Attack on Titan Final Season Part 2",
             "romaji": "Shingeki no Kyojin: The Final Season Part 2"
@@ -1711,16 +2662,29 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx131681-5ooUqvqNtee1.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/131681-3tNurPRsqsfz.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 12,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Fantasy", "Mystery", "Psychological"],
-          "startDate": { "year": 2022, "month": 1, "day": 10 },
-          "endDate": { "year": 2022, "month": 4, "day": 4 },
-          "studios": { "nodes": [{ "name": "MAPPA" }] }
+          "startDate": {
+            "year": 2022,
+            "month": 1,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 4,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MAPPA"
+              }
+            ]
+          }
         }
       ],
       "hasNextPage": true
@@ -1729,26 +2693,40 @@
       "anime": [
         {
           "id": 20954,
-          "idMal": 28851,
-          "title": { "english": "A Silent Voice", "romaji": "Koe no Katachi" },
+          "title": {
+            "english": "A Silent Voice",
+            "romaji": "Koe no Katachi"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20954-sYRfE5jQRtSB.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20954-f30bHMXa5Qoe.jpg",
-          "averageScore": 88,
+          "averageScore": 8.8,
           "episodes": 1,
           "seasonYear": 2016,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2016, "month": 9, "day": 17 },
-          "endDate": { "year": 2016, "month": 9, "day": 17 },
-          "studios": { "nodes": [{ "name": "Kyoto Animation" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 17
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 17
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kyoto Animation"
+              }
+            ]
+          }
         },
         {
           "id": 11757,
-          "idMal": 11757,
           "title": {
             "english": "Sword Art Online",
             "romaji": "Sword Art Online"
@@ -1757,39 +2735,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx11757-SxYDUzdr9rh2.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/11757-TlEEV9weG4Ag.jpg",
-          "averageScore": 70,
+          "averageScore": 7,
           "episodes": 25,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Romance"],
-          "startDate": { "year": 2012, "month": 7, "day": 8 },
-          "endDate": { "year": 2012, "month": 12, "day": 23 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 7,
+            "day": 8
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 23
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 21519,
-          "idMal": 32281,
-          "title": { "english": "Your Name.", "romaji": "Kimi no Na wa." },
+          "title": {
+            "english": "Your Name.",
+            "romaji": "Kimi no Na wa."
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21519-1ayMXgNlmByb.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 1,
           "seasonYear": 2016,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Supernatural"],
-          "startDate": { "year": 2016, "month": 8, "day": 26 },
-          "endDate": { "year": 2016, "month": 8, "day": 26 },
-          "studios": { "nodes": [{ "name": "CoMix Wave" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 8,
+            "day": 26
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 8,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CoMix Wave"
+              }
+            ]
+          }
         },
         {
           "id": 21355,
-          "idMal": 31240,
           "title": {
             "english": "Re:ZERO -Starting Life in Another World-",
             "romaji": "Re:Zero kara Hajimeru Isekai Seikatsu"
@@ -1798,12 +2803,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21355-f9SjOfEJMk5P.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 25,
           "seasonYear": 2016,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Adventure",
@@ -1813,13 +2817,26 @@
             "Romance",
             "Thriller"
           ],
-          "startDate": { "year": 2016, "month": 4, "day": 4 },
-          "endDate": { "year": 2016, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2016,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2016,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 20665,
-          "idMal": 23273,
           "title": {
             "english": "Your lie in April",
             "romaji": "Shigatsu wa Kimi no Uso"
@@ -1828,20 +2845,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20665-j4kSsfhfkM24.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 22,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Music", "Romance", "Slice of Life"],
-          "startDate": { "year": 2014, "month": 10, "day": 10 },
-          "endDate": { "year": 2015, "month": 3, "day": 20 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 10,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 3,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 101291,
-          "idMal": 37450,
           "title": {
             "english": "Rascal Does Not Dream of Bunny Girl Senpai",
             "romaji": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai"
@@ -1850,12 +2879,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101291-wfEdgPqtfU0l.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n101291-fqIUvQ6apEtD.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 13,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Comedy",
             "Drama",
@@ -1864,13 +2892,26 @@
             "Romance",
             "Supernatural"
           ],
-          "startDate": { "year": 2018, "month": 10, "day": 4 },
-          "endDate": { "year": 2018, "month": 12, "day": 27 },
-          "studios": { "nodes": [{ "name": "CloverWorks" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 10,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 12,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CloverWorks"
+              }
+            ]
+          }
         },
         {
           "id": 101921,
-          "idMal": 37999,
           "title": {
             "english": "Kaguya-sama: Love is War",
             "romaji": "Kaguya-sama wa Kokurasetai: Tensaitachi no Renai Zunousen"
@@ -1879,58 +2920,100 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101921-ufrjLzhSz7L1.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101921-GgvvFhlNhzlF.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Psychological", "Romance", "Slice of Life"],
-          "startDate": { "year": 2019, "month": 1, "day": 12 },
-          "endDate": { "year": 2019, "month": 3, "day": 30 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 1,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 3,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 124080,
-          "idMal": 42897,
-          "title": { "english": "Horimiya", "romaji": "Horimiya" },
+          "title": {
+            "english": "Horimiya",
+            "romaji": "Horimiya"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx124080-3i22mRVPBS0T.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/124080-ARyLAHHgikRq.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 13,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Romance", "Slice of Life"],
-          "startDate": { "year": 2021, "month": 1, "day": 10 },
-          "endDate": { "year": 2021, "month": 4, "day": 4 },
-          "studios": { "nodes": [{ "name": "CloverWorks" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 1,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 4,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CloverWorks"
+              }
+            ]
+          }
         },
         {
           "id": 4224,
-          "idMal": 4224,
-          "title": { "english": "Toradora!", "romaji": "Toradora!" },
+          "title": {
+            "english": "Toradora!",
+            "romaji": "Toradora!"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx4224-PXVMBLNwy2aF.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/4224-iPUOHdMde27j.jpg",
-          "averageScore": 77,
+          "averageScore": 7.7,
           "episodes": 25,
           "seasonYear": 2008,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2008, "month": 10, "day": 2 },
-          "endDate": { "year": 2009, "month": 3, "day": 26 },
-          "studios": { "nodes": [{ "name": "J.C.STAFF" }] }
+          "startDate": {
+            "year": 2008,
+            "month": 10,
+            "day": 2
+          },
+          "endDate": {
+            "year": 2009,
+            "month": 3,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "J.C.STAFF"
+              }
+            ]
+          }
         },
         {
           "id": 99423,
-          "idMal": 35849,
           "title": {
             "english": "DARLING in the FRANXX",
             "romaji": "Darling in the Franxx"
@@ -1939,12 +3022,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99423-OQfem628gdxD.jpg",
-          "averageScore": 69,
+          "averageScore": 6.9,
           "episodes": 24,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -1953,15 +3035,29 @@
             "Romance",
             "Sci-Fi"
           ],
-          "startDate": { "year": 2018, "month": 1, "day": 13 },
-          "endDate": { "year": 2018, "month": 7, "day": 7 },
+          "startDate": {
+            "year": 2018,
+            "month": 1,
+            "day": 13
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 7,
+            "day": 7
+          },
           "studios": {
-            "nodes": [{ "name": "TRIGGER" }, { "name": "CloverWorks" }]
+            "nodes": [
+              {
+                "name": "TRIGGER"
+              },
+              {
+                "name": "CloverWorks"
+              }
+            ]
           }
         },
         {
           "id": 120120,
-          "idMal": 42249,
           "title": {
             "english": "Tokyo Revengers",
             "romaji": "Tokyo Revengers"
@@ -1970,20 +3066,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/120120-UDYgoHA69peT.jpg",
-          "averageScore": 77,
+          "averageScore": 7.7,
           "episodes": 24,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Romance", "Supernatural"],
-          "startDate": { "year": 2021, "month": 4, "day": 11 },
-          "endDate": { "year": 2021, "month": 9, "day": 19 },
-          "studios": { "nodes": [{ "name": "LIDENFILMS" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 4,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 9,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "LIDENFILMS"
+              }
+            ]
+          }
         },
         {
           "id": 132405,
-          "idMal": 48736,
           "title": {
             "english": "My Dress-Up Darling",
             "romaji": "Sono Bisque Doll wa Koi wo Suru"
@@ -1992,20 +3100,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx132405-qP7FQYGmNI3d.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/132405-LnPQaqaksEpN.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 12,
           "seasonYear": 2022,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Ecchi", "Romance", "Slice of Life"],
-          "startDate": { "year": 2022, "month": 1, "day": 9 },
-          "endDate": { "year": 2022, "month": 3, "day": 27 },
-          "studios": { "nodes": [{ "name": "CloverWorks" }] }
+          "startDate": {
+            "year": 2022,
+            "month": 1,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 3,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CloverWorks"
+              }
+            ]
+          }
         },
         {
           "id": 112641,
-          "idMal": 40591,
           "title": {
             "english": "Kaguya-sama: Love is War?",
             "romaji": "Kaguya-sama wa Kokurasetai?: Tensaitachi no Renai Zunousen"
@@ -2014,39 +3134,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112641-zoGC8d6FaPXU.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/112641-mKZe0zng0ndV.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 12,
           "seasonYear": 2020,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Psychological", "Romance", "Slice of Life"],
-          "startDate": { "year": 2020, "month": 4, "day": 11 },
-          "endDate": { "year": 2020, "month": 6, "day": 27 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 4,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 6,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 20997,
-          "idMal": 28999,
-          "title": { "english": null, "romaji": "Charlotte" },
+          "title": {
+            "english": null,
+            "romaji": "Charlotte"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20997-nE9VyUa08vS0.jpg",
-          "averageScore": 75,
+          "averageScore": 7.5,
           "episodes": 13,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2015, "month": 7, "day": 5 },
-          "endDate": { "year": 2015, "month": 9, "day": 27 },
-          "studios": { "nodes": [{ "name": "P.A.WORKS" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 9,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "P.A.WORKS"
+              }
+            ]
+          }
         },
         {
           "id": 20920,
-          "idMal": 28121,
           "title": {
             "english": "Is It Wrong to Try to Pick Up Girls in a Dungeon?",
             "romaji": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka"
@@ -2055,20 +3202,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20920-MTREwZOG4BAD.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20920-QZeO1gVTQSUZ.jpg",
-          "averageScore": 73,
+          "averageScore": 7.3,
           "episodes": 13,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Fantasy", "Romance"],
-          "startDate": { "year": 2015, "month": 4, "day": 4 },
-          "endDate": { "year": 2015, "month": 6, "day": 27 },
-          "studios": { "nodes": [{ "name": "J.C.STAFF" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 6,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "J.C.STAFF"
+              }
+            ]
+          }
         },
         {
           "id": 15809,
-          "idMal": 15809,
           "title": {
             "english": "The Devil is a Part-Timer!",
             "romaji": "Hataraku Maou-sama!"
@@ -2077,20 +3236,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx15809-ECv3HyOYJKrk.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/15809-kX2mopBGBw6g.jpg",
-          "averageScore": 75,
+          "averageScore": 7.5,
           "episodes": 13,
           "seasonYear": 2013,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Fantasy", "Romance", "Slice of Life"],
-          "startDate": { "year": 2013, "month": 4, "day": 4 },
-          "endDate": { "year": 2013, "month": 6, "day": 27 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 6,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 9989,
-          "idMal": 9989,
           "title": {
             "english": "Anohana: The Flower We Saw That Day",
             "romaji": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai."
@@ -2099,31 +3270,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9989-hImMg6kCMm6I.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/9989-pyr6rXlV1oAm.jpg",
-          "averageScore": 80,
+          "averageScore": 8,
           "episodes": 11,
           "seasonYear": 2011,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life", "Supernatural"],
-          "startDate": { "year": 2011, "month": 4, "day": 15 },
-          "endDate": { "year": 2011, "month": 6, "day": 24 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2011,
+            "month": 4,
+            "day": 15
+          },
+          "endDate": {
+            "year": 2011,
+            "month": 6,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 171018,
-          "idMal": 57334,
-          "title": { "english": "DAN DA DAN", "romaji": "Dandadan" },
+          "title": {
+            "english": "DAN DA DAN",
+            "romaji": "Dandadan"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171018-SpwPNAduszXl.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2024,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -2132,13 +3317,26 @@
             "Sci-Fi",
             "Supernatural"
           ],
-          "startDate": { "year": 2024, "month": 10, "day": 4 },
-          "endDate": { "year": 2024, "month": 12, "day": 20 },
-          "studios": { "nodes": [{ "name": "Science SARU" }] }
+          "startDate": {
+            "year": 2024,
+            "month": 10,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 12,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Science SARU"
+              }
+            ]
+          }
         },
         {
           "id": 14813,
-          "idMal": 14813,
           "title": {
             "english": "My Teen Romantic Comedy SNAFU",
             "romaji": "Yahari Ore no Seishun Love Come wa Machigatteiru."
@@ -2147,20 +3345,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14813-3mNvcKNEQcDs.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/14813-urImBxyWJUEw.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 13,
           "seasonYear": 2013,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2013, "month": 4, "day": 5 },
-          "endDate": { "year": 2013, "month": 6, "day": 28 },
-          "studios": { "nodes": [{ "name": "Brain's Base" }] }
+          "startDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 6,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Brain's Base"
+              }
+            ]
+          }
         },
         {
           "id": 2001,
-          "idMal": 2001,
           "title": {
             "english": "Gurren Lagann",
             "romaji": "Tengen Toppa Gurren Lagann"
@@ -2169,20 +3379,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2001-3eWhvkau8NV3.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 27,
           "seasonYear": 2007,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Mecha", "Romance", "Sci-Fi"],
-          "startDate": { "year": 2007, "month": 4, "day": 1 },
-          "endDate": { "year": 2007, "month": 9, "day": 30 },
-          "studios": { "nodes": [{ "name": "GAINAX" }] }
+          "startDate": {
+            "year": 2007,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 9,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "GAINAX"
+              }
+            ]
+          }
         },
         {
           "id": 99750,
-          "idMal": 36098,
           "title": {
             "english": "I Want to Eat Your Pancreas",
             "romaji": "Kimi no Suizou wo Tabetai"
@@ -2191,20 +3413,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99750-pNyly9d3MEgV.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99750-KPFW2Jv03b2B.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 1,
           "seasonYear": 2018,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2018, "month": 9, "day": 1 },
-          "endDate": { "year": 2018, "month": 9, "day": 1 },
-          "studios": { "nodes": [{ "name": "Studio VOLN" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 9,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 9,
+            "day": 1
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio VOLN"
+              }
+            ]
+          }
         },
         {
           "id": 431,
-          "idMal": 431,
           "title": {
             "english": "Howl‘s Moving Castle",
             "romaji": "Howl no Ugoku Shiro"
@@ -2213,20 +3447,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx431-o8Lj3XkjHm2k.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/431-fLBlvTgdqLCz.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 1,
           "seasonYear": 2004,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Adventure", "Drama", "Fantasy", "Romance"],
-          "startDate": { "year": 2004, "month": 11, "day": 20 },
-          "endDate": { "year": 2004, "month": 11, "day": 20 },
-          "studios": { "nodes": [{ "name": "Studio Ghibli" }] }
+          "startDate": {
+            "year": 2004,
+            "month": 11,
+            "day": 20
+          },
+          "endDate": {
+            "year": 2004,
+            "month": 11,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Studio Ghibli"
+              }
+            ]
+          }
         },
         {
           "id": 106286,
-          "idMal": 38826,
           "title": {
             "english": "Weathering With You",
             "romaji": "Tenki no Ko"
@@ -2235,20 +3481,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx106286-5COcpd0J9VbL.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/106286-3oKwiwjd7Wkm.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 1,
           "seasonYear": 2019,
           "format": "MOVIE",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Romance", "Slice of Life", "Supernatural"],
-          "startDate": { "year": 2019, "month": 7, "day": 19 },
-          "endDate": { "year": 2019, "month": 7, "day": 19 },
-          "studios": { "nodes": [{ "name": "CoMix Wave" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 19
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 19
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "CoMix Wave"
+              }
+            ]
+          }
         },
         {
           "id": 14741,
-          "idMal": 14741,
           "title": {
             "english": "Love, Chunibyo & Other Delusions",
             "romaji": "Chuunibyou demo Koi ga Shitai!"
@@ -2257,35 +3515,63 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14741-CGXEIeUe2roA.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/14741-7RMdUd7tVfSu.jpg",
-          "averageScore": 75,
+          "averageScore": 7.5,
           "episodes": 12,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Slice of Life"],
-          "startDate": { "year": 2012, "month": 10, "day": 4 },
-          "endDate": { "year": 2012, "month": 12, "day": 20 },
-          "studios": { "nodes": [{ "name": "Kyoto Animation" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 10,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 12,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kyoto Animation"
+              }
+            ]
+          }
         },
         {
           "id": 12189,
-          "idMal": 12189,
-          "title": { "english": "Hyouka", "romaji": "Hyouka" },
+          "title": {
+            "english": "Hyouka",
+            "romaji": "Hyouka"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx12189-zj5AWUYO53Fv.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/12189-TG0peUcKFqur.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 22,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Mystery", "Romance", "Slice of Life"],
-          "startDate": { "year": 2012, "month": 4, "day": 23 },
-          "endDate": { "year": 2012, "month": 9, "day": 16 },
-          "studios": { "nodes": [{ "name": "Kyoto Animation" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 4,
+            "day": 23
+          },
+          "endDate": {
+            "year": 2012,
+            "month": 9,
+            "day": 16
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kyoto Animation"
+              }
+            ]
+          }
         }
       ],
       "hasNextPage": true
@@ -2294,64 +3580,108 @@
       "anime": [
         {
           "id": 21087,
-          "idMal": 30276,
-          "title": { "english": "One-Punch Man", "romaji": "One Punch Man" },
+          "title": {
+            "english": "One-Punch Man",
+            "romaji": "One Punch Man"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21087-B5DHjqZ3kW4b.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21087-sHb9zUZFsHe1.jpg",
-          "averageScore": 82,
+          "averageScore": 8.2,
           "episodes": 12,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2015, "month": 10, "day": 5 },
-          "endDate": { "year": 2015, "month": 12, "day": 21 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 10,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 12,
+            "day": 21
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 9253,
-          "idMal": 9253,
-          "title": { "english": "Steins;Gate", "romaji": "Steins;Gate" },
+          "title": {
+            "english": "Steins;Gate",
+            "romaji": "Steins;Gate"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9253-tIUXF2gfU8Sg.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/n9253-JIhmKgBKsWUN.jpg",
-          "averageScore": 89,
+          "averageScore": 8.9,
           "episodes": 24,
           "seasonYear": 2011,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Drama", "Psychological", "Sci-Fi", "Thriller"],
-          "startDate": { "year": 2011, "month": 4, "day": 6 },
-          "endDate": { "year": 2011, "month": 9, "day": 14 },
-          "studios": { "nodes": [{ "name": "WHITE FOX" }] }
+          "startDate": {
+            "year": 2011,
+            "month": 4,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2011,
+            "month": 9,
+            "day": 14
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "WHITE FOX"
+              }
+            ]
+          }
         },
         {
           "id": 105333,
-          "idMal": 38691,
-          "title": { "english": "Dr. STONE", "romaji": "Dr. STONE" },
+          "title": {
+            "english": "Dr. STONE",
+            "romaji": "Dr. STONE"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105333-GybuoSoOZfpH.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/105333-KWKGvBM8Hyga.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 24,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": { "year": 2019, "month": 7, "day": 5 },
-          "endDate": { "year": 2019, "month": 12, "day": 13 },
-          "studios": { "nodes": [{ "name": "TMS Entertainment" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 12,
+            "day": 13
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "TMS Entertainment"
+              }
+            ]
+          }
         },
         {
           "id": 104276,
-          "idMal": 38408,
           "title": {
             "english": "My Hero Academia Season 4",
             "romaji": "Boku no Hero Academia 4"
@@ -2360,20 +3690,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx104276-SnEowMvesWIE.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/104276-PQO1pcNzzWT0.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 25,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"],
-          "startDate": { "year": 2019, "month": 10, "day": 12 },
-          "endDate": { "year": 2020, "month": 4, "day": 4 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 10,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 4,
+            "day": 4
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 1575,
-          "idMal": 1575,
           "title": {
             "english": "Code Geass: Lelouch of the Rebellion",
             "romaji": "Code Geass: Hangyaku no Lelouch"
@@ -2382,20 +3724,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1575-hsmWM2ydNm1m.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1575.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 25,
           "seasonYear": 2006,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
-          "startDate": { "year": 2006, "month": 10, "day": 6 },
-          "endDate": { "year": 2007, "month": 7, "day": 28 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 2006,
+            "month": 10,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 7,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 99423,
-          "idMal": 35849,
           "title": {
             "english": "DARLING in the FRANXX",
             "romaji": "Darling in the Franxx"
@@ -2404,12 +3758,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx99423-8MBxtwCeHf8B.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/99423-OQfem628gdxD.jpg",
-          "averageScore": 69,
+          "averageScore": 6.9,
           "episodes": 24,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -2418,15 +3771,29 @@
             "Romance",
             "Sci-Fi"
           ],
-          "startDate": { "year": 2018, "month": 1, "day": 13 },
-          "endDate": { "year": 2018, "month": 7, "day": 7 },
+          "startDate": {
+            "year": 2018,
+            "month": 1,
+            "day": 13
+          },
+          "endDate": {
+            "year": 2018,
+            "month": 7,
+            "day": 7
+          },
           "studios": {
-            "nodes": [{ "name": "TRIGGER" }, { "name": "CloverWorks" }]
+            "nodes": [
+              {
+                "name": "TRIGGER"
+              },
+              {
+                "name": "CloverWorks"
+              }
+            ]
           }
         },
         {
           "id": 20623,
-          "idMal": 22535,
           "title": {
             "english": "Parasyte -the maxim-",
             "romaji": "Kiseijuu: Sei no Kakuritsu"
@@ -2435,20 +3802,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20623-dUARfggnNDOe.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20623-xb9PPf8rGOsG.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Horror", "Psychological", "Sci-Fi"],
-          "startDate": { "year": 2014, "month": 10, "day": 9 },
-          "endDate": { "year": 2015, "month": 3, "day": 26 },
-          "studios": { "nodes": [{ "name": "MADHOUSE" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 10,
+            "day": 9
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 3,
+            "day": 26
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "MADHOUSE"
+              }
+            ]
+          }
         },
         {
           "id": 30,
-          "idMal": 30,
           "title": {
             "english": "Neon Genesis Evangelion",
             "romaji": "Shin Seiki Evangelion"
@@ -2457,12 +3836,11 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/30-gEMoHHIqxDgN.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 26,
           "seasonYear": 1995,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Drama",
@@ -2471,53 +3849,97 @@
             "Psychological",
             "Sci-Fi"
           ],
-          "startDate": { "year": 1995, "month": 10, "day": 3 },
-          "endDate": { "year": 1996, "month": 3, "day": 27 },
+          "startDate": {
+            "year": 1995,
+            "month": 10,
+            "day": 3
+          },
+          "endDate": {
+            "year": 1996,
+            "month": 3,
+            "day": 27
+          },
           "studios": {
-            "nodes": [{ "name": "GAINAX" }, { "name": "Tatsunoko Production" }]
+            "nodes": [
+              {
+                "name": "GAINAX"
+              },
+              {
+                "name": "Tatsunoko Production"
+              }
+            ]
           }
         },
         {
           "id": 105310,
-          "idMal": 38671,
-          "title": { "english": "Fire Force", "romaji": "Enen no Shouboutai" },
+          "title": {
+            "english": "Fire Force",
+            "romaji": "Enen no Shouboutai"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx105310-2PKUvoaA6fTn.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/105310-ygGL9yweZM2Q.jpg",
-          "averageScore": 76,
+          "averageScore": 7.6,
           "episodes": 24,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2019, "month": 7, "day": 6 },
-          "endDate": { "year": 2019, "month": 12, "day": 28 },
-          "studios": { "nodes": [{ "name": "david production" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 12,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "david production"
+              }
+            ]
+          }
         },
         {
           "id": 1,
-          "idMal": 1,
-          "title": { "english": "Cowboy Bebop", "romaji": "Cowboy Bebop" },
+          "title": {
+            "english": "Cowboy Bebop",
+            "romaji": "Cowboy Bebop"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/1-OquNCNB6srGe.jpg",
-          "averageScore": 86,
+          "averageScore": 8.6,
           "episodes": 26,
           "seasonYear": 1998,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Drama", "Sci-Fi"],
-          "startDate": { "year": 1998, "month": 4, "day": 3 },
-          "endDate": { "year": 1999, "month": 4, "day": 24 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 1998,
+            "month": 4,
+            "day": 3
+          },
+          "endDate": {
+            "year": 1999,
+            "month": 4,
+            "day": 24
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 97668,
-          "idMal": 34134,
           "title": {
             "english": "One-Punch Man Season 2",
             "romaji": "One Punch Man 2"
@@ -2526,20 +3948,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97668-nC8gQrXVxt7k.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/97668-8Yo3iH2fxbKR.jpg",
-          "averageScore": 74,
+          "averageScore": 7.4,
           "episodes": 12,
           "seasonYear": 2019,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2019, "month": 4, "day": 10 },
-          "endDate": { "year": 2019, "month": 7, "day": 3 },
-          "studios": { "nodes": [{ "name": "J.C.STAFF" }] }
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 10
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 7,
+            "day": 3
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "J.C.STAFF"
+              }
+            ]
+          }
         },
         {
           "id": 20594,
-          "idMal": 21881,
           "title": {
             "english": "Sword Art Online II",
             "romaji": "Sword Art Online II"
@@ -2548,39 +3982,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20594-FhRgZ1H9Istt.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20594-BZOLwqidcS1G.jpg",
-          "averageScore": 65,
+          "averageScore": 6.5,
           "episodes": 24,
           "seasonYear": 2014,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
-          "startDate": { "year": 2014, "month": 7, "day": 5 },
-          "endDate": { "year": 2014, "month": 12, "day": 20 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2014,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2014,
+            "month": 12,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 20997,
-          "idMal": 28999,
-          "title": { "english": null, "romaji": "Charlotte" },
+          "title": {
+            "english": null,
+            "romaji": "Charlotte"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/20997-nE9VyUa08vS0.jpg",
-          "averageScore": 75,
+          "averageScore": 7.5,
           "episodes": 13,
           "seasonYear": 2015,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Comedy", "Drama", "Romance", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2015, "month": 7, "day": 5 },
-          "endDate": { "year": 2015, "month": 9, "day": 27 },
-          "studios": { "nodes": [{ "name": "P.A.WORKS" }] }
+          "startDate": {
+            "year": 2015,
+            "month": 7,
+            "day": 5
+          },
+          "endDate": {
+            "year": 2015,
+            "month": 9,
+            "day": 27
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "P.A.WORKS"
+              }
+            ]
+          }
         },
         {
           "id": 117193,
-          "idMal": 41587,
           "title": {
             "english": "My Hero Academia Season 5",
             "romaji": "Boku no Hero Academia 5"
@@ -2589,31 +4050,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx117193-E75BlZmDh1aB.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/117193-37OySoeOMN0z.jpg",
-          "averageScore": 73,
+          "averageScore": 7.3,
           "episodes": 25,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": { "year": 2021, "month": 3, "day": 27 },
-          "endDate": { "year": 2021, "month": 9, "day": 25 },
-          "studios": { "nodes": [{ "name": "bones" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 27
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 9,
+            "day": 25
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "bones"
+              }
+            ]
+          }
         },
         {
           "id": 97986,
-          "idMal": 34599,
-          "title": { "english": "Made in Abyss", "romaji": "Made in Abyss" },
+          "title": {
+            "english": "Made in Abyss",
+            "romaji": "Made in Abyss"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97986-TQ7dCgbS3y5s.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/97986-C55UnbJKB7ZF.jpg",
-          "averageScore": 84,
+          "averageScore": 8.4,
           "episodes": 13,
           "seasonYear": 2017,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Adventure",
             "Drama",
@@ -2622,13 +4097,26 @@
             "Mystery",
             "Sci-Fi"
           ],
-          "startDate": { "year": 2017, "month": 7, "day": 7 },
-          "endDate": { "year": 2017, "month": 9, "day": 29 },
-          "studios": { "nodes": [{ "name": "Kinema Citrus" }] }
+          "startDate": {
+            "year": 2017,
+            "month": 7,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2017,
+            "month": 9,
+            "day": 29
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Kinema Citrus"
+              }
+            ]
+          }
         },
         {
           "id": 120377,
-          "idMal": 42310,
           "title": {
             "english": "Cyberpunk: Edgerunners",
             "romaji": "Cyberpunk: Edgerunners"
@@ -2637,31 +4125,45 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120377-ayZPoxiWt4Li.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/120377-c15oLS8CA31s.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 10,
           "seasonYear": 2022,
           "format": "ONA",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Psychological", "Sci-Fi"],
-          "startDate": { "year": 2022, "month": 9, "day": 13 },
-          "endDate": { "year": 2022, "month": 9, "day": 13 },
-          "studios": { "nodes": [{ "name": "TRIGGER" }] }
+          "startDate": {
+            "year": 2022,
+            "month": 9,
+            "day": 13
+          },
+          "endDate": {
+            "year": 2022,
+            "month": 9,
+            "day": 13
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "TRIGGER"
+              }
+            ]
+          }
         },
         {
           "id": 171018,
-          "idMal": 57334,
-          "title": { "english": "DAN DA DAN", "romaji": "Dandadan" },
+          "title": {
+            "english": "DAN DA DAN",
+            "romaji": "Dandadan"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171018-60q1B6GK2Ghb.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/171018-SpwPNAduszXl.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 12,
           "seasonYear": 2024,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": [
             "Action",
             "Comedy",
@@ -2670,13 +4172,26 @@
             "Sci-Fi",
             "Supernatural"
           ],
-          "startDate": { "year": 2024, "month": 10, "day": 4 },
-          "endDate": { "year": 2024, "month": 12, "day": 20 },
-          "studios": { "nodes": [{ "name": "Science SARU" }] }
+          "startDate": {
+            "year": 2024,
+            "month": 10,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 12,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Science SARU"
+              }
+            ]
+          }
         },
         {
           "id": 2001,
-          "idMal": 2001,
           "title": {
             "english": "Gurren Lagann",
             "romaji": "Tengen Toppa Gurren Lagann"
@@ -2685,20 +4200,32 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2001-XwRnjzGeFWRQ.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2001-3eWhvkau8NV3.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 27,
           "seasonYear": 2007,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Mecha", "Romance", "Sci-Fi"],
-          "startDate": { "year": 2007, "month": 4, "day": 1 },
-          "endDate": { "year": 2007, "month": 9, "day": 30 },
-          "studios": { "nodes": [{ "name": "GAINAX" }] }
+          "startDate": {
+            "year": 2007,
+            "month": 4,
+            "day": 1
+          },
+          "endDate": {
+            "year": 2007,
+            "month": 9,
+            "day": 30
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "GAINAX"
+              }
+            ]
+          }
         },
         {
           "id": 2904,
-          "idMal": 2904,
           "title": {
             "english": "Code Geass: Lelouch of the Rebellion R2",
             "romaji": "Code Geass: Hangyaku no Lelouch R2"
@@ -2707,39 +4234,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2904-Fet9Q33suC7G.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/2904-X71fcvE83n3s.jpg",
-          "averageScore": 87,
+          "averageScore": 8.7,
           "episodes": 25,
           "seasonYear": 2008,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi", "Thriller"],
-          "startDate": { "year": 2008, "month": 4, "day": 6 },
-          "endDate": { "year": 2008, "month": 9, "day": 28 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 2008,
+            "month": 4,
+            "day": 6
+          },
+          "endDate": {
+            "year": 2008,
+            "month": 9,
+            "day": 28
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 13601,
-          "idMal": 13601,
-          "title": { "english": "PSYCHO-PASS", "romaji": "PSYCHO-PASS" },
+          "title": {
+            "english": "PSYCHO-PASS",
+            "romaji": "PSYCHO-PASS"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx13601-i42VFuHpqEOJ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/13601-YrCmS1oY4uBZ.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 22,
           "seasonYear": 2012,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Psychological", "Sci-Fi", "Thriller"],
-          "startDate": { "year": 2012, "month": 10, "day": 12 },
-          "endDate": { "year": 2013, "month": 3, "day": 22 },
-          "studios": { "nodes": [{ "name": "Production I.G" }] }
+          "startDate": {
+            "year": 2012,
+            "month": 10,
+            "day": 12
+          },
+          "endDate": {
+            "year": 2013,
+            "month": 3,
+            "day": 22
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Production I.G"
+              }
+            ]
+          }
         },
         {
           "id": 113936,
-          "idMal": 40852,
           "title": {
             "english": "Dr. STONE: STONE WARS",
             "romaji": "Dr. STONE: STONE WARS"
@@ -2748,39 +4302,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113936-D4eYd4XwslVI.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/113936-PpMtCY9kCwwV.jpg",
-          "averageScore": 81,
+          "averageScore": 8.1,
           "episodes": 11,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-          "startDate": { "year": 2021, "month": 1, "day": 14 },
-          "endDate": { "year": 2021, "month": 3, "day": 25 },
-          "studios": { "nodes": [{ "name": "TMS Entertainment" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 1,
+            "day": 14
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 3,
+            "day": 25
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "TMS Entertainment"
+              }
+            ]
+          }
         },
         {
           "id": 116589,
-          "idMal": 41457,
-          "title": { "english": "86 EIGHTY-SIX", "romaji": "86: Eighty Six" },
+          "title": {
+            "english": "86 EIGHTY-SIX",
+            "romaji": "86: Eighty Six"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx116589-KawXHB6sApFt.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/116589-SqwYWzaZCdD5.jpg",
-          "averageScore": 83,
+          "averageScore": 8.3,
           "episodes": 11,
           "seasonYear": 2021,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Mecha", "Sci-Fi"],
-          "startDate": { "year": 2021, "month": 4, "day": 11 },
-          "endDate": { "year": 2021, "month": 6, "day": 20 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2021,
+            "month": 4,
+            "day": 11
+          },
+          "endDate": {
+            "year": 2021,
+            "month": 6,
+            "day": 20
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         },
         {
           "id": 114236,
-          "idMal": 40956,
           "title": {
             "english": "Fire Force Season 2",
             "romaji": "Enen no Shouboutai: Ni no Shou"
@@ -2789,39 +4370,66 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114236-wfQOWF0Ii3h2.png"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/114236-6nbw38bHeXYQ.jpg",
-          "averageScore": 78,
+          "averageScore": 7.8,
           "episodes": 24,
           "seasonYear": 2020,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Drama", "Sci-Fi", "Supernatural"],
-          "startDate": { "year": 2020, "month": 7, "day": 4 },
-          "endDate": { "year": 2020, "month": 12, "day": 12 },
-          "studios": { "nodes": [{ "name": "david production" }] }
+          "startDate": {
+            "year": 2020,
+            "month": 7,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2020,
+            "month": 12,
+            "day": 12
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "david production"
+              }
+            ]
+          }
         },
         {
           "id": 918,
-          "idMal": 918,
-          "title": { "english": "Gintama", "romaji": "Gintama" },
+          "title": {
+            "english": "Gintama",
+            "romaji": "Gintama"
+          },
           "description": null,
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx918-iOaeBVUn4uK7.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/918-bljqHE1PFArH.jpg",
-          "averageScore": 85,
+          "averageScore": 8.5,
           "episodes": 201,
           "seasonYear": 2006,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Comedy", "Drama", "Sci-Fi"],
-          "startDate": { "year": 2006, "month": 4, "day": 4 },
-          "endDate": { "year": 2010, "month": 3, "day": 25 },
-          "studios": { "nodes": [{ "name": "Sunrise" }] }
+          "startDate": {
+            "year": 2006,
+            "month": 4,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2010,
+            "month": 3,
+            "day": 25
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "Sunrise"
+              }
+            ]
+          }
         },
         {
           "id": 100182,
-          "idMal": 36474,
           "title": {
             "english": "Sword Art Online: Alicization",
             "romaji": "Sword Art Online: Alicization"
@@ -2830,16 +4438,29 @@
           "coverImage": {
             "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx100182-KctPmCJ2smHQ.jpg"
           },
-          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/100182-8iGTeJ2kYRDt.jpg",
-          "averageScore": 75,
+          "averageScore": 7.5,
           "episodes": 24,
           "seasonYear": 2018,
           "format": "TV",
-          "status": "FINISHED",
+          "status": "finished_airing",
           "genres": ["Action", "Adventure", "Fantasy", "Sci-Fi"],
-          "startDate": { "year": 2018, "month": 10, "day": 7 },
-          "endDate": { "year": 2019, "month": 3, "day": 31 },
-          "studios": { "nodes": [{ "name": "A-1 Pictures" }] }
+          "startDate": {
+            "year": 2018,
+            "month": 10,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2019,
+            "month": 3,
+            "day": 31
+          },
+          "studios": {
+            "nodes": [
+              {
+                "name": "A-1 Pictures"
+              }
+            ]
+          }
         }
       ],
       "hasNextPage": true

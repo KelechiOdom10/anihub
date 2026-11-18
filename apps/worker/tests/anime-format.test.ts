@@ -10,7 +10,7 @@ import {
 import { homeSchema } from "../src/server/anime";
 import fixture from "./fixtures/home.json" with { type: "json" };
 
-const [anime] = homeSchema.parse(fixture).trending;
+const [anime] = homeSchema.parse(fixture).airing;
 
 if (!anime) throw new Error("Fixture needs at least one anime");
 
@@ -25,27 +25,23 @@ test("titles prefer English and fall back to romaji", () => {
   );
 });
 
-test("descriptions lose AniList markup and entities", () => {
-  assert.equal(
-    plainDescription({
-      ...anime,
-      description: "A<br><br>B &amp; <i>C</i> &quot;D&quot; &#39;E&#39;",
-    }),
-    "A B & C \"D\" 'E'"
-  );
+test("descriptions keep MyAnimeList text exactly, including angle brackets", () => {
+  const synopsis = 'A <B> & "C"\n\n[Written by MAL Rewrite]';
+
+  assert.equal(plainDescription({ ...anime, description: synopsis }), synopsis);
   assert.equal(plainDescription({ ...anime, description: null }), "");
 });
 
 test("status, score and partial dates use the original Jikan-style wording", () => {
   assert.equal(
-    statusLabel({ ...anime, status: "RELEASING" }),
+    statusLabel({ ...anime, status: "currently_airing" }),
     "Currently Airing"
   );
   assert.equal(
     statusLabel({ ...anime, status: "SOMETHING_NEW" }),
     "SOMETHING_NEW"
   );
-  assert.equal(score({ ...anime, averageScore: 87 }), "8.7");
+  assert.equal(score({ ...anime, averageScore: 8.72 }), "8.72");
   assert.equal(score({ ...anime, averageScore: null }), null);
   assert.equal(
     airedDate({ year: 1999, month: 10, day: 20 }),

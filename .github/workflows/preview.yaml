@@ -61,6 +61,7 @@ jobs:
             echo "GOOGLE_CLIENT_SECRET=preview-disabled"
             echo "DISCORD_CLIENT_ID=preview-disabled"
             echo "DISCORD_CLIENT_SECRET=preview-disabled"
+            echo "MAL_CLIENT_ID=preview-disabled"
           } > "$RUNNER_TEMP/preview.env"
           pnpm exec void secret sync "$RUNNER_TEMP/preview.env" --yes
           rm -f "$RUNNER_TEMP/preview.env"

@@ -8,11 +8,9 @@ const fuzzyDate = z.object({
 
 export const animeSchema = z.object({
   id: z.number().int().positive(),
-  idMal: z.number().int().positive().nullable(),
   title: z.object({ english: z.string().nullable(), romaji: z.string() }),
   description: z.string().nullable(),
-  coverImage: z.object({ extraLarge: z.url() }),
-  bannerImage: z.url().nullable(),
+  coverImage: z.object({ extraLarge: z.string() }),
   averageScore: z.number().nullable(),
   episodes: z.number().nullable(),
   seasonYear: z.number().nullable(),
@@ -27,7 +25,7 @@ export const animeSchema = z.object({
 export type Anime = z.infer<typeof animeSchema>;
 
 export const homeSchema = z.object({
-  trending: z.array(animeSchema),
+  airing: z.array(animeSchema),
   popular: z.array(animeSchema),
 });
 
@@ -46,14 +44,96 @@ export const categoriesSchema = z.array(
 
 export type Categories = z.infer<typeof categoriesSchema>;
 
+export const maxPage = 200;
+
 export const catalogQuerySchema = z.object({
   genres: z.string().trim().max(100).optional(),
-  page: z.number().int().min(1).max(200).default(1),
+  page: z.number().int().min(1).max(maxPage).default(1),
 });
 
 export const animeIdSchema = z.coerce.number().int().positive().max(2147483647);
 
-export const mediaFields = `id idMal title { english romaji } description(asHtml: false)
-  coverImage { extraLarge } bannerImage averageScore episodes seasonYear format status genres
-  startDate { year month day } endDate { year month day }
-  studios(isMain: true) { nodes { name } }`;
+const malDate = z
+  .string()
+  .regex(/^\d{4}(-\d{2}(-\d{2})?)?$/)
+  .transform((value) => {
+    const [year, month, day] = value.split("-").map(Number);
+
+    return { year: year ?? null, month: month ?? null, day: day ?? null };
+  });
+
+const unknownDate = { year: null, month: null, day: null };
+
+const mediaTypes = new Map([
+  ["tv", "TV"],
+  ["movie", "Movie"],
+  ["ova", "OVA"],
+  ["ona", "ONA"],
+  ["special", "Special"],
+  ["tv_special", "TV Special"],
+  ["music", "Music"],
+  ["cm", "CM"],
+  ["pv", "PV"],
+]);
+
+export const malNodeSchema = z.object({
+  id: z.number().int().positive(),
+  title: z.string(),
+  main_picture: z
+    .object({ medium: z.string(), large: z.string().nullish() })
+    .nullish(),
+  alternative_titles: z.object({ en: z.string().nullish() }).nullish(),
+  synopsis: z.string().nullish(),
+  mean: z.number().nullish(),
+  num_episodes: z.number().int().nullish(),
+  start_season: z.object({ year: z.number().int() }).nullish(),
+  start_date: malDate.nullish(),
+  end_date: malDate.nullish(),
+  media_type: z.string().nullish(),
+  status: z.string(),
+  genres: z
+    .array(z.object({ name: z.string() }))
+    .nullish()
+    .transform((value) => value ?? []),
+  studios: z
+    .array(z.object({ name: z.string() }))
+    .nullish()
+    .transform((value) => value ?? []),
+  rating: z.string().nullish(),
+});
+
+export type MalNode = z.infer<typeof malNodeSchema>;
+
+export function isAdult(node: MalNode) {
+  return node.rating === "rx";
+}
+
+export function toAnime(node: MalNode): Anime {
+  return {
+    id: node.id,
+    title: { english: node.alternative_titles?.en || null, romaji: node.title },
+    description: node.synopsis || null,
+    coverImage: {
+      extraLarge:
+        node.main_picture?.large ??
+        node.main_picture?.medium ??
+        "/fallback-anime.avif",
+    },
+    averageScore: node.mean ?? null,
+    episodes: node.num_episodes || null,
+    seasonYear: node.start_season?.year ?? node.start_date?.year ?? null,
+    startDate: node.start_date ?? unknownDate,
+    endDate: node.end_date ?? unknownDate,
+    format: node.media_type
+      ? (mediaTypes.get(node.media_type) ?? node.media_type)
+      : null,
+    status: node.status,
+    genres: node.genres.map((genre) => genre.name),
+    studios: { nodes: node.studios },
+  };
+}
+
+export const listFields =
+  "alternative_titles,mean,num_episodes,start_season,start_date,end_date,media_type,status,genres,rating";
+
+export const detailFields = `${listFields},synopsis,studios`;

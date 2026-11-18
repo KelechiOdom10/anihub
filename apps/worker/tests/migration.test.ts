@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import type { Anime } from "../src/server/anime";
 import { buildImportStatements } from "../scripts/legacy-import";
 import { createTestDatabase } from "./d1";
 
@@ -62,37 +62,14 @@ const legacy = {
   ],
 };
 
-const mapped: Anime = {
-  id: 42,
-  idMal: 999,
-  title: { romaji: "Fixture", english: null },
-  description: null,
-  coverImage: { extraLarge: "https://example.com/poster.jpg" },
-  bannerImage: null,
-  averageScore: 80,
-  episodes: 12,
-  seasonYear: 2024,
-  startDate: { year: 1999, month: 10, day: 20 },
-  endDate: { year: null, month: null, day: null },
-  format: "TV",
-  status: "FINISHED",
-  genres: ["Action"],
-  studios: { nodes: [] },
-};
-
 test("legacy import applies to migrated D1 preserving ids, text, timestamps and relationships", async () => {
   const { d1, dispose } = await createTestDatabase();
 
   try {
-    const { statements, unresolvedMalIds } = buildImportStatements(
-      legacy,
-      [mapped],
-      1
-    );
+    const statements = buildImportStatements(legacy);
 
     await d1.batch(statements.map((statement) => d1.prepare(statement)));
 
-    assert.deepEqual(unresolvedMalIds, [555]);
     assert.deepEqual(
       await d1.prepare("SELECT id, email, created_at FROM user").first(),
       {
@@ -108,7 +85,7 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
           .all()
       ).results,
       [
-        { anime_id: 42, mal_id: 999 },
+        { anime_id: null, mal_id: 999 },
         { anime_id: null, mal_id: 555 },
       ]
     );
@@ -116,7 +93,7 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
       await d1.prepare("SELECT text, anime_id, mal_id FROM comments").first(),
       {
         text: "It's good\nreally",
-        anime_id: 42,
+        anime_id: null,
         mal_id: 999,
       }
     );
@@ -136,35 +113,26 @@ test("legacy import applies to migrated D1 preserving ids, text, timestamps and 
 test("legacy import refuses case-folded email collisions instead of merging accounts", () => {
   assert.throws(
     () =>
-      buildImportStatements(
-        {
-          ...legacy,
-          users: [
-            owner,
-            { ...owner, id: 2, username: "copy", email: "owner@example.com" },
-          ],
-        },
-        [],
-        1
-      ),
+      buildImportStatements({
+        ...legacy,
+        users: [
+          owner,
+          { ...owner, id: 2, username: "copy", email: "owner@example.com" },
+        ],
+      }),
     /email collision/
   );
 });
 
 test("legacy import rejects malformed emails and timestamps", () => {
   assert.throws(() =>
-    buildImportStatements(
-      { ...legacy, users: [{ ...owner, email: "nope" }] },
-      [],
-      1
-    )
+    buildImportStatements({ ...legacy, users: [{ ...owner, email: "nope" }] })
   );
   assert.throws(() =>
-    buildImportStatements(
-      { ...legacy, users: [{ ...owner, created_at: "yesterday" }] },
-      [],
-      1
-    )
+    buildImportStatements({
+      ...legacy,
+      users: [{ ...owner, created_at: "yesterday" }],
+    })
   );
 });
 
@@ -179,6 +147,63 @@ test("D1 rejects a second user whose email differs only by case or whitespace", 
     await assert.rejects(
       d1.prepare(insert).bind("b", "B", " OWNER@example.com").run(),
       /UNIQUE/
+    );
+  } finally {
+    await dispose();
+  }
+});
+
+test("clearing AniList data keeps every user row, MAL id and MAL cache row", async () => {
+  const { d1, dispose } = await createTestDatabase();
+
+  try {
+    await d1.batch(
+      buildImportStatements(legacy).map((statement) => d1.prepare(statement))
+    );
+    await d1.batch([
+      d1.prepare("UPDATE collection_items SET anime_id = mal_id + 1000"),
+      d1.prepare("UPDATE comments SET anime_id = mal_id + 1000"),
+      d1.prepare(
+        "INSERT INTO anime_cache (id, mal_id, data, updated_at) VALUES (42, 999, '{}', 1)"
+      ),
+      d1.prepare(
+        "INSERT INTO cache_entries (key, data, updated_at) VALUES ('home', '{}', 1), ('mal:home', '{}', 1)"
+      ),
+    ]);
+
+    const counts = () =>
+      d1
+        .prepare(
+          "SELECT (SELECT count(*) FROM user) users, (SELECT count(*) FROM collections) collections, (SELECT count(*) FROM collection_items) items, (SELECT count(*) FROM collection_likes) likes, (SELECT count(*) FROM comments) comments, (SELECT group_concat(mal_id) FROM collection_items) itemMalIds, (SELECT group_concat(mal_id) FROM comments) commentMalIds"
+        )
+        .first();
+
+    const before = await counts();
+
+    const sql = await readFile(
+      new URL(
+        "../src/db/migrations/20261118025919_clear_anilist.sql",
+        import.meta.url
+      ),
+      "utf8"
+    );
+
+    await d1.batch(
+      sql
+        .split("--> statement-breakpoint")
+        .map((statement) => statement.trim())
+        .filter(Boolean)
+        .map((statement) => d1.prepare(statement))
+    );
+
+    assert.deepEqual(await counts(), before);
+    assert.deepEqual(
+      await d1
+        .prepare(
+          "SELECT (SELECT count(*) FROM anime_cache) cache, (SELECT group_concat(key) FROM cache_entries) entries, (SELECT count(anime_id) FROM collection_items) itemAniList, (SELECT count(anime_id) FROM comments) commentAniList"
+        )
+        .first(),
+      { cache: 0, entries: "mal:home", itemAniList: 0, commentAniList: 0 }
     );
   } finally {
     await dispose();

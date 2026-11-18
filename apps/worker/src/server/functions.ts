@@ -18,6 +18,7 @@ function catalog(): CatalogSource {
     db: drizzle(bindings.DB),
     fetch: (input, init) => fetch(input, init),
     now: Date.now,
+    clientId: env.MAL_CLIENT_ID,
   };
 }
 
