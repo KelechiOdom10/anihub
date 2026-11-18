@@ -1186,4 +1186,13 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   ).toBeChecked();
   await page.setViewportSize({ width: 1440, height: 900 });
   await capture(page, "membership-desktop");
+  await page.evaluate(() =>
+    window.dispatchEvent(
+      new PageTransitionEvent("pagehide", { persisted: true })
+    )
+  );
+  await expect(
+    page.getByRole("dialog", { name: "Add to Collection" })
+  ).toBeHidden();
+  await expect(page.getByText("Alice secret", { exact: true })).toBeHidden();
 });

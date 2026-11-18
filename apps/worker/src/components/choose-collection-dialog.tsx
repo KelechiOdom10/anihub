@@ -1,7 +1,6 @@
 import { Cross2Icon, ListBulletIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { flushSync } from "react-dom";
 import { getMembership, setMembership } from "../server/library";
 import { Button } from "./ui/button";
 
@@ -29,13 +28,12 @@ export function ChooseCollectionDialog({
   const returnPath = `/anime/${animeId}`;
 
   useEffect(() => {
-    const clear = () =>
-      flushSync(() => {
-        dialog.current?.close();
-        setCollections([]);
-        setChanges(new Map());
-        setPages(0);
-      });
+    const clear = () => {
+      dialog.current?.close();
+      setCollections([]);
+      setChanges(new Map());
+      setPages(0);
+    };
 
     window.addEventListener("pagehide", clear);
 
@@ -60,6 +58,7 @@ export function ChooseCollectionDialog({
       const result = await getMembership({ data: { animeId, page } });
 
       if (!result) {
+        setCollections([]);
         setSignedOut(true);
         setError(
           "Your session has ended. Sign in again to choose collections."
@@ -81,6 +80,8 @@ export function ChooseCollectionDialog({
   };
 
   const open = () => {
+    setCollections([]);
+    setPages(0);
     setChanges(new Map());
     setStatus("");
     setSignedOut(false);
