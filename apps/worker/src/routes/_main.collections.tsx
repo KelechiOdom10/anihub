@@ -5,9 +5,9 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { CreateCollectionDialog } from "../components/create-collection-dialog";
-import { PageMessage } from "../components/page-message";
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
 import { getLibrary, getLibraryItems } from "../server/library";
@@ -42,7 +42,15 @@ type Collection = NonNullable<
   Awaited<ReturnType<typeof getLibrary>>
 >["collections"][number];
 
-function CollectionContents({ collection }: { collection: Collection }) {
+function CollectionContents({
+  collection,
+  author,
+  avatar,
+}: {
+  collection: Collection;
+  author: string;
+  avatar: string;
+}) {
   const [contents, setContents] = useState({
     items: collection.items,
     hasNextPage: collection.hasNextPage,
@@ -50,13 +58,11 @@ function CollectionContents({ collection }: { collection: Collection }) {
 
   const [page, setPage] = useState(1);
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
 
   const more = async () => {
     if (pending) return;
 
     setPending(true);
-    setError("");
 
     try {
       const result = await getLibraryItems({
@@ -75,7 +81,7 @@ function CollectionContents({ collection }: { collection: Collection }) {
       });
       setPage(page + 1);
     } catch {
-      setError("Couldn't load more titles. Please try again.");
+      toast.error("Couldn't load titles");
     } finally {
       setPending(false);
     }
@@ -83,28 +89,36 @@ function CollectionContents({ collection }: { collection: Collection }) {
 
   return (
     <article className="min-w-0 space-y-4 rounded-lg border border-border p-4">
-      <div className="[&>div]:!transform-none [&_*]:!animate-none [&_*]:!transition-none">
+      <div>
         <InfoCard
           heading={collection.name}
-          images={collection.items
-            .slice(0, 3)
-            .map((item) => ({ url: item.image, alt: item.title }))}
+          images={Array.from({ length: 3 }, (_, index) => ({
+            url: collection.items[index]?.image ?? "/fallback-anime.avif",
+            alt:
+              collection.items[index]?.title ??
+              `Fallback image for collection ${collection.name}`,
+          }))}
         />
       </div>
-      <p className="text-sm text-muted-foreground">
-        {collection.isPublic
-          ? "Imported public collection"
-          : "Private collection"}
-      </p>
+      <div className="flex items-center gap-4">
+        <img
+          src={avatar}
+          alt=""
+          width={40}
+          height={40}
+          className="aspect-square w-9 rounded-full object-cover"
+        />
+        <span className="text-sm font-bold text-muted-foreground">
+          {author}
+        </span>
+      </div>
       {collection.description && (
         <p className="whitespace-pre-wrap break-words text-sm">
           {collection.description}
         </p>
       )}
       {contents.items.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          No titles in this collection yet.
-        </p>
+        <p className="text-sm text-muted-foreground">No titles yet.</p>
       ) : (
         <ul className="space-y-2">
           {contents.items.map((item) => (
@@ -134,11 +148,6 @@ function CollectionContents({ collection }: { collection: Collection }) {
           ))}
         </ul>
       )}
-      {error && (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
       {contents.hasNextPage && (
         <Button variant="outline" disabled={pending} onClick={more}>
           {pending ? "Loading…" : "Show more titles"}
@@ -150,6 +159,13 @@ function CollectionContents({ collection }: { collection: Collection }) {
 
 function Collections() {
   const library = Route.useLoaderData();
+  const { viewer } = Route.useRouteContext();
+
+  const author =
+    viewer?.name.trim() && !viewer.name.includes("@")
+      ? viewer.name.trim()
+      : "Anonymous";
+
   const { page } = Route.useSearch();
   const content = useRef<HTMLElement>(null);
 
@@ -191,11 +207,7 @@ function Collections() {
       </div>
       {library.collections.length === 0 ? (
         <div className="space-y-4 rounded-lg border p-6">
-          <p>
-            {page === 1
-              ? "You don't have any collections yet."
-              : "No more collections on this page."}
-          </p>
+          <p>{page === 1 ? "No collections yet." : "No more collections."}</p>
           <Button asChild variant="outline">
             <Link to="/catalog">Discover anime</Link>
           </Button>
@@ -203,7 +215,12 @@ function Collections() {
       ) : (
         <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
           {library.collections.map((collection) => (
-            <CollectionContents key={collection.id} collection={collection} />
+            <CollectionContents
+              key={collection.id}
+              collection={collection}
+              author={author}
+              avatar={viewer?.avatar ?? "/anime-female-avatar.png"}
+            />
           ))}
         </div>
       )}
@@ -230,11 +247,14 @@ function Collections() {
 function LibraryError() {
   const router = useRouter();
 
+  useEffect(() => {
+    toast.error("Couldn't load collections");
+  }, []);
+
   return (
-    <PageMessage
-      heading="Couldn't load your collections"
-      body="Your collections haven't changed. Please try again."
-      onRetry={() => router.invalidate()}
-    />
+    <section className="container mt-28 space-y-4 py-8">
+      <h1 className="text-2xl font-semibold">My Collections</h1>
+      <Button onClick={() => router.invalidate()}>Retry</Button>
+    </section>
   );
 }

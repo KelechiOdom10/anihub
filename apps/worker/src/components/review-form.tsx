@@ -1,5 +1,6 @@
-import { StarIcon } from "@radix-ui/react-icons";
+import { Cross2Icon, StarIcon } from "@radix-ui/react-icons";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { createReview, editReview, type Review } from "../server/reviews";
 import { Button } from "./ui/button";
 
@@ -7,7 +8,6 @@ export type ReviewDraft = {
   text: string;
   rating: number;
   isSpoiler: boolean;
-  publishPublicly: boolean;
 };
 
 export function ReviewForm({
@@ -28,9 +28,8 @@ export function ReviewForm({
   const dialog = useRef<HTMLDialogElement>(null);
   const firstStar = useRef<HTMLInputElement>(null);
   const inFlight = useRef(false);
-  const { text, rating, isSpoiler, publishPublicly } = draft;
+  const { text, rating, isSpoiler } = draft;
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     dialog.current?.showModal();
@@ -47,9 +46,13 @@ export function ReviewForm({
 
     if (inFlight.current) return;
 
-    if (!rating || !text.trim() || text.length > 5000 || !publishPublicly) {
-      setError(
-        "Choose 1–5 stars, enter a comment up to 5,000 characters, and confirm public publishing."
+    if (!rating || !text.trim() || text.length > 5000) {
+      toast.error(
+        !rating
+          ? "Rating is required"
+          : !text.trim()
+            ? "Comment is required"
+            : "Comments can be up to 5,000 characters"
       );
 
       return;
@@ -57,14 +60,12 @@ export function ReviewForm({
 
     inFlight.current = true;
     setPending(true);
-    setError("");
 
     try {
       const content = {
         text,
         rating,
         isSpoiler,
-        publishPublicly: true as const,
       };
 
       const result = review
@@ -72,17 +73,16 @@ export function ReviewForm({
         : await createReview({ data: { animeId, ...content } });
 
       if (result.kind !== "saved") {
-        setError(result.message);
+        toast.error(result.message);
 
         return;
       }
 
       dialog.current?.close();
       onSaved();
+      toast.success(review ? "Review updated" : "Comment posted successfully!");
     } catch {
-      setError(
-        "Couldn't confirm the save. Your draft is still here. Close and refresh the reviews before deliberately retrying; it may already have been published. Reopening the form keeps your draft."
-      );
+      toast.error("Couldn't confirm save");
     } finally {
       inFlight.current = false;
       setPending(false);
@@ -93,7 +93,6 @@ export function ReviewForm({
     <dialog
       ref={dialog}
       aria-labelledby="review-form-title"
-      aria-describedby="review-public-preview"
       onCancel={(event) => {
         event.preventDefault();
 
@@ -121,7 +120,7 @@ export function ReviewForm({
     >
       <h2
         id="review-form-title"
-        className="text-lg font-semibold leading-none tracking-tight"
+        className="text-center text-lg font-semibold leading-none tracking-tight sm:text-left"
       >
         {review ? "Edit Review" : "Write a Review"}
       </h2>
@@ -163,10 +162,14 @@ export function ReviewForm({
             }
             readOnly={pending}
             maxLength={5000}
+            aria-describedby="review-character-count"
             placeholder="Share your thoughts about this anime..."
             className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
-          <p className="text-xs text-muted-foreground">
+          <p
+            id="review-character-count"
+            className="text-xs text-muted-foreground"
+          >
             {text.length.toLocaleString()} / 5,000 characters
           </p>
         </div>
@@ -190,49 +193,19 @@ export function ReviewForm({
           </button>
           This comment contains spoilers
         </label>
-        <p id="review-public-preview" className="text-sm text-muted-foreground">
-          Public author preview:{" "}
-          <span className="font-medium text-foreground">Anime fan</span> ·
-          default avatar. Your review and rating are public. Your sign-in name,
-          email and photo aren't displayed.
-        </p>
-        <label
-          className="flex items-start gap-2 text-sm"
-          htmlFor="review-public"
-        >
-          <input
-            id="review-public"
-            type="checkbox"
-            checked={publishPublicly}
-            onChange={(event) =>
-              onChange({ ...draft, publishPublicly: event.target.checked })
-            }
-            disabled={pending}
-            className="mt-1 h-4 w-4 shrink-0 accent-primary focus-visible:outline focus-visible:outline-ring"
-          />
-          Publish this review publicly as Anime fan
-        </label>
-        {error && (
-          <p role="alert" className="break-words text-sm text-destructive">
-            {error}
-          </p>
-        )}
         <Button type="submit" disabled={pending} className="w-full">
           {pending ? "Publishing…" : review ? "Save Review" : "Post Comment"}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          disabled={pending}
-          onClick={close}
-        >
-          Cancel
-        </Button>
-        <p role="status" className="sr-only">
-          {pending ? "Publishing review. Please wait." : ""}
-        </p>
       </form>
+      <button
+        type="button"
+        onClick={close}
+        disabled={pending}
+        className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none"
+      >
+        <Cross2Icon className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </button>
     </dialog>
   );
 }

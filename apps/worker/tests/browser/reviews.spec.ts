@@ -1,4 +1,4 @@
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test, type Page, type Request } from "@playwright/test";
 import { z } from "zod";
@@ -6,6 +6,9 @@ import { libraryDatabase, sessionCookie } from "../library-fixture";
 
 const renders = process.env.ANIHUB_RENDER_DIR ?? "test-results/review-renders";
 const origin = "http://127.0.0.1:8791";
+
+const notification = (page: Page) =>
+  page.locator('[data-sonner-toast][data-front="true"]');
 
 test.beforeEach(async ({ page }) => {
   const db = libraryDatabase();
@@ -16,6 +19,12 @@ test.beforeEach(async ({ page }) => {
   `);
 
   try {
+    db.prepare(
+      "UPDATE user SET name = 'Synthetic alice', image = NULL WHERE id = 'library-alice'"
+    ).run();
+    db.prepare(
+      "UPDATE user SET name = 'Synthetic bob', image = 'https://lh3.googleusercontent.com/synthetic-avatar' WHERE id = 'library-bob'"
+    ).run();
     db.exec(
       "PRAGMA foreign_keys = ON; DROP TRIGGER IF EXISTS synthetic_review_failure; DELETE FROM comments WHERE user_id IN ('library-alice', 'library-bob')"
     );
@@ -67,18 +76,30 @@ test.beforeEach(async ({ page }) => {
     db.close();
   }
 
-  await page.route("**/*", (route) =>
-    new URL(route.request().url()).hostname === "127.0.0.1"
+  await page.route("**/*", (route) => {
+    if (
+      route.request().url() ===
+      "https://lh3.googleusercontent.com/synthetic-avatar"
+    )
+      return route.fulfill({
+        contentType: "image/avif",
+        body: readFileSync("public/anime-male-avatar.avif"),
+      });
+
+    return new URL(route.request().url()).hostname === "127.0.0.1"
       ? route.continue()
-      : route.abort()
-  );
+      : route.abort();
+  });
 });
 
 async function capture(page: Page, name: string) {
   mkdirSync(renders, { recursive: true });
+
+  if (await notification(page).count())
+    await expect(notification(page)).toBeInViewport({ ratio: 1 });
   await page.screenshot({
     path: join(renders, `${name}.png`),
-    fullPage: !(await page.getByRole("dialog").count()),
+    fullPage: !(await page.locator("dialog[open]").count()),
   });
 }
 
@@ -103,9 +124,6 @@ async function fillReview(page: Page, text = "  A new synthetic review  ") {
     .click();
   await page.getByRole("radio", { name: "Rate 4 stars" }).check();
   await page.getByLabel("Your Comment", { exact: true }).fill(text);
-  await page
-    .getByLabel("Publish this review publicly as Anime fan", { exact: true })
-    .check();
 }
 
 function postRequest(page: Page) {
@@ -249,11 +267,41 @@ test("anonymous public pages preserve dated imports, canonical identity and exac
     '"k":["id","text","rating","isSpoiler","createdAt","updatedAt","author"]'
   );
   expect(body).toContain('"k":["id","name","avatar"]');
+  expect(body).toContain("Synthetic alice");
+  expect(body).toContain("Synthetic bob");
+  await expect(
+    page.locator('[data-review-id="review-10"] img')
+  ).toHaveAttribute(
+    "src",
+    "https://lh3.googleusercontent.com/synthetic-avatar"
+  );
+
+  const identityDb = libraryDatabase();
+
+  identityDb
+    .prepare(
+      "UPDATE user SET name = 'private@example.invalid', image = 'https://untrusted.invalid/avatar.png' WHERE id = 'library-bob'"
+    )
+    .run();
+  await page.reload();
+  await expect(
+    page
+      .locator('[data-review-id="review-10"]')
+      .getByText("Anonymous", { exact: true })
+  ).toBeVisible();
+  await expect(
+    page.locator('[data-review-id="review-10"] img')
+  ).toHaveAttribute("src", "/anime-male-avatar.avif");
+  identityDb
+    .prepare(
+      "UPDATE user SET name = 'Synthetic bob', image = 'https://lh3.googleusercontent.com/synthetic-avatar' WHERE id = 'library-bob'"
+    )
+    .run();
+  identityDb.close();
 
   for (const secret of [
     "email",
     "username",
-    "Synthetic alice",
     "@example.invalid",
     "synthetic-alice",
     "synthetic-access-secret",
@@ -300,7 +348,7 @@ test("anonymous public pages preserve dated imports, canonical identity and exac
   await expect(page.locator("[data-review-id]")).toHaveCount(10);
 });
 
-test("public consent, blank drafts, keyboard stars, focus containment and durable create edit delete", async ({
+test("blank drafts, keyboard stars, focus containment and durable create edit delete", async ({
   page,
 }) => {
   await signIn(page);
@@ -314,18 +362,12 @@ test("public consent, blank drafts, keyboard stars, focus containment and durabl
   await expect(page.getByRole("radio", { name: "Rate 2 stars" })).toBeChecked();
   await page.getByLabel("Your Comment", { exact: true }).fill("   ");
   await page.getByRole("button", { name: "Post Comment" }).click();
-  await expect(page.getByRole("alert")).toContainText("Choose 1–5 stars");
+  await expect(notification(page)).toContainText("Comment is required");
   await expect(page.getByLabel("Your Comment", { exact: true })).toHaveValue(
     "   "
   );
-  await page
-    .getByLabel("Your Comment", { exact: true })
-    .fill("  Durable review  ");
-  await page.getByRole("button", { name: "Post Comment" }).click();
+
   await expect(page.getByRole("dialog")).toBeVisible();
-  await expect(page.getByText("Public author preview:")).toContainText(
-    "Your review and rating are public"
-  );
   await capture(page, "form-error-desktop");
   await page.setViewportSize({ width: 390, height: 844 });
   await capture(page, "form-error-mobile");
@@ -333,21 +375,24 @@ test("public consent, blank drafts, keyboard stars, focus containment and durabl
     390
   );
   await page
-    .getByLabel("Publish this review publicly as Anime fan", { exact: true })
-    .check();
+    .getByLabel("Your Comment", { exact: true })
+    .fill("  Durable review  ");
   await capture(page, "form-mobile");
   await page.setViewportSize({ width: 1440, height: 900 });
   await capture(page, "form-desktop");
-  await page.getByRole("button", { name: "Cancel", exact: true }).focus();
+  await page.getByRole("button", { name: "Close", exact: true }).focus();
   await page.keyboard.press("Tab");
   await expect(page.getByRole("radio", { name: "Rate 2 stars" })).toBeFocused();
   await page.keyboard.press("Shift+Tab");
   await expect(
-    page.getByRole("button", { name: "Cancel", exact: true })
+    page.getByRole("button", { name: "Close", exact: true })
   ).toBeFocused();
   await page.getByRole("button", { name: "Post Comment" }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.getByText("Durable review", { exact: true })).toBeVisible();
+  await expect(notification(page)).toContainText(
+    "Comment posted successfully!"
+  );
   await expect(
     page.getByRole("button", { name: "Write a Review", exact: true })
   ).toBeFocused();
@@ -367,22 +412,12 @@ test("public consent, blank drafts, keyboard stars, focus containment and durabl
     .fill("Edited durable review");
   await page.getByRole("radio", { name: "Rate 5 stars" }).check();
   await page.getByRole("switch").check();
-  await page
-    .getByLabel("Publish this review publicly as Anime fan", { exact: true })
-    .check();
   await page.getByRole("button", { name: "Save Review" }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(
     page.getByRole("button", { name: "Write a Review", exact: true })
   ).toBeFocused();
   await page.reload();
-  await page
-    .locator("[data-review-id]")
-    .first()
-    .getByRole("button", {
-      name: "This comment contains spoilers. Click to reveal.",
-    })
-    .click();
   await expect(
     page.getByText("Edited durable review", { exact: true })
   ).toBeVisible();
@@ -435,9 +470,6 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
     .getByRole("button", { name: "Edit review" })
     .click();
   await page.getByLabel("Your Comment", { exact: true }).fill("Captured edit");
-  await page
-    .getByLabel("Publish this review publicly as Anime fan", { exact: true })
-    .check();
   const editing = postRequest(page);
 
   await page.getByRole("button", { name: "Save Review" }).click();
@@ -459,7 +491,6 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
     text: "HTTP review",
     rating: 4,
     isSpoiler: false,
-    publishPublicly: true,
   };
 
   const count = () => db.prepare("SELECT count(*) AS n FROM comments").get();
@@ -501,7 +532,6 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
       { ...fields, animeId: "21" },
       { ...fields, animeId: 999 },
       { ...fields, animeId: 999999 },
-      { ...fields, publishPublicly: false },
       { ...fields, userId: "library-bob" },
       { ...fields, parentId: "review-11" },
     ];
@@ -520,7 +550,6 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
           text: "Unauthorized",
           rating: 4,
           isSpoiler: false,
-          publishPublicly: true,
         },
         token
       );
@@ -533,7 +562,6 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
       text: "Cross-user tamper",
       rating: 1,
       isSpoiler: false,
-      publishPublicly: true,
     };
 
     await post(edit, changed, "synthetic-bob");
@@ -608,7 +636,9 @@ test("generated HTTP writes reject forged owners, invalid input, stale sessions,
     ).toEqual({ text: "Imported review 9" });
     const guarded = await post(remove, { id: "review-11" });
 
-    expect(await guarded.text()).toContain("preserve the discussion");
+    expect(await guarded.text()).toContain(
+      "It has replies or is no longer available"
+    );
     expect(count()).toEqual(before);
 
     const saved = await post(create, {
@@ -657,9 +687,7 @@ test("network and D1 failures retain drafts without automatic retry and unknown 
     await route.abort("connectionfailed");
   });
   await page.getByRole("button", { name: "Post Comment" }).click();
-  await expect(page.getByRole("alert")).toContainText(
-    "Couldn't confirm the save"
-  );
+  await expect(notification(page)).toContainText("Couldn't confirm save");
   await expect(page.getByLabel("Your Comment", { exact: true })).toHaveValue(
     "Preserved draft"
   );
@@ -680,11 +708,6 @@ test("network and D1 failures retain drafts without automatic retry and unknown 
     "Preserved draft"
   );
   await expect(page.getByRole("radio", { name: "Rate 4 stars" })).toBeChecked();
-  await expect(
-    page.getByLabel("Publish this review publicly as Anime fan", {
-      exact: true,
-    })
-  ).toBeChecked();
   const db = libraryDatabase();
 
   db.exec(
@@ -836,7 +859,7 @@ test("loading error retry empty and session-expiry states remain useful on mobil
       : route.continue()
   );
   await page.reload();
-  await expect(page.getByRole("alert")).toContainText("Couldn't load reviews");
+  await expect(notification(page)).toContainText("Couldn't load reviews");
   await capture(page, "read-error-mobile");
   await page.unroute("**/_serverFn/**");
   await page.getByRole("button", { name: "Retry reviews" }).click();
@@ -856,7 +879,7 @@ test("loading error retry empty and session-expiry states remain useful on mobil
   await fillReview(page, "Session expired draft");
   db.exec("DELETE FROM session WHERE id = 'library-alice'");
   await page.getByRole("button", { name: "Post Comment" }).click();
-  await expect(page.getByRole("alert")).toContainText("Your session has ended");
+  await expect(notification(page)).toContainText("Sign in again");
   await expect(page.getByLabel("Your Comment", { exact: true })).toHaveValue(
     "Session expired draft"
   );
@@ -875,8 +898,8 @@ test("pending publish is single-flight and reply deletion explains why discussio
 
   await parent.getByRole("button", { name: "Delete review" }).click();
   await parent.getByRole("button", { name: "Confirm delete" }).click();
-  await expect(parent.getByRole("alert")).toContainText(
-    "preserve the discussion"
+  await expect(notification(page)).toContainText(
+    "It has replies or is no longer available"
   );
   await fillReview(page, "Single pending publish");
   let release: () => void = () => {};

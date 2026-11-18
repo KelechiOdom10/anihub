@@ -6,6 +6,9 @@ import { libraryDatabase, sessionCookie } from "../library-fixture";
 
 const renders = process.env.ANIHUB_RENDER_DIR ?? "test-results/library-renders";
 
+const notification = (page: Page) =>
+  page.locator('[data-sonner-toast][data-front="true"]');
+
 test.skip(
   ({ baseURL }) => baseURL !== "http://127.0.0.1:8791",
   "Run the synthetic-session library harness with library.playwright.config.ts"
@@ -21,7 +24,13 @@ test.beforeEach(async ({ page }) => {
 
 async function capture(page: Page, name: string) {
   mkdirSync(renders, { recursive: true });
-  await page.screenshot({ path: join(renders, `${name}.png`), fullPage: true });
+
+  if (await notification(page).count())
+    await expect(notification(page)).toBeInViewport({ ratio: 1 });
+  await page.screenshot({
+    path: join(renders, `${name}.png`),
+    fullPage: !(await page.locator("dialog[open]").count()),
+  });
 }
 
 async function signIn(page: Page, token = "synthetic-alice") {
@@ -90,15 +99,22 @@ function cookieHeader(token: string) {
   return `better-auth.session_token=${sessionCookie(token)}`;
 }
 
+async function openCreate(page: Page) {
+  await page
+    .getByRole("button", { name: "Add to Collection", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Create New Collection", exact: true })
+    .click();
+}
+
 test("generated HTTP handlers enforce owner, session, input, DTO and cross-origin boundaries", async ({
   page,
   request,
 }) => {
   await signIn(page);
   await page.goto("/anime/21");
-  await page
-    .getByRole("button", { name: "Create collection", exact: true })
-    .click();
+  await openCreate(page);
   await page.getByLabel("Name", { exact: true }).fill("HTTP capture");
 
   const mutationRequest = page.waitForRequest(
@@ -454,35 +470,52 @@ for (const size of [
     await capture(page, `anime-${size.name}`);
 
     const trigger = page.getByRole("button", {
-      name: "Create collection",
+      name: "Add to Collection",
       exact: true,
     });
 
     await trigger.focus();
     await page.keyboard.press("Enter");
+    await page
+      .getByRole("button", { name: "Create New Collection", exact: true })
+      .click();
     await expect(page.getByLabel("Name", { exact: true })).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(
-      page.getByRole("button", { name: "Create & Add" })
+      page.getByRole("button", { name: "Close", exact: true })
     ).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(page.getByLabel("Name", { exact: true })).toBeFocused();
     await page.getByLabel("Name", { exact: true }).fill(`Weekend ${size.name}`);
-    await page.getByLabel("Description (optional)").fill("Try next");
+    await page.getByLabel("Description").fill("Try next");
     await capture(page, `dialog-${size.name}`);
     await page.keyboard.press("Escape");
     await expect(trigger).toBeFocused();
     await trigger.click();
+    await page
+      .getByRole("button", { name: "Create New Collection", exact: true })
+      .click();
     await expect(page.getByLabel("Name", { exact: true })).toHaveValue(
       `Weekend ${size.name}`
     );
-    await page.getByRole("button", { name: "Cancel", exact: true }).focus();
+    await page.getByRole("button", { name: "Back", exact: true }).focus();
     await page.keyboard.press("Tab");
     await expect(
       page.getByRole("button", { name: "Create & Add" })
     ).toBeFocused();
     await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("button", { name: "Close", exact: true })
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
     await expect(page.getByLabel("Name", { exact: true })).toBeFocused();
+    await page.getByRole("button", { name: "Back", exact: true }).click();
+    await expect(
+      page.getByRole("button", { name: "Create New Collection", exact: true })
+    ).toBeFocused();
+    await page
+      .getByRole("button", { name: "Create New Collection", exact: true })
+      .click();
 
     const db = libraryDatabase();
 
@@ -491,7 +524,9 @@ for (const size of [
     );
     db.close();
     await page.getByRole("button", { name: "Create & Add" }).click();
-    await expect(page.getByRole("alert")).toContainText("Couldn't save");
+    await expect(notification(page)).toContainText(
+      "Couldn't create collection"
+    );
     await expect(page.getByLabel("Name", { exact: true })).toHaveValue(
       `Weekend ${size.name}`
     );
@@ -536,6 +571,7 @@ for (const size of [
       page.getByRole("heading", { name: `Weekend ${size.name}`, exact: true })
     ).toBeVisible();
     expect(posts).toBe(1);
+    await expect(notification(page)).toContainText("Collection created");
     await page.reload();
     await expect(
       page.getByRole("heading", { name: `Weekend ${size.name}`, exact: true })
@@ -572,16 +608,14 @@ test("guest action returns safely without writing and empty library offers disco
   page,
 }) => {
   await page.goto("/anime/21");
-  await page.getByRole("link", { name: "Create collection" }).click();
+  await page.getByRole("link", { name: "Add to Collection" }).click();
   await expect(page).toHaveURL(/sign-in\?redirect=%2Fanime%2F21/);
   await expect(
     page.getByRole("button", { name: "Log in with Google" })
   ).toBeVisible();
   await signIn(page, "synthetic-empty");
   await page.goto("/collections");
-  await expect(
-    page.getByText("You don't have any collections yet.")
-  ).toBeVisible();
+  await expect(page.getByText("No collections yet.")).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByLabel("Menu", { exact: true }).click();
   await expect(
@@ -591,17 +625,80 @@ test("guest action returns safely without writing and empty library offers disco
   await expect(
     page.getByRole("navigation", { name: "Mobile navigation" })
   ).not.toBeVisible();
-  await page
-    .getByRole("button", { name: "Create collection", exact: true })
-    .click();
+  await page.getByRole("button", { name: "+ Create New", exact: true }).click();
   await page.getByLabel("Name", { exact: true }).fill("   ");
   await page
     .getByRole("button", { name: "Create Collection", exact: true })
     .click();
-  await expect(page.getByRole("alert")).toHaveText("Name is required.");
+  await expect(notification(page)).toContainText("Enter a name");
   await expect(page.getByLabel("Name", { exact: true })).toBeFocused();
   await page.keyboard.press("Escape");
   await capture(page, "library-empty");
+});
+
+test("an empty account creates its first collection from the anime chooser", async ({
+  page,
+}) => {
+  await signIn(page, "synthetic-empty");
+  await page.goto("/anime/21");
+  await page
+    .getByRole("button", { name: "Add to Collection", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Create Your First Collection" })
+    .click();
+  await page.getByLabel("Name", { exact: true }).fill("First collection");
+  await page.getByRole("button", { name: "Create & Add" }).click();
+  await expect(page).toHaveURL(/collections/);
+  await expect(
+    page.getByRole("heading", { name: "First collection", exact: true })
+  ).toBeVisible();
+  await expect(
+    page
+      .locator("article")
+      .filter({
+        has: page.getByRole("heading", {
+          name: "First collection",
+          exact: true,
+        }),
+      })
+      .locator("li")
+  ).toHaveCount(1);
+  const db = libraryDatabase();
+
+  try {
+    expect(
+      db
+        .prepare(
+          "SELECT user_id, is_public, mal_id FROM collections JOIN collection_items ON collection_id = collections.id WHERE name = ?"
+        )
+        .get("First collection")
+    ).toEqual({ user_id: "library-empty", is_public: 0, mal_id: 21 });
+  } finally {
+    db.close();
+  }
+});
+
+test("a library read failure gives a toast and retry recovers the saved collections", async ({
+  page,
+}) => {
+  await signIn(page);
+  const db = libraryDatabase();
+
+  db.exec("ALTER TABLE collections RENAME TO unavailable_collections");
+
+  try {
+    await page.goto("/collections");
+    await expect(notification(page)).toContainText("Couldn't load collections");
+  } finally {
+    db.exec("ALTER TABLE unavailable_collections RENAME TO collections");
+    db.close();
+  }
+
+  await page.getByRole("button", { name: "Retry", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Alice secret", exact: true })
+  ).toBeVisible();
 });
 
 test("a lost response does not silently retry a committed create or discard its draft", async ({
@@ -609,9 +706,7 @@ test("a lost response does not silently retry a committed create or discard its 
 }) => {
   await signIn(page);
   await page.goto("/anime/21");
-  await page
-    .getByRole("button", { name: "Create collection", exact: true })
-    .click();
+  await openCreate(page);
   await page.getByLabel("Name", { exact: true }).fill("Response lost");
   let requests = 0;
 
@@ -627,9 +722,7 @@ test("a lost response does not silently retry a committed create or discard its 
     await route.abort("connectionreset");
   });
   await page.getByRole("button", { name: "Create & Add" }).click();
-  await expect(page.getByRole("alert")).toContainText(
-    "Couldn't confirm the save"
-  );
+  await expect(notification(page)).toContainText("Couldn't confirm save");
   await expect(page.getByLabel("Name", { exact: true })).toHaveValue(
     "Response lost"
   );
@@ -786,7 +879,9 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await expect(
     page.getByRole("heading", { name: "Alice secret", exact: true })
   ).toBeVisible();
-  await expect(page.getByText("Imported public collection")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Imported public", exact: true })
+  ).toBeVisible();
   await expect(page.getByText("Bob secret", { exact: true })).toHaveCount(0);
 
   const privateList = page.locator("article").filter({
@@ -804,9 +899,9 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
     "/fallback-anime.avif"
   );
 
-  const imported = page
-    .locator("article")
-    .filter({ hasText: "Imported public collection" });
+  const imported = page.locator("article").filter({
+    has: page.getByRole("heading", { name: "Imported public", exact: true }),
+  });
 
   await expect(
     imported.getByText("Anime unavailable", { exact: true })
@@ -817,13 +912,11 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
     page.getByRole("button", { name: "Show more titles" })
   ).toHaveCount(0);
   await page.goto("/anime/21");
-  await page
-    .getByRole("button", { name: "Create collection", exact: true })
-    .click();
+  await openCreate(page);
   await page.getByLabel("Name", { exact: true }).fill("Expired draft");
   await signIn(page, "synthetic-expired");
   await page.getByRole("button", { name: "Create & Add" }).click();
-  await expect(page.getByRole("alert")).toContainText("session has ended");
+  await expect(notification(page)).toContainText("Sign in again");
   await expect(page.getByLabel("Name", { exact: true })).toHaveValue(
     "Expired draft"
   );
@@ -892,11 +985,11 @@ test("membership HTTP validates every list before writing, is idempotent and own
     (entry) => entry.method() === "POST" && entry.url().includes("/_serverFn/")
   );
 
-  await page.getByRole("button", { name: "Save Changes (1)" }).click();
+  await page.getByRole("button", { name: /^Save Changes \(/ }).click();
   const mutation = await mutationRequest;
   const captured = z.string().parse(mutation.postData());
 
-  await expect(page.getByRole("status")).toHaveText("Updated 1 collection.");
+  await expect(notification(page)).toContainText(/Updated \d+ collections?/);
 
   const db = libraryDatabase();
 
@@ -1136,7 +1229,9 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   await expect(imported).toBeFocused();
   await page.keyboard.press("Space");
   await expect(imported).toBeChecked();
-  await expect(dialog).toContainText("(will add to collection)");
+  await expect(
+    dialog.getByRole("button", { name: /^Save Changes \(/ })
+  ).toBeEnabled();
   await capture(page, "membership-pending-mobile");
   await page.setViewportSize({ width: 1440, height: 900 });
   await capture(page, "membership-pending-desktop");
@@ -1144,8 +1239,8 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   await dialog.getByRole("button", { name: "Cancel Changes" }).click();
   await expect(imported).not.toBeChecked();
   await expect(
-    dialog.getByRole("button", { name: /Save Changes/ })
-  ).toHaveCount(0);
+    dialog.getByRole("button", { name: "Close", exact: true }).first()
+  ).toBeEnabled();
 
   await imported.press("Space");
   await page.route("**/_serverFn/**", async (route) => {
@@ -1154,12 +1249,12 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
     await route.fetch();
     await route.abort("connectionreset");
   });
-  await dialog.getByRole("button", { name: "Save Changes (1)" }).click();
-  await expect(dialog.getByRole("alert")).toContainText("saving again is safe");
+  await dialog.getByRole("button", { name: /^Save Changes \(/ }).click();
+  await expect(notification(page)).toContainText("Couldn't confirm save");
   await expect(imported).toBeChecked();
   await page.unrouteAll();
-  await dialog.getByRole("button", { name: "Save Changes (1)" }).click();
-  await expect(dialog.getByRole("status")).toHaveText("Already up to date.");
+  await dialog.getByRole("button", { name: /^Save Changes \(/ }).click();
+  await expect(notification(page)).toContainText(/Updated \d+ collections?/);
 
   const overflow = await page.evaluate(() => ({
     page: document.documentElement.scrollWidth - innerWidth,
@@ -1202,4 +1297,9 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
   await expect(
     page.locator("dialog").getByText("Alice secret", { exact: true })
   ).toHaveCount(0);
+  await page.getByRole("button", { name: "Add to Collection" }).click();
+  await page
+    .getByRole("button", { name: "Create New Collection", exact: true })
+    .click();
+  await expect(page.getByLabel("Name", { exact: true })).toHaveValue("");
 });

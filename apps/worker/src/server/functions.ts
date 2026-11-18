@@ -3,6 +3,7 @@ import { getRequestHeaders } from "@tanstack/react-start/server";
 import { env as bindings } from "cloudflare:workers";
 import { drizzle } from "drizzle-orm/d1";
 import { env } from "void/env";
+import { publicIdentity } from "../lib/identity";
 import { animeIdSchema, catalogQuerySchema } from "./anime";
 import { createAuth } from "./auth";
 import {
@@ -48,5 +49,7 @@ export const getViewer = createServerFn({ method: "GET" }).handler(async () => {
     headers,
   });
 
-  return session ? { name: session.user.name } : null;
+  return session
+    ? publicIdentity(session.user, "/anime-female-avatar.png")
+    : null;
 });

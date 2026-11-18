@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-router";
 import fontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { PageMessage } from "../components/page-message";
-import { Toaster } from "../components/ui/sonner";
+import { ToastHost } from "../components/ui/sonner";
 import { getViewer } from "../server/functions";
 import appCss from "../styles.css?url";
 
@@ -47,7 +47,7 @@ export const Route = createRootRoute({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Outlet />
-        <Toaster />
+        <ToastHost />
         <Scripts />
       </body>
     </html>

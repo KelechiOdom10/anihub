@@ -218,14 +218,13 @@ export const createCollection = createServerFn({ method: "POST" })
     if (rejectedRequest())
       return {
         kind: "error",
-        message: "This request isn't allowed. Reload and try again.",
+        message: "Request not allowed",
       } as const;
 
     if (!userId)
       return {
         kind: "signed-out",
-        message:
-          "Your session has ended. Sign in again before saving. Your draft is still here.",
+        message: "Sign in again",
       } as const;
 
     const image =
@@ -234,8 +233,7 @@ export const createCollection = createServerFn({ method: "POST" })
     if (data.animeId !== undefined && !image)
       return {
         kind: "error",
-        message:
-          "This anime is unavailable. Reload its page before trying again.",
+        message: "Anime unavailable",
       } as const;
 
     const id = crypto.randomUUID();
@@ -265,8 +263,7 @@ export const createCollection = createServerFn({ method: "POST" })
     } catch {
       return {
         kind: "error",
-        message:
-          "Couldn't save the collection. Your draft is still here. Please try again.",
+        message: "Couldn't create collection",
       } as const;
     }
 
@@ -335,14 +332,13 @@ export const setMembership = createServerFn({ method: "POST" })
     if (rejectedRequest())
       return {
         kind: "error",
-        message: "This request isn't allowed. Reload and try again.",
+        message: "Request not allowed",
       } as const;
 
     if (!userId)
       return {
         kind: "signed-out",
-        message:
-          "Your session has ended. Sign in again before saving. Your selections are still here.",
+        message: "Sign in again",
       } as const;
 
     const ids = [...data.add, ...data.remove];
@@ -358,8 +354,7 @@ export const setMembership = createServerFn({ method: "POST" })
     if (owned !== ids.length)
       return {
         kind: "error",
-        message:
-          "One of these collections is no longer available. Nothing was changed. Reload and try again.",
+        message: "Collection unavailable",
       } as const;
 
     const image = data.add.length ? await savedCover(data.animeId) : null;
@@ -367,8 +362,7 @@ export const setMembership = createServerFn({ method: "POST" })
     if (data.add.length && !image)
       return {
         kind: "error",
-        message:
-          "This anime is unavailable. Nothing was changed. Reload its page before trying again.",
+        message: "Anime unavailable",
       } as const;
 
     const now = Date.now();
@@ -412,8 +406,7 @@ export const setMembership = createServerFn({ method: "POST" })
     } catch {
       return {
         kind: "error",
-        message:
-          "Couldn't save your changes. Nothing was changed. Your selections are still here.",
+        message: "Couldn't update collections",
       } as const;
     }
   });

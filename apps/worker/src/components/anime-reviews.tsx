@@ -1,6 +1,8 @@
 import { ReloadIcon, StarIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { formatTimeToNow } from "../lib/date";
 import {
   deleteReview,
   getReviews,
@@ -52,7 +54,10 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
         }
       })
       .catch(() => {
-        if (active) setError("Couldn't load reviews. Please try again.");
+        if (active) {
+          setError("Couldn't load reviews");
+          toast.error("Couldn't load reviews");
+        }
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -146,7 +151,6 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
               text: editor.review?.text ?? "",
               rating: editor.review?.rating ?? 0,
               isSpoiler: editor.review?.isSpoiler ?? false,
-              publishPublicly: false,
             }
           }
           onChange={(draft) =>
@@ -179,10 +183,7 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
             Loading comments…
           </p>
         ) : error ? (
-          <div className="space-y-4 rounded-lg border border-dashed border-zinc-800 px-6 py-10 text-center">
-            <p role="alert" className="text-sm">
-              {error}
-            </p>
+          <div className="space-y-3">
             <Button variant="secondary" size="default" onClick={refresh}>
               Retry reviews
             </Button>
@@ -250,7 +251,6 @@ function ReviewCard({
   const [revealed, setRevealed] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
   const inFlight = useRef(false);
 
   const remove = async () => {
@@ -258,17 +258,16 @@ function ReviewCard({
 
     inFlight.current = true;
     setPending(true);
-    setError("");
 
     try {
       const result = await deleteReview({ data: { id: review.id } });
 
-      if (result.kind === "saved") onDeleted();
-      else setError(result.message);
+      if (result.kind === "saved") {
+        onDeleted();
+        toast.success("Review deleted");
+      } else toast.error(result.message);
     } catch {
-      setError(
-        "Couldn't confirm deletion. Reload the reviews before retrying."
-      );
+      toast.error("Couldn't confirm deletion");
     } finally {
       inFlight.current = false;
       setPending(false);
@@ -281,7 +280,7 @@ function ReviewCard({
         <div className="flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-3">
             <img
-              src="/anime-male-avatar.avif"
+              src={review.author.avatar ?? "/anime-male-avatar.avif"}
               alt=""
               className="h-8 w-8 shrink-0 rounded-full"
             />
@@ -293,10 +292,7 @@ function ReviewCard({
                 className="text-xs text-muted-foreground"
                 dateTime={new Date(review.createdAt).toISOString()}
               >
-                {new Date(review.createdAt).toLocaleDateString("en-GB", {
-                  dateStyle: "medium",
-                  timeZone: "UTC",
-                })}
+                {formatTimeToNow(review.createdAt)}
               </time>
             </div>
           </div>
@@ -315,8 +311,8 @@ function ReviewCard({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {review.isSpoiler && !revealed ? (
-          <div className="relative min-h-20">
+        {review.isSpoiler && !owned && !revealed ? (
+          <div className="relative min-h-12">
             <p
               aria-hidden="true"
               className="select-none whitespace-pre-wrap break-words text-sm leading-relaxed blur-md [overflow-wrap:anywhere]"
@@ -339,7 +335,7 @@ function ReviewCard({
             <p className="whitespace-pre-wrap break-words text-sm leading-relaxed [overflow-wrap:anywhere]">
               {review.text}
             </p>
-            {review.isSpoiler && (
+            {review.isSpoiler && !owned && (
               <Button
                 size="sm"
                 variant="ghost"
@@ -355,9 +351,7 @@ function ReviewCard({
           <div className="flex flex-wrap gap-2">
             {confirming ? (
               <>
-                <p className="w-full text-sm">
-                  Delete this review? This can't be undone.
-                </p>
+                <p className="w-full text-sm">Delete this review?</p>
                 <Button
                   size="sm"
                   variant="destructive"
@@ -394,11 +388,6 @@ function ReviewCard({
               </>
             )}
           </div>
-        )}
-        {error && (
-          <p role="alert" className="break-words text-sm text-destructive">
-            {error}
-          </p>
         )}
       </CardContent>
     </Card>
