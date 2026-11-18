@@ -10,24 +10,55 @@ import { animeSchema } from "./anime";
 import { createAuth } from "./auth";
 
 const pageSchema = z.number().int().min(1).max(1000).default(1);
+const animeIdSchema = z.number().int().positive().max(2147483647);
+const listIdSchema = z.string().min(1).max(100);
 const libraryQuery = z.strictObject({ page: pageSchema });
 
 const itemQuery = z.strictObject({
-  collectionId: z.string().min(1).max(100),
+  collectionId: listIdSchema,
   page: pageSchema,
 });
 
 const createInput = z.strictObject({
   name: z.string().trim().min(1).max(100),
   description: z.string().trim().max(500).default(""),
-  animeId: z.number().int().positive().max(2147483647).optional(),
+  animeId: animeIdSchema.optional(),
 });
+
+const membershipQuery = z.strictObject({
+  animeId: animeIdSchema,
+  page: pageSchema,
+});
+
+const membershipInput = z
+  .strictObject({
+    animeId: animeIdSchema,
+    add: z.array(listIdSchema).max(50).default([]),
+    remove: z.array(listIdSchema).max(50).default([]),
+  })
+  .refine(({ add, remove }) => {
+    const ids = [...add, ...remove];
+
+    return (
+      ids.length > 0 && ids.length <= 50 && new Set(ids).size === ids.length
+    );
+  }, "Choose up to 50 collections, each once.");
 
 const collectionRow = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().nullable(),
   isPublic: z.number().transform(Boolean),
+});
+
+const membershipRow = z.object({
+  id: z.string(),
+  name: z.string(),
+  totalItems: z.number(),
+  hasAnime: z.number().transform(Boolean),
+  malId: z.number().nullable(),
+  animeImage: z.string().nullable(),
+  data: z.string().nullable(),
 });
 
 const itemRow = z.object({
@@ -57,6 +88,29 @@ async function owner() {
   });
 
   return session?.user.id ?? null;
+}
+
+function rejectedRequest() {
+  const headers = getRequestHeaders();
+
+  return (
+    headers.get("origin") !== new URL(env.BETTER_AUTH_URL).origin ||
+    !headers.get("content-type")?.startsWith("application/json")
+  );
+}
+
+async function savedCover(animeId: number) {
+  const cached = await bindings.DB.prepare(
+    "SELECT data FROM cache_entries WHERE key = ?"
+  )
+    .bind(`mal:anime:${animeId}`)
+    .first("data");
+
+  const anime = cachedAnime.safeParse(cached);
+
+  return anime.success && anime.data.id === animeId
+    ? cover(anime.data.coverImage.extraLarge)
+    : null;
 }
 
 function cover(value: string | null) {
@@ -160,12 +214,8 @@ export const createCollection = createServerFn({ method: "POST" })
   .validator(createInput)
   .handler(async ({ data }) => {
     const userId = await owner();
-    const headers = getRequestHeaders();
 
-    if (
-      headers.get("origin") !== new URL(env.BETTER_AUTH_URL).origin ||
-      !headers.get("content-type")?.startsWith("application/json")
-    )
+    if (rejectedRequest())
       return {
         kind: "error",
         message: "This request isn't allowed. Reload and try again.",
@@ -178,26 +228,15 @@ export const createCollection = createServerFn({ method: "POST" })
           "Your session has ended. Sign in again before saving. Your draft is still here.",
       } as const;
 
-    let image: string | null = null;
+    const image =
+      data.animeId === undefined ? null : await savedCover(data.animeId);
 
-    if (data.animeId !== undefined) {
-      const cached = await bindings.DB.prepare(
-        "SELECT data FROM cache_entries WHERE key = ?"
-      )
-        .bind(`mal:anime:${data.animeId}`)
-        .first("data");
-
-      const anime = cachedAnime.safeParse(cached);
-
-      if (!anime.success || anime.data.id !== data.animeId)
-        return {
-          kind: "error",
-          message:
-            "This anime is unavailable. Reload its page before trying again.",
-        } as const;
-
-      image = cover(anime.data.coverImage.extraLarge);
-    }
+    if (data.animeId !== undefined && !image)
+      return {
+        kind: "error",
+        message:
+          "This anime is unavailable. Reload its page before trying again.",
+      } as const;
 
     const id = crypto.randomUUID();
     const now = Date.now();
@@ -240,4 +279,141 @@ export const createCollection = createServerFn({ method: "POST" })
         isPublic: false,
       },
     } as const;
+  });
+
+export const getMembership = createServerFn({ method: "GET" })
+  .validator(membershipQuery)
+  .handler(async ({ data }) => {
+    const userId = await owner();
+
+    if (!userId) return null;
+
+    const result = await bindings.DB.prepare(
+      `
+      SELECT
+        l.id,
+        l.name,
+        (SELECT count(*) FROM collection_items WHERE collection_id = l.id) AS totalItems,
+        EXISTS (
+          SELECT 1 FROM collection_items WHERE collection_id = l.id AND mal_id = ?
+        ) AS hasAnime,
+        t.mal_id AS malId,
+        t.anime_image AS animeImage,
+        c.data
+      FROM collections l
+      LEFT JOIN collection_items t ON t.id = (
+        SELECT id FROM collection_items WHERE collection_id = l.id
+        ORDER BY added_at DESC, id DESC LIMIT 1
+      )
+      LEFT JOIN cache_entries c ON c.key = 'mal:anime:' || t.mal_id
+      WHERE l.user_id = ?
+      ORDER BY l.created_at DESC, l.id DESC LIMIT 21 OFFSET ?
+    `
+    )
+      .bind(data.animeId, userId, (data.page - 1) * 20)
+      .all();
+
+    const rows = z.array(membershipRow).parse(result.results);
+
+    return {
+      collections: rows.slice(0, 20).map((row) => ({
+        id: row.id,
+        name: row.name,
+        totalItems: row.totalItems,
+        hasAnime: row.hasAnime,
+        thumbnail: row.totalItems ? itemDto(row).image : null,
+      })),
+      hasNextPage: rows.length > 20,
+    };
+  });
+
+export const setMembership = createServerFn({ method: "POST" })
+  .validator(membershipInput)
+  .handler(async ({ data }) => {
+    const userId = await owner();
+
+    if (rejectedRequest())
+      return {
+        kind: "error",
+        message: "This request isn't allowed. Reload and try again.",
+      } as const;
+
+    if (!userId)
+      return {
+        kind: "signed-out",
+        message:
+          "Your session has ended. Sign in again before saving. Your selections are still here.",
+      } as const;
+
+    const ids = [...data.add, ...data.remove];
+
+    const owned = await bindings.DB.prepare(
+      `SELECT count(*) AS n FROM collections WHERE user_id = ? AND id IN (${ids
+        .map(() => "?")
+        .join(", ")})`
+    )
+      .bind(userId, ...ids)
+      .first("n");
+
+    if (owned !== ids.length)
+      return {
+        kind: "error",
+        message:
+          "One of these collections is no longer available. Nothing was changed. Reload and try again.",
+      } as const;
+
+    const image = data.add.length ? await savedCover(data.animeId) : null;
+
+    if (data.add.length && !image)
+      return {
+        kind: "error",
+        message:
+          "This anime is unavailable. Nothing was changed. Reload its page before trying again.",
+      } as const;
+
+    const now = Date.now();
+
+    const statements = [
+      ...data.add.map((collectionId) =>
+        bindings.DB.prepare(
+          `
+          INSERT INTO collection_items (id, collection_id, mal_id, anime_image, added_at)
+          SELECT ?, id, ?, ?, ? FROM collections WHERE id = ? AND user_id = ?
+          ON CONFLICT (collection_id, mal_id) DO NOTHING
+        `
+        ).bind(
+          crypto.randomUUID(),
+          data.animeId,
+          image,
+          now,
+          collectionId,
+          userId
+        )
+      ),
+      ...data.remove.map((collectionId) =>
+        bindings.DB.prepare(
+          `
+          DELETE FROM collection_items
+          WHERE mal_id = ? AND collection_id = (
+            SELECT id FROM collections WHERE id = ? AND user_id = ?
+          )
+        `
+        ).bind(data.animeId, collectionId, userId)
+      ),
+    ];
+
+    try {
+      const results = await bindings.DB.batch(statements);
+
+      return {
+        kind: "saved",
+        changed: results.filter((result) => result.meta.changes > 0).length,
+      } as const;
+    } catch {
+      return {
+        kind: "error",
+        message:
+          "Couldn't save your changes. Nothing was changed. Your selections are still here.",
+      } as const;
+    }
   });

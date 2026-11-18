@@ -7,6 +7,7 @@ import {
   statusLabel,
 } from "../lib/anime";
 import type { Anime } from "../server/anime";
+import { ChooseCollectionDialog } from "./choose-collection-dialog";
 import { CreateCollectionDialog } from "./create-collection-dialog";
 
 export function AnimeHeader({ anime }: { anime: Anime }) {
@@ -49,7 +50,11 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
           {englishTitle(anime)}
         </h1>
         {rating && <p className="text-lg text-gray-400">★ {rating}</p>}
-        <div>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <ChooseCollectionDialog
+            animeId={anime.id}
+            signedIn={Boolean(viewer)}
+          />
           <CreateCollectionDialog
             animeId={anime.id}
             signedIn={Boolean(viewer)}
