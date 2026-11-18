@@ -3,7 +3,7 @@ import { librarySecret } from "./tests/library-fixture";
 
 export default defineConfig({
   testDir: "./tests/browser",
-  testMatch: "library.spec.ts",
+  testMatch: ["library.spec.ts", "reviews.spec.ts"],
   globalSetup: "./tests/library-fixture.ts",
   workers: 1,
   use: {
