@@ -172,7 +172,17 @@ function Collections() {
   }, []);
 
   return (
-    <section ref={content} className="container mt-28 space-y-8 px-4 py-8">
+    <section
+      ref={content}
+      id="private-library"
+      className="container mt-28 space-y-8 px-4 py-8"
+    >
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            'addEventListener("pagehide",function(){var s=document.getElementById("private-library");if(s)s.hidden=true});addEventListener("pageshow",function(e){if(e.persisted&&document.getElementById("private-library"))location.reload()})',
+        }}
+      />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-semibold">My Collections</h1>
         <CreateCollectionDialog signedIn />

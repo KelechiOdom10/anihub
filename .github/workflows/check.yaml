@@ -52,6 +52,7 @@ jobs:
       - run: pnpm --filter @anihub/worker typecheck
       - run: pnpm --filter @anihub/worker test
       - run: pnpm --filter @anihub/worker build
+      - run: '"$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version'
       - run: pnpm --filter @anihub/worker test:browser
       - run: pnpm --filter @anihub/worker test:library
       - run: pnpm --filter @anihub/worker check:bundle

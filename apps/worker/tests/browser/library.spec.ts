@@ -1,6 +1,6 @@
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { expect, test, type Page } from "@playwright/test";
+import { chromium, expect, test, type Page } from "@playwright/test";
 import { z } from "zod";
 import { libraryDatabase, sessionCookie } from "../library-fixture";
 
@@ -637,7 +637,7 @@ test("a lost response does not silently retry a committed create or discard its 
   ).toBeVisible();
 });
 
-test("persisted-page restoration revalidates the session rather than keeping a private document", async ({
+test("after hydration, synthetic persisted pagehide/pageshow events hide the library and revalidate the session", async ({
   page,
 }) => {
   await signIn(page, "synthetic-bob");
@@ -669,6 +669,90 @@ test("persisted-page restoration revalidates the session rather than keeping a p
   );
   await expect(page).toHaveURL(/sign-in/);
   await expect(page.getByText("Bob secret", { exact: true })).toHaveCount(0);
+});
+
+test("a library left before hydration is not shown from the back/forward cache once its session ends", async () => {
+  const browser = await chromium.launch({
+    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
+    ignoreDefaultArgs: ["--disable-back-forward-cache"],
+  });
+
+  const restoreBob = () => {
+    const db = libraryDatabase();
+
+    db.prepare(
+      "INSERT OR REPLACE INTO session (id, token, user_id, expires_at, created_at, updated_at) VALUES ('library-bob', 'synthetic-bob', 'library-bob', ?, 1, 1)"
+    ).run(Date.now() + 3_600_000);
+    db.close();
+  };
+
+  try {
+    for (const end of ["sign-out", "revoked"]) {
+      restoreBob();
+
+      const context = await browser.newContext({
+        baseURL: "http://127.0.0.1:8791",
+      });
+
+      const page = await context.newPage();
+
+      await signIn(page, "synthetic-bob");
+      await page.addInitScript(() =>
+        addEventListener("pageshow", (event) => {
+          if (event.persisted) sessionStorage.setItem("restored", "1");
+        })
+      );
+      await page.route(/\.m?js(\?|$)/, (route) => route.abort());
+      await page.goto("/collections", { waitUntil: "domcontentloaded" });
+      await expect(
+        page.getByRole("heading", { name: "Bob secret", exact: true })
+      ).toBeVisible();
+      await page.unrouteAll();
+      await Promise.all([
+        page.waitForURL("http://127.0.0.1:8791/"),
+        page.evaluate(() => {
+          location.href = "/";
+        }),
+      ]);
+      await page.waitForLoadState("load");
+
+      if (end === "sign-out") {
+        const status = await page.evaluate(
+          async () =>
+            (
+              await fetch("/api/auth/sign-out", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: "{}",
+              })
+            ).status
+        );
+
+        expect(status).toBe(200);
+      } else {
+        const db = libraryDatabase();
+
+        db.prepare("DELETE FROM session WHERE token = 'synthetic-bob'").run();
+        db.close();
+      }
+
+      await page.goBack({ waitUntil: "commit" });
+      await expect(page).toHaveURL(/sign-in/);
+      await expect(page.getByText("Bob secret", { exact: true })).toHaveCount(
+        0
+      );
+
+      if (end === "revoked")
+        expect(
+          await page.evaluate(() => sessionStorage.getItem("restored"))
+        ).toBe("1");
+
+      await context.close();
+    }
+  } finally {
+    restoreBob();
+    await browser.close();
+  }
 });
 
 test("expiry retains draft, imported pagination is local, and signout/back cannot show private lists", async ({
