@@ -72,6 +72,20 @@ function replaceWireData(
   return JSON.stringify(payload);
 }
 
+function restoreSession(name: string) {
+  const db = libraryDatabase();
+
+  db.prepare(
+    "INSERT OR REPLACE INTO session (id, token, user_id, expires_at, created_at, updated_at) VALUES (?, ?, ?, ?, 1, 1)"
+  ).run(
+    `library-${name}`,
+    `synthetic-${name}`,
+    `library-${name}`,
+    Date.now() + 3_600_000
+  );
+  db.close();
+}
+
 function cookieHeader(token: string) {
   return `better-auth.session_token=${sessionCookie(token)}`;
 }
@@ -677,22 +691,13 @@ test("a back/forward restore, before or after hydration, never shows the library
     ignoreDefaultArgs: ["--disable-back-forward-cache"],
   });
 
-  const restoreBob = () => {
-    const db = libraryDatabase();
-
-    db.prepare(
-      "INSERT OR REPLACE INTO session (id, token, user_id, expires_at, created_at, updated_at) VALUES ('library-bob', 'synthetic-bob', 'library-bob', ?, 1, 1)"
-    ).run(Date.now() + 3_600_000);
-    db.close();
-  };
-
   try {
     for (const [end, hydrated] of [
       ["sign-out", false],
       ["revoked", false],
       ["revoked", true],
     ] as const) {
-      restoreBob();
+      restoreSession("bob");
 
       const context = await browser.newContext({
         baseURL: "http://127.0.0.1:8791",
@@ -768,7 +773,7 @@ test("a back/forward restore, before or after hydration, never shows the library
       await context.close();
     }
   } finally {
-    restoreBob();
+    restoreSession("bob");
     await browser.close();
   }
 });
@@ -834,4 +839,351 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await expect(page.getByText("Alice secret", { exact: true })).toHaveCount(0);
   await page.goto("/collections");
   await expect(page).toHaveURL(/sign-in/);
+});
+
+function membershipWire(
+  captured: string,
+  animeId: number,
+  add: string[],
+  remove: string[],
+  extra: Record<string, string> = {}
+) {
+  const payload = wirePayload.parse(JSON.parse(captured));
+  const data = payload.t.p.v[0];
+
+  const list = (ids: string[], index: number) => ({
+    t: 9,
+    i: index,
+    a: ids.map((id) => ({ t: 1, s: id })),
+    o: 0,
+  });
+
+  data.p.k = ["animeId", "add", "remove", ...Object.keys(extra)];
+  data.p.v = [
+    { t: 0, s: animeId },
+    list(add, 2),
+    list(remove, 3),
+    ...Object.values(extra).map((value) => ({ t: 1, s: value })),
+  ];
+
+  return JSON.stringify(payload);
+}
+
+test("membership HTTP validates every list before writing, is idempotent and owner-bound", async ({
+  page,
+  request,
+}) => {
+  restoreSession("alice");
+  await signIn(page);
+  await page.goto("/anime/21");
+
+  const membershipRead = page.waitForRequest(
+    (entry) => entry.method() === "GET" && entry.url().includes("/_serverFn/")
+  );
+
+  await page.getByRole("button", { name: "Add to Collection" }).click();
+  const read = await membershipRead;
+  const imported = page.getByRole("checkbox", { name: /Imported public/ });
+
+  await expect(imported).not.toBeChecked();
+  await imported.check();
+
+  const mutationRequest = page.waitForRequest(
+    (entry) => entry.method() === "POST" && entry.url().includes("/_serverFn/")
+  );
+
+  await page.getByRole("button", { name: "Save Changes (1)" }).click();
+  const mutation = await mutationRequest;
+  const captured = z.string().parse(mutation.postData());
+
+  await expect(page.getByRole("status")).toHaveText("Updated 1 collection.");
+
+  const db = libraryDatabase();
+
+  const items = () =>
+    z
+      .array(
+        z.object({
+          id: z.string(),
+          collection_id: z.string(),
+          mal_id: z.number().nullable(),
+          anime_id: z.number().nullable(),
+          anime_image: z.string().nullable(),
+        })
+      )
+      .parse(
+        db
+          .prepare(
+            "SELECT id, collection_id, mal_id, anime_id, anime_image FROM collection_items ORDER BY id"
+          )
+          .all()
+      );
+
+  const has = (collectionId: string) =>
+    z
+      .object({ n: z.number() })
+      .parse(
+        db
+          .prepare(
+            "SELECT count(*) AS n FROM collection_items WHERE collection_id = ? AND mal_id = 21"
+          )
+          .get(collectionId)
+      ).n;
+
+  const post = (
+    body: string,
+    token = "synthetic-alice",
+    origin = "http://127.0.0.1:8791",
+    contentType = "application/json"
+  ) =>
+    request.post(mutation.url(), {
+      headers: {
+        cookie: cookieHeader(token),
+        origin,
+        "content-type": contentType,
+        "x-tsr-serverfn": "true",
+        accept: "application/json",
+      },
+      data: body,
+    });
+
+  try {
+    expect(has("library-alice-public")).toBe(1);
+    expect(has("library-alice-private")).toBe(1);
+    expect(has("library-bob-private")).toBe(0);
+
+    const before = items();
+
+    const rejected: Array<[number, string[], string[]]> = [
+      [21, ["library-alice-public", "library-bob-private"], []],
+      [21, ["library-bob-private"], ["library-alice-private"]],
+      [21, [], ["library-alice-private", "library-missing"]],
+      [21, ["library-alice-public", "library-alice-public"], []],
+      [21, ["library-alice-public"], ["library-alice-public"]],
+      [21, [], []],
+      [21, Array.from({ length: 51 }, (_, index) => `list-${index}`), []],
+      [21, [""], []],
+      [-1, ["library-alice-public"], []],
+      [1.5, [], ["library-alice-private"]],
+      [999, ["library-alice-public"], []],
+    ];
+
+    for (const [animeId, adds, removes] of rejected) {
+      const response = await post(
+        membershipWire(captured, animeId, adds, removes)
+      );
+
+      expect(await response.text()).not.toContain('"saved"');
+      expect(items()).toEqual(before);
+    }
+
+    const removal = membershipWire(captured, 21, [], ["library-alice-private"]);
+
+    for (const body of [
+      membershipWire(captured, 21, [], ["library-alice-private"], {
+        userId: "library-bob",
+      }),
+      membershipWire(captured, 21, [], ["library-alice-private"], {
+        animeImage: "https://untrusted.invalid/x.jpg",
+      }),
+    ])
+      await post(body);
+
+    for (const token of ["", "synthetic-expired", "synthetic-forged"])
+      await post(removal, token);
+
+    await post(removal, "synthetic-bob");
+    await post(removal, "synthetic-alice", "https://foreign.invalid");
+    await post(
+      removal,
+      "synthetic-alice",
+      "http://127.0.0.1:8791",
+      "text/plain"
+    );
+    expect(items()).toEqual(before);
+
+    const repeatAdd = await post(
+      membershipWire(captured, 21, ["library-alice-public"], [])
+    );
+
+    expect(await repeatAdd.text()).toContain('"saved"');
+    expect(items()).toEqual(before);
+
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const removed = await post(removal);
+
+      expect(await removed.text()).toContain('"saved"');
+      expect(has("library-alice-private")).toBe(0);
+    }
+
+    expect(
+      db
+        .prepare(
+          "SELECT name, user_id, is_public FROM collections WHERE id = 'library-alice-private'"
+        )
+        .get()
+    ).toEqual({ name: "Alice secret", user_id: "library-alice", is_public: 0 });
+    expect(items()).toEqual(
+      before.filter(
+        (row) =>
+          row.collection_id !== "library-alice-private" || row.mal_id !== 21
+      )
+    );
+
+    const added = await post(
+      membershipWire(captured, 21, ["library-alice-private"], [])
+    );
+
+    expect(await added.text()).toContain('"saved"');
+    expect(
+      db
+        .prepare(
+          "SELECT mal_id, anime_id, anime_image FROM collection_items WHERE collection_id = 'library-alice-private' AND mal_id = 21"
+        )
+        .get()
+    ).toEqual({
+      mal_id: 21,
+      anime_id: null,
+      anime_image: "/fallback-anime.avif",
+    });
+
+    const readAs = async (token: string) => {
+      const response = await request.get(read.url(), {
+        headers: {
+          cookie: cookieHeader(token),
+          origin: "http://127.0.0.1:8791",
+          "x-tsr-serverfn": "true",
+          accept: "application/json",
+        },
+      });
+
+      expect(response.headers()["cache-control"]).toContain("no-store");
+
+      return response.text();
+    };
+
+    const alice = await readAs("synthetic-alice");
+
+    expect(alice).toContain("Alice secret");
+    expect(alice).toContain(
+      '"k":["id","name","totalItems","hasAnime","thumbnail"]'
+    );
+    expect(alice).not.toContain("Bob secret");
+
+    for (const secret of [
+      "@example.invalid",
+      "synthetic-alice",
+      "synthetic-access-secret",
+      'library-alice"',
+      "untrusted.invalid",
+      '"userId"',
+      '"email"',
+    ])
+      expect(alice).not.toContain(secret);
+
+    const bob = await readAs("synthetic-bob");
+
+    expect(bob).toContain("Bob secret");
+    expect(bob).not.toContain("Alice secret");
+    expect(await readAs("")).not.toContain("Alice secret");
+  } finally {
+    db.close();
+  }
+});
+
+test("choose dialog works by keyboard on a phone, cancels, saves, survives reload and a lost response", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/anime/21");
+  await expect(
+    page.getByRole("link", { name: "Add to Collection" })
+  ).toHaveAttribute("href", /sign-in\?redirect=%2Fanime%2F21/);
+  restoreSession("alice");
+
+  const db = libraryDatabase();
+
+  db.exec(
+    "DELETE FROM collection_items WHERE collection_id = 'library-alice-public' AND mal_id = 21; INSERT OR IGNORE INTO collection_items (id, collection_id, mal_id, added_at) VALUES ('library-known-again', 'library-alice-private', 21, 1)"
+  );
+  db.close();
+  await signIn(page);
+  await page.reload();
+
+  const trigger = page.getByRole("button", { name: "Add to Collection" });
+
+  await trigger.focus();
+  await page.keyboard.press("Enter");
+  const dialog = page.getByRole("dialog", { name: "Add to Collection" });
+  const imported = dialog.getByRole("checkbox", { name: /Imported public/ });
+
+  await expect(imported).not.toBeChecked();
+
+  for (let step = 0; step < 40; step++) {
+    if (
+      await imported.evaluate((element) => element === document.activeElement)
+    )
+      break;
+
+    await page.keyboard.press("Tab");
+  }
+
+  await expect(imported).toBeFocused();
+  await page.keyboard.press("Space");
+  await expect(imported).toBeChecked();
+  await expect(dialog).toContainText("(will add to collection)");
+  await capture(page, "membership-pending-mobile");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await capture(page, "membership-pending-desktop");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await dialog.getByRole("button", { name: "Cancel Changes" }).click();
+  await expect(imported).not.toBeChecked();
+  await expect(
+    dialog.getByRole("button", { name: /Save Changes/ })
+  ).toHaveCount(0);
+
+  await imported.press("Space");
+  await page.route("**/_serverFn/**", async (route) => {
+    if (route.request().method() !== "POST") return route.continue();
+
+    await route.fetch();
+    await route.abort("connectionreset");
+  });
+  await dialog.getByRole("button", { name: "Save Changes (1)" }).click();
+  await expect(dialog.getByRole("alert")).toContainText("saving again is safe");
+  await expect(imported).toBeChecked();
+  await page.unrouteAll();
+  await dialog.getByRole("button", { name: "Save Changes (1)" }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Updated 1 collection.");
+
+  const overflow = await page.evaluate(() => ({
+    page: document.documentElement.scrollWidth - innerWidth,
+    dialog: (() => {
+      const box = document
+        .querySelector("dialog[open]")
+        ?.getBoundingClientRect();
+
+      return box ? Math.max(0, box.right - innerWidth, -box.left) : -1;
+    })(),
+  }));
+
+  expect(overflow).toEqual({ page: 0, dialog: 0 });
+  await capture(page, "membership-saved-mobile");
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await page.reload();
+  await page.getByRole("button", { name: "Add to Collection" }).click();
+  await expect(
+    page
+      .getByRole("dialog", { name: "Add to Collection" })
+      .getByRole("checkbox", { name: /Imported public/ })
+  ).toBeChecked();
+  await expect(
+    page
+      .getByRole("dialog", { name: "Add to Collection" })
+      .getByRole("checkbox", { name: /Alice secret/ })
+  ).toBeChecked();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await capture(page, "membership-desktop");
 });
