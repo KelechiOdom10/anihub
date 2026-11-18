@@ -6,6 +6,7 @@ import {
 import { env as bindings } from "cloudflare:workers";
 import { env } from "void/env";
 import { z } from "zod";
+import { publicIdentity } from "../lib/identity";
 import { animeSchema } from "./anime";
 import { createAuth } from "./auth";
 
@@ -16,7 +17,6 @@ const content = {
   text: z.string().max(5000).trim().min(1).max(5000),
   rating: z.number().int().min(1).max(5),
   isSpoiler: z.boolean(),
-  publishPublicly: z.literal(true),
 };
 
 const query = z.strictObject({
@@ -32,6 +32,8 @@ const row = z.object({
   createdAt: z.number(),
   updatedAt: z.number(),
   userId: z.string(),
+  name: z.string(),
+  image: z.string().nullable(),
 });
 
 function noStore() {
@@ -39,8 +41,11 @@ function noStore() {
   setResponseHeader("Vary", "Cookie");
 }
 
-function author(id: string) {
-  return { id, name: "Anime fan", avatar: null };
+function author(user: { id: string; name: string; image: string | null }) {
+  return {
+    id: user.id,
+    ...publicIdentity(user),
+  };
 }
 
 async function viewer() {
@@ -50,7 +55,13 @@ async function viewer() {
     headers: getRequestHeaders(),
   });
 
-  return session ? author(session.user.id) : null;
+  return session
+    ? author({
+        id: session.user.id,
+        name: session.user.name,
+        image: session.user.image ?? null,
+      })
+    : null;
 }
 
 async function writer() {
@@ -64,7 +75,7 @@ async function writer() {
   )
     return {
       kind: "error",
-      message: "This request isn't allowed. Reload and try again.",
+      message: "Request not allowed",
     } as const;
 
   const user = await viewer();
@@ -72,8 +83,7 @@ async function writer() {
   if (!user)
     return {
       kind: "error",
-      message:
-        "Your session has ended. Sign in again. Your draft is still here.",
+      message: "Sign in again",
     } as const;
 
   return { kind: "authorized", id: user.id } as const;
@@ -90,10 +100,11 @@ export const getReviews = createServerFn({ method: "GET" })
 
     const result = await bindings.DB.prepare(
       `
-      SELECT id, text, rating, is_spoiler AS isSpoiler,
-             created_at AS createdAt, updated_at AS updatedAt, user_id AS userId
-      FROM comments WHERE mal_id = ? AND parent_id IS NULL
-      ORDER BY created_at DESC, id DESC LIMIT 11 OFFSET ?
+      SELECT c.id, c.text, c.rating, c.is_spoiler AS isSpoiler,
+             c.created_at AS createdAt, c.updated_at AS updatedAt, c.user_id AS userId, u.name, u.image
+      FROM comments c JOIN user u ON u.id = c.user_id
+      WHERE c.mal_id = ? AND c.parent_id IS NULL
+      ORDER BY c.created_at DESC, c.id DESC LIMIT 11 OFFSET ?
     `
     )
       .bind(data.animeId, (data.page - 1) * 10)
@@ -102,9 +113,9 @@ export const getReviews = createServerFn({ method: "GET" })
     const rows = z.array(row).parse(result.results);
 
     return {
-      reviews: rows.slice(0, 10).map(({ userId, ...review }) => ({
+      reviews: rows.slice(0, 10).map(({ userId, name, image, ...review }) => ({
         ...review,
-        author: author(userId),
+        author: author({ id: userId, name, image }),
       })),
       hasNextPage: rows.length > 10 && data.page < 1000,
     };
@@ -139,8 +150,7 @@ export const createReview = createServerFn({ method: "POST" })
     if (!metadata?.success || metadata.data.id !== data.animeId)
       return {
         kind: "error",
-        message:
-          "This anime is unavailable. Reload its page before publishing.",
+        message: "Anime unavailable",
       } as const;
 
     const id = crypto.randomUUID();
@@ -194,7 +204,7 @@ export const editReview = createServerFn({ method: "POST" })
       ? ({ kind: "saved", id: data.id } as const)
       : ({
           kind: "error",
-          message: "This review is no longer available to edit.",
+          message: "Review unavailable",
         } as const);
   });
 
@@ -219,6 +229,6 @@ export const deleteReview = createServerFn({ method: "POST" })
       : ({
           kind: "error",
           message:
-            "This review can't be deleted. Reviews with replies are kept to preserve the discussion, or the review is no longer yours.",
+            "Can't delete this review. It has replies or is no longer available.",
         } as const);
   });

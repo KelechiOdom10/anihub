@@ -51,10 +51,7 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
         </h1>
         {rating && <p className="text-base text-gray-400">★ {rating}</p>}
         <div className="mt-2 flex flex-wrap items-center gap-2">
-          <ChooseCollectionDialog
-            animeId={anime.id}
-            signedIn={Boolean(viewer)}
-          />
+          <ChooseCollectionDialog animeId={anime.id} viewer={viewer} />
           <CreateCollectionDialog
             animeId={anime.id}
             signedIn={Boolean(viewer)}
