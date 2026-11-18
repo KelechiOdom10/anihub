@@ -14,5 +14,7 @@ export const ProducerSearchQuery = graphql(
   `,
   [ProducerPreview]
 );
+
 export type ProducerSearchResult = ResultOf<typeof ProducerSearchQuery>;
+
 export type ProducerSearchQueryParams = VariablesOf<typeof ProducerSearchQuery>;

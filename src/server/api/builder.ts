@@ -21,6 +21,7 @@ const builder = new SchemaBuilder<{
     validationError: (zodError, _, __, info) => {
       if (zodError.errors[0]) {
         const [{ message, path, code }] = zodError.errors;
+
         return new GraphQLError(message, {
           path: [...(info.path.key ? [info.path.key] : []), ...path],
           extensions: {
@@ -42,6 +43,7 @@ const builder = new SchemaBuilder<{
 });
 
 builder.queryType({});
+
 builder.mutationType({});
 
 export { builder };

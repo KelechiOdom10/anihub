@@ -15,8 +15,10 @@ import {
 
 // Object References
 export const CollectionRef = builder.objectRef<CollectionType>("Collection");
+
 export const CollectionItemRef =
   builder.objectRef<CollectionItemType>("CollectionItem");
+
 export const CollectionLikeRef =
   builder.objectRef<CollectionLikeType>("CollectionLike");
 
@@ -178,11 +180,13 @@ builder.queryField("getMyCollections", (t) =>
       query: t.arg({ type: CollectionQueryParamsType, required: false }),
     },
     resolve: async (query, _root, { query: params }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       const collectionsData = await ctx.db.query.collections.findMany(
         query({
-          where: eq(collections.userId, ctx.session.userId),
+          where: eq(collections.userId, session.userId),
           orderBy: (collections, { desc }) => [desc(collections.createdAt)],
           limit: params?.limit ?? 10,
           offset: params?.offset ?? 0,
@@ -203,7 +207,9 @@ builder.mutationField("createCollection", (t) =>
       input: t.arg({ type: CreateCollectionInput, required: true }),
     },
     resolve: async (_root, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       const collectionData = await ctx.db.transaction(async (tx) => {
         const [collection] = await tx
@@ -212,7 +218,7 @@ builder.mutationField("createCollection", (t) =>
             name: input.name,
             description: input.description,
             isPublic: Boolean(input.isPublic),
-            userId: ctx.session?.userId as number,
+            userId: session.userId,
           })
           .returning();
 
@@ -225,6 +231,7 @@ builder.mutationField("createCollection", (t) =>
             }))
           );
         }
+
         return collection;
       });
 
@@ -244,7 +251,9 @@ builder.mutationField("updateCollection", (t) =>
       input: t.arg({ type: UpdateCollectionInput, required: true }),
     },
     resolve: async (_query, _root, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       // Create an update object only with provided fields
       const updateData = {
@@ -273,7 +282,9 @@ builder.mutationField("addAnimeToCollection", (t) =>
       input: t.arg({ type: AddAnimeToCollectionInput, required: true }),
     },
     resolve: async (_parent, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       // Verify collection ownership
       const collection = await ctx.db.query.collections.findFirst({
@@ -281,7 +292,8 @@ builder.mutationField("addAnimeToCollection", (t) =>
       });
 
       if (!collection) throw new Error("Collection not found");
-      if (collection.userId !== ctx.session.userId) {
+
+      if (collection.userId !== session.userId) {
         throw new Error("Not authorized to modify this collection");
       }
 
@@ -307,12 +319,14 @@ builder.mutationField("toggleCollectionLike", (t) =>
       collectionId: t.arg.int({ required: true }),
     },
     resolve: async (query, _root, { collectionId }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       const existingLike = await ctx.db.query.collectionLikes.findFirst({
         where: and(
           eq(collectionLikes.collectionId, collectionId),
-          eq(collectionLikes.userId, ctx.session.userId)
+          eq(collectionLikes.userId, session.userId)
         ),
       });
 
@@ -331,7 +345,7 @@ builder.mutationField("toggleCollectionLike", (t) =>
         } else {
           await tx.insert(collectionLikes).values({
             collectionId,
-            userId: ctx.session?.userId as number,
+            userId: session.userId,
           });
 
           await tx
@@ -359,7 +373,9 @@ builder.mutationField("addAnimeToNewCollection", (t) =>
       input: t.arg({ type: AddAnimeToNewCollectionInput, required: true }),
     },
     resolve: async (_root, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       return await ctx.db.transaction(async (tx) => {
         // Create the collection first
@@ -369,7 +385,7 @@ builder.mutationField("addAnimeToNewCollection", (t) =>
             name: input.name,
             description: input.description,
             isPublic: Boolean(input.isPublic),
-            userId: ctx.session?.userId as number,
+            userId: session.userId,
           })
           .returning()
           .then((res) => res[0]);
@@ -400,7 +416,9 @@ builder.mutationField("removeAnimeFromCollection", (t) =>
       input: t.arg({ type: RemoveAnimeFromCollectionInput, required: true }),
     },
     resolve: async (_root, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       const collection = await ctx.db.query.collections.findFirst({
         where: (collections, { eq }) => eq(collections.id, input.collectionId),
@@ -408,7 +426,7 @@ builder.mutationField("removeAnimeFromCollection", (t) =>
 
       if (!collection) throw new Error("Collection not found");
 
-      if (collection.userId !== ctx.session.userId) {
+      if (collection.userId !== session.userId) {
         throw new Error("Not authorized");
       }
 
@@ -433,7 +451,9 @@ builder.mutationField("bulkUpdateCollections", (t) =>
       input: t.arg({ type: BulkUpdateCollectionsInput, required: true }),
     },
     resolve: async (query, _root, { input }, ctx) => {
-      if (!ctx.session) throw new Error("Not authenticated");
+      const { session } = ctx;
+
+      if (!session) throw new Error("Not authenticated");
 
       const collections = await ctx.db.query.collections.findMany(
         query({
@@ -447,7 +467,7 @@ builder.mutationField("bulkUpdateCollections", (t) =>
 
       // Verify ownership of all collections
       for (const collection of collections) {
-        if (collection.userId !== ctx.session.userId) {
+        if (collection.userId !== session.userId) {
           throw new Error("Not authorized to update one or more collections");
         }
       }

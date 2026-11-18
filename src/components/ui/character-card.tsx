@@ -14,9 +14,11 @@ interface CharacterCardProps {
 
 export const CharacterCard = ({ character }: CharacterCardProps) => {
   const [color, setColor] = useState<string | null>(null);
+
   const [imageURL, setImageURL] = useState(
     character.image?.default ?? "/fallback-anime.avif"
   );
+
   const imgRef = useRef<HTMLImageElement>(null);
 
   return (
@@ -38,6 +40,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
           if (imgRef.current) {
             const colorThief = new ColorThief();
             const color = colorThief.getColor(imgRef.current);
+
             if (color) {
               setColor(rgbToHex(color[0], color[1], color[2]));
             }
@@ -54,7 +57,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         <div className="line-clamp-6 flex flex-col space-y-1 text-ellipsis">
           {character.about &&
             Object.entries(extractCharacterDetails(character.about))
-              .filter(([_, value]) => value && value.length < 45)
+              .filter(([, value]) => value && value.length < 45)
               .slice(0, 4)
               .map(([key, value]) => (
                 <p
@@ -75,6 +78,7 @@ const rgbToHex = (r: number, g: number, b: number) =>
   [r, g, b]
     .map((x) => {
       const hex = x.toString(16);
+
       return hex.length === 1 ? "0" + hex : hex;
     })
     .join("");

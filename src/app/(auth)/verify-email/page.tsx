@@ -21,6 +21,7 @@ export default async function ForgotPasswordPage() {
   const { user } = await validateRequest();
 
   if (!user) redirect(redirects.toLogin);
+
   if (user.emailVerified) redirect(redirects.afterVerify);
 
   return (

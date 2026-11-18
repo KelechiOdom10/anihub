@@ -51,6 +51,7 @@ interface CreateCollectionProps {
 export function CreateCollection({ topAnimes }: CreateCollectionProps) {
   const [selectedAnime, setSelectedAnime] = useState<Set<number>>(new Set());
   const router = useRouter();
+
   const [{ fetching }, createCollection] = useMutation(
     CreateCollectionMutation
   );
@@ -68,17 +69,20 @@ export function CreateCollection({ topAnimes }: CreateCollectionProps) {
   const handleAnimeSelect = (animeId: number) => {
     setSelectedAnime((prev) => {
       const next = new Set(prev);
+
       if (next.has(animeId)) {
         next.delete(animeId);
       } else {
         next.add(animeId);
       }
+
       return next;
     });
 
     // Update form value for validation
     const selectedAnimeArray = Array.from(selectedAnime).map((id) => {
       const anime = topAnimes?.find((a) => Number(a.id) === id);
+
       return {
         id,
         animeImage:
@@ -87,6 +91,7 @@ export function CreateCollection({ topAnimes }: CreateCollectionProps) {
           "/fallback-anime.avif",
       };
     });
+
     form.setValue("items", selectedAnimeArray, { shouldValidate: true });
   };
 
@@ -100,14 +105,17 @@ export function CreateCollection({ topAnimes }: CreateCollectionProps) {
         toast.error("Failed to create collection", {
           description: error.message,
         });
+
         return;
       }
 
       const collection = data?.createCollection;
+
       if (!collection) {
         toast.error("Failed to create collection", {
           description: "Please try again later",
         });
+
         return;
       }
 

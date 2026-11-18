@@ -24,6 +24,7 @@ export const GetPublicCollectionsQuery = graphql(`
 export type GetPublicCollectionsResult = ResultOf<
   typeof GetPublicCollectionsQuery
 >;
+
 export type GetPublicCollectionsQueryParams = VariablesOf<
   typeof GetPublicCollectionsQuery
 >;

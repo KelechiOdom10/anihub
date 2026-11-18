@@ -8,12 +8,14 @@ import { GenresQuery, ProducerSearchQuery } from "~/graphql/queries";
 
 export default async function CatalogPage() {
   const { data: genreData } = await getClient().query(GenresQuery, {});
+
   const { data: producerData } = await getClient().query(ProducerSearchQuery, {
     query: {
       order_by: "favorites",
       sort: "desc",
     },
   });
+
   const allGenres = genreData?.getGenres ?? [];
   const allProducers = producerData?.getProducers?.data ?? [];
 

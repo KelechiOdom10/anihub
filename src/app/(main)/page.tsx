@@ -23,10 +23,12 @@ const CharactersMarquee = dynamicImport(
     ),
   { ssr: false }
 );
+
 const GenresSection = dynamicImport(
   () => import("./_components/genres-section").then((mod) => mod.GenresSection),
   { ssr: false }
 );
+
 const GenresSectionSkeleton = dynamicImport(
   () =>
     import("./_components/genres-section-skeleton").then(

@@ -37,8 +37,10 @@ export const AnimeComments = ({ animeId }: AnimeCommentsProps) => {
       router.push(
         `/login?redirect=${encodeURIComponent(`${pathname}?tab=reviews`)}`
       );
+
       return;
     }
+
     setIsModalOpen(true);
   };
 

@@ -13,8 +13,7 @@ import FilterTags, { type FilterTag } from "~/components/ui/filter-tags";
 import { type ProducerPreview, type GenrePreview } from "~/graphql/fragments";
 import { ANIME_SORT_OPTIONS } from "~/lib/constants";
 import { getEnglishTitle } from "~/lib/utils/anime";
-import { type SearchAnimeQueryParams } from "~/server/api/modules/anime";
-import { type TitleType } from "~/server/api/modules/shared";
+import { catalogQuerySchema } from "~/lib/validators/catalog";
 
 interface CatalogShellProps {
   allGenres: Array<GenrePreview>;
@@ -27,30 +26,9 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const page = searchParams.get("page");
-  const limit = searchParams.get("limit");
 
-  const filters: Partial<SearchAnimeQueryParams> = useMemo(
-    () => ({
-      type: searchParams.get("type") as SearchAnimeQueryParams["type"],
-      rating: searchParams.get("rating") as SearchAnimeQueryParams["rating"],
-      sort:
-        (searchParams.get("sort") as SearchAnimeQueryParams["sort"]) ?? "asc",
-      order_by:
-        (searchParams.get("order_by") as SearchAnimeQueryParams["order_by"]) ??
-        "popularity",
-      q: searchParams.get("q") ?? undefined,
-      sfw: searchParams.get("sfw") === "true",
-      start_date: searchParams.get("start_date") ?? undefined,
-      end_date: searchParams.get("end_date") ?? undefined,
-      genres: searchParams.get("genres") ?? undefined,
-      page: page ? parseInt(page) : undefined,
-      limit: limit ? parseInt(limit) : undefined,
-      status:
-        (searchParams.get("status") as SearchAnimeQueryParams["status"]) ??
-        undefined,
-      producers: searchParams.get("producers") ?? undefined,
-    }),
+  const filters = useMemo(
+    () => catalogQuerySchema.parse(Object.fromEntries(searchParams.entries())),
     [searchParams]
   );
 
@@ -64,6 +42,7 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
         const items = value.split(",").flatMap((item) => {
           if (key === "genres") {
             const genre = allGenres.find((genre) => genre?.id === item);
+
             return genre
               ? [{ key, value: genre.id ?? "", label: genre.name ?? "" }]
               : [];
@@ -71,32 +50,38 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
             const producer = allProducers.find(
               (producer) => producer?.id === item
             );
+
             return producer
               ? [
                   {
                     key,
                     value: producer.id ?? "",
-                    label: getEnglishTitle(producer.titles as TitleType[]),
+                    label: getEnglishTitle(producer.titles),
                   },
                 ]
               : [];
           }
         });
 
-        return [...acc, ...items];
+        acc.push(...items);
+
+        return acc;
       } else {
         acc.push({ key, value, label: value });
       }
+
       return acc;
     },
-    [] as FilterTag[]
+    []
   );
 
   const removeFilter = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
+
     if (key === "genres" || key === "producers") {
       const currentValues = newParams.get(key)?.split(",") ?? [];
       const updatedValues = currentValues.filter((v) => v !== value);
+
       if (updatedValues.length > 0) {
         newParams.set(key, updatedValues.join(","));
       } else {
@@ -105,6 +90,7 @@ export const CatalogShell: FunctionComponent<CatalogShellProps> = ({
     } else {
       newParams.delete(key);
     }
+
     router.push(`?${newParams.toString()}`, { scroll: false });
   };
 

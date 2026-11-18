@@ -9,11 +9,10 @@ import { Dialog, DialogContent } from "~/components/ui/dialog";
 import { type AnimeQueryData } from "~/graphql/queries";
 import { useMediaQuery } from "~/lib/hooks/use-media-query";
 import { getEnglishTitle } from "~/lib/utils/anime";
-import { type TitleType } from "~/server/api/modules/shared";
 
 export const AnimeHeader = ({ anime }: { anime: AnimeQueryData }) => {
   const [open, setOpen] = useState(false);
-  const title = getEnglishTitle((anime.titles ?? []) as TitleType[]);
+  const title = getEnglishTitle(anime.titles ?? []);
   const image = anime.image?.large ?? "/fallback-anime.avif";
 
   const isMobileDevice = useMediaQuery("(max-width: 768px)");

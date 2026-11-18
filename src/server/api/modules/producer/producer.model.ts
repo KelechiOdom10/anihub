@@ -6,6 +6,7 @@ import { type components } from "~/server/jikan-schema";
 type ProducerType = components["schemas"]["producer"];
 
 export const Producer = builder.objectRef<ProducerType>("Producer");
+
 type ProducerSearchResultType = components["schemas"]["producers"];
 
 builder.objectType(Producer, {

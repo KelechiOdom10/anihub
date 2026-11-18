@@ -22,8 +22,8 @@ type FormFieldContextValue<
   name: TName;
 };
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
+const FormFieldContext = React.createContext<FormFieldContextValue | null>(
+  null
 );
 
 const FormField = <
@@ -44,11 +44,11 @@ const useFormField = () => {
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState, formState } = useFormContext();
 
-  const fieldState = getFieldState(fieldContext.name, formState);
-
-  if (!fieldContext) {
+  if (!fieldContext || !itemContext) {
     throw new Error("useFormField should be used within <FormField>");
   }
+
+  const fieldState = getFieldState(fieldContext.name, formState);
 
   const { id } = itemContext;
 
@@ -66,9 +66,7 @@ type FormItemContextValue = {
   id: string;
 };
 
-const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
-);
+const FormItemContext = React.createContext<FormItemContextValue | null>(null);
 
 const FormItem = React.forwardRef<
   HTMLDivElement,
@@ -82,6 +80,7 @@ const FormItem = React.forwardRef<
     </FormItemContext.Provider>
   );
 });
+
 FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
@@ -99,6 +98,7 @@ const FormLabel = React.forwardRef<
     />
   );
 });
+
 FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
@@ -122,6 +122,7 @@ const FormControl = React.forwardRef<
     />
   );
 });
+
 FormControl.displayName = "FormControl";
 
 const FormDescription = React.forwardRef<
@@ -139,6 +140,7 @@ const FormDescription = React.forwardRef<
     />
   );
 });
+
 FormDescription.displayName = "FormDescription";
 
 const FormMessage = React.forwardRef<
@@ -163,6 +165,7 @@ const FormMessage = React.forwardRef<
     </p>
   );
 });
+
 FormMessage.displayName = "FormMessage";
 
 export {

@@ -21,6 +21,7 @@ export function formatTimeToNow(date: Date | number | string | null): string {
     if (Math.abs(duration) < division.amount) {
       return formatter.format(Math.round(duration), division.name);
     }
+
     duration /= division.amount;
   }
 

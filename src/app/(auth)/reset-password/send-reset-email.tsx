@@ -23,6 +23,7 @@ export function SendResetEmail() {
       toast("A password reset link has been sent to your email.");
       router.push(redirects.toLogin);
     }
+
     if (state?.error) {
       toast(state.error, {
         icon: <ExclamationTriangleIcon className="h-5 w-5 text-destructive" />,

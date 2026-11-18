@@ -13,6 +13,7 @@ export interface GraphqlServerContext {
 
 export const createContext = async (_req: YogaInitialContext) => {
   const { session } = await uncachedValidateRequest();
+
   return {
     ...initContextCache(),
     db,

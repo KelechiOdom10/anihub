@@ -1,6 +1,7 @@
 import { OAuth2RequestError } from "arctic";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
+import { z } from "zod";
 
 import { google } from "~/lib/auth";
 import { setSession } from "~/lib/auth/session";
@@ -13,6 +14,7 @@ export const GET = async (request: Request): Promise<Response> => {
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const storedState = cookies().get("google_oauth_state")?.value ?? null;
+
   const storedCodeVerifier =
     cookies().get("google_oauth_code_verifier")?.value ?? null;
 
@@ -43,7 +45,16 @@ export const GET = async (request: Request): Promise<Response> => {
         },
       }
     );
-    const googleUser = (await googleUserRes.json()) as GoogleUser;
+
+    const googleUser = z
+      .object({
+        sub: z.string(),
+        name: z.string(),
+        picture: z.string().url(),
+        email: z.string().email(),
+        email_verified: z.boolean(),
+      })
+      .parse(await googleUserRes.json());
 
     if (!googleUser.email || !googleUser.email_verified) {
       return new Response(
@@ -53,6 +64,7 @@ export const GET = async (request: Request): Promise<Response> => {
         { status: 400, headers: { Location: redirects.toLogin } }
       );
     }
+
     const avatar = googleUser.picture;
 
     const existingUser = await db.query.users.findFirst({
@@ -156,15 +168,4 @@ export const GET = async (request: Request): Promise<Response> => {
       status: 500,
     });
   }
-};
-type GoogleUser = {
-  sub: string;
-  name: string;
-  given_name: string;
-  family_name: string;
-  picture: string;
-  email: string;
-  email_verified: boolean;
-  locale: string;
-  hd: string;
 };

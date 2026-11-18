@@ -77,6 +77,7 @@ export function CommentFormModal({
         toast.error("Failed to post comment", {
           description: result.error.message,
         });
+
         return;
       }
 

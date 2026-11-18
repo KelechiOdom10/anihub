@@ -25,4 +25,5 @@ export const AnimePreview = graphql(`
     year
   }
 `);
+
 export type AnimePreview = FragmentOf<typeof AnimePreview>;

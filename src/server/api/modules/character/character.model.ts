@@ -5,15 +5,19 @@ import { animeService } from "../anime/anime.service";
 import { type components } from "~/server/jikan-schema";
 
 type CharacterType = components["schemas"]["character"];
+
 type AnimeCharacterType = NonNullable<
   components["schemas"]["anime_characters"]["data"]
 >[0];
+
 type VoiceActorType = NonNullable<
   NonNullable<
     components["schemas"]["anime_characters"]["data"]
   >[0]["voice_actors"]
 >[0];
+
 type ImageType = NonNullable<components["schemas"]["character_images"]["webp"]>;
+
 type PersonType = components["schemas"]["person"];
 
 const Person = builder.objectRef<PersonType>("Person").implement({
@@ -52,6 +56,7 @@ const VoiceActor = builder.objectRef<VoiceActorType>("VoiceActor").implement({
 });
 
 export const Character = builder.objectRef<CharacterType>("Character");
+
 export const AnimeCharacter =
   builder.objectRef<AnimeCharacterType>("AnimeCharacter");
 

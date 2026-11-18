@@ -12,17 +12,22 @@ type PaginationItemsType = {
   total?: number;
   per_page?: number;
 };
+
 type PaginationResultType = Pagination & {
   items: PaginationItemsType;
 };
+
 export type TitleType = components["schemas"]["title"];
+
 type CommonImageType = NonNullable<
   components["schemas"]["common_images"]["jpg"]
 >;
 
 export const Pagination = builder.objectRef<Pagination>("Pagination");
+
 export const PaginationItems =
   builder.objectRef<PaginationItemsType>("PaginationItems");
+
 export const PaginationResult =
   builder.objectRef<PaginationResultType>("PaginationResult");
 

@@ -6,6 +6,7 @@ import { discord } from "~/lib/auth";
 
 export async function GET(): Promise<Response> {
   const state = generateState();
+
   const url = await discord.createAuthorizationURL(state, {
     scopes: ["identify", "email"],
   });

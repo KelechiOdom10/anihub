@@ -37,8 +37,18 @@ builder.queryField("getProducers", (t) =>
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/producers", {
-        params: { query: args.query as ProducerSearchQueryParamsType },
+        params: {
+          query: {
+            page: args.query?.page ?? undefined,
+            limit: args.query?.limit ?? undefined,
+            q: args.query?.q ?? undefined,
+            order_by: args.query?.order_by ?? undefined,
+            sort: args.query?.sort ?? undefined,
+            letter: args.query?.letter ?? undefined,
+          },
+        },
       });
+
       return {
         data: data?.data ?? [],
         pagination: data?.pagination ?? undefined,

@@ -11,15 +11,19 @@
     "db:studio": "pnpm drizzle-kit studio",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "next lint && pnpm lint:anti-slop",
+    "lint:fix": "next lint --fix && oxlint --fix",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "generate": "tsx src/server/api/build-schema.ts",
-    "codegen:anime": "npx openapi-typescript https://raw.githubusercontent.com/jikan-me/jikan-rest/master/storage/api-docs/api-docs.json -o ./src/server/jikan-schema.d.ts"
+    "codegen:anime": "npx openapi-typescript https://raw.githubusercontent.com/jikan-me/jikan-rest/master/storage/api-docs/api-docs.json -o ./src/server/jikan-schema.d.ts",
+    "lint:anti-slop": "oxlint --deny-warnings",
+    "format:check": "prettier --check .",
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
     "@hookform/resolvers": "^3.3.4",
     "@libsql/client": "^0.14.0",
     "@node-rs/argon2": "^2.0.0",
@@ -78,6 +82,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@next/eslint-plugin-next": "^14.2.3",
+    "@oxlint/plugins": "1.94.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.13.0",
@@ -95,6 +100,7 @@
     "eslint-plugin-unused-imports": "^3.1.0",
     "husky": "^9.0.11",
     "openapi-typescript": "^6.7.6",
+    "oxlint": "1.94.0",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.1",
@@ -107,6 +113,7 @@
     "initVersion": "7.24.2"
   },
   "engines": {
-    "node": ">=20"
-  }
+    "node": "24.22.x"
+  },
+  "packageManager": "pnpm@10.27.0"
 }

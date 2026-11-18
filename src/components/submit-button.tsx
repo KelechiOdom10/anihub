@@ -9,6 +9,7 @@ import type { ButtonProps } from "~/components/ui/button";
 const SubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => {
     const { pending } = useFormStatus();
+
     return (
       <LoadingButton
         ref={ref}
@@ -21,6 +22,7 @@ const SubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
 SubmitButton.displayName = "SubmitButton";
 
 export { SubmitButton };

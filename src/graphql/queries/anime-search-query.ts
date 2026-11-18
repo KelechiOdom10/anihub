@@ -23,5 +23,7 @@ export const AnimeSearchQuery = graphql(
   `,
   [AnimePreview]
 );
+
 export type AnimeSearchResult = ResultOf<typeof AnimeSearchQuery>;
+
 export type AnimeSearchQueryParams = VariablesOf<typeof AnimeSearchQuery>;

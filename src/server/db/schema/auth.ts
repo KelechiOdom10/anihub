@@ -37,6 +37,7 @@ export const users = sqliteTable(
 );
 
 export type User = typeof users.$inferSelect;
+
 export type NewUser = typeof users.$inferInsert;
 
 export const sessions = sqliteTable(
@@ -54,6 +55,7 @@ export const sessions = sqliteTable(
     userIdIdx: index("sessions_user_idx").on(t.userId),
   })
 );
+
 export type Session = typeof sessions.$inferSelect;
 
 export const emailVerificationCodes = sqliteTable(
@@ -92,6 +94,7 @@ export const passwordResetTokens = sqliteTable(
 );
 
 export const oauthProviders = ["google", "discord"] as const;
+
 export const oauthAccounts = sqliteTable(
   "oauth_accounts",
   {

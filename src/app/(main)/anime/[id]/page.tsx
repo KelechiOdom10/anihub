@@ -9,7 +9,6 @@ import { AnimeToolbar } from "./_components/anime-toolbar";
 import { getClient } from "~/graphql/client";
 import { AnimeQuery } from "~/graphql/queries";
 import { getEnglishTitle } from "~/lib/utils/anime";
-import { type TitleType } from "~/server/api/modules/shared";
 
 const AnimeTabsNavigation = dynamic(
   () =>
@@ -27,6 +26,7 @@ export const generateMetadata = async ({
   params: { id: string };
 }): Promise<Metadata> => {
   const animeId = parseInt(params.id);
+
   const { data } = await getClient().query(AnimeQuery, {
     id: animeId,
   });
@@ -36,13 +36,14 @@ export const generateMetadata = async ({
   }
 
   const animeData = data.getAnime;
-  const title = `${getEnglishTitle(
-    (animeData.titles ?? []) as TitleType[]
-  )} | Anihub`;
+
+  const title = `${getEnglishTitle(animeData.titles ?? [])} | Anihub`;
+
   const description = animeData.synopsis ?? "";
   const image = animeData.image?.large ?? "/fallback-anime.avif";
   const url = `/anime/${animeId}`;
   const twitterCard = "summary_large_image";
+
   return {
     title,
     description,
@@ -83,6 +84,7 @@ export default async function AnimePage({
   searchParams: Record<string, string | string[] | undefined>;
 }) {
   const animeId = parseInt(params.id);
+
   const { data } = await getClient().query(AnimeQuery, {
     id: animeId,
   });
@@ -90,8 +92,13 @@ export default async function AnimePage({
   if (!data?.getAnime) {
     notFound();
   }
+
   const animeData = data.getAnime;
-  const currentTab = (searchParams?.tab as string) ?? "overview";
+
+  const currentTab =
+    (Array.isArray(searchParams.tab)
+      ? searchParams.tab[0]
+      : searchParams.tab) ?? "overview";
 
   return (
     <>

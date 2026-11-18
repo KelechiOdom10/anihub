@@ -21,7 +21,6 @@ import {
 import { cn } from "~/lib/utils";
 import { getEnglishTitle } from "~/lib/utils/anime";
 import { type SearchAnimeQueryParams } from "~/server/api/modules/anime";
-import { type TitleType } from "~/server/api/modules/shared";
 
 type Filters = Partial<SearchAnimeQueryParams>;
 
@@ -41,10 +40,12 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
   const searchParams = useSearchParams();
   const [showAllGenres, setShowAllGenres] = useState(false);
   const [showAllProducers, setShowAllProducers] = useState(false);
+
   const genresToShow = useMemo(
     () => (showAllGenres ? genres : genres.slice(0, 5)),
     [showAllGenres, genres]
   );
+
   const producersToShow = useMemo(
     () => (showAllProducers ? producers : producers.slice(0, 5)),
     [showAllProducers, producers]
@@ -82,6 +83,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
             {genresToShow.map((genre) => {
               if (!genre.id) return null;
               const isGenreFilterEmpty = !initialFilters.genres;
+
               const isChecked = isGenreFilterEmpty
                 ? false
                 : initialFilters.genres
@@ -96,6 +98,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
                     onCheckedChange={(checked) => {
                       const currentGenres =
                         initialFilters.genres?.split(",") ?? [];
+
                       const updatedGenres = checked
                         ? [...currentGenres, genre.id?.toString()]
                         : currentGenres.filter(
@@ -235,10 +238,10 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
             {producersToShow.map((producer) => {
               if (!producer.id) return null;
 
-              const title = getEnglishTitle(
-                (producer.titles ?? []) as TitleType[]
-              );
+              const title = getEnglishTitle(producer.titles ?? []);
+
               const isProducerFilterEmpty = !initialFilters.producers;
+
               const isChecked = isProducerFilterEmpty
                 ? false
                 : initialFilters.producers
@@ -253,6 +256,7 @@ export const AnimeFilters: FunctionComponent<AnimeFiltersProps> = ({
                     onCheckedChange={(checked) => {
                       const currentProducers =
                         initialFilters.producers?.split(",") ?? [];
+
                       const updatedProducers = checked
                         ? [...currentProducers, producer.id?.toString()]
                         : currentProducers.filter(

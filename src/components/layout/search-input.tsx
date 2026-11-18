@@ -20,6 +20,7 @@ export const SearchInput = () => {
 
   const handleSearch = () => {
     const search = inputRef.current?.value;
+
     if (search) {
       const params = new URLSearchParams(searchParams);
       params.set("q", search);

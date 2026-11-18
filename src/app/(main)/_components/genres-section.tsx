@@ -15,8 +15,10 @@ interface GenresSectionProps {
 
 // Predefined array of genre combinations that return images
 const genreCombinations = ["1", "4", "2"];
+
 const getRandomCombination = (combinations: string[]) => {
   const randomIndex = Math.floor(Math.random() * combinations.length);
+
   return combinations[randomIndex];
 };
 

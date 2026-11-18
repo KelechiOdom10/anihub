@@ -23,4 +23,5 @@ export const AnimeCharactersQuery = graphql(
   `,
   [CharacterPreview]
 );
+
 export type AnimeCharactersQueryResult = ResultOf<typeof AnimeCharactersQuery>;

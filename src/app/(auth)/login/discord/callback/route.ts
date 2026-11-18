@@ -1,6 +1,7 @@
 import { OAuth2RequestError } from "arctic";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
+import { z } from "zod";
 
 import { discord } from "~/lib/auth";
 import { setSession } from "~/lib/auth/session";
@@ -29,7 +30,16 @@ export async function GET(request: Request): Promise<Response> {
         Authorization: `Bearer ${tokens.accessToken}`,
       },
     });
-    const discordUser = (await discordUserRes.json()) as DiscordUser;
+
+    const discordUser = z
+      .object({
+        id: z.string(),
+        username: z.string(),
+        avatar: z.string().nullable(),
+        email: z.string().email().nullable(),
+        verified: z.boolean(),
+      })
+      .parse(await discordUserRes.json());
 
     if (!discordUser.email || !discordUser.verified) {
       return new Response(
@@ -39,6 +49,7 @@ export async function GET(request: Request): Promise<Response> {
         { status: 400, headers: { Location: redirects.toLogin } }
       );
     }
+
     const avatar = discordUser.avatar
       ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.webp`
       : null;
@@ -148,17 +159,4 @@ export async function GET(request: Request): Promise<Response> {
       status: 500,
     });
   }
-}
-
-interface DiscordUser {
-  id: string;
-  username: string;
-  avatar: string | null;
-  banner: string | null;
-  global_name: string | null;
-  banner_color: string | null;
-  mfa_enabled: boolean;
-  locale: string;
-  email: string | null;
-  verified: boolean;
 }

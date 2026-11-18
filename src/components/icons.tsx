@@ -59,6 +59,7 @@ const AnimatedSpinner = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
     </svg>
   )
 );
+
 AnimatedSpinner.displayName = "AnimatedSpinner";
 
 const CreditCard = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
@@ -80,6 +81,7 @@ const CreditCard = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
     </svg>
   )
 );
+
 CreditCard.displayName = "CreditCard";
 
 const HamburgerMenuIcon = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
@@ -135,7 +137,9 @@ export {
   ArrowRightIcon,
   MagnifyingGlassIcon as SearchIcon,
 } from "@radix-ui/react-icons";
+
 export { Logo } from "./logo";
+
 export const FunnelIcon = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
   (props, ref) => (
     <svg

@@ -8,6 +8,7 @@ import { type operations } from "~/server/jikan-schema";
 type QueryParams = NonNullable<
   operations["getTopCharacters"]["parameters"]["query"]
 >;
+
 const QueryParamsType = builder
   .inputRef<QueryParams>("CharacterQueryParams")
   .implement({
@@ -26,8 +27,14 @@ builder.queryField("getTopCharacters", (t) =>
     },
     resolve: async (_, args) => {
       const { data } = await animeService.GET("/top/characters", {
-        params: { query: args.query as QueryParams },
+        params: {
+          query: {
+            page: args.query?.page ?? undefined,
+            limit: args.query?.limit ?? undefined,
+          },
+        },
       });
+
       if (!data?.data) return [];
 
       return data.data;
@@ -48,6 +55,7 @@ builder.queryField("getAnimeCharacters", (t) =>
           path: { id },
         },
       });
+
       if (!data?.data) return [];
 
       return data.data;

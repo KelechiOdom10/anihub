@@ -12,4 +12,5 @@ export const CharacterPreview = graphql(`
     }
   }
 `);
+
 export type CharacterPreview = FragmentOf<typeof CharacterPreview>;
