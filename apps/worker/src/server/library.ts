@@ -7,7 +7,12 @@ import { env as bindings } from "cloudflare:workers";
 import { env } from "void/env";
 import { z } from "zod";
 import { publicIdentity } from "../lib/identity";
-import { animeSchema } from "./anime";
+import {
+  animeSchema,
+  catalogPageSchema,
+  homeSchema,
+  type Anime,
+} from "./anime";
 import { createAuth } from "./auth";
 
 const pageSchema = z.number().int().min(1).max(1000).default(1);
@@ -152,10 +157,24 @@ async function savedCover(animeId: number) {
     : null;
 }
 
+const cacheRow = z.object({ key: z.string(), data: z.string() });
+
+function cachedJson<T>(data: string, schema: z.ZodType<T>) {
+  try {
+    const parsed = schema.safeParse(JSON.parse(data));
+
+    return parsed.success ? parsed.data : null;
+  } catch {
+    return null;
+  }
+}
+
 async function savedCovers(animeIds: number[]) {
   if (!animeIds.length) return new Map<number, string>();
 
-  const result = await bindings.DB.prepare(
+  const covers = new Map<number, string>();
+
+  const direct = await bindings.DB.prepare(
     `SELECT key, data FROM cache_entries WHERE key IN (${animeIds
       .map(() => "?")
       .join(", ")})`
@@ -163,19 +182,57 @@ async function savedCovers(animeIds: number[]) {
     .bind(...animeIds.map((animeId) => `mal:anime:${animeId}`))
     .all();
 
-  const rows = z
-    .array(z.object({ key: z.string(), data: z.string() }))
-    .parse(result.results);
-
-  const covers = new Map<number, string>();
-
-  for (const row of rows) {
+  for (const row of z.array(cacheRow).parse(direct.results)) {
     const animeId = Number(row.key.slice("mal:anime:".length));
     const anime = cachedAnime.safeParse(row.data);
 
     if (anime.success && anime.data.id === animeId)
       covers.set(animeId, cover(anime.data.coverImage.extraLarge));
   }
+
+  if (covers.size === animeIds.length) return covers;
+
+  const pages = await bindings.DB.prepare(
+    "SELECT key, data FROM cache_entries WHERE key = 'mal:home' OR key LIKE 'mal:catalog:%'"
+  ).all();
+
+  const known = new Map<number, Anime>();
+
+  for (const row of z.array(cacheRow).parse(pages.results)) {
+    const home = cachedJson(row.data, homeSchema);
+
+    if (home) {
+      for (const anime of [...home.airing, ...home.popular])
+        known.set(anime.id, anime);
+
+      continue;
+    }
+
+    const page = cachedJson(row.data, catalogPageSchema);
+
+    if (page)
+      for (const anime of page.anime)
+        if (!known.has(anime.id)) known.set(anime.id, anime);
+  }
+
+  const writes: D1PreparedStatement[] = [];
+
+  for (const animeId of animeIds) {
+    if (covers.has(animeId)) continue;
+
+    const anime = known.get(animeId);
+
+    if (!anime) continue;
+
+    covers.set(animeId, cover(anime.coverImage.extraLarge));
+    writes.push(
+      bindings.DB.prepare(
+        "INSERT OR REPLACE INTO cache_entries (key, data, updated_at) VALUES (?, ?, ?)"
+      ).bind(`mal:anime:${animeId}`, JSON.stringify(anime), Date.now())
+    );
+  }
+
+  if (writes.length) await bindings.DB.batch(writes);
 
   return covers.size === animeIds.length ? covers : null;
 }
