@@ -14,6 +14,7 @@ const routes = [
   { name: "Home", to: "/", search: {} },
   { name: "Catalog", to: "/catalog", search: {} },
   { name: "My Collections", to: "/collections", search: { page: 1 } },
+  { name: "My List", to: "/list", search: {} },
 ] as const;
 
 const closeMenu = (event: React.MouseEvent<HTMLElement>) =>

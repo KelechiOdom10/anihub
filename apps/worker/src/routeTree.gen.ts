@@ -14,6 +14,7 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as MainIndexRouteImport } from './routes/_main.index'
 import { Route as MainCatalogRouteImport } from './routes/_main.catalog'
 import { Route as MainCollectionsRouteImport } from './routes/_main.collections'
+import { Route as MainListRouteImport } from './routes/_main.list'
 import { Route as MainPrivacyRouteImport } from './routes/_main.privacy'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as MainAnimeIdRouteImport } from './routes/_main.anime.$id'
@@ -43,6 +44,11 @@ const MainCollectionsRoute = MainCollectionsRouteImport.update({
   path: '/collections',
   getParentRoute: () => MainRoute,
 } as any)
+const MainListRoute = MainListRouteImport.update({
+  id: '/list',
+  path: '/list',
+  getParentRoute: () => MainRoute,
+} as any)
 const MainPrivacyRoute = MainPrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/catalog': typeof MainCatalogRoute
   '/collections': typeof MainCollectionsRoute
+  '/list': typeof MainListRoute
   '/privacy': typeof MainPrivacyRoute
   '/api/health': typeof ApiHealthRoute
   '/anime/$id': typeof MainAnimeIdRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/catalog': typeof MainCatalogRoute
   '/collections': typeof MainCollectionsRoute
+  '/list': typeof MainListRoute
   '/privacy': typeof MainPrivacyRoute
   '/api/health': typeof ApiHealthRoute
   '/': typeof MainIndexRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/_main/catalog': typeof MainCatalogRoute
   '/_main/collections': typeof MainCollectionsRoute
+  '/_main/list': typeof MainListRoute
   '/_main/privacy': typeof MainPrivacyRoute
   '/api/health': typeof ApiHealthRoute
   '/_main/': typeof MainIndexRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/catalog'
     | '/collections'
+    | '/list'
     | '/privacy'
     | '/api/health'
     | '/anime/$id'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/catalog'
     | '/collections'
+    | '/list'
     | '/privacy'
     | '/api/health'
     | '/'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/_main/catalog'
     | '/_main/collections'
+    | '/_main/list'
     | '/_main/privacy'
     | '/api/health'
     | '/_main/'
@@ -174,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainCollectionsRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/list': {
+      id: '/_main/list'
+      path: '/list'
+      fullPath: '/list'
+      preLoaderRoute: typeof MainListRouteImport
+      parentRoute: typeof MainRoute
+    }
     '/_main/privacy': {
       id: '/_main/privacy'
       path: '/privacy'
@@ -208,6 +227,7 @@ declare module '@tanstack/react-router' {
 interface MainRouteChildren {
   MainCatalogRoute: typeof MainCatalogRoute
   MainCollectionsRoute: typeof MainCollectionsRoute
+  MainListRoute: typeof MainListRoute
   MainPrivacyRoute: typeof MainPrivacyRoute
   MainIndexRoute: typeof MainIndexRoute
   MainAnimeIdRoute: typeof MainAnimeIdRoute
@@ -216,6 +236,7 @@ interface MainRouteChildren {
 const MainRouteChildren: MainRouteChildren = {
   MainCatalogRoute: MainCatalogRoute,
   MainCollectionsRoute: MainCollectionsRoute,
+  MainListRoute: MainListRoute,
   MainPrivacyRoute: MainPrivacyRoute,
   MainIndexRoute: MainIndexRoute,
   MainAnimeIdRoute: MainAnimeIdRoute,

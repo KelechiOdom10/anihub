@@ -52,7 +52,7 @@ test("the header is Tab-reachable and a carousel link opens with Enter", async (
     page.getByRole("link", { name: "Home page" }).first()
   ).toBeFocused();
 
-  for (const name of ["Home", "Catalog", "My Collections"]) {
+  for (const name of ["Home", "Catalog", "My Collections", "My List"]) {
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name, exact: true })).toBeFocused();
   }

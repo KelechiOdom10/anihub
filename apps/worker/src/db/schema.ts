@@ -184,6 +184,31 @@ export const collectionLikes = sqliteTable(
   ]
 );
 
+export const watchStatuses = sqliteTable(
+  "watch_statuses",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    malId: integer("mal_id").notNull(),
+    status: text("status", {
+      enum: ["watching", "plan_to_watch", "completed"],
+    }).notNull(),
+    animeImage: text("anime_image"),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (table) => [
+    uniqueIndex("watch_statuses_user_anime").on(table.userId, table.malId),
+    index("watch_statuses_user_status_idx").on(
+      table.userId,
+      table.status,
+      table.updatedAt
+    ),
+  ]
+);
+
 export const comments = sqliteTable(
   "comments",
   {

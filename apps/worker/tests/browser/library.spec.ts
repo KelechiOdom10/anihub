@@ -968,7 +968,7 @@ test("membership HTTP validates every list before writing, is idempotent and own
 }) => {
   restoreSession("alice");
   await signIn(page);
-  await page.goto("/anime/21");
+  await page.goto("/anime/21", { waitUntil: "networkidle" });
 
   const membershipRead = page.waitForRequest(
     (entry) => entry.method() === "GET" && entry.url().includes("/_serverFn/")
