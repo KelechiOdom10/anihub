@@ -428,7 +428,7 @@ test("imported users must consent before a sign-in is linked, and linked users a
 
     await d1
       .prepare(
-        "UPDATE account SET access_token = 'old', refresh_token = 'old', id_token = 'old', access_token_expires_at = 1"
+        "UPDATE account SET access_token = 'old', refresh_token = 'old', id_token = 'old', access_token_expires_at = 1, refresh_token_expires_at = 1"
       )
       .run();
 
@@ -439,7 +439,7 @@ test("imported users must consent before a sign-in is linked, and linked users a
     );
     assert.equal(
       await read(
-        "SELECT count(*) AS v FROM account WHERE access_token IS NOT NULL OR refresh_token IS NOT NULL OR id_token IS NOT NULL OR access_token_expires_at IS NOT NULL"
+        "SELECT count(*) AS v FROM account WHERE access_token IS NOT NULL OR refresh_token IS NOT NULL OR id_token IS NOT NULL OR access_token_expires_at IS NOT NULL OR refresh_token_expires_at IS NOT NULL"
       ),
       0
     );
@@ -454,6 +454,13 @@ test("imported users must consent before a sign-in is linked, and linked users a
     assert.ok(sessionCookie);
 
     const session = sessionCookie;
+
+    assert.equal(await signIn(auth, "discord"), "/");
+    assert.equal(
+      await read("SELECT privacy_policy_version AS v FROM user"),
+      privacyPolicyVersion
+    );
+    await d1.prepare("UPDATE user SET privacy_policy_version = NULL").run();
 
     assert.notEqual(await signIn(auth, "google", null), "/");
     assert.equal(

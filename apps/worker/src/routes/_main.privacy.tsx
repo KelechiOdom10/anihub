@@ -44,8 +44,9 @@ function Privacy() {
           What other people can see
         </h2>
         <p>
-          Collections are public unless you make them private, and comments are
-          public. Both show your display name.
+          Collections and comments made on the original AniHub are kept. When
+          AniHub shows them again, collections marked public and all comments
+          will be visible to other people with your display name.
         </p>
       </section>
 
@@ -62,8 +63,9 @@ function Privacy() {
         <p>
           AniHub runs on Cloudflare Workers and stores its data in Cloudflare
           D1, so Cloudflare processes it on AniHub&apos;s behalf. Google or
-          Discord handle the sign-in itself. AniHub has no advertising and does
-          not sell your data or share it with anyone else.
+          Discord handle the sign-in itself. AniHub has no advertising, does not
+          sell your data, and gives it to no one else apart from what you make
+          public.
         </p>
       </section>
 
