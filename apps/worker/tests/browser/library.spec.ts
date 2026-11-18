@@ -671,7 +671,7 @@ test("after hydration, synthetic persisted pagehide/pageshow events hide the lib
   await expect(page.getByText("Bob secret", { exact: true })).toHaveCount(0);
 });
 
-test("a library left before hydration is not shown from the back/forward cache once its session ends", async () => {
+test("a back/forward restore, before or after hydration, never shows the library after its session ends", async () => {
   const browser = await chromium.launch({
     executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
     ignoreDefaultArgs: ["--disable-back-forward-cache"],
@@ -687,7 +687,11 @@ test("a library left before hydration is not shown from the back/forward cache o
   };
 
   try {
-    for (const end of ["sign-out", "revoked"]) {
+    for (const [end, hydrated] of [
+      ["sign-out", false],
+      ["revoked", false],
+      ["revoked", true],
+    ] as const) {
       restoreBob();
 
       const context = await browser.newContext({
@@ -702,11 +706,25 @@ test("a library left before hydration is not shown from the back/forward cache o
           if (event.persisted) sessionStorage.setItem("restored", "1");
         })
       );
-      await page.route(/\.m?js(\?|$)/, (route) => route.abort());
+
+      if (!hydrated) await page.route(/\.m?js(\?|$)/, (route) => route.abort());
+
       await page.goto("/collections", { waitUntil: "domcontentloaded" });
       await expect(
         page.getByRole("heading", { name: "Bob secret", exact: true })
       ).toBeVisible();
+
+      if (hydrated)
+        await expect
+          .poll(() =>
+            page.evaluate(() =>
+              Object.keys(
+                document.getElementById("private-library") ?? {}
+              ).some((key) => key.startsWith("__react"))
+            )
+          )
+          .toBe(true);
+
       await page.unrouteAll();
       await Promise.all([
         page.waitForURL("http://127.0.0.1:8791/"),

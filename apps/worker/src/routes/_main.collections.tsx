@@ -154,6 +154,8 @@ function Collections() {
   const content = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if ("privateLibraryGuard" in window) return;
+
     const hide = () => {
       if (content.current) content.current.hidden = true;
     };
@@ -180,7 +182,7 @@ function Collections() {
       <script
         dangerouslySetInnerHTML={{
           __html:
-            'addEventListener("pagehide",function(){var s=document.getElementById("private-library");if(s)s.hidden=true});addEventListener("pageshow",function(e){if(e.persisted&&document.getElementById("private-library"))location.reload()})',
+            'window.privateLibraryGuard=true;addEventListener("pagehide",function(){var s=document.getElementById("private-library");if(s)s.hidden=true});addEventListener("pageshow",function(e){if(e.persisted&&document.getElementById("private-library"))location.reload()})',
         }}
       />
       <div className="flex flex-wrap items-center justify-between gap-4">
