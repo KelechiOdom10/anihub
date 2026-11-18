@@ -42,7 +42,7 @@ function Home() {
         <AnimeCarousel heading="Top Airing" animeList={airing} />
       </div>
       {categories.length > 0 && (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto pb-[6.25rem] pt-8">
           <GenresSection categories={categories} />
         </div>
       )}

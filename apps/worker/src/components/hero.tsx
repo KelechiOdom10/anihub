@@ -9,7 +9,7 @@ export function Hero({ anime }: { anime: Anime }) {
 
   return (
     <div className="relative z-0 h-[75vh] overflow-hidden pt-0 md:h-[80vh] lg:h-[88vh]">
-      <div className="absolute right-0 top-0 h-full max-h-full w-[400px] overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0001_30%,#0006_55%,#000_85%),linear-gradient(to_bottom,#000_50%,#0006_75%,#0000)] md:w-[500px]">
+      <div className="absolute right-0 top-0 h-full max-h-full w-[400px] overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0001_40%,#0006_70%,#000),linear-gradient(to_bottom,#000_50%,#0006_75%,#0000)] md:w-[500px]">
         <div className="absolute inset-0 z-10 bg-black/25" />
         <img
           src={anime.coverImage.extraLarge}
