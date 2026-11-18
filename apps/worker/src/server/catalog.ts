@@ -5,6 +5,11 @@ import { cacheEntries } from "../db/schema";
 import {
   animeSchema,
   catalogPageSchema,
+  catalogQuerySchema,
+  mediaTypes,
+  orders,
+  seasons,
+  type CatalogQuery,
   categoriesSchema,
   detailFields,
   homeSchema,
@@ -25,6 +30,7 @@ const animeTtl = 86_400_000;
 const genreTtl = 86_400_000;
 const pageSize = 25;
 const poolSize = 500;
+const searchSize = 100;
 
 export type CatalogSource = {
   db: DrizzleD1Database;
@@ -218,70 +224,242 @@ function loadPool(source: CatalogSource) {
 const inGenre = (pool: Anime[], genre: string) =>
   pool.filter((entry) => entry.genres.includes(genre));
 
-export async function loadCatalogPage(
+const setSchema = z.object({ anime: z.array(animeSchema), more: z.boolean() });
+
+const rankings = ["airing", "upcoming", "tv", "movie", "ova", "special"];
+
+const rankingLabels = new Map([
+  ["airing", "airing anime"],
+  ["upcoming", "upcoming anime"],
+  ["tv", "TV shows"],
+  ["movie", "movies"],
+  ["ova", "OVAs"],
+  ["special", "specials"],
+]);
+
+const statusValues = {
+  airing: "currently_airing",
+  complete: "finished_airing",
+  upcoming: "not_yet_aired",
+};
+
+type Query = Omit<z.output<typeof catalogQuerySchema>, "page">;
+
+function loadMalList(
   source: CatalogSource,
-  genre: string | undefined,
-  page: number
-): Promise<CatalogPage> {
-  if (genre === undefined) {
-    const result = await cached(
+  key: string,
+  ttl: number,
+  path: string,
+  params: Record<string, string | number>
+) {
+  return cached(source, key, ttl, setSchema, async () => {
+    const response = await queryMal(
       source,
-      `mal:catalog:${page}`,
-      homeTtl,
-      catalogPageSchema,
-      () =>
-        loadList(source, {
-          ranking_type: "bypopularity",
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-          fields: listFields,
-        })
+      path,
+      { ...params, fields: listFields },
+      listResponse
     );
 
-    return { ...result, hasNextPage: result.hasNextPage && page < maxPage };
+    return {
+      anime: (response?.data ?? [])
+        .map((entry) => entry.node)
+        .filter((node) => !isAdult(node))
+        .map(toAnime),
+      more: Boolean(response?.paging?.next),
+    };
+  });
+}
+
+async function loadSource(
+  source: CatalogSource,
+  query: Query
+): Promise<{ anime: Anime[]; note: string | null }> {
+  if (query.q) {
+    const q = query.q.toLowerCase().replace(/\s+/g, " ");
+
+    const matches = await loadMalList(
+      source,
+      `mal:search:${q}`,
+      homeTtl,
+      "/anime",
+      { q, limit: searchSize }
+    );
+
+    return {
+      anime: matches.anime,
+      note: matches.more ? "Among the top 100 title matches." : null,
+    };
   }
 
-  const anime = await cached(
-    source,
-    `mal:genre:${genre}`,
-    genreTtl,
-    z.array(animeSchema),
-    async () => inGenre(await loadPool(source), genre)
+  if (query.year) {
+    const { year } = query;
+
+    const lists = await Promise.all(
+      (query.season?.length ? query.season : seasons).map((season) =>
+        loadMalList(
+          source,
+          `mal:season:${year}:${season}`,
+          genreTtl,
+          `/anime/season/${year}/${season}`,
+          { sort: "anime_num_list_users", limit: poolSize }
+        )
+      )
+    );
+
+    const anime = new Map(
+      lists.flatMap((list) => list.anime).map((entry) => [entry.id, entry])
+    );
+
+    return { anime: [...anime.values()], note: null };
+  }
+
+  const ranking = [query.status, query.type].find(
+    (value) => value !== undefined && rankings.includes(value)
   );
 
+  if (ranking) {
+    const ranked = await loadMalList(
+      source,
+      `mal:ranking:${ranking}`,
+      genreTtl,
+      "/anime/ranking",
+      { ranking_type: ranking, limit: poolSize }
+    );
+
+    return {
+      anime: ranked.anime,
+      note: ranked.more
+        ? `Among MyAnimeList's 500 top-ranked ${rankingLabels.get(ranking)}.`
+        : null,
+    };
+  }
+
   return {
-    anime: anime.slice((page - 1) * pageSize, page * pageSize),
-    hasNextPage: anime.length > page * pageSize && page < maxPage,
+    anime: await loadPool(source),
+    note: "Among MyAnimeList's 500 most popular anime.",
   };
+}
+
+const seasonOf = (month: number | null) =>
+  month === null ? undefined : seasons[Math.floor((month - 1) / 3)];
+
+const dateValue = ({ year, month, day }: Anime["startDate"]) =>
+  year === null ? null : year * 10_000 + (month ?? 0) * 100 + (day ?? 0);
+
+const sortValue: Record<
+  (typeof orders)[number],
+  (anime: Anime) => number | string | null
+> = {
+  popularity: (anime) => (anime.popularity ? -anime.popularity : null),
+  score: (anime) => anime.averageScore,
+  start_date: (anime) => dateValue(anime.startDate),
+  title: (anime) => (anime.title.english ?? anime.title.romaji).toLowerCase(),
+};
+
+function matches(anime: Anime, query: Query, genreList: string[]) {
+  const season = seasonOf(anime.startDate.month);
+  const fromSeasonList = Boolean(query.year && !query.q);
+
+  return (
+    (!query.type || anime.format === mediaTypes.get(query.type)) &&
+    (!query.status || anime.status === statusValues[query.status]) &&
+    genreList.every((genre) => anime.genres.includes(genre)) &&
+    (!query.q || !query.year || anime.seasonYear === query.year) &&
+    (fromSeasonList ||
+      !query.season?.length ||
+      (season !== undefined && query.season.includes(season)))
+  );
+}
+
+function sortAnime(anime: Anime[], query: Query) {
+  const order = query.order_by ?? (query.q ? undefined : "popularity");
+
+  if (!order) return anime;
+
+  const value = sortValue[order];
+  const direction = query.sort ?? (order === "title" ? "asc" : "desc");
+  const sign = direction === "asc" ? 1 : -1;
+
+  return anime
+    .map((entry, index) => ({ entry, index, value: value(entry) }))
+    .sort((a, b) => {
+      if (a.value === b.value) return a.index - b.index;
+
+      if (a.value === null) return 1;
+
+      if (b.value === null) return -1;
+
+      return (a.value < b.value ? -1 : 1) * sign;
+    })
+    .map(({ entry }) => entry);
+}
+
+async function loadPopularPage(
+  source: CatalogSource,
+  page: number
+): Promise<CatalogPage> {
+  const result = await cached(
+    source,
+    `mal:catalog:${page}`,
+    homeTtl,
+    catalogPageSchema,
+    () =>
+      loadList(source, {
+        ranking_type: "bypopularity",
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+        fields: listFields,
+      })
+  );
+
+  return { ...result, hasNextPage: result.hasNextPage && page < maxPage };
 }
 
 export type Catalog =
   | { kind: "redirect"; genre: string }
   | { kind: "unsupported"; value: string }
-  | ({ kind: "results"; genre: string | null } & CatalogPage);
+  | ({
+      kind: "results";
+      genre: string | null;
+      subset: string | null;
+    } & CatalogPage);
 
 export async function loadCatalog(
   source: CatalogSource,
-  query: { genres?: string; page: number }
+  input: CatalogQuery
 ): Promise<Catalog> {
-  if (!query.genres)
-    return {
-      kind: "results",
-      genre: null,
-      ...(await loadCatalogPage(source, undefined, query.page)),
-    };
-
-  const legacy = legacyGenreIds.get(query.genres);
+  const { page, ...query } = catalogQuerySchema.parse(input);
+  const genreList = query.genres?.split(",") ?? [];
+  const legacy = query.genres && legacyGenreIds.get(query.genres);
 
   if (legacy) return { kind: "redirect", genre: legacy };
 
-  if (!genres.includes(query.genres))
+  if (query.genres && genreList.some((genre) => !genres.includes(genre)))
     return { kind: "unsupported", value: query.genres };
+
+  const genre = query.genres ?? null;
+
+  if (Object.values(query).every((value) => value === undefined))
+    return {
+      kind: "results",
+      genre,
+      subset: null,
+      ...(await loadPopularPage(source, page)),
+    };
+
+  const { anime, note } = await loadSource(source, query);
+
+  const results = sortAnime(
+    anime.filter((entry) => matches(entry, query, genreList)),
+    query
+  );
 
   return {
     kind: "results",
-    genre: query.genres,
-    ...(await loadCatalogPage(source, query.genres, query.page)),
+    genre,
+    subset: note,
+    anime: results.slice((page - 1) * pageSize, page * pageSize),
+    hasNextPage: results.length > page * pageSize && page < maxPage,
   };
 }
 

@@ -20,6 +20,7 @@ export const animeSchema = z.object({
   status: z.string(),
   genres: z.array(z.string()),
   studios: z.object({ nodes: z.array(z.object({ name: z.string() })) }),
+  popularity: z.number().nullish(),
 });
 
 export type Anime = z.infer<typeof animeSchema>;
@@ -46,10 +47,34 @@ export type Categories = z.infer<typeof categoriesSchema>;
 
 export const maxPage = 200;
 
+export const seasons = ["winter", "spring", "summer", "fall"] as const;
+
+export const formats = [
+  "tv",
+  "movie",
+  "special",
+  "ova",
+  "ona",
+  "music",
+] as const;
+
+export const statuses = ["airing", "complete", "upcoming"] as const;
+export const orders = ["popularity", "score", "start_date", "title"] as const;
+export const directions = ["asc", "desc"] as const;
+
 export const catalogQuerySchema = z.object({
-  genres: z.string().trim().max(100).optional(),
+  q: z.string().trim().min(3).max(100).optional(),
+  year: z.number().int().min(1917).max(2100).optional(),
+  season: z.array(z.enum(seasons)).max(4).optional(),
+  type: z.enum(formats).optional(),
+  status: z.enum(statuses).optional(),
+  genres: z.string().trim().max(200).optional(),
+  order_by: z.enum(orders).optional(),
+  sort: z.enum(directions).optional(),
   page: z.number().int().min(1).max(maxPage).default(1),
 });
+
+export type CatalogQuery = z.input<typeof catalogQuerySchema>;
 
 export const animeIdSchema = z.coerce.number().int().positive().max(2147483647);
 
@@ -64,7 +89,7 @@ const malDate = z
 
 const unknownDate = { year: null, month: null, day: null };
 
-const mediaTypes = new Map([
+export const mediaTypes = new Map<string, string>([
   ["tv", "TV"],
   ["movie", "Movie"],
   ["ova", "OVA"],
@@ -100,6 +125,7 @@ export const malNodeSchema = z.object({
     .nullish()
     .transform((value) => value ?? []),
   rating: z.string().nullish(),
+  popularity: z.number().int().nullish(),
 });
 
 export type MalNode = z.infer<typeof malNodeSchema>;
@@ -109,7 +135,7 @@ export function isAdult(node: MalNode) {
 }
 
 export function toAnime(node: MalNode): Anime {
-  return {
+  const anime: Anime = {
     id: node.id,
     title: { english: node.alternative_titles?.en || null, romaji: node.title },
     description: node.synopsis || null,
@@ -131,9 +157,13 @@ export function toAnime(node: MalNode): Anime {
     genres: node.genres.map((genre) => genre.name),
     studios: { nodes: node.studios },
   };
+
+  if (node.popularity) anime.popularity = node.popularity;
+
+  return anime;
 }
 
 export const listFields =
-  "alternative_titles,mean,num_episodes,start_season,start_date,end_date,media_type,status,genres,rating";
+  "alternative_titles,mean,num_episodes,start_season,start_date,end_date,media_type,status,genres,rating,popularity";
 
 export const detailFields = `${listFields},synopsis,studios`;

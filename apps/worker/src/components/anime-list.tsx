@@ -1,26 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type FunctionComponent } from "react";
+import { toast } from "sonner";
 
 import { englishTitle } from "../lib/anime";
-import type { CatalogPage } from "../server/anime";
+import type { CatalogPage, CatalogQuery } from "../server/anime";
 import { getCatalog } from "../server/functions";
 import { AnimeCard, AnimeCardSkeleton } from "./ui/anime-card";
 import { Button } from "./ui/button";
 
 interface AnimeListProps {
-  genre: string | null;
+  query: CatalogQuery;
   initial: CatalogPage;
 }
 
 export const AnimeList: FunctionComponent<AnimeListProps> = ({
-  genre,
+  query,
   initial,
 }) => {
   const [isPending, setPending] = useState(false);
   const [allAnime, setAllAnime] = useState(initial.anime);
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(initial.hasNextPage);
-  const [failed, setFailed] = useState(false);
 
   const isEmpty = allAnime.length === 0;
 
@@ -30,18 +30,17 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({
     setPending(true);
 
     const next = await getCatalog({
-      data: { genres: genre ?? undefined, page: page + 1 },
+      data: { ...query, page: page + 1 },
     }).catch(() => null);
 
     setPending(false);
 
     if (next?.kind !== "results") {
-      setFailed(true);
+      toast.error("MyAnimeList didn't respond. Please try again shortly.");
 
       return;
     }
 
-    setFailed(false);
     setAllAnime((previous) => [...previous, ...next.anime]);
     setHasNextPage(next.hasNextPage);
     setPage(page + 1);
@@ -74,11 +73,6 @@ export const AnimeList: FunctionComponent<AnimeListProps> = ({
             .fill(0)
             .map((_, index) => <AnimeCardSkeleton key={index} />)}
       </div>
-      {failed && (
-        <p className="mb-4 text-center text-muted-foreground">
-          MyAnimeList didn't respond. Please try again shortly.
-        </p>
-      )}
       {hasNextPage && (
         <Button onClick={loadMore} disabled={isPending} size="lg" fullWidth>
           {isPending ? "Loading..." : "Show More"}
