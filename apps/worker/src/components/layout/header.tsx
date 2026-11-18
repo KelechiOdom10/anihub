@@ -104,24 +104,26 @@ export function Header({ viewer }: { viewer: Viewer }) {
             </Link>
           ))}
         </nav>
-        <form
-          action="/catalog"
-          method="get"
-          role="search"
-          className="relative hidden max-w-xl flex-1 lg:block"
-        >
-          <MagnifyingGlassIcon
-            aria-hidden="true"
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-          />
-          <input
-            type="search"
-            name="q"
-            aria-label="Search anime"
-            placeholder="Search"
-            className="h-9 w-full rounded-md border border-input bg-white/5 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-          />
-        </form>
+        {pathname !== "/catalog" && (
+          <form
+            action="/catalog"
+            method="get"
+            role="search"
+            className="relative hidden max-w-xl flex-1 lg:block"
+          >
+            <MagnifyingGlassIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            />
+            <input
+              type="search"
+              name="q"
+              aria-label="Search anime"
+              placeholder="Search"
+              className="h-9 w-full rounded-md border border-input bg-white/5 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            />
+          </form>
+        )}
         <div className="ml-auto flex items-center gap-2">
           {viewer ? (
             <Button size="default" onClick={signOut} disabled={signingOut}>

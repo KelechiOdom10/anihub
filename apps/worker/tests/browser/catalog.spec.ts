@@ -13,6 +13,19 @@ function trackErrors(page: Page) {
 
 const results = (page: Page) => page.locator('a[href^="/anime/"]');
 
+test("the catalog offers one search field, the page's own", async ({
+  page,
+}) => {
+  const search = page.getByRole("searchbox", { name: "Search anime" });
+
+  await page.goto("/catalog");
+  await expect(search).toHaveCount(1);
+  await expect(page.locator("header").getByRole("searchbox")).toHaveCount(0);
+
+  await page.goto("/");
+  await expect(page.locator("header").getByRole("searchbox")).toHaveCount(1);
+});
+
 test("search and filters live in the URL and survive reload and back", async ({
   page,
 }) => {
