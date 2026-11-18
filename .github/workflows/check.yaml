@@ -1,6 +1,7 @@
 name: Validate
 on:
   push:
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -19,6 +20,7 @@ env:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -29,13 +31,29 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm format:check
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm build
+      - name: Format check, lint, typecheck and test the root app in parallel
+        run: |
+          checks=(format:check lint typecheck test)
+          pids=()
+          for check in "${checks[@]}"; do
+            pnpm "$check" > "$RUNNER_TEMP/root-$check.log" 2>&1 &
+            pids+=("$!")
+          done
+          status=0
+          for index in "${!checks[@]}"; do
+            check=${checks[$index]}
+            if wait "${pids[$index]}"; then result=passed; else result=failed; status=1; fi
+            echo "::group::$check ($result)"
+            cat "$RUNNER_TEMP/root-$check.log"
+            echo "::endgroup::"
+            if [ "$result" = failed ]; then echo "::error::Root $check failed"; fi
+          done
+          exit $status
+      - name: Build the root app (lint already ran above)
+        run: pnpm exec next build --no-lint
   worker:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/google-chrome
     steps:
@@ -49,10 +67,41 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @anihub/worker prepare:types
-      - run: pnpm --filter @anihub/worker typecheck
-      - run: pnpm --filter @anihub/worker test
       - run: pnpm --filter @anihub/worker build
-      - run: '"$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version'
+      - name: Start Worker typecheck, unit tests and bundle check in the background
+        id: background
+        run: |
+          run_bg() {
+            name=$1
+            shift
+            (
+              code=0
+              "$@" > "$RUNNER_TEMP/$name.log" 2>&1 || code=$?
+              echo "$code" > "$RUNNER_TEMP/$name.status"
+            ) > /dev/null 2>&1 &
+          }
+          run_bg chrome "$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version
+          run_bg typecheck pnpm --filter @anihub/worker exec tsc --noEmit
+          run_bg unit pnpm --filter @anihub/worker test
+          run_bg bundle pnpm --filter @anihub/worker check:bundle
       - run: pnpm --filter @anihub/worker test:browser
       - run: pnpm --filter @anihub/worker test:library
-      - run: pnpm --filter @anihub/worker check:bundle
+      - name: Background Worker check results
+        if: always() && steps.background.outcome == 'success'
+        run: |
+          status=0
+          for check in chrome typecheck unit bundle; do
+            if ! timeout 300 bash -c "until [ -f '$RUNNER_TEMP/$check.status' ]; do sleep 1; done"; then
+              echo "::error::Worker $check did not finish"
+              status=1
+              continue
+            fi
+            echo "::group::$check"
+            cat "$RUNNER_TEMP/$check.log"
+            echo "::endgroup::"
+            if [ "$(cat "$RUNNER_TEMP/$check.status")" != 0 ]; then
+              echo "::error::Worker $check failed"
+              status=1
+            fi
+          done
+          exit $status
