@@ -15,6 +15,31 @@ const catalogFixture = z.object({
   pages: z.record(z.string(), catalogPageSchema),
 });
 
+function popularityOrder(lists: Anime[][]) {
+  const queues = lists.map((list) => [...list]);
+  const pool: Anime[] = [];
+
+  while (queues.some((queue) => queue.length > 0)) {
+    const next = queues
+      .map((queue) => queue[0])
+      .find(
+        (head) =>
+          head &&
+          queues.every(
+            (queue) => queue.findIndex((entry) => entry.id === head.id) <= 0
+          )
+      );
+
+    if (!next) throw new Error("Fixture pages disagree on popularity order");
+
+    pool.push(next);
+
+    for (const queue of queues) if (queue[0]?.id === next.id) queue.shift();
+  }
+
+  return pool;
+}
+
 const quote = (value: string) => "'" + value.replaceAll("'", "''") + "'";
 
 export default function seedCatalog() {
@@ -45,7 +70,13 @@ export default function seedCatalog() {
 
   const entry = (
     key: string,
-    data: Home | CatalogPage | Categories | Anime[] | Anime
+    data:
+      | Home
+      | CatalogPage
+      | Categories
+      | Anime[]
+      | Anime
+      | { anime: Anime[]; more: boolean }
   ) =>
     `INSERT INTO cache_entries (key, data, updated_at) VALUES (${quote(key)}, ${quote(JSON.stringify(data))}, ${now});`;
 
@@ -59,14 +90,20 @@ export default function seedCatalog() {
     ...Object.entries(catalog.pages).flatMap(([key, page]) =>
       key.startsWith("all:") ? [entry(`mal:catalog:${key.slice(4)}`, page)] : []
     ),
-    ...["Action", "Romance", "Sci-Fi"].map((genre) =>
-      entry(
-        `mal:genre:${genre}`,
-        Object.entries(catalog.pages).flatMap(([key, page]) =>
-          key.startsWith(`${genre}:`) ? page.anime : []
+    entry(
+      "mal:pool",
+      popularityOrder(
+        ["all", "Action", "Romance", "Sci-Fi"].map((list) =>
+          Object.entries(catalog.pages).flatMap(([key, page]) =>
+            key.startsWith(list + ":") ? page.anime : []
+          )
         )
       )
     ),
+    entry("mal:search:fixture", {
+      anime: catalog.pages["all:1"]?.anime ?? [],
+      more: false,
+    }),
     ...days.map((day) => entry(`mal:categories:${day}`, categories)),
     ...[...anime.values()].map((value) =>
       entry(`mal:anime:${value.id}`, value)

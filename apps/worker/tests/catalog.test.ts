@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { animeCache, cacheEntries } from "../src/db/schema";
-import { animeIdSchema, type Anime } from "../src/server/anime";
+import { catalogSearchSchema } from "../src/lib/catalog";
+import { animeIdSchema, seasons, type Anime } from "../src/server/anime";
 import {
   AnimeUnavailableError,
   loadAnime,
@@ -564,4 +565,180 @@ test("AniList rows left in the old cache tables are never served for MyAnimeList
     );
     assert.equal(calls(), 4);
   });
+});
+
+function listOf(
+  nodes: Array<
+    Omit<Partial<typeof mal>, "mean"> & {
+      popularity?: number;
+      mean?: number | null;
+    }
+  >,
+  next = false
+) {
+  return Response.json({
+    data: nodes.map((node) => ({
+      node: { ...mal, alternative_titles: {}, ...node },
+    })),
+    paging: next ? { next: "https://api.myanimelist.net/v2/next" } : {},
+  });
+}
+
+test("title search filters and sorts MyAnimeList's matches, reusing one cached search", async () => {
+  await withCatalog(async ({ source, calls, respond }) => {
+    const requested: URL[] = [];
+
+    respond((url) => {
+      requested.push(url);
+
+      return listOf([
+        { id: 1, title: "Alpha", media_type: "tv", mean: 7, popularity: 30 },
+        { id: 2, title: "Beta", media_type: "movie", mean: 9, popularity: 10 },
+        { id: 3, title: "Gamma", media_type: "tv", mean: 8, popularity: 20 },
+        {
+          id: 4,
+          title: "Delta",
+          media_type: "tv",
+          status: "finished_airing",
+          mean: null,
+          popularity: 5,
+        },
+      ]);
+    });
+
+    const ids = async (query: Parameters<typeof loadCatalog>[1]) => {
+      const result = await loadCatalog(source, query);
+
+      assert.equal(result.kind, "results");
+
+      return result.kind === "results" ? result.anime.map((a) => a.id) : [];
+    };
+
+    assert.deepEqual(await ids({ q: "  Fixture ", page: 1 }), [1, 2, 3, 4]);
+    assert.equal(requested[0]?.pathname, "/v2/anime");
+    assert.equal(requested[0]?.searchParams.get("q"), "fixture");
+    assert.equal(requested[0]?.searchParams.get("limit"), "100");
+
+    assert.deepEqual(
+      await ids({ q: "fixture", type: "tv", order_by: "score", page: 1 }),
+      [3, 1, 4]
+    );
+    assert.deepEqual(
+      await ids({ q: "fixture", type: "tv", status: "airing", page: 1 }),
+      [1, 3]
+    );
+    assert.deepEqual(
+      await ids({ q: "fixture", order_by: "popularity", sort: "asc", page: 1 }),
+      [1, 3, 2, 4]
+    );
+    assert.deepEqual(
+      await ids({ q: "fixture", order_by: "title", page: 1 }),
+      [1, 2, 4, 3]
+    );
+    assert.equal(calls(), 1);
+  });
+});
+
+test("search shorter than three characters is refused before calling MyAnimeList", async () => {
+  await withCatalog(async ({ source, calls }) => {
+    await assert.rejects(loadCatalog(source, { q: "ab", page: 1 }));
+    assert.equal(calls(), 0);
+  });
+});
+
+test("a year loads its seasons, and a season loads only that season", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    const paths: string[] = [];
+
+    respond((url) => {
+      paths.push(url.pathname);
+
+      const season = url.pathname.split("/").pop();
+
+      return listOf([
+        {
+          id: seasons.findIndex((value) => value === season) + 1,
+          title: season,
+        },
+        { id: 99, title: "Shared", status: "finished_airing" },
+      ]);
+    });
+
+    const spring = await loadCatalog(source, {
+      year: 2020,
+      season: ["spring"],
+      page: 1,
+    });
+
+    assert.deepEqual(paths, ["/v2/anime/season/2020/spring"]);
+    assert.ok(spring.kind === "results" && spring.anime.length === 2);
+
+    const year = await loadCatalog(source, {
+      year: 2020,
+      status: "complete",
+      page: 1,
+    });
+
+    assert.deepEqual(paths.slice(1).sort(), [
+      "/v2/anime/season/2020/fall",
+      "/v2/anime/season/2020/summer",
+      "/v2/anime/season/2020/winter",
+    ]);
+    assert.ok(
+      year.kind === "results" &&
+        year.anime.length === 1 &&
+        year.anime[0]?.id === 99 &&
+        year.subset === null
+    );
+  });
+});
+
+test("airing status browses MyAnimeList's airing ranking and notes when it is cut at 500", async () => {
+  await withCatalog(async ({ source, respond }) => {
+    const types: Array<string | null> = [];
+
+    respond((url) => {
+      types.push(url.searchParams.get("ranking_type"));
+
+      return listOf([{ id: 1 }, { id: 2, media_type: "movie" }], true);
+    });
+
+    const airing = await loadCatalog(source, {
+      status: "airing",
+      type: "movie",
+      page: 1,
+    });
+
+    assert.deepEqual(types, ["airing"]);
+    assert.ok(
+      airing.kind === "results" &&
+        airing.anime.map((entry) => entry.id).join() === "2" &&
+        airing.subset === "Among MyAnimeList's 500 top-ranked airing anime."
+    );
+  });
+});
+
+test("the catalog URL keeps valid filters and drops unusable ones", () => {
+  assert.deepEqual(
+    catalogSearchSchema.parse({
+      q: "ab",
+      year: "2020",
+      season: "fall,bogus,spring",
+      type: "tv",
+      status: "finished",
+      genres: 22,
+      order_by: "score",
+      sort: "sideways",
+    }),
+    {
+      q: undefined,
+      year: 2020,
+      season: "spring,fall",
+      type: "tv",
+      status: undefined,
+      genres: "22",
+      order_by: "score",
+      sort: undefined,
+    }
+  );
 });

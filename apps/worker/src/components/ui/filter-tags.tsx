@@ -27,7 +27,7 @@ const FilterTags: FunctionComponent<FilterTagsProps> = ({
       {tags.map((tag) => (
         <Button
           variant="secondary"
-          key={tag.key}
+          key={`${tag.key}-${tag.value}`}
           size="sm"
           onClick={() => onRemove(tag.key, tag.value)}
           className="text-[13px] capitalize"
