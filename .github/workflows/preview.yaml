@@ -1,0 +1,78 @@
+name: Preview
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: >-
+      vars.ANIHUB_PREVIEWS == 'true' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != '' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != 'ab6145b5f4d74c798229173319deaf21' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.target.outputs.url }}
+    env:
+      ANIHUB_PREVIEW: pr-${{ github.event.pull_request.number }}
+      ANIHUB_PREVIEW_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
+      CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_PREVIEW_WORKERS_SUBDOMAIN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: pnpm install --frozen-lockfile
+      - id: target
+        working-directory: apps/worker
+        run: |
+          rm -f void.lock.json .void-wrangler.jsonc
+          mkdir -p .void
+          printf '{\n  "platform": "cloudflare"\n}\n' > .void/project.json
+          echo "url=https://anihub-${ANIHUB_PREVIEW}.${CLOUDFLARE_WORKERS_SUBDOMAIN}.workers.dev" >> "$GITHUB_OUTPUT"
+      - run: pnpm --filter @anihub/worker build
+      - run: pnpm --filter @anihub/worker deploy:guard
+      - name: Confirm the approved commit
+        run: echo "Deploying ${{ github.event.pull_request.head.sha }} to anihub-$ANIHUB_PREVIEW"
+      - name: Bootstrap preview-only secrets
+        working-directory: apps/worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+          PREVIEW_URL: ${{ steps.target.outputs.url }}
+        run: |
+          umask 077
+          {
+            echo "BETTER_AUTH_SECRET=$(openssl rand -hex 32)"
+            echo "BETTER_AUTH_URL=$PREVIEW_URL"
+            echo "GOOGLE_CLIENT_ID=preview-disabled"
+            echo "GOOGLE_CLIENT_SECRET=preview-disabled"
+            echo "DISCORD_CLIENT_ID=preview-disabled"
+            echo "DISCORD_CLIENT_SECRET=preview-disabled"
+          } > "$RUNNER_TEMP/preview.env"
+          pnpm exec void secret sync "$RUNNER_TEMP/preview.env" --yes
+          rm -f "$RUNNER_TEMP/preview.env"
+      - name: Recheck that the pull request is open at the approved commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          current=$(gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq '.state + " " + .head.sha')
+          if [ "$current" != "open $SHA" ]; then echo "::error::pull request is now '$current'; refusing to deploy $SHA"; exit 1; fi
+      - env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+        run: pnpm --filter @anihub/worker exec void deploy --platform cloudflare
+      - run: pnpm --filter @anihub/worker smoke "${{ steps.target.outputs.url }}"

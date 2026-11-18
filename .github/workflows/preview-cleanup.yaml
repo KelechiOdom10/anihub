@@ -1,0 +1,35 @@
+name: Preview cleanup
+on:
+  pull_request_target:
+    types: [closed]
+permissions:
+  pull-requests: read
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    if: >-
+      vars.ANIHUB_PREVIEWS == 'true' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != '' &&
+      vars.ANIHUB_PREVIEW_ACCOUNT_ID != 'ab6145b5f4d74c798229173319deaf21'
+    runs-on: ubuntu-latest
+    environment: preview-cleanup
+    env:
+      PREVIEW: anihub-pr-${{ github.event.pull_request.number }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.ANIHUB_PREVIEW_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PREVIEW_API_TOKEN }}
+    steps:
+      - name: Confirm the pull request is still closed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          state=$(gh api "repos/${{ github.repository }}/pulls/$NUMBER" --jq .state)
+          if [ "$state" != "closed" ]; then echo "::error::pull request was reopened; keeping its preview"; exit 1; fi
+      - name: Delete the preview Worker
+        continue-on-error: true
+        run: npx --yes wrangler@4.164.0 delete "$PREVIEW"
+      - name: Delete the preview database
+        continue-on-error: true
+        run: npx --yes wrangler@4.164.0 d1 delete "$PREVIEW-db" --skip-confirmation

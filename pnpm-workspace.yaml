@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
+  - better-sqlite3
+packageExtensions:
+  drizzle-kit@0.31.11:
+    peerDependencies:
+      drizzle-orm: 0.45.4
+overrides:
+  "@cloudflare/vite-plugin": 2.0.0-rc.1

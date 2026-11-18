@@ -34,3 +34,10 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - run: pnpm --filter @anihub/worker prepare:types
+      - run: pnpm --filter @anihub/worker typecheck
+      - run: pnpm --filter @anihub/worker test
+      - run: pnpm --filter @anihub/worker build
+      - run: pnpm --filter @anihub/worker exec playwright install --with-deps chromium
+      - run: pnpm --filter @anihub/worker test:browser
+      - run: pnpm --filter @anihub/worker check:bundle
