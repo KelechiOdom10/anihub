@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
+import { CollectionVisibilitySwitch } from "../components/collection-visibility-switch";
 import { CreateCollectionDialog } from "../components/create-collection-dialog";
 import { PageMessage } from "../components/page-message";
 import { Button } from "../components/ui/button";
@@ -91,11 +92,10 @@ function CollectionContents({ collection }: { collection: Collection }) {
             .map((item) => ({ url: item.image, alt: item.title }))}
         />
       </div>
-      <p className="text-sm text-muted-foreground">
-        {collection.isPublic
-          ? "Imported public collection"
-          : "Private collection"}
-      </p>
+      <CollectionVisibilitySwitch
+        collectionId={collection.id}
+        isPublic={collection.isPublic}
+      />
       {collection.description && (
         <p className="whitespace-pre-wrap break-words text-sm">
           {collection.description}

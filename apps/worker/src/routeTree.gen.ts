@@ -17,6 +17,9 @@ import { Route as MainCollectionsRouteImport } from './routes/_main.collections'
 import { Route as MainPrivacyRouteImport } from './routes/_main.privacy'
 import { Route as ApiHealthRouteImport } from './routes/api.health'
 import { Route as MainAnimeIdRouteImport } from './routes/_main.anime.$id'
+import { Route as MainCollectionsCollectionIdRouteImport } from './routes/_main.collections_.$collectionId'
+import { Route as MainCollectionsNewRouteImport } from './routes/_main.collections_.new'
+import { Route as MainUsersUserIdRouteImport } from './routes/_main.users_.$userId'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
 
 const MainRoute = MainRouteImport.update({
@@ -58,6 +61,22 @@ const MainAnimeIdRoute = MainAnimeIdRouteImport.update({
   path: '/anime/$id',
   getParentRoute: () => MainRoute,
 } as any)
+const MainCollectionsCollectionIdRoute =
+  MainCollectionsCollectionIdRouteImport.update({
+    id: '/collections_/$collectionId',
+    path: '/collections/$collectionId',
+    getParentRoute: () => MainRoute,
+  } as any)
+const MainCollectionsNewRoute = MainCollectionsNewRouteImport.update({
+  id: '/collections_/new',
+  path: '/collections/new',
+  getParentRoute: () => MainRoute,
+} as any)
+const MainUsersUserIdRoute = MainUsersUserIdRouteImport.update({
+  id: '/users_/$userId',
+  path: '/users/$userId',
+  getParentRoute: () => MainRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -72,6 +91,9 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof MainPrivacyRoute
   '/api/health': typeof ApiHealthRoute
   '/anime/$id': typeof MainAnimeIdRoute
+  '/collections/$collectionId': typeof MainCollectionsCollectionIdRoute
+  '/collections/new': typeof MainCollectionsNewRoute
+  '/users/$userId': typeof MainUsersUserIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
@@ -82,6 +104,9 @@ export interface FileRoutesByTo {
   '/api/health': typeof ApiHealthRoute
   '/': typeof MainIndexRoute
   '/anime/$id': typeof MainAnimeIdRoute
+  '/collections/$collectionId': typeof MainCollectionsCollectionIdRoute
+  '/collections/new': typeof MainCollectionsNewRoute
+  '/users/$userId': typeof MainUsersUserIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -94,6 +119,9 @@ export interface FileRoutesById {
   '/api/health': typeof ApiHealthRoute
   '/_main/': typeof MainIndexRoute
   '/_main/anime/$id': typeof MainAnimeIdRoute
+  '/_main/collections_/$collectionId': typeof MainCollectionsCollectionIdRoute
+  '/_main/collections_/new': typeof MainCollectionsNewRoute
+  '/_main/users_/$userId': typeof MainUsersUserIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -106,6 +134,9 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/api/health'
     | '/anime/$id'
+    | '/collections/$collectionId'
+    | '/collections/new'
+    | '/users/$userId'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,6 +147,9 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/'
     | '/anime/$id'
+    | '/collections/$collectionId'
+    | '/collections/new'
+    | '/users/$userId'
     | '/api/auth/$'
   id:
     | '__root__'
@@ -127,6 +161,9 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/_main/'
     | '/_main/anime/$id'
+    | '/_main/collections_/$collectionId'
+    | '/_main/collections_/new'
+    | '/_main/users_/$userId'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -195,6 +232,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainAnimeIdRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/collections_/$collectionId': {
+      id: '/_main/collections_/$collectionId'
+      path: '/collections/$collectionId'
+      fullPath: '/collections/$collectionId'
+      preLoaderRoute: typeof MainCollectionsCollectionIdRouteImport
+      parentRoute: typeof MainRoute
+    }
+    '/_main/collections_/new': {
+      id: '/_main/collections_/new'
+      path: '/collections/new'
+      fullPath: '/collections/new'
+      preLoaderRoute: typeof MainCollectionsNewRouteImport
+      parentRoute: typeof MainRoute
+    }
+    '/_main/users_/$userId': {
+      id: '/_main/users_/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof MainUsersUserIdRouteImport
+      parentRoute: typeof MainRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -211,6 +269,9 @@ interface MainRouteChildren {
   MainPrivacyRoute: typeof MainPrivacyRoute
   MainIndexRoute: typeof MainIndexRoute
   MainAnimeIdRoute: typeof MainAnimeIdRoute
+  MainCollectionsCollectionIdRoute: typeof MainCollectionsCollectionIdRoute
+  MainCollectionsNewRoute: typeof MainCollectionsNewRoute
+  MainUsersUserIdRoute: typeof MainUsersUserIdRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
@@ -219,6 +280,9 @@ const MainRouteChildren: MainRouteChildren = {
   MainPrivacyRoute: MainPrivacyRoute,
   MainIndexRoute: MainIndexRoute,
   MainAnimeIdRoute: MainAnimeIdRoute,
+  MainCollectionsCollectionIdRoute: MainCollectionsCollectionIdRoute,
+  MainCollectionsNewRoute: MainCollectionsNewRoute,
+  MainUsersUserIdRoute: MainUsersUserIdRoute,
 }
 
 const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
