@@ -1,6 +1,6 @@
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "../../lib/auth-client";
 import { useScrolled } from "../../lib/hooks";
@@ -23,9 +23,53 @@ const routes = [
 const closeMenu = (event: React.MouseEvent<HTMLElement>) =>
   event.currentTarget.closest("details")?.removeAttribute("open");
 
+function useMenuDismissal() {
+  const menu = useRef<HTMLDetailsElement>(null);
+
+  useEffect(() => {
+    const node = menu.current;
+
+    if (!node) return;
+
+    const dismiss = (event: PointerEvent) => {
+      const target = event.target;
+
+      if (!node.open || (target instanceof Node && node.contains(target)))
+        return;
+
+      if (
+        document.activeElement instanceof HTMLElement &&
+        node.contains(document.activeElement)
+      )
+        document.activeElement.blur();
+
+      node.open = false;
+    };
+
+    const escape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !node.open) return;
+
+      node.open = false;
+      node.querySelector("summary")?.focus();
+    };
+
+    document.addEventListener("pointerdown", dismiss, { passive: true });
+    document.addEventListener("keydown", escape);
+
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", escape);
+    };
+  }, []);
+
+  return menu;
+}
+
 export function Header({ viewer }: { viewer: Viewer }) {
   const [signingOut, setSigningOut] = useState(false);
   const scrolled = useScrolled();
+  const mobileMenu = useMenuDismissal();
+  const accountMenu = useMenuDismissal();
 
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
@@ -56,15 +100,7 @@ export function Header({ viewer }: { viewer: Viewer }) {
       )}
     >
       <div className="container flex h-14 items-center gap-6 p-0 md:h-16">
-        <details
-          className="relative md:hidden"
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              event.currentTarget.open = false;
-              event.currentTarget.querySelector("summary")?.focus();
-            }
-          }}
-        >
+        <details ref={mobileMenu} className="relative md:hidden">
           <summary
             aria-label="Menu"
             className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md hover:bg-accent focus-visible:outline focus-visible:outline-2 [&::-webkit-details-marker]:hidden"
@@ -130,15 +166,7 @@ export function Header({ viewer }: { viewer: Viewer }) {
         )}
         <div className="ml-auto flex items-center gap-2">
           {viewer && "id" in viewer ? (
-            <details
-              className="relative"
-              onKeyDown={(event) => {
-                if (event.key === "Escape") {
-                  event.currentTarget.open = false;
-                  event.currentTarget.querySelector("summary")?.focus();
-                }
-              }}
-            >
+            <details ref={accountMenu} className="relative">
               <summary
                 aria-label="Account menu"
                 className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden"

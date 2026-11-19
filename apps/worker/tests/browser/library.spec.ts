@@ -1528,6 +1528,10 @@ test("the header avatar opens a menu with the library entry", async ({
     menu.getByRole("link", { name: "My collections" })
   ).toBeVisible();
 
+  await page.locator("body").click({ position: { x: 40, y: 500 } });
+  await expect(menu).toBeHidden();
+
+  await page.getByLabel("Account menu").click();
   await menu.getByRole("link", { name: "My library" }).click();
   await expect(page).toHaveURL(/\/users\/library-alice/);
   await expect(

@@ -43,6 +43,19 @@ test("home restores the original hero, overlapping carousels and transparent hea
   expect(errors).toEqual([]);
 });
 
+test("the mobile menu closes when you click outside it", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByLabel("Menu").click();
+
+  const menu = page.getByRole("navigation", { name: "Mobile navigation" });
+
+  await expect(menu.getByRole("link", { name: "Catalog" })).toBeVisible();
+
+  await page.locator("body").click({ position: { x: 40, y: 600 } });
+  await expect(menu).toBeHidden();
+});
+
 test("the header is Tab-reachable and a carousel link opens with Enter", async ({
   page,
 }) => {
