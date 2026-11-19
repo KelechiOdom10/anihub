@@ -137,6 +137,7 @@ export function CollectionAnimePicker({
                   <AnimeCard
                     anime={anime}
                     loading="lazy"
+                    sizes="(min-width: 640px) 22vw, 45vw"
                     className={chosen ? "ring-2 ring-white" : "opacity-80"}
                   />
                   {chosen && (
