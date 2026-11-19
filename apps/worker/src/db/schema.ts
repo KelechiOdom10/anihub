@@ -236,3 +236,41 @@ export const comments = sqliteTable(
     index("comments_parent_idx").on(table.parentId),
   ]
 );
+
+export const reviewLikes = sqliteTable(
+  "review_likes",
+  {
+    id: id(),
+    reviewId: text("review_id")
+      .notNull()
+      .references(() => comments.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    createdAt: createdAt(),
+  },
+  (table) => [
+    uniqueIndex("review_likes_unique").on(table.reviewId, table.userId),
+    index("review_likes_user_idx").on(table.userId),
+  ]
+);
+
+export const reviewComments = sqliteTable(
+  "review_comments",
+  {
+    id: id(),
+    reviewId: text("review_id")
+      .notNull()
+      .references(() => comments.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    text: text("text").notNull(),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (table) => [
+    index("review_comments_review_idx").on(table.reviewId, table.createdAt),
+    index("review_comments_user_idx").on(table.userId),
+  ]
+);

@@ -6,6 +6,7 @@ import {
   score,
   statusLabel,
 } from "../lib/anime";
+import { coverSources } from "../lib/image";
 import type { Anime } from "../server/anime";
 import { ChooseCollectionDialog } from "./choose-collection-dialog";
 import { WatchStatusControl } from "./watch-status-control";
@@ -18,7 +19,8 @@ export function AnimeHeader({ anime }: { anime: Anime }) {
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/20 via-transparent to-background/30" />
         <div className="absolute inset-0 z-10 bg-black/25" />
         <img
-          src={anime.coverImage.extraLarge}
+          {...coverSources(anime.coverImage.extraLarge)}
+          sizes="(min-width: 768px) 500px, 400px"
           alt={englishTitle(anime)}
           width={500}
           height={300}
@@ -39,7 +41,8 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
       <img
         fetchPriority="high"
         loading="eager"
-        src={anime.coverImage.extraLarge}
+        {...coverSources(anime.coverImage.extraLarge)}
+        sizes="180px"
         alt={englishTitle(anime)}
         width={180}
         height={270}
@@ -93,33 +96,6 @@ export function AnimeOverview({ anime }: { anime: Anime }) {
         <p className="leading-relaxed text-zinc-300">
           {plainDescription(anime)}
         </p>
-      </div>
-    </div>
-  );
-}
-
-export function AnimePageSkeleton() {
-  return (
-    <div>
-      <div className="relative h-[250px] w-full overflow-hidden md:h-[300px]">
-        <div className="h-full w-full animate-pulse bg-zinc-800" />
-      </div>
-      <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
-        <div className="z-30 -mt-24 hidden aspect-[2/3] w-[180px] animate-pulse rounded-md bg-zinc-800 lg:block" />
-        <div className="flex w-full flex-col gap-4 self-start">
-          <div className="h-8 w-2/3 animate-pulse rounded-md bg-zinc-800" />
-          <div className="h-6 w-20 animate-pulse rounded-md bg-zinc-800" />
-        </div>
-      </div>
-      <div className="mx-auto max-w-5xl px-4 py-8 xl:max-w-7xl">
-        <div className="grid gap-4 px-4 py-6 lg:grid-cols-3">
-          {[1, 2, 3].map((item) => (
-            <div
-              key={item}
-              className="h-24 w-full animate-pulse rounded-md bg-zinc-800"
-            />
-          ))}
-        </div>
       </div>
     </div>
   );

@@ -936,7 +936,10 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await signIn(page);
   await page.goto("/collections");
   await page.getByLabel("Account menu").click();
-  await page.getByRole("button", { name: "Sign out", exact: true }).click();
+  await Promise.all([
+    page.waitForURL((url) => url.pathname === "/"),
+    page.getByRole("button", { name: "Sign out", exact: true }).click(),
+  ]);
   await expect(
     page.getByRole("link", { name: "Get Started", exact: true })
   ).toBeVisible();
@@ -1613,4 +1616,33 @@ test("a profile shows five counted tabs, sorts its grid, and masks spoilers for 
     "DELETE FROM comments WHERE id IN ('profile-bob-secret'); DELETE FROM watch_statuses WHERE id = 'profile-watch-21'"
   );
   cleanup.close();
+});
+
+test("a slow library load shows collection card skeletons, then the collections", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await page.route("**/_serverFn/**", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await route.continue();
+  });
+
+  await page
+    .getByRole("link", { name: "My Collections", exact: true })
+    .first()
+    .click();
+
+  const loading = page.getByRole("status", { name: "Loading" });
+
+  await expect(
+    loading.getByRole("heading", { name: "My Collections" })
+  ).toBeVisible();
+  await expect(loading.locator(".rounded-lg.border")).toHaveCount(3);
+  await expect(loading).toHaveCount(0, { timeout: 10000 });
+  await expect(
+    page.getByRole("heading", { name: "My Collections" })
+  ).toBeVisible();
+  await expect(page.locator("article").first()).toBeVisible();
 });

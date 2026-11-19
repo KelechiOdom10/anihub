@@ -103,3 +103,31 @@ test("built assets are cached for a year", async ({ page, request }) => {
     "public, max-age=31536000, immutable"
   );
 });
+
+test("a slow anime page load keeps the header, poster and tab shapes", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await delayData(page, 1500);
+
+  await page
+    .getByRole("link", { name: "Fixture Anime 21", exact: true })
+    .click();
+
+  const loading = page.getByRole("status", { name: "Loading" });
+
+  await expect(loading).toBeVisible();
+  await expect(page).toHaveURL(/\/anime\/21$/);
+
+  const skeletonHeader = await loading.locator("> div").first().boundingBox();
+
+  await expect(
+    page.getByRole("navigation", { name: "Anime tabs" })
+  ).toBeVisible();
+  await expect(loading).toHaveCount(0);
+
+  const header = await page.locator("main > div").first().boundingBox();
+
+  expect(header?.height).toBe(skeletonHeader?.height);
+});
