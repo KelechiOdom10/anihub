@@ -935,7 +935,10 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await capture(page, "session-expired");
   await signIn(page);
   await page.goto("/collections");
-  await page.getByRole("button", { name: "Sign out", exact: true }).click();
+  await Promise.all([
+    page.waitForURL((url) => url.pathname === "/"),
+    page.getByRole("button", { name: "Sign out", exact: true }).click(),
+  ]);
   await expect(
     page.getByRole("link", { name: "Get Started", exact: true })
   ).toBeVisible();
