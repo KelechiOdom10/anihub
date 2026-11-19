@@ -8,7 +8,7 @@ import {
 } from "../lib/anime";
 import type { Anime } from "../server/anime";
 import { ChooseCollectionDialog } from "./choose-collection-dialog";
-import { CreateCollectionDialog } from "./create-collection-dialog";
+import { WatchStatusControl } from "./watch-status-control";
 
 export function AnimeHeader({ anime }: { anime: Anime }) {
   return (
@@ -51,11 +51,8 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
         </h1>
         {rating && <p className="text-base text-gray-400">★ {rating}</p>}
         <div className="mt-2 flex flex-wrap items-center gap-2">
+          <WatchStatusControl animeId={anime.id} signedIn={Boolean(viewer)} />
           <ChooseCollectionDialog animeId={anime.id} viewer={viewer} />
-          <CreateCollectionDialog
-            animeId={anime.id}
-            signedIn={Boolean(viewer)}
-          />
         </div>
       </div>
     </div>
