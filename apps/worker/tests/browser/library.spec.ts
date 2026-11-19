@@ -935,6 +935,7 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await capture(page, "session-expired");
   await signIn(page);
   await page.goto("/collections");
+  await page.getByLabel("Account menu").click();
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await expect(
     page.getByRole("link", { name: "Get Started", exact: true })
@@ -1332,7 +1333,9 @@ test("a public collection opens for anyone while a private one is a 404", async 
     await expect(visitor.getByText("Synthetic alice")).toBeVisible();
 
     await visitor.getByRole("link", { name: "Synthetic alice" }).click();
-    await expect(visitor).toHaveURL(/\/users\/library-alice(\?page=1)?$/);
+    await expect(visitor).toHaveURL(
+      /\/users\/library-alice\?page=1&reviews=1$/
+    );
     await expect(
       visitor.getByRole("heading", { level: 1, name: "Synthetic alice" })
     ).toBeVisible();
@@ -1493,4 +1496,97 @@ test("the new collection page creates a public collection from several picked ti
   ).toBeVisible();
   await expect(visitor.getByText("Synthetic alice")).toBeVisible();
   await guest!.close();
+});
+
+test("the header avatar opens a menu with the profile and My collections", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/");
+  await page.getByLabel("Account menu").click();
+
+  const menu = page.getByRole("navigation", { name: "Account" });
+
+  await expect(menu.getByRole("link", { name: "Profile" })).toBeVisible();
+  await expect(
+    menu.getByRole("link", { name: "My collections" })
+  ).toBeVisible();
+
+  await menu.getByRole("link", { name: "Profile" }).click();
+  await expect(page).toHaveURL(/\/users\/library-alice/);
+  await page.getByLabel("Account menu").click();
+  await page
+    .getByRole("navigation", { name: "Account" })
+    .getByRole("link", { name: "My collections" })
+    .click();
+  await expect(page).toHaveURL(/\/collections/);
+});
+
+test("a profile shows public collections and reviews, masking spoilers for other people", async ({
+  browser,
+  page,
+}) => {
+  const db = libraryDatabase();
+
+  db.prepare(
+    "INSERT OR REPLACE INTO comments (id, text, rating, is_spoiler, user_id, mal_id, anime_id, parent_id, created_at, updated_at) VALUES ('profile-bob-open', 'Bob open profile review', 4, 0, 'library-bob', 21, 999, NULL, ?, ?)"
+  ).run(1_700_000_001_000, 1_700_000_001_000);
+  db.prepare(
+    "INSERT OR REPLACE INTO comments (id, text, rating, is_spoiler, user_id, mal_id, anime_id, parent_id, created_at, updated_at) VALUES ('profile-bob-secret', 'Bob spoiler profile review', 5, 1, 'library-bob', 21, 999, NULL, ?, ?)"
+  ).run(1_700_000_002_000, 1_700_000_002_000);
+  db.close();
+
+  const guest = await browser.newContext();
+  const visitor = await guest.newPage();
+
+  try {
+    const opened = await visitor.goto("/users/library-alice");
+
+    expect(opened?.status()).toBe(200);
+    await expect(
+      visitor.getByRole("heading", { level: 1, name: "Synthetic alice" })
+    ).toBeVisible();
+    await expect(
+      visitor.getByRole("heading", { name: "Imported public", exact: true })
+    ).toBeVisible();
+    await expect(
+      visitor.getByText("Alice secret", { exact: true })
+    ).toHaveCount(0);
+    await expect(
+      visitor.getByRole("heading", { level: 2, name: "Reviews" })
+    ).toBeVisible();
+
+    await visitor.goto("/users/library-bob");
+    await expect(visitor.getByText("Bob open profile review")).toBeVisible();
+    await expect(visitor.getByText("Bob spoiler profile review")).toHaveCount(
+      0
+    );
+    await expect(
+      visitor.getByRole("button", {
+        name: "This review contains spoilers. Click to reveal.",
+      })
+    ).toBeVisible();
+  } finally {
+    await guest.close();
+  }
+
+  await signIn(page);
+  await page.goto("/users/library-bob");
+  await expect(page.getByText("Bob spoiler profile review")).toHaveCount(0);
+
+  const cleanup = libraryDatabase();
+
+  cleanup
+    .prepare(
+      "INSERT OR REPLACE INTO comments (id, text, rating, is_spoiler, user_id, mal_id, anime_id, parent_id, created_at, updated_at) VALUES ('profile-alice-secret', 'Alice spoiler profile review', 3, 1, 'library-alice', 21, 999, NULL, ?, ?)"
+    )
+    .run(1_700_000_003_000, 1_700_000_003_000);
+
+  await page.goto("/users/library-alice");
+  await expect(page.getByText("Alice spoiler profile review")).toBeVisible();
+
+  cleanup.exec(
+    "DELETE FROM comments WHERE id IN ('profile-bob-open', 'profile-bob-secret', 'profile-alice-secret')"
+  );
+  cleanup.close();
 });

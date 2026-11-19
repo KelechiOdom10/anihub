@@ -50,6 +50,9 @@ export const getViewer = createServerFn({ method: "GET" }).handler(async () => {
   });
 
   return session
-    ? publicIdentity(session.user, "/anime-female-avatar.png")
+    ? {
+        id: session.user.id,
+        ...publicIdentity(session.user, "/anime-female-avatar.png"),
+      }
     : null;
 });

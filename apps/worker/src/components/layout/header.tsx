@@ -8,7 +8,10 @@ import { cn } from "../../lib/utils";
 import { Logo } from "../logo";
 import { Button } from "../ui/button";
 
-type Viewer = { name: string } | null;
+type Viewer =
+  | { id: string; name: string; avatar: string }
+  | { name: string }
+  | null;
 
 const routes = [
   { name: "Home", to: "/", search: {} },
@@ -125,10 +128,58 @@ export function Header({ viewer }: { viewer: Viewer }) {
           </form>
         )}
         <div className="ml-auto flex items-center gap-2">
-          {viewer ? (
-            <Button size="default" onClick={signOut} disabled={signingOut}>
-              {signingOut ? "Signing out…" : "Sign out"}
-            </Button>
+          {viewer && "id" in viewer ? (
+            <details
+              className="relative"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  event.currentTarget.open = false;
+                  event.currentTarget.querySelector("summary")?.focus();
+                }
+              }}
+            >
+              <summary
+                aria-label="Account menu"
+                className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden"
+              >
+                <img
+                  src={viewer.avatar}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 rounded-full object-cover"
+                />
+              </summary>
+              <nav
+                aria-label="Account"
+                className="absolute right-0 top-full mt-2 grid w-48 gap-1 rounded-lg border bg-background p-2 text-sm"
+              >
+                <Link
+                  to="/users/$userId"
+                  params={{ userId: viewer.id }}
+                  className="rounded-md p-2 hover:bg-accent"
+                  onClick={closeMenu}
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/collections"
+                  search={{ page: 1 }}
+                  className="rounded-md p-2 hover:bg-accent"
+                  onClick={closeMenu}
+                >
+                  My collections
+                </Link>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  disabled={signingOut}
+                  className="rounded-md p-2 text-left hover:bg-accent disabled:opacity-50"
+                >
+                  {signingOut ? "Signing out…" : "Sign out"}
+                </button>
+              </nav>
+            </details>
           ) : (
             <>
               <Button
