@@ -32,6 +32,9 @@ jobs:
       - run: pnpm --filter @anihub/worker deploy:guard
       - env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # The runner has no OS keyring; without this the pinned cf CLI refuses
+          # the API token and asks for libsecret instead.
+          CLOUDFLARE_AUTH_USE_KEYRING: "false"
         run: |
           pnpm --filter @anihub/worker exec void db status
           pnpm --filter @anihub/worker exec void db migrate --remote
