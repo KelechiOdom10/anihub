@@ -13,6 +13,7 @@
     "test": "tsx --test tests/*.test.ts",
     "test:browser": "playwright test",
     "test:library": "playwright test --config library.playwright.config.ts",
+    "check:specs": "tsx scripts/check-spec-coverage.ts",
     "export:legacy": "tsx scripts/export-turso.ts",
     "check:bundle": "tsx scripts/check-bundle.ts",
     "deploy:guard": "tsx scripts/deploy-guard.ts",

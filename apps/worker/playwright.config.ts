@@ -1,8 +1,9 @@
 import { defineConfig } from "@playwright/test";
+import { publicSpecs } from "./tests/browser/spec-scopes";
 
 export default defineConfig({
   testDir: "./tests/browser",
-  testIgnore: "reviews.spec.ts",
+  testMatch: publicSpecs,
   workers: 3,
   globalSetup: "./tests/browser/seed.ts",
   use: {
