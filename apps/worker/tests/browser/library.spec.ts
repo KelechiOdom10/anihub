@@ -1441,7 +1441,15 @@ test("the new collection page creates a public collection from several picked ti
   await results.nth(0).click();
   await results.nth(1).click();
   await expect(page.getByText("2 selected")).toBeVisible();
+
+  const savedResponse = page.waitForResponse(
+    (response) =>
+      response.request().method() === "POST" &&
+      response.url().includes("_serverFn")
+  );
+
   await page.getByRole("button", { name: "Create Collection" }).click();
+  expect((await savedResponse).ok()).toBe(true);
 
   const db = libraryDatabase();
 
@@ -1456,7 +1464,7 @@ test("the new collection page creates a public collection from several picked ti
           .get()
       ).n;
 
-  await expect.poll(saved, { timeout: 15_000 }).toBe(1);
+  await expect.poll(saved, { timeout: 5_000 }).toBe(1);
   await expect(notification(page)).toContainText(
     "Collection created successfully!"
   );
