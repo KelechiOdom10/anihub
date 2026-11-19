@@ -3,8 +3,11 @@ import {
   AnimeCarousel,
   AnimeCarouselSkeleton,
 } from "../components/anime-carousel";
-import { GenresSection } from "../components/genres-section";
-import { Hero } from "../components/hero";
+import {
+  GenresSection,
+  GenresSectionSkeleton,
+} from "../components/genres-section";
+import { Hero, HeroSkeleton } from "../components/hero";
 import { PageMessage } from "../components/page-message";
 import { getCategories, getHome } from "../server/functions";
 
@@ -15,11 +18,7 @@ export const Route = createFileRoute("/_main/")({
     return { ...home, categories };
   },
   component: Home,
-  pendingComponent: () => (
-    <div className="container mx-auto py-28">
-      <AnimeCarouselSkeleton heading="Top Airing" />
-    </div>
-  ),
+  pendingComponent: HomeSkeleton,
   errorComponent: HomeError,
 });
 
@@ -52,6 +51,23 @@ function Home() {
         </div>
       )}
     </>
+  );
+}
+
+function HomeSkeleton() {
+  return (
+    <div role="status" aria-label="Loading">
+      <HeroSkeleton />
+      <div className="container isolate mx-auto py-20 lg:-mt-64">
+        <AnimeCarouselSkeleton heading="Top Airing" />
+      </div>
+      <div className="container mx-auto pb-[6.25rem] pt-8">
+        <GenresSectionSkeleton />
+      </div>
+      <div className="container mx-auto py-8">
+        <AnimeCarouselSkeleton heading="Popular Anime" />
+      </div>
+    </div>
   );
 }
 

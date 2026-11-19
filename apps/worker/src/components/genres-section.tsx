@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { englishTitle } from "../lib/anime";
 import type { Categories } from "../server/anime";
-import { InfoCard } from "./ui/info-card";
+import { InfoCard, InfoCardSkeleton } from "./ui/info-card";
 
 export const GenresSection = ({ categories }: { categories: Categories }) => {
   return (
@@ -23,6 +23,19 @@ export const GenresSection = ({ categories }: { categories: Categories }) => {
               }))}
             />
           </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const GenresSectionSkeleton = () => {
+  return (
+    <div className="flex flex-col space-y-8">
+      <h3 className="text-xl font-bold text-white">Categories</h3>
+      <div className="grid h-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {Array.from({ length: 3 }, (_, index) => (
+          <InfoCardSkeleton key={index} />
         ))}
       </div>
     </div>

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import fontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { PageMessage } from "../components/page-message";
+import { RouteProgress } from "../components/route-progress";
 import { ToastHost } from "../components/ui/sonner";
 import { getViewer } from "../server/functions";
 import appCss from "../styles.css?url";
@@ -31,6 +32,7 @@ export const Route = createRootRoute({
         crossOrigin: "anonymous",
       },
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://cdn.myanimelist.net" },
       { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
     ],
   }),
@@ -46,6 +48,7 @@ export const Route = createRootRoute({
         <HeadContent />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
+        <RouteProgress />
         <Outlet />
         <ToastHost />
         <Scripts />
