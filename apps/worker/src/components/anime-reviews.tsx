@@ -22,6 +22,7 @@ import {
 } from "../server/reviews";
 import { ReviewForm, type ReviewDraft } from "./review-form";
 import { Button } from "./ui/button";
+import { defaultAvatar } from "../lib/identity";
 
 export function AnimeReviews({ animeId }: { animeId: number }) {
   const [page, setPage] = useState(1);
@@ -336,7 +337,7 @@ function ReviewRow({
       data-review-id={review.id}
     >
       <img
-        src={review.author.avatar ?? "/anime-male-avatar.avif"}
+        src={review.author.avatar ?? defaultAvatar}
         alt=""
         className="mt-0.5 h-9 w-9 shrink-0 rounded-full object-cover sm:h-10 sm:w-10"
       />
@@ -615,7 +616,7 @@ function CommentRow({
   return (
     <li className="flex gap-2.5" data-comment-id={comment.id}>
       <img
-        src={comment.author.avatar ?? "/anime-male-avatar.avif"}
+        src={comment.author.avatar ?? defaultAvatar}
         alt=""
         className="mt-0.5 h-6 w-6 shrink-0 rounded-full object-cover"
       />
