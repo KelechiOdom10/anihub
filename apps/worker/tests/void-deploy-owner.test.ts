@@ -14,7 +14,7 @@ const other = "33333333-3333-4333-8333-333333333333";
 
 type Traffic = Array<{ version_id: string; percentage: number }>;
 
-function guard(reads: Traffic[]) {
+function guard(reads: Traffic[], realTimer = false) {
   const requests: string[] = [];
   const pauses: number[] = [];
 
@@ -48,16 +48,20 @@ function guard(reads: Traffic[]) {
     env: {},
   });
 
-  const options = {
+  const options: Parameters<typeof verifyPublishedCloudflareOwner>[0] & {
+    sleep?: (milliseconds: number) => Promise<void>;
+  } = {
     runWrangler,
     configPath,
     workerName,
-    sleep: async (milliseconds: number) => {
-      pauses.push(milliseconds);
-    },
     publicationConfirmAttempts: 3,
     publicationConfirmDelayMs: 5,
   };
+
+  if (!realTimer)
+    options.sleep = async (milliseconds: number) => {
+      pauses.push(milliseconds);
+    };
 
   return {
     verify: () => verifyPublishedCloudflareOwner(options, published, previous),
@@ -122,4 +126,11 @@ test("split traffic fails without polling", async () => {
     rollback: "not-needed",
   });
   assert.equal(requests.length, 1);
+});
+
+test("the recheck pause waits with the platform timer when no sleep is injected", async () => {
+  const { verify, requests } = guard([only(previous), only(published)], true);
+
+  assert.equal(await verify(), null);
+  assert.equal(requests.length, 2);
 });
