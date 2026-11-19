@@ -50,7 +50,7 @@ export function AnimeToolbar({ anime }: { anime: Anime }) {
           {englishTitle(anime)}
         </h1>
         {rating && <p className="text-base text-gray-400">★ {rating}</p>}
-        <div className="mt-2 flex w-full flex-wrap items-center gap-2 md:justify-between">
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           <WatchStatusControl animeId={anime.id} signedIn={Boolean(viewer)} />
           <ChooseCollectionDialog animeId={anime.id} viewer={viewer} />
         </div>
