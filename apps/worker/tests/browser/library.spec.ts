@@ -1425,7 +1425,14 @@ test("the new collection page creates a public collection from several picked ti
   await signIn(page);
   await page.goto("/collections/new");
 
-  await page.getByLabel("Name", { exact: true }).fill("Picked pair");
+  const name = page.getByLabel("Name", { exact: true });
+
+  await expect(async () => {
+    await name.fill("Picked pair");
+    expect(await name.inputValue()).toBe("Picked pair");
+  }).toPass();
+
+  await expect(name).toHaveValue("Picked pair");
   await page
     .getByLabel(/Description/)
     .fill("Two synthetic titles from the picker");
