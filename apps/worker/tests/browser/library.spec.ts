@@ -1442,6 +1442,33 @@ test("the new collection page creates a public collection from several picked ti
   await results.nth(1).click();
   await expect(page.getByText("2 selected")).toBeVisible();
 
+  const posts: string[] = [];
+
+  page.on("request", (request) => {
+    if (request.method() === "POST") {
+      posts.push(request.url());
+      console.log("[debug] POST sent", request.url());
+    }
+  });
+  page.on("requestfailed", (request) =>
+    console.log(
+      "[debug] request failed",
+      request.method(),
+      request.url(),
+      request.failure()?.errorText
+    )
+  );
+  page.on("response", (response) => {
+    if (response.request().method() === "POST")
+      console.log("[debug] POST response", response.status(), response.url());
+  });
+  page.on("console", (message) =>
+    console.log("[debug] console", message.type(), message.text())
+  );
+  page.on("pageerror", (error) =>
+    console.log("[debug] pageerror", error.message)
+  );
+
   const savedResponse = page.waitForResponse(
     (response) =>
       response.request().method() === "POST" &&
@@ -1449,7 +1476,18 @@ test("the new collection page creates a public collection from several picked ti
   );
 
   await page.getByRole("button", { name: "Create Collection" }).click();
-  expect((await savedResponse).ok()).toBe(true);
+
+  try {
+    expect((await savedResponse).ok()).toBe(true);
+  } catch (error) {
+    console.log("[debug] posts", posts);
+    console.log("[debug] url", page.url());
+    console.log(
+      "[debug] body",
+      (await page.locator("body").innerText()).slice(0, 3000)
+    );
+    throw error;
+  }
 
   const db = libraryDatabase();
 

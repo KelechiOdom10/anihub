@@ -17,6 +17,8 @@ export default defineConfig({
     command: "pnpm preview --host 127.0.0.1 --port 8791 --strictPort",
     url: "http://127.0.0.1:8791/api/health",
     reuseExistingServer: false,
+    stdout: "pipe",
+    stderr: "pipe",
     env: {
       BETTER_AUTH_SECRET: librarySecret,
       BETTER_AUTH_URL: "http://127.0.0.1:8791",
