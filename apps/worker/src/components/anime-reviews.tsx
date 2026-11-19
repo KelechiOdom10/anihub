@@ -1,13 +1,24 @@
-import { ReloadIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import {
+  ChatBubbleIcon,
+  HeartFilledIcon,
+  HeartIcon,
+  ReloadIcon,
+  StarFilledIcon,
+} from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { formatTimeToNow } from "../lib/date";
 import {
+  createReviewComment,
   deleteReview,
+  deleteReviewComment,
+  getReviewComments,
   getReviews,
   getReviewViewer,
+  likeReview,
   type Review,
+  type ReviewComment,
 } from "../server/reviews";
 import { ReviewForm, type ReviewDraft } from "./review-form";
 import { Button } from "./ui/button";
@@ -193,6 +204,7 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
               <ReviewRow
                 key={`${review.id}:${review.updatedAt}`}
                 review={review}
+                viewerId={viewer?.id ?? null}
                 owned={viewer?.id === review.author.id}
                 onEdit={(button) => {
                   trigger.current = button;
@@ -239,13 +251,18 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
 const action =
   "rounded-sm hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50";
 
+const plural = (count: number, word: string) =>
+  `${count.toLocaleString()} ${word}${count === 1 ? "" : "s"}`;
+
 function ReviewRow({
   review,
+  viewerId,
   owned,
   onEdit,
   onDeleted,
 }: {
   review: Review;
+  viewerId: string | null;
   owned: boolean;
   onEdit: (button: HTMLButtonElement) => void;
   onDeleted: () => void;
@@ -254,6 +271,43 @@ function ReviewRow({
   const [confirming, setConfirming] = useState(false);
   const [pending, setPending] = useState(false);
   const inFlight = useRef(false);
+
+  const [like, setLike] = useState({
+    liked: review.liked,
+    likes: review.likes,
+  });
+
+  const liking = useRef(false);
+  const [commentCount, setCommentCount] = useState(review.commentCount);
+  const [threadOpen, setThreadOpen] = useState(false);
+  const canLike = Boolean(viewerId) && !owned;
+
+  const toggleLike = async () => {
+    if (liking.current) return;
+
+    liking.current = true;
+
+    const previous = like;
+    const liked = !like.liked;
+
+    setLike({ liked, likes: like.likes + (liked ? 1 : -1) });
+
+    try {
+      const result = await likeReview({ data: { id: review.id, liked } });
+
+      if (result.kind === "saved")
+        setLike({ liked: result.liked, likes: result.likes });
+      else {
+        setLike(previous);
+        toast.error(result.message);
+      }
+    } catch {
+      setLike(previous);
+      toast.error("Couldn't update like");
+    } finally {
+      liking.current = false;
+    }
+  };
 
   const remove = async () => {
     if (inFlight.current) return;
@@ -327,9 +381,46 @@ function ReviewRow({
             {review.text}
           </p>
         )}
-        {owned && (
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            {confirming ? (
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+          {canLike ? (
+            <button
+              type="button"
+              aria-pressed={like.liked}
+              onClick={toggleLike}
+              className={`${action} flex items-center gap-1.5`}
+            >
+              {like.liked ? (
+                <HeartFilledIcon
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 text-rose-500"
+                />
+              ) : (
+                <HeartIcon aria-hidden="true" className="h-3.5 w-3.5" />
+              )}
+              {like.likes ? plural(like.likes, "like") : "Like"}
+              <span className="sr-only"> review</span>
+            </button>
+          ) : (
+            like.likes > 0 && (
+              <span className="flex items-center gap-1.5">
+                <HeartFilledIcon aria-hidden="true" className="h-3.5 w-3.5" />
+                {plural(like.likes, "like")}
+              </span>
+            )
+          )}
+          {(commentCount > 0 || viewerId) && (
+            <button
+              type="button"
+              aria-expanded={threadOpen}
+              onClick={() => setThreadOpen(!threadOpen)}
+              className={`${action} flex items-center gap-1.5`}
+            >
+              <ChatBubbleIcon aria-hidden="true" className="h-3.5 w-3.5" />
+              {commentCount ? plural(commentCount, "comment") : "Comment"}
+            </button>
+          )}
+          {owned &&
+            (confirming ? (
               <>
                 <span className="text-foreground">Delete this review?</span>
                 <button
@@ -366,10 +457,214 @@ function ReviewRow({
                   Delete<span className="sr-only"> review</span>
                 </button>
               </>
-            )}
-          </div>
+            ))}
+        </div>
+        {threadOpen && (
+          <ReviewThread
+            reviewId={review.id}
+            viewerId={viewerId}
+            moderator={owned}
+            onCountChange={setCommentCount}
+          />
         )}
       </div>
     </article>
+  );
+}
+
+function ReviewThread({
+  reviewId,
+  viewerId,
+  moderator,
+  onCountChange,
+}: {
+  reviewId: string;
+  viewerId: string | null;
+  moderator: boolean;
+  onCountChange: (count: number) => void;
+}) {
+  const [comments, setComments] = useState<ReviewComment[] | null>(null);
+  const [version, setVersion] = useState(0);
+  const [text, setText] = useState("");
+  const [pending, setPending] = useState(false);
+  const inFlight = useRef(false);
+
+  useEffect(() => {
+    let active = true;
+
+    getReviewComments({ data: { reviewId } })
+      .then((result) => {
+        if (!active) return;
+
+        setComments(result);
+        onCountChange(result.length);
+      })
+      .catch(() => {
+        if (active) toast.error("Couldn't load comments");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [reviewId, version, onCountChange]);
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (inFlight.current || !text.trim()) return;
+
+    inFlight.current = true;
+    setPending(true);
+
+    try {
+      const result = await createReviewComment({ data: { reviewId, text } });
+
+      if (result.kind === "saved") {
+        setText("");
+        setVersion((value) => value + 1);
+      } else toast.error(result.message);
+    } catch {
+      toast.error("Couldn't post comment");
+    } finally {
+      inFlight.current = false;
+      setPending(false);
+    }
+  };
+
+  return (
+    <div className="mt-3 space-y-3 border-l border-zinc-800 pl-3 sm:pl-4">
+      {comments === null ? (
+        <p
+          role="status"
+          className="animate-pulse text-xs text-muted-foreground motion-reduce:animate-none"
+        >
+          Loading comments…
+        </p>
+      ) : (
+        comments.length > 0 && (
+          <ul aria-label="Comments on this review" className="space-y-3">
+            {comments.map((comment) => (
+              <CommentRow
+                key={comment.id}
+                comment={comment}
+                removable={moderator || comment.author.id === viewerId}
+                onDeleted={() => setVersion((value) => value + 1)}
+              />
+            ))}
+          </ul>
+        )
+      )}
+      {viewerId && (
+        <form onSubmit={submit} className="flex items-end gap-2">
+          <label htmlFor={`comment-${reviewId}`} className="sr-only">
+            Add a comment
+          </label>
+          <textarea
+            id={`comment-${reviewId}`}
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            readOnly={pending}
+            maxLength={1000}
+            rows={1}
+            placeholder="Add a comment…"
+            className="min-h-9 flex-1 resize-y rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          <Button
+            type="submit"
+            size="sm"
+            variant="secondary"
+            disabled={pending || !text.trim()}
+          >
+            {pending ? "Posting…" : "Post"}
+          </Button>
+        </form>
+      )}
+    </div>
+  );
+}
+
+function CommentRow({
+  comment,
+  removable,
+  onDeleted,
+}: {
+  comment: ReviewComment;
+  removable: boolean;
+  onDeleted: () => void;
+}) {
+  const [confirming, setConfirming] = useState(false);
+  const [pending, setPending] = useState(false);
+
+  const remove = async () => {
+    if (pending) return;
+
+    setPending(true);
+
+    try {
+      const result = await deleteReviewComment({ data: { id: comment.id } });
+
+      if (result.kind === "saved") onDeleted();
+      else toast.error(result.message);
+    } catch {
+      toast.error("Couldn't confirm deletion");
+    } finally {
+      setPending(false);
+    }
+  };
+
+  return (
+    <li className="flex gap-2.5" data-comment-id={comment.id}>
+      <img
+        src={comment.author.avatar ?? "/anime-male-avatar.avif"}
+        alt=""
+        className="mt-0.5 h-6 w-6 shrink-0 rounded-full object-cover"
+      />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 text-xs">
+          <span className="break-words font-semibold [overflow-wrap:anywhere]">
+            {comment.author.name}
+          </span>
+          <time
+            className="text-muted-foreground"
+            dateTime={new Date(comment.createdAt).toISOString()}
+          >
+            {formatTimeToNow(comment.createdAt)}
+          </time>
+          {removable &&
+            (confirming ? (
+              <>
+                <span>Delete this comment?</span>
+                <button
+                  type="button"
+                  disabled={pending}
+                  onClick={remove}
+                  className={`${action} text-red-400 hover:text-red-300`}
+                >
+                  {pending ? "Deleting…" : "Delete"}
+                </button>
+                <button
+                  type="button"
+                  disabled={pending}
+                  onClick={() => setConfirming(false)}
+                  className={`${action} text-muted-foreground`}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setConfirming(true)}
+                className={`${action} text-muted-foreground`}
+              >
+                Delete<span className="sr-only"> comment</span>
+              </button>
+            ))}
+        </div>
+        <p className="mt-0.5 whitespace-pre-wrap break-words text-sm leading-relaxed text-zinc-300 [overflow-wrap:anywhere]">
+          {comment.text}
+        </p>
+      </div>
+    </li>
   );
 }

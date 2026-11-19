@@ -258,7 +258,7 @@ test("anonymous public pages preserve dated imports, canonical identity and exac
   expect(response.headers()["cache-control"]).toContain("no-store");
   expect(body).toContain('"k":["reviews","hasNextPage"]');
   expect(body).toContain(
-    '"k":["id","text","rating","isSpoiler","createdAt","updatedAt","author"]'
+    '"k":["id","text","rating","isSpoiler","createdAt","updatedAt","likes","commentCount","liked","author"]'
   );
   expect(body).toContain('"k":["id","name","avatar"]');
   expect(body).toContain("Synthetic alice");
@@ -958,5 +958,122 @@ test("pending publish is single-flight and reply deletion explains why discussio
       )
       .get()
   ).toEqual({ n: 2 });
+  db.close();
+});
+
+test("likes persist per viewer and the review owner cannot like their own review", async ({
+  page,
+}) => {
+  await signIn(page, "synthetic-bob");
+  await openReviews(page);
+
+  const review = page.locator('[data-review-id="review-09"]');
+  const like = review.getByRole("button", { name: "Like review" });
+
+  await expect(like).toHaveAttribute("aria-pressed", "false");
+  await like.click();
+  await expect(like).toHaveAttribute("aria-pressed", "true");
+  await expect(like).toContainText("1 like");
+  await page.reload();
+  await expect(
+    page
+      .locator('[data-review-id="review-09"]')
+      .getByRole("button", { name: "1 like review" })
+  ).toHaveAttribute("aria-pressed", "true");
+
+  const db = libraryDatabase();
+
+  expect(
+    db
+      .prepare("SELECT user_id FROM review_likes WHERE review_id = 'review-09'")
+      .all()
+  ).toEqual([{ user_id: "library-bob" }]);
+  db.close();
+
+  await page.context().clearCookies();
+  await signIn(page);
+  await openReviews(page);
+
+  const owned = page.locator('[data-review-id="review-09"]');
+
+  await expect(owned.getByRole("button", { name: /like/i })).toHaveCount(0);
+  await expect(owned).toContainText("1 like");
+
+  await page.context().clearCookies();
+  await signIn(page, "synthetic-bob");
+  await openReviews(page);
+  await page
+    .locator('[data-review-id="review-09"]')
+    .getByRole("button", { name: "1 like review" })
+    .click();
+  await expect(
+    page
+      .locator('[data-review-id="review-09"]')
+      .getByRole("button", { name: "Like review" })
+  ).toHaveAttribute("aria-pressed", "false");
+});
+
+test("comments open under a review, persist, and can be removed by their author or the review owner", async ({
+  page,
+}) => {
+  await signIn(page, "synthetic-bob");
+  await openReviews(page);
+
+  const review = page.locator('[data-review-id="review-09"]');
+
+  await review.getByRole("button", { name: "Comment" }).click();
+  await review.getByLabel("Add a comment").fill("  First synthetic comment  ");
+  await review.getByRole("button", { name: "Post" }).click();
+  await expect(
+    review.getByRole("list", { name: "Comments on this review" })
+  ).toContainText("First synthetic comment");
+  await expect(review.getByRole("button", { name: "1 comment" })).toBeVisible();
+  await review.getByLabel("Add a comment").fill("Second synthetic comment");
+  await review.getByRole("button", { name: "Post" }).click();
+  await expect(review.locator("[data-comment-id]")).toHaveCount(2);
+  await capture(page, "comments-desktop");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await capture(page, "comments-mobile");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    390
+  );
+
+  await page.context().clearCookies();
+  await page.reload();
+
+  const anonymous = page.locator('[data-review-id="review-09"]');
+
+  await anonymous.getByRole("button", { name: "2 comments" }).click();
+  await expect(anonymous.locator("[data-comment-id]")).toHaveCount(2);
+  await expect(anonymous.getByLabel("Add a comment")).toHaveCount(0);
+  await expect(
+    anonymous.getByRole("button", { name: "Delete comment" })
+  ).toHaveCount(0);
+
+  await signIn(page);
+  await page.reload();
+
+  const owned = page.locator('[data-review-id="review-09"]');
+
+  await owned.getByRole("button", { name: "2 comments" }).click();
+
+  const first = owned
+    .locator("[data-comment-id]")
+    .filter({ hasText: "First synthetic comment" });
+
+  await first.getByRole("button", { name: "Delete comment" }).click();
+  await first.getByRole("button", { name: "Delete", exact: true }).click();
+  await expect(owned.locator("[data-comment-id]")).toHaveCount(1);
+  await expect(owned.getByRole("button", { name: "1 comment" })).toBeVisible();
+
+  const db = libraryDatabase();
+
+  expect(
+    db
+      .prepare(
+        "SELECT text, user_id FROM review_comments WHERE review_id = 'review-09'"
+      )
+      .all()
+  ).toEqual([{ text: "Second synthetic comment", user_id: "library-bob" }]);
   db.close();
 });

@@ -31,6 +31,9 @@ const row = z.object({
   isSpoiler: z.number().transform(Boolean),
   createdAt: z.number(),
   updatedAt: z.number(),
+  likes: z.number().int(),
+  commentCount: z.number().int(),
+  liked: z.number().transform(Boolean),
   userId: z.string(),
   name: z.string(),
   image: z.string().nullable(),
@@ -96,18 +99,22 @@ export const getReviewViewer = createServerFn({ method: "GET" }).handler(
 export const getReviews = createServerFn({ method: "GET" })
   .validator(query)
   .handler(async ({ data }) => {
-    noStore();
+    const user = await viewer();
 
     const result = await bindings.DB.prepare(
       `
       SELECT c.id, c.text, c.rating, c.is_spoiler AS isSpoiler,
-             c.created_at AS createdAt, c.updated_at AS updatedAt, c.user_id AS userId, u.name, u.image
+             c.created_at AS createdAt, c.updated_at AS updatedAt,
+             (SELECT count(*) FROM review_likes l WHERE l.review_id = c.id) AS likes,
+             (SELECT count(*) FROM review_comments rc WHERE rc.review_id = c.id) AS commentCount,
+             EXISTS (SELECT 1 FROM review_likes l WHERE l.review_id = c.id AND l.user_id = ?) AS liked,
+             c.user_id AS userId, u.name, u.image
       FROM comments c JOIN user u ON u.id = c.user_id
       WHERE c.mal_id = ? AND c.parent_id IS NULL
       ORDER BY c.created_at DESC, c.id DESC LIMIT 11 OFFSET ?
     `
     )
-      .bind(data.animeId, (data.page - 1) * 10)
+      .bind(user?.id ?? "", data.animeId, (data.page - 1) * 10)
       .all();
 
     const rows = z.array(row).parse(result.results);
@@ -231,4 +238,141 @@ export const deleteReview = createServerFn({ method: "POST" })
           message:
             "Can't delete this review. It has replies or is no longer available.",
         } as const);
+  });
+
+const commentRow = z.object({
+  id: z.string(),
+  text: z.string(),
+  createdAt: z.number(),
+  userId: z.string(),
+  name: z.string(),
+  image: z.string().nullable(),
+});
+
+export const likeReview = createServerFn({ method: "POST" })
+  .validator(z.strictObject({ id: reviewId, liked: z.boolean() }))
+  .handler(async ({ data }) => {
+    const user = await writer();
+
+    if (user.kind === "error") return user;
+
+    if (data.liked)
+      await bindings.DB.prepare(
+        `
+        INSERT INTO review_likes (id, review_id, user_id, created_at)
+        SELECT ?, c.id, ?, ? FROM comments c
+        WHERE c.id = ? AND c.parent_id IS NULL AND c.user_id != ?
+        ON CONFLICT (review_id, user_id) DO NOTHING
+      `
+      )
+        .bind(crypto.randomUUID(), user.id, Date.now(), data.id, user.id)
+        .run();
+    else
+      await bindings.DB.prepare(
+        "DELETE FROM review_likes WHERE review_id = ? AND user_id = ?"
+      )
+        .bind(data.id, user.id)
+        .run();
+
+    const state = z
+      .object({
+        likes: z.number().int(),
+        liked: z.number().transform(Boolean),
+      })
+      .nullable()
+      .parse(
+        await bindings.DB.prepare(
+          `
+          SELECT (SELECT count(*) FROM review_likes l WHERE l.review_id = c.id) AS likes,
+                 EXISTS (SELECT 1 FROM review_likes l WHERE l.review_id = c.id AND l.user_id = ?) AS liked
+          FROM comments c WHERE c.id = ? AND c.parent_id IS NULL
+        `
+        )
+          .bind(user.id, data.id)
+          .first()
+      );
+
+    return state
+      ? ({ kind: "saved", ...state } as const)
+      : ({ kind: "error", message: "Review unavailable" } as const);
+  });
+
+export const getReviewComments = createServerFn({ method: "GET" })
+  .validator(z.strictObject({ reviewId }))
+  .handler(async ({ data }) => {
+    noStore();
+
+    const result = await bindings.DB.prepare(
+      `
+      SELECT rc.id, rc.text, rc.created_at AS createdAt, rc.user_id AS userId, u.name, u.image
+      FROM review_comments rc JOIN user u ON u.id = rc.user_id
+      WHERE rc.review_id = ?
+      ORDER BY rc.created_at, rc.id LIMIT 200
+    `
+    )
+      .bind(data.reviewId)
+      .all();
+
+    return z
+      .array(commentRow)
+      .parse(result.results)
+      .map(({ userId, name, image, ...comment }) => ({
+        ...comment,
+        author: author({ id: userId, name, image }),
+      }));
+  });
+
+export type ReviewComment = Awaited<
+  ReturnType<typeof getReviewComments>
+>[number];
+
+export const createReviewComment = createServerFn({ method: "POST" })
+  .validator(
+    z.strictObject({
+      reviewId,
+      text: z.string().max(1000).trim().min(1).max(1000),
+    })
+  )
+  .handler(async ({ data }) => {
+    const user = await writer();
+
+    if (user.kind === "error") return user;
+
+    const id = crypto.randomUUID();
+    const now = Date.now();
+
+    const result = await bindings.DB.prepare(
+      `
+      INSERT INTO review_comments (id, review_id, user_id, text, created_at, updated_at)
+      SELECT ?, c.id, ?, ?, ?, ? FROM comments c WHERE c.id = ? AND c.parent_id IS NULL
+    `
+    )
+      .bind(id, user.id, data.text, now, now, data.reviewId)
+      .run();
+
+    return result.meta.changes
+      ? ({ kind: "saved", id } as const)
+      : ({ kind: "error", message: "Review unavailable" } as const);
+  });
+
+export const deleteReviewComment = createServerFn({ method: "POST" })
+  .validator(z.strictObject({ id: reviewId }))
+  .handler(async ({ data }) => {
+    const user = await writer();
+
+    if (user.kind === "error") return user;
+
+    const result = await bindings.DB.prepare(
+      `
+      DELETE FROM review_comments WHERE id = ? AND (
+        user_id = ? OR review_id IN (SELECT id FROM comments WHERE user_id = ? AND parent_id IS NULL)
+      )
+    `
+    )
+      .bind(data.id, user.id, user.id)
+      .run();
+
+    return result.meta.changes
+      ? ({ kind: "saved", id: data.id } as const)
+      : ({ kind: "error", message: "Comment unavailable" } as const);
   });
