@@ -193,7 +193,7 @@ function Profile() {
                       <Link
                         to="/collections/$collectionId"
                         params={{ collectionId: collection.id }}
-                        className="flex min-w-0 flex-col gap-3 rounded-lg border border-border p-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+                        className="flex min-w-0 flex-col gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
                       >
                         <InfoCard heading={collection.name} images={images} />
                         <p className="line-clamp-1 text-sm text-muted-foreground">
@@ -303,7 +303,7 @@ function ProfileReview({
   });
 
   return (
-    <li className="flex min-w-0 gap-3 rounded-lg border border-border p-3">
+    <li className="flex min-w-0 gap-3 py-2">
       {review.anime ? (
         <Link
           to="/anime/$id"
