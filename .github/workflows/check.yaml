@@ -78,7 +78,7 @@ jobs:
       - if: matrix.suite == 'library'
         run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts library.spec.ts
       - if: matrix.suite == 'reviews'
-        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts reviews.spec.ts
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts reviews.spec.ts watch-status.spec.ts
       - name: Worker typecheck, unit tests and bundle check
         if: matrix.suite == 'static'
         run: |
