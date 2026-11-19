@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { CollectionVisibilitySwitch } from "../components/collection-visibility-switch";
 import { CreateCollectionDialog } from "../components/create-collection-dialog";
+import { CollectionsSkeleton } from "../components/skeletons/collections-skeleton";
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
 import { getLibrary, getLibraryItems } from "../server/library";
@@ -31,11 +32,7 @@ export const Route = createFileRoute("/_main/collections")({
   headers: () => ({ "Cache-Control": "private, no-store", Vary: "Cookie" }),
   head: () => ({ meta: [{ title: "My Collections | Anihub" }] }),
   component: Collections,
-  pendingComponent: () => (
-    <section className="container mt-28 py-8" role="status">
-      Loading your collections…
-    </section>
-  ),
+  pendingComponent: CollectionsSkeleton,
   errorComponent: LibraryError,
 });
 
