@@ -9,12 +9,23 @@ import {
 import type { Anime } from "../server/anime";
 import { ChooseCollectionDialog } from "./choose-collection-dialog";
 import { CreateCollectionDialog } from "./create-collection-dialog";
-import { HeroBackdrop } from "./hero";
 
 export function AnimeHeader({ anime }: { anime: Anime }) {
   return (
-    <div className="relative z-0 h-[260px] w-full overflow-hidden md:h-[380px]">
-      <HeroBackdrop anime={anime} fit="height" />
+    <div className="relative h-[250px] w-full overflow-hidden bg-black/20 pt-0 md:h-[300px]">
+      <div className="absolute right-0 top-0 h-full max-h-full w-[400px] overflow-hidden md:w-[500px]">
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background from-5% via-background/60 via-30% to-transparent to-95%" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/20 via-transparent to-background/30" />
+        <div className="absolute inset-0 z-10 bg-black/25" />
+        <img
+          src={anime.coverImage.extraLarge}
+          alt={englishTitle(anime)}
+          width={500}
+          height={300}
+          loading="eager"
+          className="h-full w-full object-cover object-[center_top]"
+        />
+      </div>
     </div>
   );
 }
@@ -93,7 +104,7 @@ export function AnimeOverview({ anime }: { anime: Anime }) {
 export function AnimePageSkeleton() {
   return (
     <div>
-      <div className="relative h-[260px] w-full overflow-hidden md:h-[380px]">
+      <div className="relative h-[250px] w-full overflow-hidden md:h-[300px]">
         <div className="h-full w-full animate-pulse bg-zinc-800" />
       </div>
       <div className="mx-auto flex max-w-5xl items-center gap-4 px-6 py-8 xl:max-w-7xl">
