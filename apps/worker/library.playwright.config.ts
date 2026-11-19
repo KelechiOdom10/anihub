@@ -1,9 +1,10 @@
 import { defineConfig } from "@playwright/test";
+import { publicSpecs } from "./tests/browser/spec-scopes";
 import { librarySecret } from "./tests/library-fixture";
 
 export default defineConfig({
   testDir: "./tests/browser",
-  testMatch: ["library.spec.ts", "reviews.spec.ts", "watch-status.spec.ts"],
+  testIgnore: publicSpecs,
   globalSetup: "./tests/library-fixture.ts",
   workers: 1,
   use: {

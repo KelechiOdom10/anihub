@@ -60,7 +60,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [browser, library, reviews, static]
+        suite: [browser, static, seeded-1, seeded-2]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -75,19 +75,20 @@ jobs:
       - run: pnpm --filter @anihub/worker build
       - if: matrix.suite == 'browser'
         run: pnpm --filter @anihub/worker test:browser
-      - if: matrix.suite == 'library'
-        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts library.spec.ts
-      - if: matrix.suite == 'reviews'
-        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts reviews.spec.ts watch-status.spec.ts
-      - name: Worker typecheck, unit tests and bundle check
+      - if: matrix.suite == 'seeded-1'
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts --shard=1/2
+      - if: matrix.suite == 'seeded-2'
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts --shard=2/2
+      - name: Worker typecheck, unit tests, bundle and spec coverage
         if: matrix.suite == 'static'
         run: |
-          checks=(typecheck unit bundle)
+          checks=(typecheck unit bundle specs)
           run_check() {
             case $1 in
               typecheck) pnpm --filter @anihub/worker exec tsc --noEmit ;;
               unit) pnpm --filter @anihub/worker test ;;
               bundle) pnpm --filter @anihub/worker check:bundle ;;
+              specs) pnpm --filter @anihub/worker check:specs ;;
             esac
           }
           pids=()
@@ -113,4 +114,4 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - run: echo "Worker typecheck, unit tests, bundle, browser and library suites passed."
+      - run: echo "Worker typecheck, unit tests, bundle, spec coverage, browser and seeded suites passed."
