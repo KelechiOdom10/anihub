@@ -11,7 +11,7 @@ packageExtensionsChecksum: sha256-pOozXuAvCtp/tuLjrVsouzmpSddPP1YEV0OHoZZxPLc=
 
 patchedDependencies:
   '@void/deploy-cloudflare@1.10.0':
-    hash: a4ce0f6378f4a86d57df008da04637fdcf1c65f4173a6d7131b025257bf1bb9e
+    hash: d7dcd919edaef282186ac3370ab9ae25af0275be938aef5e9bff545575499655
     path: patches/@void__deploy-cloudflare@1.10.0.patch
 
 importers:
@@ -337,7 +337,7 @@ importers:
         version: 6.3.0(vite@8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1))
       '@void/deploy-cloudflare':
         specifier: 1.10.0
-        version: 1.10.0(patch_hash=a4ce0f6378f4a86d57df008da04637fdcf1c65f4173a6d7131b025257bf1bb9e)
+        version: 1.10.0(patch_hash=d7dcd919edaef282186ac3370ab9ae25af0275be938aef5e9bff545575499655)
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -9820,7 +9820,7 @@ snapshots:
       '@rolldown/pluginutils': 1.1.1
       vite: 8.3.8(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)(yaml@2.9.1)
 
-  '@void/deploy-cloudflare@1.10.0(patch_hash=a4ce0f6378f4a86d57df008da04637fdcf1c65f4173a6d7131b025257bf1bb9e)':
+  '@void/deploy-cloudflare@1.10.0(patch_hash=d7dcd919edaef282186ac3370ab9ae25af0275be938aef5e9bff545575499655)':
     dependencies:
       '@void/deploy-core': 1.10.0
       jsonc-parser: 3.3.1
@@ -12754,7 +12754,7 @@ snapshots:
       '@cloudflare/workers-types': 5.20261117.1
       '@cloudflare/workers-utils': 0.54.2
       '@napi-rs/keyring': 2.1.2
-      '@void/deploy-cloudflare': 1.10.0(patch_hash=a4ce0f6378f4a86d57df008da04637fdcf1c65f4173a6d7131b025257bf1bb9e)
+      '@void/deploy-cloudflare': 1.10.0(patch_hash=d7dcd919edaef282186ac3370ab9ae25af0275be938aef5e9bff545575499655)
       '@void/deploy-core': 1.10.0
       '@void/edge': 1.10.0
       '@void/isr': 1.10.0

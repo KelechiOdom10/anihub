@@ -22,7 +22,7 @@ index 5b412da47ff72f07836aefbb7a50bb9e542832aa..c0d4749ce679cb93010308b2170b0a52
   * Normalize an operator-selected readiness origin. Returns `undefined` unless the value is one
   * exact `https:` origin without a wildcard, credentials, a path, a query, or a fragment. A probe
 diff --git a/dist/index.mjs b/dist/index.mjs
-index 8ae3a41f80085353e0f91add02204647e80cfe1f..c3d386db95b645e2595ff25c85a4ff88555ed496 100644
+index 8ae3a41f80085353e0f91add02204647e80cfe1f..5748608ff78b3c19e3640c7b52b78db2b42c467e 100644
 --- a/dist/index.mjs
 +++ b/dist/index.mjs
 @@ -2045,39 +2045,7 @@ async function bootstrapFirstDeployment(options, previousVersionId, atomic = fal
@@ -112,7 +112,7 @@ index 8ae3a41f80085353e0f91add02204647e80cfe1f..c3d386db95b645e2595ff25c85a4ff88
 +	}
 +}
 +function pauseBeforeOwnerRecheck(milliseconds) {
-+	return new Promise((resolve) => setTimeout(resolve, milliseconds));
++	return new Promise((resolve) => globalThis.setTimeout(resolve, milliseconds));
 +}
  function stagedVersionPercentages(previousVersionId, versionId) {
  	return previousVersionId ? [{
