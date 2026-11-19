@@ -7,6 +7,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { CollectionVisibilitySwitch } from "../components/collection-visibility-switch";
 import { CreateCollectionDialog } from "../components/create-collection-dialog";
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
@@ -112,6 +113,10 @@ function CollectionContents({
           {author}
         </span>
       </div>
+      <CollectionVisibilitySwitch
+        collectionId={collection.id}
+        isPublic={collection.isPublic}
+      />
       {collection.description && (
         <p className="whitespace-pre-wrap break-words text-sm">
           {collection.description}
