@@ -22,6 +22,10 @@ export function CollectionsSkeleton() {
               <div className="aspect-square w-9 animate-pulse rounded-full bg-zinc-800" />
               <div className="h-4 w-24 animate-pulse rounded-md bg-zinc-800" />
             </div>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-11 animate-pulse rounded-full bg-zinc-800" />
+              <div className="h-4 w-16 animate-pulse rounded-md bg-zinc-800" />
+            </div>
             <div className="space-y-2">
               {Array.from({ length: 3 }, (_, item) => (
                 <div key={item} className="flex items-center gap-3">

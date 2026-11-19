@@ -1512,3 +1512,32 @@ test("the new collection page creates a public collection from several picked ti
   await expect(visitor.getByText("Synthetic alice")).toBeVisible();
   await guest!.close();
 });
+
+test("a slow library load shows collection card skeletons, then the collections", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await page.route("**/_serverFn/**", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await route.continue();
+  });
+
+  await page
+    .getByRole("link", { name: "My Collections", exact: true })
+    .first()
+    .click();
+
+  const loading = page.getByRole("status", { name: "Loading" });
+
+  await expect(
+    loading.getByRole("heading", { name: "My Collections" })
+  ).toBeVisible();
+  await expect(loading.locator(".rounded-lg.border")).toHaveCount(3);
+  await expect(loading).toHaveCount(0, { timeout: 10000 });
+  await expect(
+    page.getByRole("heading", { name: "My Collections" })
+  ).toBeVisible();
+  await expect(page.locator("article").first()).toBeVisible();
+});

@@ -9,9 +9,9 @@ import { AnimeReviews } from "../components/anime-reviews";
 import {
   AnimeHeader,
   AnimeOverview,
-  AnimePageSkeleton,
   AnimeToolbar,
 } from "../components/anime-details";
+import { AnimePageSkeleton } from "../components/skeletons/anime-page-skeleton";
 import { PageMessage } from "../components/page-message";
 import { englishTitle } from "../lib/anime";
 import { animeIdSchema } from "../server/anime";
