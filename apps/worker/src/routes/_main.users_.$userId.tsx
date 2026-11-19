@@ -12,6 +12,7 @@ import { PageMessage } from "../components/page-message";
 import { AnimeCard } from "../components/ui/anime-card";
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
+import { NativeSelect } from "../components/ui/native-select";
 import { getProfile } from "../server/profile";
 
 const tabs = [
@@ -110,7 +111,7 @@ function Profile() {
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" />
       </div>
-      <div className="container max-w-6xl px-4">
+      <div className="container px-4">
         <div className="flex items-end gap-4">
           <img
             src={profile.owner.avatar}
@@ -149,25 +150,19 @@ function Profile() {
           </nav>
           <form method="get" className="ml-auto flex items-center gap-2 pb-1.5">
             <input type="hidden" name="tab" value={profile.tab} />
-            <label
-              htmlFor="profile-sort"
-              className="text-sm text-muted-foreground"
-            >
-              Sort by
-            </label>
-            <select
-              id="profile-sort"
+            <NativeSelect
+              className="w-[180px]"
+              aria-label="Sort by"
               name="sort"
               defaultValue={profile.sort}
               onChange={(event) => event.currentTarget.form?.requestSubmit()}
-              className="h-8 rounded-md border border-input bg-background px-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               {options.map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.label}
                 </option>
               ))}
-            </select>
+            </NativeSelect>
             <noscript>
               <Button type="submit" variant="secondary" size="sm">
                 Apply
@@ -180,7 +175,7 @@ function Profile() {
             profile.collections.length === 0 ? (
               <Empty>No collections to show.</Empty>
             ) : (
-              <ul className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+              <ul className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {profile.collections.map((collection) => {
                   const images = collection.items.map((item) => ({
                     url: item.image,
@@ -198,12 +193,10 @@ function Profile() {
                       <Link
                         to="/collections/$collectionId"
                         params={{ collectionId: collection.id }}
-                        className="block space-y-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+                        className="flex min-w-0 flex-col gap-3 rounded-lg border border-border p-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
                       >
-                        <div className="[&>div]:!h-full [&>div]:!transform-none [&_*]:!animate-none [&_*]:!transition-none">
-                          <InfoCard heading={collection.name} images={images} />
-                        </div>
-                        <p className="line-clamp-1 text-xs text-muted-foreground">
+                        <InfoCard heading={collection.name} images={images} />
+                        <p className="line-clamp-1 text-sm text-muted-foreground">
                           {collection.items.length} titles
                         </p>
                       </Link>
