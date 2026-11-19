@@ -935,6 +935,7 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await capture(page, "session-expired");
   await signIn(page);
   await page.goto("/collections");
+  await page.getByLabel("Account menu").click();
   await Promise.all([
     page.waitForURL((url) => url.pathname === "/"),
     page.getByRole("button", { name: "Sign out", exact: true }).click(),
@@ -1511,6 +1512,110 @@ test("the new collection page creates a public collection from several picked ti
   ).toBeVisible();
   await expect(visitor.getByText("Synthetic alice")).toBeVisible();
   await guest!.close();
+});
+
+test("the header avatar opens a menu with the library entry", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/");
+  await page.getByLabel("Account menu").click();
+
+  const menu = page.getByRole("navigation", { name: "Account" });
+
+  await expect(menu.getByRole("link", { name: "My library" })).toBeVisible();
+  await expect(
+    menu.getByRole("link", { name: "My collections" })
+  ).toBeVisible();
+
+  await menu.getByRole("link", { name: "My library" }).click();
+  await expect(page).toHaveURL(/\/users\/library-alice/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Synthetic alice" })
+  ).toBeVisible();
+});
+
+test("a profile shows five counted tabs, sorts its grid, and masks spoilers for visitors", async ({
+  browser,
+  page,
+}) => {
+  const db = libraryDatabase();
+
+  db.prepare(
+    "INSERT OR REPLACE INTO watch_statuses (id, user_id, mal_id, status, anime_image, created_at, updated_at) VALUES ('profile-watch-21', 'library-bob', 21, 'watching', NULL, 1, 1)"
+  ).run();
+  db.prepare(
+    "INSERT OR REPLACE INTO comments (id, text, rating, is_spoiler, user_id, mal_id, anime_id, parent_id, created_at, updated_at) VALUES ('profile-bob-secret', 'Bob spoiler profile review', 5, 1, 'library-bob', 21, 999, NULL, ?, ?)"
+  ).run(1_700_000_002_000, 1_700_000_002_000);
+  db.close();
+
+  const guest = await browser.newContext();
+  const visitor = await guest.newPage();
+
+  try {
+    const opened = await visitor.goto("/users/library-bob");
+
+    expect(opened?.status()).toBe(200);
+    await expect(
+      visitor.getByRole("heading", { level: 1, name: "Synthetic bob" })
+    ).toBeVisible();
+
+    const tabs = visitor.getByRole("navigation", { name: "Profile sections" });
+
+    await expect(tabs.getByRole("link")).toHaveCount(5);
+    await expect(tabs.getByRole("link", { name: /^Watching/ })).toContainText(
+      "1"
+    );
+    await expect(tabs.getByRole("link", { name: /^Reviews/ })).toContainText(
+      "1"
+    );
+    await expect(tabs.getByRole("link", { name: /^Watching/ })).toHaveAttribute(
+      "aria-current",
+      "page"
+    );
+
+    await tabs.getByRole("link", { name: /^Reviews/ }).click();
+    await expect(visitor.getByText("Bob spoiler profile review")).toHaveCount(
+      0
+    );
+    await expect(
+      visitor.getByRole("button", {
+        name: "This review contains spoilers. Click to reveal.",
+      })
+    ).toBeVisible();
+  } finally {
+    await guest.close();
+  }
+
+  const anonymous = await browser.newContext();
+  const stranger = await anonymous.newPage();
+
+  try {
+    await stranger.goto("/users/library-alice?tab=collections");
+    await expect(
+      stranger.getByRole("link", { name: /Comfort|Imported public/ }).first()
+    ).toBeVisible();
+    await expect(
+      stranger.getByText("Alice secret", { exact: true })
+    ).toHaveCount(0);
+  } finally {
+    await anonymous.close();
+  }
+
+  await signIn(page);
+  await page.goto("/users/library-alice");
+  await page.getByLabel("Sort by").selectOption("title");
+  await expect(page).toHaveURL(/sort=title/);
+
+  await page.goto("/users/library-alice?tab=collections");
+  await expect(page.getByText("Alice secret", { exact: true })).toBeVisible();
+
+  const cleanup = libraryDatabase();
+
+  cleanup.exec(
+    "DELETE FROM comments WHERE id IN ('profile-bob-secret'); DELETE FROM watch_statuses WHERE id = 'profile-watch-21'"
+  );
+  cleanup.close();
 });
 
 test("a slow library load shows collection card skeletons, then the collections", async ({

@@ -153,11 +153,22 @@ export const setWatchStatus = createServerFn({ method: "POST" })
     }
   });
 
-export const getWatchList = createServerFn({ method: "GET" }).handler(
-  async () => {
-    const userId = await owner();
+export const getWatchList = createServerFn({ method: "GET" })
+  .validator(
+    z.strictObject({
+      userId: z.string().min(1).max(100).optional(),
+    })
+  )
+  .handler(async ({ data }) => {
+    const viewer = await owner();
+    const userId = data.userId ?? viewer;
 
     if (!userId) return null;
+
+    if (userId !== viewer) {
+      setResponseHeader("Cache-Control", "public, max-age=60");
+      setResponseHeader("Vary", "");
+    }
 
     const result = await bindings.DB.prepare(
       `
@@ -184,6 +195,7 @@ export const getWatchList = createServerFn({ method: "GET" }).handler(
             ? anime.title.english || anime.title.romaji
             : "Anime unavailable",
           image: cover(anime?.coverImage.extraLarge ?? row.animeImage),
+          anime,
         };
       });
 
@@ -192,5 +204,4 @@ export const getWatchList = createServerFn({ method: "GET" }).handler(
       plan_to_watch: items.filter((item) => item.status === "plan_to_watch"),
       completed: items.filter((item) => item.status === "completed"),
     };
-  }
-);
+  });
