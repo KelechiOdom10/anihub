@@ -14,7 +14,7 @@ import { HeroBackdrop } from "./hero";
 export function AnimeHeader({ anime }: { anime: Anime }) {
   return (
     <div className="relative z-0 h-[260px] w-full overflow-hidden md:h-[380px]">
-      <HeroBackdrop anime={anime} />
+      <HeroBackdrop anime={anime} fit="height" />
     </div>
   );
 }

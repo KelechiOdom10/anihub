@@ -5,10 +5,22 @@ import { useMediaQuery } from "../lib/hooks";
 import type { Anime } from "../server/anime";
 import { Button } from "./ui/button";
 
-export function HeroBackdrop({ anime }: { anime: Anime }) {
+export function HeroBackdrop({
+  anime,
+  fit = "cover",
+}: {
+  anime: Anime;
+  fit?: "cover" | "height";
+}) {
   return (
     <>
-      <div className="absolute right-0 top-0 h-full max-h-full w-full overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0004_8%,#000b_18%,#000_28%),linear-gradient(to_bottom,#000_55%,#0006_80%,#0000)] md:w-[62%]">
+      <div
+        className={
+          fit === "height"
+            ? "absolute right-0 top-0 h-full max-h-full overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0006_10%,#000_25%),linear-gradient(to_bottom,#000_70%,#0000)]"
+            : "absolute right-0 top-0 h-full max-h-full w-full overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0004_8%,#000b_18%,#000_28%),linear-gradient(to_bottom,#000_55%,#0006_80%,#0000)] md:w-[62%]"
+        }
+      >
         <img
           src={anime.coverImage.extraLarge}
           alt={englishTitle(anime)}
@@ -16,10 +28,16 @@ export function HeroBackdrop({ anime }: { anime: Anime }) {
           height={coverHeight}
           loading="eager"
           fetchPriority="high"
-          className="h-full w-full object-cover object-[center_top]"
+          className={
+            fit === "height"
+              ? "h-full w-auto max-w-none"
+              : "h-full w-full object-cover object-[center_top]"
+          }
         />
       </div>
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent md:bg-gradient-to-r md:from-background/80 md:via-background/30 md:via-35% md:to-transparent md:to-60%" />
+      {fit === "cover" && (
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent md:bg-gradient-to-r md:from-background/80 md:via-background/30 md:via-35% md:to-transparent md:to-60%" />
+      )}
     </>
   );
 }

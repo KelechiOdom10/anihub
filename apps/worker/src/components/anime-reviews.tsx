@@ -312,11 +312,11 @@ function ReviewRow({
           </time>
         </div>
         {review.isSpoiler && !owned && !revealed ? (
-          <p className="mt-1.5 text-sm text-muted-foreground">
+          <p className="mt-1.5 text-sm italic text-muted-foreground">
             This review may contain spoilers.{" "}
             <button
               type="button"
-              className="font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="font-semibold not-italic text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               onClick={() => setRevealed(true)}
             >
               Show anyway
