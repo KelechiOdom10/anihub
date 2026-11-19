@@ -1,4 +1,4 @@
-import { ReloadIcon, StarIcon } from "@radix-ui/react-icons";
+import { ReloadIcon, StarFilledIcon } from "@radix-ui/react-icons";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -11,7 +11,6 @@ import {
 } from "../server/reviews";
 import { ReviewForm, type ReviewDraft } from "./review-form";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader } from "./ui/card";
 
 export function AnimeReviews({ animeId }: { animeId: number }) {
   const [page, setPage] = useState(1);
@@ -174,7 +173,7 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
           }}
         />
       )}
-      <div className="space-y-4">
+      <div>
         {loading ? (
           <p
             role="status"
@@ -191,7 +190,7 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
         ) : data?.reviews.length ? (
           <>
             {data.reviews.map((review) => (
-              <ReviewCard
+              <ReviewRow
                 key={`${review.id}:${review.updatedAt}`}
                 review={review}
                 owned={viewer?.id === review.author.id}
@@ -206,7 +205,7 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
                 }}
               />
             ))}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 pt-4">
               {page > 1 && (
                 <Button
                   variant="secondary"
@@ -237,7 +236,10 @@ export function AnimeReviews({ animeId }: { animeId: number }) {
   );
 }
 
-function ReviewCard({
+const action =
+  "rounded-sm hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50";
+
+function ReviewRow({
   review,
   owned,
   onEdit,
@@ -275,121 +277,99 @@ function ReviewCard({
   };
 
   return (
-    <Card className="overflow-hidden" data-review-id={review.id}>
-      <CardHeader className="space-y-3 pb-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex min-w-0 items-center gap-3">
-            <img
-              src={review.author.avatar ?? "/anime-male-avatar.avif"}
-              alt=""
-              className="h-8 w-8 shrink-0 rounded-full"
-            />
-            <div className="min-w-0">
-              <p className="break-words text-sm font-medium">
-                {review.author.name}
-              </p>
-              <time
-                className="text-xs text-muted-foreground"
-                dateTime={new Date(review.createdAt).toISOString()}
-              >
-                {formatTimeToNow(review.createdAt)}
-              </time>
-            </div>
-          </div>
-          <div
-            className="flex shrink-0 gap-0.5"
+    <article
+      className="flex gap-3 border-b border-zinc-800 py-4 first:pt-0 last:border-b-0 sm:gap-4"
+      data-review-id={review.id}
+    >
+      <img
+        src={review.author.avatar ?? "/anime-male-avatar.avif"}
+        alt=""
+        className="mt-0.5 h-9 w-9 shrink-0 rounded-full object-cover sm:h-10 sm:w-10"
+      />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+          <span
+            role="img"
+            className="flex gap-0.5"
             aria-label={`${review.rating} out of 5 stars`}
           >
             {Array.from({ length: review.rating }, (_, index) => (
-              <StarIcon
+              <StarFilledIcon
                 key={index}
                 aria-hidden="true"
-                className="h-4 w-4 fill-yellow-500 text-yellow-500"
+                className="h-3.5 w-3.5 text-yellow-500"
               />
             ))}
-          </div>
+          </span>
+          <span className="break-words font-semibold [overflow-wrap:anywhere]">
+            {review.author.name}
+          </span>
+          <time
+            className="text-muted-foreground"
+            dateTime={new Date(review.createdAt).toISOString()}
+          >
+            {formatTimeToNow(review.createdAt)}
+          </time>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
         {review.isSpoiler && !owned && !revealed ? (
-          <div className="relative min-h-12">
-            <p
-              aria-hidden="true"
-              className="select-none whitespace-pre-wrap break-words text-sm leading-relaxed blur-md [overflow-wrap:anywhere]"
-            >
-              {review.text}
-            </p>
-            <Button
-              variant="ghost"
-              className="absolute inset-0 h-full w-full whitespace-normal text-sm font-medium backdrop-blur-md hover:bg-transparent"
+          <p className="mt-1.5 text-sm italic text-muted-foreground">
+            This review may contain spoilers.{" "}
+            <button
+              type="button"
+              className="font-semibold not-italic text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               onClick={() => setRevealed(true)}
-              aria-expanded={false}
             >
-              This comment contains spoilers.
-              <br />
-              Click to reveal.
-            </Button>
-          </div>
+              Show anyway
+            </button>
+          </p>
         ) : (
-          <>
-            <p className="whitespace-pre-wrap break-words text-sm leading-relaxed [overflow-wrap:anywhere]">
-              {review.text}
-            </p>
-            {review.isSpoiler && !owned && (
-              <Button
-                size="sm"
-                variant="ghost"
-                aria-expanded={true}
-                onClick={() => setRevealed(false)}
-              >
-                Hide spoilers
-              </Button>
-            )}
-          </>
+          <p className="mt-1.5 whitespace-pre-wrap break-words text-sm leading-relaxed text-zinc-300 [overflow-wrap:anywhere]">
+            {review.text}
+          </p>
         )}
         {owned && (
-          <div className="flex flex-wrap gap-2">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             {confirming ? (
               <>
-                <p className="w-full text-sm">Delete this review?</p>
-                <Button
-                  size="sm"
-                  variant="destructive"
+                <span className="text-foreground">Delete this review?</span>
+                <button
+                  type="button"
                   disabled={pending}
                   onClick={remove}
+                  className={`${action} text-red-400 hover:text-red-300`}
                 >
-                  {pending ? "Deleting…" : "Confirm delete"}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
+                  {pending ? "Deleting…" : "Delete"}
+                </button>
+                <button
+                  type="button"
                   disabled={pending}
                   onClick={() => setConfirming(false)}
+                  className={action}
                 >
-                  Cancel deletion
-                </Button>
+                  Cancel
+                </button>
               </>
             ) : (
               <>
-                <Button
-                  size="sm"
-                  variant="outline"
+                <button
+                  type="button"
                   onClick={(event) => onEdit(event.currentTarget)}
+                  className={action}
                 >
-                  Edit review
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
+                  Edit<span className="sr-only"> review</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => setConfirming(true)}
+                  className={action}
                 >
-                  Delete review
-                </Button>
+                  Delete<span className="sr-only"> review</span>
+                </button>
               </>
             )}
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }
