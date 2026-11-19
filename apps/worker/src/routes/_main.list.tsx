@@ -6,11 +6,18 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { watchStatusOptions } from "../components/watch-status-buttons";
+import { z } from "zod";
+import { watchStatusOptions } from "../components/watch-status-control";
 import { Button } from "../components/ui/button";
 import { getWatchList } from "../server/watch";
 
 export const Route = createFileRoute("/_main/list")({
+  validateSearch: z.object({
+    status: z
+      .enum(["watching", "plan_to_watch", "completed"])
+      .optional()
+      .catch(undefined),
+  }),
   loader: async () => {
     const list = await getWatchList();
 
@@ -34,8 +41,8 @@ export const Route = createFileRoute("/_main/list")({
 
 function MyList() {
   const list = Route.useLoaderData();
+  const tab = Route.useSearch().status ?? "watching";
   const content = useRef<HTMLElement>(null);
-  const empty = watchStatusOptions.every(({ value }) => !list[value].length);
 
   useEffect(() => {
     if ("privateListGuard" in window) return;
@@ -70,7 +77,25 @@ function MyList() {
         }}
       />
       <h1 className="text-2xl font-semibold">My List</h1>
-      {empty ? (
+      <nav
+        aria-label="List tabs"
+        className="flex gap-6 border-b border-zinc-800"
+      >
+        {watchStatusOptions.map(({ value, label, Icon }) => (
+          <Link
+            key={value}
+            to="/list"
+            search={{ status: value }}
+            aria-current={tab === value ? "page" : undefined}
+            className={`-mb-px flex items-center gap-2 border-b-2 px-1 pb-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${tab === value ? "border-white text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+          >
+            <Icon aria-hidden="true" className="h-4 w-4" />
+            {label}
+            <span className="text-muted-foreground">{list[value].length}</span>
+          </Link>
+        ))}
+      </nav>
+      {list[tab].length === 0 ? (
         <div className="space-y-4 rounded-lg border p-6">
           <p>No anime yet.</p>
           <Button asChild variant="outline" size="default">
@@ -78,49 +103,27 @@ function MyList() {
           </Button>
         </div>
       ) : (
-        watchStatusOptions.map(({ value, label, Icon }) => (
-          <section
-            key={value}
-            aria-labelledby={`list-${value}`}
-            className="space-y-4"
-          >
-            <h2
-              id={`list-${value}`}
-              className="flex items-center gap-2 text-lg font-semibold"
-            >
-              <Icon aria-hidden="true" className="h-4 w-4" />
-              {label}
-              <span className="text-sm font-normal text-muted-foreground">
-                {list[value].length}
-              </span>
-            </h2>
-            {list[value].length > 0 && (
-              <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-8">
-                {list[value].map((item) => (
-                  <li key={item.animeId}>
-                    <Link
-                      to="/anime/$id"
-                      params={{ id: String(item.animeId) }}
-                      className="group block space-y-2 focus-visible:outline-none"
-                    >
-                      <img
-                        src={item.image}
-                        alt=""
-                        loading="lazy"
-                        width={160}
-                        height={240}
-                        className="aspect-[2/3] w-full rounded-md object-cover group-focus-visible:ring-2 group-focus-visible:ring-ring"
-                      />
-                      <span className="line-clamp-2 text-sm group-hover:underline">
-                        {item.title}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        ))
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-8">
+          {list[tab].map((item) => (
+            <li key={item.animeId}>
+              <Link
+                to="/anime/$id"
+                params={{ id: String(item.animeId) }}
+                className="relative block aspect-[2/3] w-full overflow-hidden rounded-xl shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <img
+                  src={item.image}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-3 pt-10 font-semibold text-white">
+                  {item.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );

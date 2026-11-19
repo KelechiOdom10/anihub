@@ -48,54 +48,96 @@ function savedStatuses() {
   return rows;
 }
 
-async function expectPressed(page: Page, pressed: string | null) {
-  for (const name of ["Watching", "To Watch", "Watched"])
-    await expect(status(page, name)).toHaveAttribute(
-      "aria-pressed",
-      String(name === pressed)
-    );
+const labels = {
+  watching: "Watching",
+  plan_to_watch: "To Watch",
+  completed: "Watched",
+} as const;
+
+async function expectStatus(page: Page, current: keyof typeof labels | null) {
+  if (!current) {
+    await expect(status(page, "To Watch")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /, change status$/ })
+    ).toHaveCount(0);
+
+    return;
+  }
+
+  await expect(status(page, `${labels[current]}, change status`)).toBeVisible();
 }
 
-test("signed-out status buttons link to sign-in and return to the anime", async ({
+async function pick(page: Page, item: string) {
+  await page
+    .getByRole("button", { name: /^More statuses$|, change status$/ })
+    .click();
+  await page.getByRole("menuitem", { name: item, exact: true }).click();
+}
+
+test("signed-out status control links to sign-in and returns to the anime", async ({
   page,
 }) => {
   await page.goto("/anime/21");
-
-  for (const name of ["Watching", "To Watch", "Watched"])
-    await expect(page.getByRole("link", { name, exact: true })).toHaveAttribute(
-      "href",
-      /sign-in\?redirect=%2Fanime%2F21/
-    );
+  await expect(
+    page.getByRole("link", { name: "To Watch", exact: true })
+  ).toHaveAttribute("href", /sign-in\?redirect=%2Fanime%2F21/);
 });
 
-test("one status at a time, saved to the account, survives reload and clears", async ({
+test("one status at a time, saved to the account, survives reload and is removable", async ({
   page,
 }) => {
   await signIn(page);
   await page.goto("/anime/21");
-  await expectPressed(page, null);
-
-  await status(page, "Watching").click();
-  await expectPressed(page, "Watching");
-  await expect
-    .poll(savedStatuses)
-    .toEqual([{ userId: "library-alice", malId: 21, status: "watching" }]);
-
-  await page.reload();
-  await expectPressed(page, "Watching");
+  await expectStatus(page, null);
 
   await status(page, "To Watch").click();
-  await expectPressed(page, "To Watch");
+  await expectStatus(page, "plan_to_watch");
   await expect
     .poll(savedStatuses)
     .toEqual([{ userId: "library-alice", malId: 21, status: "plan_to_watch" }]);
 
-  await status(page, "To Watch").click();
-  await expectPressed(page, null);
+  await page.reload();
+  await expectStatus(page, "plan_to_watch");
+
+  await status(page, "To Watch, change status").click();
+  await expect(page.getByRole("menuitem")).toHaveText([
+    "Watching",
+    "Watched",
+    "Remove from list",
+  ]);
+  await page.getByRole("menuitem", { name: "Watching", exact: true }).click();
+  await expectStatus(page, "watching");
+  await expect
+    .poll(savedStatuses)
+    .toEqual([{ userId: "library-alice", malId: 21, status: "watching" }]);
+
+  await pick(page, "Remove from list");
+  await expectStatus(page, null);
   await expect.poll(savedStatuses).toEqual([]);
 
   await page.reload();
-  await expectPressed(page, null);
+  await expectStatus(page, null);
+});
+
+test("the status menu works by keyboard", async ({ page }) => {
+  await signIn(page);
+  await page.goto("/anime/21", { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "More statuses" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("menuitem", { name: "Watching" })).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("menuitem", { name: "Watched" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("menu")).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "More statuses" })
+  ).toBeFocused();
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("Enter");
+  await expectStatus(page, "completed");
+  await expect.poll(savedStatuses).toHaveLength(1);
 });
 
 test("a failed save reverts the optimistic status and shows a toast", async ({
@@ -103,8 +145,8 @@ test("a failed save reverts the optimistic status and shows a toast", async ({
 }) => {
   await signIn(page);
   await page.goto("/anime/21");
-  await status(page, "Watched").click();
-  await expectPressed(page, "Watched");
+  await pick(page, "Watched");
+  await expectStatus(page, "completed");
   await expect.poll(savedStatuses).toHaveLength(1);
 
   let release = () => {};
@@ -116,11 +158,11 @@ test("a failed save reverts the optimistic status and shows a toast", async ({
     await held;
     await route.abort("connectionreset");
   });
-  await status(page, "Watching").click();
-  await expectPressed(page, "Watching");
+  await pick(page, "Watching");
+  await expectStatus(page, "watching");
   release();
   await expect(notification(page)).toContainText("Couldn't save status");
-  await expectPressed(page, "Watched");
+  await expectStatus(page, "completed");
   expect(savedStatuses()).toEqual([
     { userId: "library-alice", malId: 21, status: "completed" },
   ]);
@@ -132,31 +174,29 @@ test("status writes are owner-bound and need a live session", async ({
 }) => {
   await signIn(page);
   await page.goto("/anime/21");
-  await status(page, "Watching").click();
+  await pick(page, "Watching");
   await expect.poll(savedStatuses).toHaveLength(1);
 
   const bob = await browser.newPage();
 
   await signIn(bob, "synthetic-bob");
   await bob.goto("/anime/21");
-  await expectPressed(bob, null);
-  await status(bob, "Watched").click();
+  await expectStatus(bob, null);
+  await pick(bob, "Watched");
   await expect.poll(savedStatuses).toEqual([
     { userId: "library-alice", malId: 21, status: "watching" },
     { userId: "library-bob", malId: 21, status: "completed" },
   ]);
   await bob.context().clearCookies();
-  await status(bob, "To Watch").click();
+  await pick(bob, "To Watch");
   await expect(notification(bob)).toContainText("Sign in again");
-  await expectPressed(bob, "Watched");
+  await expectStatus(bob, "completed");
   await bob.close();
   await page.reload();
-  await expectPressed(page, "Watching");
+  await expectStatus(page, "watching");
 });
 
-test("my list groups the viewer's anime by status and needs sign-in", async ({
-  page,
-}) => {
+test("my list shows one tab per status and needs sign-in", async ({ page }) => {
   await page.goto("/list");
   await expect(page).toHaveURL(/\/sign-in\?redirect=%2Flist/);
 
@@ -178,20 +218,37 @@ test("my list groups the viewer's anime by status and needs sign-in", async ({
     .click();
   await expect(page).toHaveURL(/\/list$/);
 
-  const group = (name: string) => page.getByRole("region", { name });
+  const tabs = page.getByRole("navigation", { name: "List tabs" });
 
-  await expect(group("Watching 0").getByRole("link")).toHaveCount(0);
-  await expect(group("Watched 0").getByRole("link")).toHaveCount(0);
+  await expect(tabs.getByRole("link")).toHaveText([
+    "Watching0",
+    "To Watch1",
+    "Watched0",
+  ]);
+  await expect(tabs.getByRole("link", { name: /Watching/ })).toHaveAttribute(
+    "aria-current",
+    "page"
+  );
+  await expect(page.getByText("No anime yet.")).toBeVisible();
+
+  await tabs.getByRole("link", { name: /To Watch/ }).click();
+  await expect(page).toHaveURL(/status=plan_to_watch/);
   await expect(
-    group("To Watch 1").getByRole("link", { name: "Fixture Anime 21" })
+    page.getByRole("link", { name: "Fixture Anime 21", exact: true })
   ).toHaveAttribute("href", "/anime/21");
+  await expect(page.getByText("No anime yet.")).toHaveCount(0);
 });
 
-test("an account with no statuses sees an empty list", async ({ page }) => {
+test("an account with no statuses sees an empty state on every tab", async ({
+  page,
+}) => {
   await signIn(page, "synthetic-empty");
-  await page.goto("/list");
-  await expect(page.getByText("No anime yet.")).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Discover anime" })
-  ).toHaveAttribute("href", "/catalog");
+
+  for (const status of ["watching", "plan_to_watch", "completed"]) {
+    await page.goto(`/list?status=${status}`);
+    await expect(page.getByText("No anime yet.")).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Discover anime" })
+    ).toHaveAttribute("href", "/catalog");
+  }
 });
