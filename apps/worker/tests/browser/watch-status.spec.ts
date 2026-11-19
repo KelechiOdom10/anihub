@@ -196,7 +196,9 @@ test("status writes are owner-bound and need a live session", async ({
   await expectStatus(page, "watching");
 });
 
-test("my list shows one tab per status and needs sign-in", async ({ page }) => {
+test("my list redirects to your own profile, whose tabs each hold one status", async ({
+  page,
+}) => {
   await page.goto("/list");
   await expect(page).toHaveURL(/\/sign-in\?redirect=%2Flist/);
 
@@ -211,32 +213,27 @@ test("my list shows one tab per status and needs sign-in", async ({ page }) => {
   db.close();
 
   await signIn(page);
-  await page.goto("/");
-  await page
-    .getByRole("navigation", { name: "Main navigation" })
-    .getByRole("link", { name: "My List", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/list$/);
+  await page.goto("/list");
+  await expect(page).toHaveURL(/\/users\/library-alice\?tab=watching/);
 
-  const tabs = page.getByRole("navigation", { name: "List tabs" });
+  const tabs = page.getByRole("navigation", { name: "Profile sections" });
 
-  await expect(tabs.getByRole("link")).toHaveText([
-    "Watching0",
-    "To Watch1",
-    "Watched0",
-  ]);
-  await expect(tabs.getByRole("link", { name: /Watching/ })).toHaveAttribute(
+  await expect(tabs.getByRole("link", { name: /^Watching/ })).toHaveAttribute(
     "aria-current",
     "page"
   );
-  await expect(page.getByText("No anime yet.")).toBeVisible();
+  await expect(tabs.getByRole("link", { name: /^To Watch/ })).toContainText(
+    "1"
+  );
+  await expect(tabs.getByRole("link", { name: /^Watched/ })).toContainText("0");
+  await expect(page.getByText("Nothing here yet.")).toBeVisible();
 
-  await tabs.getByRole("link", { name: /To Watch/ }).click();
-  await expect(page).toHaveURL(/status=plan_to_watch/);
+  await tabs.getByRole("link", { name: /^To Watch/ }).click();
+  await expect(page).toHaveURL(/tab=plan_to_watch/);
   await expect(
-    page.getByRole("link", { name: "Fixture Anime 21", exact: true })
-  ).toHaveAttribute("href", "/anime/21");
-  await expect(page.getByText("No anime yet.")).toHaveCount(0);
+    page.getByRole("link", { name: /Fixture Anime 21/ })
+  ).toHaveCount(1);
+  await expect(page.getByText("Nothing here yet.")).toHaveCount(0);
 });
 
 test("an account with no statuses sees an empty state on every tab", async ({
@@ -245,10 +242,7 @@ test("an account with no statuses sees an empty state on every tab", async ({
   await signIn(page, "synthetic-empty");
 
   for (const status of ["watching", "plan_to_watch", "completed"]) {
-    await page.goto(`/list?status=${status}`);
-    await expect(page.getByText("No anime yet.")).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: "Discover anime" })
-    ).toHaveAttribute("href", "/catalog");
+    await page.goto(`/users/library-empty?tab=${status}`);
+    await expect(page.getByText("Nothing here yet.")).toBeVisible();
   }
 });
