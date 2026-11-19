@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 
+import { coverHeight, coverSources, coverWidth } from "../../lib/image";
 import { Meteors } from "./meteors";
 
 interface InfoCardProps {
@@ -20,11 +21,13 @@ export const InfoCard = ({ heading, images }: InfoCardProps) => {
       <div className="-mb-4 flex -space-x-6">
         {images.slice(0, 3).map((image, index) => (
           <img
-            width={200}
-            height={267}
+            {...coverSources(image.url)}
+            sizes="110px"
+            width={coverWidth}
+            height={coverHeight}
             loading="lazy"
+            decoding="async"
             key={index}
-            src={image.url}
             alt={image.alt}
             className={`aspect-[2/3] w-[110px] transform overflow-hidden rounded-lg border-[5px] border-zinc-900 object-cover shadow-lg transition-transform duration-300 ease-in-out hover:scale-105`}
             style={{
@@ -36,3 +39,21 @@ export const InfoCard = ({ heading, images }: InfoCardProps) => {
     </div>
   );
 };
+
+export const InfoCardSkeleton = () => (
+  <div className="relative flex h-full w-full flex-col items-center gap-8 overflow-hidden rounded-lg bg-zinc-900 px-6 pt-12">
+    <div className="animate-pulse">
+      <div className="my-2 h-8 w-48 rounded-lg bg-zinc-800" />
+      <div className="h-8 w-48 rounded-lg bg-zinc-800" />
+    </div>
+    <div className="-mb-4 flex -space-x-6">
+      {Array.from({ length: 3 }, (_, index) => (
+        <div
+          key={index}
+          className="aspect-[2/3] w-[110px] animate-pulse rounded-lg border-[5px] border-zinc-900 bg-zinc-800 shadow-lg"
+          style={{ transform: `rotate(${index % 2 === 0 ? 5 : -5}deg)` }}
+        />
+      ))}
+    </div>
+  </div>
+);

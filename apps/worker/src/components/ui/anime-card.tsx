@@ -1,5 +1,6 @@
 import { cn } from "../../lib/utils";
 import { englishTitle } from "../../lib/anime";
+import { coverHeight, coverSources, coverWidth } from "../../lib/image";
 import type { Anime } from "../../server/anime";
 
 const surface =
@@ -9,9 +10,15 @@ type AnimeCardProps = {
   anime: Anime;
   className?: string;
   loading: "eager" | "lazy";
+  sizes: string;
 };
 
-export function AnimeCard({ anime, className, loading }: AnimeCardProps) {
+export function AnimeCard({
+  anime,
+  className,
+  loading,
+  sizes,
+}: AnimeCardProps) {
   const title = englishTitle(anime);
   const genre = anime.genres[0] ?? "N/A";
   const extraInfo = anime.seasonYear ? `${anime.seasonYear}, ${genre}` : genre;
@@ -19,9 +26,13 @@ export function AnimeCard({ anime, className, loading }: AnimeCardProps) {
   return (
     <div className={cn(surface, className)}>
       <img
+        {...coverSources(anime.coverImage.extraLarge)}
+        sizes={sizes}
+        width={coverWidth}
+        height={coverHeight}
         loading={loading}
+        decoding="async"
         className="absolute inset-0 -z-10 h-full w-full object-cover"
-        src={anime.coverImage.extraLarge}
         alt={title}
       />
       <div className="absolute inset-0 isolate flex items-end p-3">

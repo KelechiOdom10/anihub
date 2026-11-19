@@ -51,11 +51,16 @@ jobs:
           exit $status
       - name: Build the root app (lint already ran above)
         run: pnpm exec next build --no-lint
-  worker:
+  worker-suites:
+    name: worker (${{ matrix.suite }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
       PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/google-chrome
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [browser, library, reviews, static]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -68,34 +73,32 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @anihub/worker prepare:types
       - run: pnpm --filter @anihub/worker build
-      - name: Start Worker typecheck, unit tests and bundle check in the background
-        id: background
+      - if: matrix.suite == 'browser'
+        run: pnpm --filter @anihub/worker test:browser
+      - if: matrix.suite == 'library'
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts library.spec.ts
+      - if: matrix.suite == 'reviews'
+        run: pnpm --filter @anihub/worker exec playwright test --config library.playwright.config.ts reviews.spec.ts
+      - name: Worker typecheck, unit tests and bundle check
+        if: matrix.suite == 'static'
         run: |
-          run_bg() {
-            name=$1
-            shift
-            (
-              code=0
-              "$@" > "$RUNNER_TEMP/$name.log" 2>&1 || code=$?
-              echo "$code" > "$RUNNER_TEMP/$name.status"
-            ) > /dev/null 2>&1 &
+          checks=(typecheck unit bundle)
+          run_check() {
+            case $1 in
+              typecheck) pnpm --filter @anihub/worker exec tsc --noEmit ;;
+              unit) pnpm --filter @anihub/worker test ;;
+              bundle) pnpm --filter @anihub/worker check:bundle ;;
+            esac
           }
-          run_bg chrome "$PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH" --version
-          run_bg typecheck pnpm --filter @anihub/worker exec tsc --noEmit
-          run_bg unit pnpm --filter @anihub/worker test
-          run_bg bundle pnpm --filter @anihub/worker check:bundle
-      - run: pnpm --filter @anihub/worker test:browser
-      - run: pnpm --filter @anihub/worker test:library
-      - name: Background Worker check results
-        if: always() && steps.background.outcome == 'success'
-        run: |
+          pids=()
+          for check in "${checks[@]}"; do
+            { code=0; run_check "$check" > "$RUNNER_TEMP/$check.log" 2>&1 || code=$?; echo "$code" > "$RUNNER_TEMP/$check.status"; } &
+            pids+=("$!")
+          done
           status=0
-          for check in chrome typecheck unit bundle; do
-            if ! timeout 300 bash -c "until [ -f '$RUNNER_TEMP/$check.status' ]; do sleep 1; done"; then
-              echo "::error::Worker $check did not finish"
-              status=1
-              continue
-            fi
+          for index in "${!checks[@]}"; do
+            check=${checks[$index]}
+            wait "${pids[$index]}" || true
             echo "::group::$check"
             cat "$RUNNER_TEMP/$check.log"
             echo "::endgroup::"
@@ -105,3 +108,9 @@ jobs:
             fi
           done
           exit $status
+  worker:
+    needs: worker-suites
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: echo "Worker typecheck, unit tests, bundle, browser and library suites passed."

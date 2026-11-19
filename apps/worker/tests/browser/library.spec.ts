@@ -882,6 +882,18 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await expect(
     page.getByRole("heading", { name: "Imported public", exact: true })
   ).toBeVisible();
+  await expect(
+    page
+      .locator("article")
+      .filter({ has: page.getByRole("heading", { name: "Imported public" }) })
+      .getByRole("switch", { name: "Make this collection public" })
+  ).toHaveAttribute("aria-checked", "true");
+  await expect(
+    page
+      .locator("article")
+      .filter({ has: page.getByRole("heading", { name: "Alice secret" }) })
+      .getByRole("switch", { name: "Make this collection public" })
+  ).toHaveAttribute("aria-checked", "false");
   await expect(page.getByText("Bob secret", { exact: true })).toHaveCount(0);
 
   const privateList = page.locator("article").filter({
@@ -1302,4 +1314,183 @@ test("choose dialog works by keyboard on a phone, cancels, saves, survives reloa
     .getByRole("button", { name: "Create New Collection", exact: true })
     .click();
   await expect(page.getByLabel("Name", { exact: true })).toHaveValue("");
+});
+
+test("a public collection opens for anyone while a private one is a 404", async ({
+  browser,
+}) => {
+  const guest = await browser.newContext();
+  const visitor = await guest.newPage();
+
+  try {
+    const opened = await visitor.goto("/collections/library-alice-public");
+
+    expect(opened?.status()).toBe(200);
+    await expect(
+      visitor.getByRole("heading", { level: 1, name: "Imported public" })
+    ).toBeVisible();
+    await expect(visitor.getByText("Synthetic alice")).toBeVisible();
+
+    await visitor.getByRole("link", { name: "Synthetic alice" }).click();
+    await expect(visitor).toHaveURL(/\/users\/library-alice(\?page=1)?$/);
+    await expect(
+      visitor.getByRole("heading", { level: 1, name: "Synthetic alice" })
+    ).toBeVisible();
+    await expect(visitor.getByText("Bob secret")).toHaveCount(0);
+    await expect(
+      visitor.locator('a[href="/collections/library-alice-private"]')
+    ).toHaveCount(0);
+
+    for (const id of ["library-alice-private", "library-bob-private"]) {
+      const hidden = await visitor.goto(`/collections/${id}`);
+
+      expect(hidden?.status()).toBe(404);
+      await expect(
+        visitor.getByRole("heading", { name: "Collection not found" })
+      ).toBeVisible();
+      await expect(visitor.getByText("Alice private description")).toHaveCount(
+        0
+      );
+    }
+  } finally {
+    await guest.close();
+  }
+});
+
+test("the visibility switch saves at once and survives a reload", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/collections");
+
+  const alice = page
+    .locator("article")
+    .filter({ has: page.getByRole("heading", { name: "Alice secret" }) });
+
+  const toggle = alice.getByRole("switch", {
+    name: "Make this collection public",
+  });
+
+  await expect(toggle).toHaveAttribute("aria-checked", "false");
+  await toggle.click();
+  await expect(page.getByText("Collection is now public")).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-checked", "true");
+
+  const db = libraryDatabase();
+
+  expect(
+    db
+      .prepare(
+        "SELECT is_public AS isPublic FROM collections WHERE id = 'library-alice-private'"
+      )
+      .get()
+  ).toEqual({ isPublic: 1 });
+
+  await page.reload();
+  await expect(
+    page
+      .locator("article")
+      .filter({ has: page.getByRole("heading", { name: "Alice secret" }) })
+      .getByRole("switch", { name: "Make this collection public" })
+  ).toHaveAttribute("aria-checked", "true");
+
+  const guest = await page.context().browser()?.newContext();
+  const visitor = await guest!.newPage();
+
+  await visitor.goto("/collections/library-alice-private");
+  await expect(
+    visitor.getByRole("heading", { level: 1, name: "Alice secret" })
+  ).toBeVisible();
+  await guest!.close();
+
+  await page
+    .locator("article")
+    .filter({ has: page.getByRole("heading", { name: "Alice secret" }) })
+    .getByRole("switch", { name: "Make this collection public" })
+    .click();
+  await expect(page.getByText("Collection is now private")).toBeVisible();
+  expect(
+    db
+      .prepare(
+        "SELECT is_public AS isPublic FROM collections WHERE id = 'library-alice-private'"
+      )
+      .get()
+  ).toEqual({ isPublic: 0 });
+  db.close();
+});
+
+test("the new collection page creates a public collection from several picked titles", async ({
+  page,
+}) => {
+  await signIn(page);
+  await page.goto("/collections/new");
+
+  await page.getByLabel("Name", { exact: true }).fill("Picked pair");
+  await page
+    .getByLabel(/Description/)
+    .fill("Two synthetic titles from the picker");
+  await page
+    .getByRole("switch", { name: "Make this collection public" })
+    .click();
+
+  const results = page
+    .getByRole("list", { name: "Select Anime" })
+    .getByRole("button");
+
+  await expect(results.first()).toBeVisible();
+  await results.nth(0).click();
+  await results.nth(1).click();
+  await expect(page.getByText("2 selected")).toBeVisible();
+  await page.getByRole("button", { name: "Create Collection" }).click();
+
+  const db = libraryDatabase();
+
+  const saved = () =>
+    z
+      .object({ n: z.number() })
+      .parse(
+        db
+          .prepare(
+            "SELECT count(*) AS n FROM collections WHERE name = 'Picked pair'"
+          )
+          .get()
+      ).n;
+
+  await expect.poll(saved, { timeout: 15_000 }).toBe(1);
+  await expect(notification(page)).toContainText(
+    "Collection created successfully!"
+  );
+  await expect(page).toHaveURL(/\/collections(\?page=1)?$/, {
+    timeout: 15_000,
+  });
+
+  const created = z
+    .object({ id: z.string(), isPublic: z.number() })
+    .parse(
+      db
+        .prepare(
+          "SELECT id, is_public AS isPublic FROM collections WHERE name = 'Picked pair'"
+        )
+        .get()
+    );
+
+  expect(created.isPublic).toBe(1);
+  expect(
+    db
+      .prepare(
+        "SELECT count(*) AS n FROM collection_items WHERE collection_id = ?"
+      )
+      .get(created.id)
+  ).toEqual({ n: 2 });
+  db.close();
+
+  const guest = await page.context().browser()?.newContext();
+  const visitor = await guest!.newPage();
+
+  await visitor.goto(`/collections/${created.id}`);
+  await expect(
+    visitor.getByRole("heading", { level: 1, name: "Picked pair" })
+  ).toBeVisible();
+  await expect(visitor.getByText("Synthetic alice")).toBeVisible();
+  await guest!.close();
 });
