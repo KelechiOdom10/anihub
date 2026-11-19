@@ -169,6 +169,33 @@ function cachedJson<T>(data: string, schema: z.ZodType<T>) {
   }
 }
 
+async function catalogAnime() {
+  const result = await bindings.DB.prepare(
+    "SELECT key, data FROM cache_entries WHERE key = 'mal:home' OR key LIKE 'mal:catalog:%'"
+  ).all();
+
+  const known = new Map<number, Anime>();
+
+  for (const row of z.array(cacheRow).parse(result.results)) {
+    const home = cachedJson(row.data, homeSchema);
+
+    if (home) {
+      for (const anime of [...home.airing, ...home.popular])
+        known.set(anime.id, anime);
+
+      continue;
+    }
+
+    const page = cachedJson(row.data, catalogPageSchema);
+
+    if (page)
+      for (const anime of page.anime)
+        if (!known.has(anime.id)) known.set(anime.id, anime);
+  }
+
+  return known;
+}
+
 async function savedCovers(animeIds: number[]) {
   if (!animeIds.length) return new Map<number, string>();
 
@@ -192,47 +219,14 @@ async function savedCovers(animeIds: number[]) {
 
   if (covers.size === animeIds.length) return covers;
 
-  const pages = await bindings.DB.prepare(
-    "SELECT key, data FROM cache_entries WHERE key = 'mal:home' OR key LIKE 'mal:catalog:%'"
-  ).all();
-
-  const known = new Map<number, Anime>();
-
-  for (const row of z.array(cacheRow).parse(pages.results)) {
-    const home = cachedJson(row.data, homeSchema);
-
-    if (home) {
-      for (const anime of [...home.airing, ...home.popular])
-        known.set(anime.id, anime);
-
-      continue;
-    }
-
-    const page = cachedJson(row.data, catalogPageSchema);
-
-    if (page)
-      for (const anime of page.anime)
-        if (!known.has(anime.id)) known.set(anime.id, anime);
-  }
-
-  const writes: D1PreparedStatement[] = [];
+  const known = await catalogAnime();
 
   for (const animeId of animeIds) {
-    if (covers.has(animeId)) continue;
-
     const anime = known.get(animeId);
 
-    if (!anime) continue;
-
-    covers.set(animeId, cover(anime.coverImage.extraLarge));
-    writes.push(
-      bindings.DB.prepare(
-        "INSERT OR REPLACE INTO cache_entries (key, data, updated_at) VALUES (?, ?, ?)"
-      ).bind(`mal:anime:${animeId}`, JSON.stringify(anime), Date.now())
-    );
+    if (anime && !covers.has(animeId))
+      covers.set(animeId, cover(anime.coverImage.extraLarge));
   }
-
-  if (writes.length) await bindings.DB.batch(writes);
 
   return covers.size === animeIds.length ? covers : null;
 }
@@ -251,11 +245,15 @@ function cover(value: string | null) {
     : "/fallback-anime.avif";
 }
 
-function itemDto(row: z.infer<typeof itemRow>) {
+function itemDto(row: z.infer<typeof itemRow>, known: Map<number, Anime>) {
   const parsed = cachedAnime.safeParse(row.data);
 
   const anime =
-    parsed.success && parsed.data.id === row.malId ? parsed.data : null;
+    parsed.success && parsed.data.id === row.malId
+      ? parsed.data
+      : row.malId === null
+        ? null
+        : (known.get(row.malId) ?? null);
 
   return {
     id: row.id,
@@ -280,11 +278,20 @@ function itemStatement(userId: string, query: z.infer<typeof itemQuery>) {
   ).bind(userId, query.collectionId, (query.page - 1) * 12);
 }
 
-function itemPage(result: D1Result) {
+async function itemPage(result: D1Result) {
   const rows = z.array(itemRow).parse(result.results);
+  const visible = rows.slice(0, 12);
+
+  const unresolved = visible.some((row) => {
+    const parsed = cachedAnime.safeParse(row.data);
+
+    return !(parsed.success && parsed.data.id === row.malId);
+  });
+
+  const known = unresolved ? await catalogAnime() : new Map<number, Anime>();
 
   return {
-    items: rows.slice(0, 12).map(itemDto),
+    items: visible.map((row) => itemDto(row, known)),
     hasNextPage: rows.length > 12,
   };
 }
@@ -296,7 +303,7 @@ export const getLibraryItems = createServerFn({ method: "GET" })
 
     if (!userId) return null;
 
-    return itemPage(await itemStatement(userId, data).all());
+    return await itemPage(await itemStatement(userId, data).all());
   });
 
 export const getLibrary = createServerFn({ method: "GET" })
@@ -326,10 +333,12 @@ export const getLibrary = createServerFn({ method: "GET" })
         )
       : [];
 
-    const collections = visible.map((row, index) => ({
-      ...row,
-      ...itemPage(pages[index]),
-    }));
+    const collections = await Promise.all(
+      visible.map(async (row, index) => ({
+        ...row,
+        ...(await itemPage(pages[index])),
+      }))
+    );
 
     return { collections, hasNextPage: rows.length > 10 };
   });
@@ -454,7 +463,9 @@ export const getMembership = createServerFn({ method: "GET" })
         name: row.name,
         totalItems: row.totalItems,
         hasAnime: row.hasAnime,
-        thumbnail: row.totalItems ? itemDto(row).image : null,
+        thumbnail: row.totalItems
+          ? itemDto(row, new Map<number, Anime>()).image
+          : null,
       })),
       hasNextPage: rows.length > 20,
     };
@@ -615,7 +626,10 @@ export const getPublicCollection = createServerFn({ method: "GET" })
 
     if (!row) return null;
 
-    const items = itemPage(await publicItemStatement(data.id, data.page).all());
+    const items = await itemPage(
+      await publicItemStatement(data.id, data.page).all()
+    );
+
     const found = publicCollectionRow.parse(row);
 
     return {
@@ -667,15 +681,19 @@ export const getPublicCollections = createServerFn({ method: "GET" })
 
     const account = ownerRow.parse(found);
 
+    const collections = await Promise.all(
+      visible.map(async (row, index) => ({
+        ...row,
+        ...(await itemPage(pages[index])),
+      }))
+    );
+
     return {
       owner: {
         id: account.id,
         ...publicIdentity(account),
       },
-      collections: visible.map((row, index) => ({
-        ...row,
-        ...itemPage(pages[index]),
-      })),
+      collections,
       hasNextPage: rows.length > 10,
     };
   });

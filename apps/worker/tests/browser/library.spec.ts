@@ -419,7 +419,7 @@ test("generated HTTP handlers enforce owner, session, input, DTO and cross-origi
       expect(offline).toContain("Alice secret");
       expect(offline).toContain("Trimmed HTTP");
       expect(offline).toContain("Anime unavailable");
-      expect(offline).not.toContain("Fixture Anime 21");
+      expect(offline).toContain("Fixture Anime 21");
     } finally {
       db.prepare(
         "UPDATE cache_entries SET data = ? WHERE key = 'mal:anime:21'"
