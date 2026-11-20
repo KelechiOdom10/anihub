@@ -1,8 +1,10 @@
 import { z } from "zod";
 
+export const defaultAvatar = "/anime-male-avatar.avif";
+
 export function publicIdentity(
   user: { name: string; image?: string | null },
-  fallback = "/anime-male-avatar.avif"
+  fallback = defaultAvatar
 ) {
   const image = z.url().safeParse(user.image);
   const url = image.success ? new URL(image.data) : null;

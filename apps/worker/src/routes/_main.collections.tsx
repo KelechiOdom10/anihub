@@ -13,6 +13,7 @@ import { CollectionsSkeleton } from "../components/skeletons/collections-skeleto
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
 import { getLibrary, getLibraryItems } from "../server/library";
+import { defaultAvatar } from "../lib/identity";
 
 export const Route = createFileRoute("/_main/collections")({
   validateSearch: z.object({
@@ -221,7 +222,7 @@ function Collections() {
               key={collection.id}
               collection={collection}
               author={author}
-              avatar={viewer?.avatar ?? "/anime-female-avatar.png"}
+              avatar={viewer?.avatar ?? defaultAvatar}
             />
           ))}
         </div>

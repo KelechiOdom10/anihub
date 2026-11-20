@@ -52,7 +52,7 @@ export const getViewer = createServerFn({ method: "GET" }).handler(async () => {
   return session
     ? {
         id: session.user.id,
-        ...publicIdentity(session.user, "/anime-female-avatar.png"),
+        ...publicIdentity(session.user),
       }
     : null;
 });
