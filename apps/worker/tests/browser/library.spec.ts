@@ -618,13 +618,14 @@ test("guest action returns safely without writing and empty library offers disco
   await expect(page.getByText("No collections yet.")).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByLabel("Menu", { exact: true }).click();
+
+  const mobileMenu = page.getByRole("menu");
+
   await expect(
-    page.getByRole("navigation", { name: "Mobile navigation" })
+    mobileMenu.getByRole("menuitem", { name: "Catalog" })
   ).toBeVisible();
   await page.keyboard.press("Escape");
-  await expect(
-    page.getByRole("navigation", { name: "Mobile navigation" })
-  ).not.toBeVisible();
+  await expect(mobileMenu).toHaveCount(0);
   await page.getByRole("button", { name: "+ Create New", exact: true }).click();
   await page.getByLabel("Name", { exact: true }).fill("   ");
   await page
@@ -938,7 +939,7 @@ test("expiry retains draft, imported pagination is local, and signout/back canno
   await page.getByLabel("Account menu").click();
   await Promise.all([
     page.waitForURL((url) => url.pathname === "/"),
-    page.getByRole("button", { name: "Sign out", exact: true }).click(),
+    page.getByRole("menuitem", { name: "Sign out" }).click(),
   ]);
   await expect(
     page.getByRole("link", { name: "Get Started", exact: true })
@@ -1521,14 +1522,21 @@ test("the header avatar opens a menu with the library entry", async ({
   await page.goto("/");
   await page.getByLabel("Account menu").click();
 
-  const menu = page.getByRole("navigation", { name: "Account" });
+  const menu = page.getByRole("menu");
 
-  await expect(menu.getByRole("link", { name: "My library" })).toBeVisible();
   await expect(
-    menu.getByRole("link", { name: "My collections" })
+    menu.getByRole("menuitem", { name: "My library" })
+  ).toBeVisible();
+  await expect(
+    menu.getByRole("menuitem", { name: "My collections" })
   ).toBeVisible();
 
-  await menu.getByRole("link", { name: "My library" }).click();
+  await menu.getByRole("menuitem", { name: "My library" }).hover();
+  await page.mouse.click(40, 500);
+  await expect(menu).toHaveCount(0);
+
+  await page.getByLabel("Account menu").click();
+  await menu.getByRole("menuitem", { name: "My library" }).click();
   await expect(page).toHaveURL(/\/users\/library-alice/);
   await expect(
     page.getByRole("heading", { level: 1, name: "Synthetic alice" })
@@ -1604,7 +1612,8 @@ test("a profile shows five counted tabs, sorts its grid, and masks spoilers for 
 
   await signIn(page);
   await page.goto("/users/library-alice");
-  await page.getByLabel("Sort by").selectOption("title");
+  await page.getByRole("combobox", { name: "Sort by" }).click();
+  await page.getByRole("option", { name: "Title A–Z" }).click();
   await expect(page).toHaveURL(/sort=title/);
 
   await page.goto("/users/library-alice?tab=collections");

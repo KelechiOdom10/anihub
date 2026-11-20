@@ -1,4 +1,5 @@
 import { cn } from "../../lib/utils";
+import { Skeleton } from "./skeleton";
 import { englishTitle } from "../../lib/anime";
 import { coverHeight, coverSources, coverWidth } from "../../lib/image";
 import type { Anime } from "../../server/anime";
@@ -48,11 +49,11 @@ export function AnimeCard({
 export function AnimeCardSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn(surface, className)}>
-      <div className="absolute inset-0 -z-10 h-full w-full animate-pulse bg-neutral-700" />
+      <Skeleton className="absolute inset-0 -z-10 h-full w-full bg-neutral-700" />
       <div className="absolute inset-0 isolate flex items-end p-3">
         <div className="grid grid-cols-1 gap-1">
-          <div className="h-4 w-2/3 animate-pulse rounded-md bg-neutral-700" />
-          <div className="h-4 w-1/3 animate-pulse rounded-md bg-neutral-700" />
+          <Skeleton className="h-4 w-2/3 rounded-md bg-neutral-700" />
+          <Skeleton className="h-4 w-1/3 rounded-md bg-neutral-700" />
         </div>
       </div>
     </div>

@@ -73,7 +73,8 @@ test("sort by title reorders search results and flips direction", async ({
 }) => {
   await page.goto("/catalog?q=Fixture");
 
-  await page.getByRole("combobox", { name: "Sort by" }).selectOption("title");
+  await page.getByRole("combobox", { name: "Sort by" }).click();
+  await page.getByRole("option", { name: "Title" }).click();
   await expect(page).toHaveURL(/order_by=title/);
 
   const first = await results(page).first().getAttribute("aria-label");
@@ -120,12 +121,15 @@ test("the year is a dropdown, and removing it keeps the chosen season", async ({
 
   await page.getByRole("checkbox", { name: "Winter" }).click();
   await expect(page).toHaveURL(/season=winter/);
-  await page.getByRole("combobox", { name: "Year" }).selectOption("2026");
+  await page.getByRole("combobox", { name: "Year" }).click();
+  await page.getByRole("option", { name: "2026" }).click();
   await expect(page).toHaveURL(/year=2026/);
 
   await page.getByRole("button", { name: "2026" }).click();
   await expect(page).not.toHaveURL(/year=/);
   await expect(page).toHaveURL(/season=winter/);
   await expect(page.getByRole("checkbox", { name: "Winter" })).toBeChecked();
-  await expect(page.getByRole("combobox", { name: "Year" })).toHaveValue("");
+  await expect(page.getByRole("combobox", { name: "Year" })).toContainText(
+    "Any"
+  );
 });

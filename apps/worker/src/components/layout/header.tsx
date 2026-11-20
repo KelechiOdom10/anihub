@@ -1,17 +1,35 @@
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "../../lib/auth-client";
 import { useScrolled } from "../../lib/hooks";
 import { cn } from "../../lib/utils";
 import { Logo } from "../logo";
 import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 type Viewer =
   | { id: string; name: string; avatar: string }
   | { name: string }
   | null;
+
+function closeOnEscape(open: boolean, close: () => void) {
+  if (!open) return;
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") close();
+  };
+
+  document.addEventListener("keydown", onKeyDown);
+
+  return () => document.removeEventListener("keydown", onKeyDown);
+}
 
 const routes = [
   { name: "Home", to: "/", search: {} },
@@ -20,11 +38,19 @@ const routes = [
   { name: "My List", to: "/list", search: {} },
 ] as const;
 
-const closeMenu = (event: React.MouseEvent<HTMLElement>) =>
-  event.currentTarget.closest("details")?.removeAttribute("open");
-
 export function Header({ viewer }: { viewer: Viewer }) {
   const [signingOut, setSigningOut] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+
+  useEffect(
+    () => closeOnEscape(mobileOpen, () => setMobileOpen(false)),
+    [mobileOpen]
+  );
+  useEffect(
+    () => closeOnEscape(accountOpen, () => setAccountOpen(false)),
+    [accountOpen]
+  );
   const scrolled = useScrolled();
 
   const pathname = useRouterState({
@@ -56,38 +82,27 @@ export function Header({ viewer }: { viewer: Viewer }) {
       )}
     >
       <div className="container flex h-14 items-center gap-6 p-0 md:h-16">
-        <details
-          className="relative md:hidden"
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              event.currentTarget.open = false;
-              event.currentTarget.querySelector("summary")?.focus();
-            }
-          }}
-        >
-          <summary
+        <DropdownMenu open={mobileOpen} onOpenChange={setMobileOpen}>
+          <DropdownMenuTrigger
             aria-label="Menu"
-            className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md hover:bg-accent focus-visible:outline focus-visible:outline-2 [&::-webkit-details-marker]:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent focus-visible:outline focus-visible:outline-2 md:hidden"
           >
             <HamburgerMenuIcon className="h-5 w-5" />
-          </summary>
-          <nav
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="start"
             aria-label="Mobile navigation"
-            className="absolute left-0 top-full mt-2 grid min-w-44 gap-1 rounded-lg border bg-background p-2 text-sm"
+            className="grid min-w-44 gap-1 p-2"
           >
             {routes.map(({ name, to, search }) => (
-              <Link
-                key={name}
-                className="rounded-md p-3 hover:bg-accent"
-                to={to}
-                search={search}
-                onClick={closeMenu}
-              >
-                {name}
-              </Link>
+              <DropdownMenuItem key={name} asChild>
+                <Link className="rounded-md p-3" to={to} search={search}>
+                  {name}
+                </Link>
+              </DropdownMenuItem>
             ))}
-          </nav>
-        </details>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link aria-label="Home page" className="shrink-0" to="/">
           <Logo aria-label="Logo" className="h-auto w-28 fill-white md:w-32" />
         </Link>
@@ -130,18 +145,10 @@ export function Header({ viewer }: { viewer: Viewer }) {
         )}
         <div className="ml-auto flex items-center gap-2">
           {viewer && "id" in viewer ? (
-            <details
-              className="relative"
-              onKeyDown={(event) => {
-                if (event.key === "Escape") {
-                  event.currentTarget.open = false;
-                  event.currentTarget.querySelector("summary")?.focus();
-                }
-              }}
-            >
-              <summary
+            <DropdownMenu open={accountOpen} onOpenChange={setAccountOpen}>
+              <DropdownMenuTrigger
                 aria-label="Account menu"
-                className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring [&::-webkit-details-marker]:hidden"
+                className="flex h-9 w-9 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
               >
                 <img
                   src={viewer.avatar}
@@ -150,37 +157,39 @@ export function Header({ viewer }: { viewer: Viewer }) {
                   height={32}
                   className="h-8 w-8 rounded-full object-cover"
                 />
-              </summary>
-              <nav
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
                 aria-label="Account"
-                className="absolute right-0 top-full mt-2 grid w-48 gap-1 rounded-lg border bg-background p-2 text-sm"
+                className="grid w-48 gap-1 p-2"
               >
-                <Link
-                  to="/users/$userId"
-                  params={{ userId: viewer.id }}
-                  className="rounded-md p-2 hover:bg-accent"
-                  onClick={closeMenu}
-                >
-                  My library
-                </Link>
-                <Link
-                  to="/collections"
-                  search={{ page: 1 }}
-                  className="rounded-md p-2 hover:bg-accent"
-                  onClick={closeMenu}
-                >
-                  My collections
-                </Link>
-                <button
-                  type="button"
-                  onClick={signOut}
+                <DropdownMenuItem asChild>
+                  <Link
+                    to="/users/$userId"
+                    params={{ userId: viewer.id }}
+                    className="rounded-md p-2"
+                  >
+                    My library
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    to="/collections"
+                    search={{ page: 1 }}
+                    className="rounded-md p-2"
+                  >
+                    My collections
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onSelect={signOut}
                   disabled={signingOut}
-                  className="rounded-md p-2 text-left hover:bg-accent disabled:opacity-50"
+                  className="rounded-md p-2"
                 >
                   {signingOut ? "Signing out…" : "Sign out"}
-                </button>
-              </nav>
-            </details>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <>
               <Button
