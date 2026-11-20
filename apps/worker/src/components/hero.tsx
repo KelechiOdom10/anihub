@@ -4,6 +4,7 @@ import { coverHeight, coverWidth } from "../lib/image";
 import { useMediaQuery } from "../lib/hooks";
 import type { Anime } from "../server/anime";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 export function Hero({ anime }: { anime: Anime }) {
   const isMobileDevice = useMediaQuery("(max-width: 768px)");
@@ -46,15 +47,15 @@ export function Hero({ anime }: { anime: Anime }) {
 export function HeroSkeleton() {
   return (
     <div className="relative z-0 h-[75vh] overflow-hidden pt-0 md:h-[80vh] lg:h-[88vh]">
-      <div className="absolute right-0 top-0 h-full w-full animate-pulse bg-zinc-800 [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0004_8%,#000b_18%,#000_28%),linear-gradient(to_bottom,#000_55%,#0006_80%,#0000)] md:w-[62%]" />
+      <Skeleton className="absolute right-0 top-0 h-full w-full bg-zinc-800 [mask-composite:intersect] [mask-image:linear-gradient(to_right,#0000,#0004_8%,#000b_18%,#000_28%),linear-gradient(to_bottom,#000_55%,#0006_80%,#0000)] md:w-[62%]" />
       <div className="absolute inset-x-0 bottom-0 z-20 flex h-auto items-end pb-12 md:bottom-1/3 lg:items-center lg:pb-0">
         <div className="container">
-          <div className="h-9 w-2/3 max-w-xl animate-pulse rounded-lg bg-zinc-800 md:h-12 lg:h-16" />
+          <Skeleton className="h-9 w-2/3 max-w-xl rounded-lg bg-zinc-800 md:h-12 lg:h-16" />
           <div className="my-4 max-w-lg space-y-2">
-            <div className="h-5 w-full animate-pulse rounded-md bg-zinc-800" />
-            <div className="h-5 w-4/5 animate-pulse rounded-md bg-zinc-800" />
+            <Skeleton className="h-5 w-full rounded-md bg-zinc-800" />
+            <Skeleton className="h-5 w-4/5 rounded-md bg-zinc-800" />
           </div>
-          <div className="h-9 w-full animate-pulse rounded-md bg-zinc-800 md:h-10 lg:w-32" />
+          <Skeleton className="h-9 w-full rounded-md bg-zinc-800 md:h-10 lg:w-32" />
         </div>
       </div>
     </div>

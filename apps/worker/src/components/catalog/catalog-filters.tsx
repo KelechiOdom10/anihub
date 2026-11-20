@@ -12,7 +12,13 @@ import { cn } from "../../lib/utils";
 import { genres } from "../../server/genres";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
-import { NativeSelect } from "../ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export interface CatalogFiltersProps {
   search: CatalogSearch;
@@ -116,22 +122,24 @@ export function CatalogFilters({
   return (
     <aside className="w-full px-4">
       <Section title="Year" open>
-        <NativeSelect
-          aria-label="Year"
-          value={search.year ?? ""}
-          onChange={(event) =>
-            onChange({
-              year: event.target.value ? Number(event.target.value) : undefined,
-            })
+        <Select
+          value={search.year ? String(search.year) : "any"}
+          onValueChange={(value) =>
+            onChange({ year: value === "any" ? undefined : Number(value) })
           }
         >
-          <option value="">Any</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </NativeSelect>
+          <SelectTrigger aria-label="Year">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="any">Any</SelectItem>
+            {years.map((year) => (
+              <SelectItem key={year} value={String(year)}>
+                {year}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </Section>
 
       <Section title="Season" open>

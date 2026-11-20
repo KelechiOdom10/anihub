@@ -4,7 +4,15 @@ import { SORT_OPTIONS, type CatalogSearch } from "../../lib/catalog";
 import { orders } from "../../server/anime";
 import { AscendingOrderIcon, DescendingOrderIcon } from "../icons";
 import { Button } from "../ui/button";
-import { NativeSelect } from "../ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+
+const relevance = "relevance";
 
 interface SortDropdownProps {
   search: CatalogSearch;
@@ -17,12 +25,10 @@ export function SortDropdown({ search, onChange }: SortDropdownProps) {
 
   return (
     <div className="flex items-center space-x-2">
-      <NativeSelect
-        className="w-[180px]"
-        aria-label="Sort by"
-        value={order ?? ""}
-        onChange={(event) => {
-          const order = z.enum(orders).safeParse(event.target.value);
+      <Select
+        value={order ?? relevance}
+        onValueChange={(value) => {
+          const order = z.enum(orders).safeParse(value);
 
           onChange({
             order_by: order.success ? order.data : undefined,
@@ -30,13 +36,18 @@ export function SortDropdown({ search, onChange }: SortDropdownProps) {
           });
         }}
       >
-        {search.q && <option value="">Relevance</option>}
-        {SORT_OPTIONS.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </NativeSelect>
+        <SelectTrigger aria-label="Sort by" className="w-[180px]">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {search.q && <SelectItem value={relevance}>Relevance</SelectItem>}
+          {SORT_OPTIONS.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
       {order && (
         <Button
           variant="ghost"

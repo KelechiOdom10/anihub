@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 
 import { coverHeight, coverSources, coverWidth } from "../../lib/image";
+import { Skeleton } from "./skeleton";
 import { Meteors } from "./meteors";
 
 interface InfoCardProps {
@@ -42,15 +43,15 @@ export const InfoCard = ({ heading, images }: InfoCardProps) => {
 
 export const InfoCardSkeleton = () => (
   <div className="relative flex h-full w-full flex-col items-center gap-8 overflow-hidden rounded-lg bg-zinc-900 px-6 pt-12">
-    <div className="animate-pulse">
-      <div className="my-2 h-8 w-48 rounded-lg bg-zinc-800" />
-      <div className="h-8 w-48 rounded-lg bg-zinc-800" />
+    <div className="grid gap-3 pt-2">
+      <Skeleton className="h-8 w-48 rounded-lg bg-zinc-800" />
+      <Skeleton className="h-8 w-48 rounded-lg bg-zinc-800" />
     </div>
     <div className="-mb-4 flex -space-x-6">
       {Array.from({ length: 3 }, (_, index) => (
-        <div
+        <Skeleton
           key={index}
-          className="aspect-[2/3] w-[110px] animate-pulse rounded-lg border-[5px] border-zinc-900 bg-zinc-800 shadow-lg"
+          className="aspect-[2/3] w-[110px] rounded-lg border-[5px] border-zinc-900 bg-zinc-800 shadow-lg"
           style={{ transform: `rotate(${index % 2 === 0 ? 5 : -5}deg)` }}
         />
       ))}

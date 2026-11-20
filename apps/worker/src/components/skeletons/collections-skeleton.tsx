@@ -1,4 +1,5 @@
 import { InfoCardSkeleton } from "../ui/info-card";
+import { Skeleton } from "../ui/skeleton";
 
 export function CollectionsSkeleton() {
   return (
@@ -9,7 +10,7 @@ export function CollectionsSkeleton() {
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-semibold">My Collections</h1>
-        <div className="h-9 w-36 animate-pulse rounded-md bg-zinc-800" />
+        <Skeleton className="h-9 w-36 rounded-md bg-zinc-800" />
       </div>
       <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 3 }, (_, index) => (
@@ -19,18 +20,18 @@ export function CollectionsSkeleton() {
           >
             <InfoCardSkeleton />
             <div className="flex items-center gap-4">
-              <div className="aspect-square w-9 animate-pulse rounded-full bg-zinc-800" />
-              <div className="h-4 w-24 animate-pulse rounded-md bg-zinc-800" />
+              <Skeleton className="aspect-square w-9 rounded-full bg-zinc-800" />
+              <Skeleton className="h-4 w-24 rounded-md bg-zinc-800" />
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-6 w-11 animate-pulse rounded-full bg-zinc-800" />
-              <div className="h-4 w-16 animate-pulse rounded-md bg-zinc-800" />
+              <Skeleton className="h-6 w-11 rounded-full bg-zinc-800" />
+              <Skeleton className="h-4 w-16 rounded-md bg-zinc-800" />
             </div>
             <div className="space-y-2">
               {Array.from({ length: 3 }, (_, item) => (
                 <div key={item} className="flex items-center gap-3">
-                  <div className="h-12 w-8 animate-pulse rounded bg-zinc-800" />
-                  <div className="h-4 w-1/2 animate-pulse rounded-md bg-zinc-800" />
+                  <Skeleton className="h-12 w-8 rounded bg-zinc-800" />
+                  <Skeleton className="h-4 w-1/2 rounded-md bg-zinc-800" />
                 </div>
               ))}
             </div>

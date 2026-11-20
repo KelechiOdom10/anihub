@@ -3,6 +3,7 @@ import {
   createFileRoute,
   Link,
   notFound,
+  useNavigate,
   useRouter,
 } from "@tanstack/react-router";
 import { useState } from "react";
@@ -12,7 +13,13 @@ import { PageMessage } from "../components/page-message";
 import { AnimeCard } from "../components/ui/anime-card";
 import { Button } from "../components/ui/button";
 import { InfoCard } from "../components/ui/info-card";
-import { NativeSelect } from "../components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 import { getProfile } from "../server/profile";
 
 const tabs = [
@@ -96,6 +103,7 @@ export const Route = createFileRoute("/_main/users_/$userId")({
 function Profile() {
   const profile = Route.useLoaderData();
   const search = Route.useSearch();
+  const navigate = useNavigate();
   const options = sortOptions[profile.tab];
   const count = profile.counts[profile.tab];
 
@@ -148,27 +156,29 @@ function Profile() {
               );
             })}
           </nav>
-          <form method="get" className="ml-auto flex items-center gap-2 pb-1.5">
-            <input type="hidden" name="tab" value={profile.tab} />
-            <NativeSelect
-              className="w-[180px]"
-              aria-label="Sort by"
-              name="sort"
-              defaultValue={profile.sort}
-              onChange={(event) => event.currentTarget.form?.requestSubmit()}
-            >
+          <Select
+            value={profile.sort}
+            onValueChange={(value) => {
+              const sort = z.enum(sortIds).safeParse(value);
+
+              navigate({
+                to: "/users/$userId",
+                params: { userId: profile.owner.id },
+                search: { ...search, sort: sort.data, page: 1 },
+              });
+            }}
+          >
+            <SelectTrigger aria-label="Sort by" className="ml-auto w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
               {options.map((option) => (
-                <option key={option.id} value={option.id}>
+                <SelectItem key={option.id} value={option.id}>
                   {option.label}
-                </option>
+                </SelectItem>
               ))}
-            </NativeSelect>
-            <noscript>
-              <Button type="submit" variant="secondary" size="sm">
-                Apply
-              </Button>
-            </noscript>
-          </form>
+            </SelectContent>
+          </Select>
         </div>
         <div className="mt-6">
           {profile.tab === "collections" ? (
